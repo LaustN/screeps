@@ -1,5 +1,3 @@
-//Just pushing a comment
-
 var harvester = require("harvester");
 var guard = require("guard");
 var healer = require("healer");

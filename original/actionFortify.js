@@ -45,8 +45,7 @@ module.exports = function(creep) {
                 creep.memory.chosenTargetId = null;
     	    }
 	    }
-	    console.log("RepairMessage = " + repairMessage);
-        return true;
+      return true;
     }
 
 }
