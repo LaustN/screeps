@@ -13,9 +13,11 @@ module.exports = function(creep){
 
     var roadFound = false;
     var lookResult = creep.pos.look();
-    if(lookResult){
+    if(lookResult) {
+      console.log("roadie has a lookResult");
         for(var lookItemName in lookResult){
             var lookItem = lookResult[lookItemName];
+            console.log("roadie: lookItem.type=" + lookItem.type + " lookItem.structure.structureType" + lookItem.structure.structureType );
             if(lookItem.type == "structure" && lookItem.structure.structureType == STRUCTURE_ROAD){
                 roadFound = true;
             }
