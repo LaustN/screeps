@@ -17,8 +17,8 @@ module.exports = function(creep){
       console.log("roadie has a lookResult");
         for(var lookItemName in lookResult){
             var lookItem = lookResult[lookItemName];
-            for(var lookItemKey in lookItem){
-              console.log("roadie: lookItemKey=" + lookItemKey + " value=" + lookItem[lookItemKey] );
+            for(var lookItemKey in lookItem.structure){
+              console.log("roadie: lookItemKey=" + lookItemKey + " value=" + lookItem.structure[lookItemKey] );
 
             }
 
