@@ -23,6 +23,7 @@ module.exports = function(creep){
             }
 
             if(lookItem.type == "structure" && lookItem.structure.structureType == STRUCTURE_ROAD){
+              console.log("Road Found");
                 roadFound = true;
             }
         }
