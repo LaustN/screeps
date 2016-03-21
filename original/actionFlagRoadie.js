@@ -17,7 +17,7 @@ module.exports = function(creep){
       console.log("roadie has a lookResult");
         for(var lookItemName in lookResult){
             var lookItem = lookResult[lookItemName];
-            console.log("roadie: lookItem.type=" + lookItem.type + " lookItem.structure.structureType" + lookItem.structure.structureType );
+            console.log("roadie: lookItem.type=" + lookItem.type + " lookItem.structureType" + lookItem.structureType );
             if(lookItem.type == "structure" && lookItem.structure.structureType == STRUCTURE_ROAD){
                 roadFound = true;
             }
