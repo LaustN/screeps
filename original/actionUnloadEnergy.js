@@ -1,0 +1,33 @@
+module.exports = function(creep){
+    var dropPointsHere = creep.pos.findInRange(FIND_MY_STRUCTURES,1,{
+        filter: function(structure){
+            return structure.energyCapacity > structure.energy;
+        }
+    });
+    if(dropPointsHere){
+        creep.transferEnergy(dropPointsHere[0]);
+    }
+
+    if(creep.carry.energy == 0){
+        creep.memory.dropoff = false;
+    }
+    if(creep.carry.energy == creep.carryCapacity){
+        creep.memory.dropoff = true;
+    }
+
+    if(creep.memory.dropoff == true){
+
+	    var dropoff = creep.room.find(FIND_MY_STRUCTURES,{
+	        filter: function(structure){
+	            return structure.energyCapacity > structure.energy;
+	        }
+	    });
+
+	    if(dropoff && dropoff.length>0)
+	    {
+	        creep.moveTo(dropoff[0]);
+	        creep.transferEnergy(dropoff[0]);
+	    }
+        return true;
+    }
+}
