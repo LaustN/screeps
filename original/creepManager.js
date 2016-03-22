@@ -70,13 +70,6 @@ module.exports = function (spawn) {
         },
         {
             body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-            name: "Builder2",
-            memory: {
-                role: "builder"
-            }
-        },
-        {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Fortifier1",
             memory: {
                 role: "fortifier"
@@ -85,13 +78,6 @@ module.exports = function (spawn) {
         {
             body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "ControlUpgrader1",
-            memory: {
-                role: "controlUpgrader"
-            }
-        },
-        {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-            name: "ControlUpgrader2",
             memory: {
                 role: "controlUpgrader"
             }
