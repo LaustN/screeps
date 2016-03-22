@@ -29,8 +29,7 @@ module.exports = function(creep){
     roadFound = true;
   }
   if(!roadFound){
-    creep.pos.createConstructionSite(STRUCTURE_ROAD);
-    console.log(creep.name + " creating road here");
+    console.log(creep.name + " creating road here: " + creep.pos.createConstructionSite(STRUCTURE_ROAD));
   }
 
   var waypoint = Game.getObjectById(creep.memory.waypoints[0]);
