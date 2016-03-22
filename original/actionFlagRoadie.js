@@ -10,8 +10,6 @@ module.exports = function(creep){
       creep.memory.waypoints.push(creep.memory.home);
     }
   }
-  creep.pos.look().forEach(function(elementAtPostion){
-  });
 
   var roadFound = false;
   var lookResult = creep.pos.look();
