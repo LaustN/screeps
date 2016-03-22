@@ -10,6 +10,9 @@ module.exports = function(creep){
       creep.memory.waypoints.push(creep.memory.home);
     }
   }
+  creep.pos.look().foreach(function(elementAtPostion){
+    console.log("FooBar");
+  });
 
   var roadFound = false;
   var lookResult = creep.pos.look();
