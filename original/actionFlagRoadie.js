@@ -11,7 +11,7 @@ module.exports = function(creep){
     }
   }
   creep.pos.look().forEach(function(elementAtPostion){
-    console.log("FooBar");
+    console.log(elementAtPostion);
   });
 
   var roadFound = false;
