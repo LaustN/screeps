@@ -10,7 +10,7 @@ module.exports = function(creep){
       creep.memory.waypoints.push(creep.memory.home);
     }
   }
-  creep.pos.look().foreach(function(elementAtPostion){
+  creep.pos.look().forEach(function(elementAtPostion){
     console.log("FooBar");
   });
 
