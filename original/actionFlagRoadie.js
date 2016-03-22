@@ -11,18 +11,15 @@ module.exports = function(creep){
     }
   }
   creep.pos.look().forEach(function(elementAtPostion){
-    console.log(elementAtPostion);
   });
 
   var roadFound = false;
   var lookResult = creep.pos.look();
   if(lookResult) {
-    console.log("roadie has a lookResult");
     for(var lookItemName in lookResult){
       var lookItem = lookResult[lookItemName];
       console.log("Type looked at:" + lookItem.type);
       if(lookItem.type == "structure" && lookItem.structure.structureType == STRUCTURE_ROAD){
-        console.log("Road Found");
         roadFound = true;
       }
     }
@@ -31,7 +28,6 @@ module.exports = function(creep){
   if(nearbySites && nearbySites.length>0 ){
     for (var sitename in nearbySites) {
       var site = nearbySites[sitename];
-      console.log(site);
     }
     roadFound = true;
   }
