@@ -111,6 +111,20 @@ module.exports = function (spawn) {
             }
         },
         {
+            body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
+            name: "Guard3",
+            memory: {
+                role: "guard"
+            }
+        },
+        {
+            body: [TOUGH,TOUGH,TOUGH,TOUGH,HEAL,HEAL,MOVE,MOVE],
+            name: "Healer1",
+            memory: {
+                role: "guard"
+            }
+        },
+        {
             body: [TOUGH,TOUGH,TOUGH,MOVE],
             name: "Roadie1",
             memory: {
