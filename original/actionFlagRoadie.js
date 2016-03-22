@@ -26,6 +26,10 @@ module.exports = function(creep){
   }
   var nearbySites = creep.pos.findInRange(FIND_CONSTRUCTION_SITES,0)
   if(nearbySites && nearbySites.length>0 ){
+    for (var sitename in nearbySites) {
+      var site = nearbySites[sitename];
+      console.log(site);
+    }
     roadFound = true;
   }
   if(!roadFound){
