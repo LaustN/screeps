@@ -16,7 +16,6 @@ module.exports = function(creep){
   if(lookResult) {
     for(var lookItemName in lookResult){
       var lookItem = lookResult[lookItemName];
-      console.log("Type looked at:" + lookItem.type);
       if(lookItem.type == "structure" && lookItem.structure.structureType == STRUCTURE_ROAD){
         roadFound = true;
       }
