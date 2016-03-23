@@ -7,6 +7,7 @@ var fortifier = require("fortifier");
 var controlUpgrader = require("controlUpgrader");
 var roadie = require("roadie");
 var redistributor = require("redistributor");
+var scout = require("scout");
 
 var creepManager = require("creepManager");
 var ensureHome = require("actionEnsureHome");
@@ -47,6 +48,9 @@ module.exports.loop = function () {
     }
     if(creep.memory.role == 'redistributor') {
       redistributor(creep);
+    }
+    if(creep.memory.role == 'scout') {
+      scout(creep);
     }
   }
 }
