@@ -7,16 +7,7 @@ module.exports = function(creep){
   if(creep.carryCapacity == creep.carry.energy){
     return false;
   }
-
-  var target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-  if(target) {
-      if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(target);
-      }
-      console.log("Scavenging!");
-      return true;
-  }
-
+  
   var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
     if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity > 0.5 ){
       return true;
