@@ -59,8 +59,8 @@ module.exports = function(creep){
       if(creep.transfer(home, RESOURCE_ENERGY) != OK){
         creep.moveTo(home);
       }
-      return true;
     }
+    return true;
   }
 
   console.log(creep.name + " is not redistributing right now");
