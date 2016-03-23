@@ -43,8 +43,6 @@ module.exports = function(creep){
       for(var towerIndex in towers){
         var tower = towers[towerIndex];
         if(tower.energy < tower.energyCapacity){
-          console.log(tower.energy + " is less than " + tower.energyCapacity);
-          console.log(creep.name + " wants to refill tower at " + tower.pos);
           if(creep.transfer(tower, RESOURCE_ENERGY) != OK){
             creep.moveTo(tower);
           }
