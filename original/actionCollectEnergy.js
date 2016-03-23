@@ -21,15 +21,21 @@ module.exports = function(creep){
         };
       }
     });
+
     if(energyCarriersHere && energyCarriersHere[0])
     {
-      console.log(creep.name + " is getting some energy from " + energyCarriersHere[0].name);
-      energyCarriersHere[0].transferEnergy(creep);
+      var bestCarrier = energyCarriersHere[0]
+      for(var energyCarrierKey in energyCarriersHere){
+        var currentCarrier = energyCarriersHere[energyCarrierKey];
+        if(currentCarrier.carry.energy > bestCarrier.carry.energy){
+          bestCarrier = currentCarrier;
+        }
+      }
+      console.log(creep.name + " is getting some energy from " + bestCarrier.name);
+      bestCarrier.transferEnergy(creep);
       return true;
     }
-
   }
-
   if(creep.carry.energy == 0) {
     creep.memory.collectingEnergy = true;
   }
