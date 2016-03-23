@@ -18,11 +18,16 @@ module.exports = function(creep){
   }
 
   var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
-    if(filterCreep.memory.role == "harvest" && filterCreep.carry.energy / filterCreep.carryCapacity > 0.5 ){
+    if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity > 0.5 ){
       return true;
     }
     return false;
   }});
+
+  if(!harvestingCreep){
+    console.log(creep.name + " failed to find a creep to collect energy from");
+    return false;
+  }
 
   if(harvestingCreep.transferEnergy(creep) != OK){
     creep.moveTo(harvestingCreep);
