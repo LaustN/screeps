@@ -19,7 +19,13 @@ module.exports = function(creep){
 
 	    var dropoff = creep.room.find(FIND_MY_STRUCTURES,{
 	        filter: function(structure){
-	            return structure.energyCapacity > structure.energy;
+	            if (structure.energyCapacity > structure.energy) {
+	              return true;
+	            };
+              if(structure.storeCapacity && _.sum(structure.store) < structure.storeCapacity){
+                return true;
+              }
+              return false;
 	        }
 	    });
 
