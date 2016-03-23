@@ -26,36 +26,44 @@ module.exports = function (spawn) {
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest3",
             memory: {
                 role: "harvester"
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest4",
             memory: {
                 role: "harvester"
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest5",
             memory: {
                 role: "harvester"
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest6",
             memory: {
                 role: "harvester"
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest7",
+            memory: {
+                role: "harvester",
+                harvestNear: "Flag1"
+            }
+        },
+        {
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            name: "Harvest8",
             memory: {
                 role: "harvester",
                 harvestNear: "Flag1"
