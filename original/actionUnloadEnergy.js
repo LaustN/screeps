@@ -27,6 +27,7 @@ module.exports = function(creep){
                 console.log("Something has storeCapacity at " + structure.pos);
                 var collectedCapacity = 0;
                 for (var storeKey in structure.store) {
+                  console.log(storeKey + "=" + structure.store[storeKey]);
                   collectedCapacity += structure.store[storeKey];
                 }
               }
