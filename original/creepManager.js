@@ -127,7 +127,7 @@ module.exports = function (spawn) {
             body: [TOUGH,TOUGH,TOUGH,TOUGH,HEAL,HEAL,MOVE,MOVE],
             name: "Healer1",
             memory: {
-                role: "guard"
+                role: "healer"
             }
         },
         {
