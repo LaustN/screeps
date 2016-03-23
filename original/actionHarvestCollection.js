@@ -7,13 +7,25 @@ module.exports = function(creep){
   if(creep.carryCapacity == creep.carry.energy){
     return false;
   }
-  
-  var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
-    if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity > 0.5 ){
-      return true;
-    }
-    return false;
-  }});
+
+  var findFullHavestingCreep = function(fullness){
+    var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
+      if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity > fullness ){
+        return true;
+      }
+      return false;
+    }});
+    return harvestingCreep
+  }
+
+  var wantedFullness = 0.5;
+  var harvestingCreep = null;
+  while (wantedFullness >= 0  && harvestingCreep == null) {
+    harvestingCreep = findFullHavestingCreep(wantedFullness);
+    wantedFullness-= 0.1;
+
+  }
+
 
   if(!harvestingCreep){
     console.log(creep.name + " failed to find a creep to collect energy from");
