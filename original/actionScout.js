@@ -1,5 +1,6 @@
 module.exports = function(creep){
   if(creep.memory.scoutTarget){
+    creep.say("scouting");
     var scoutTarget = Game.getObjectById(creep.memory.scoutTarget);
     if(scoutTarget){
 
