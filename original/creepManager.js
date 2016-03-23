@@ -132,7 +132,13 @@ module.exports = function (spawn) {
                 role: "roadie"
             }
         },
-
+        {
+            body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
+            name: "Redistributor1",
+            memory: {
+                role: "redistributor"
+            }
+        },
     ];
     for(var creepNumber in creepsToMaintain){
         var creepDefinition = creepsToMaintain[creepNumber];
