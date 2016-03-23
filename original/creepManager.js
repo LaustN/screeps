@@ -68,24 +68,15 @@ module.exports = function (spawn) {
             }
         },
         {
-            body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-            name: "Harvest7",
+            body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
+            name: "HarvestTruck3",
             memory: {
-                role: "harvester",
-                harvestNear: "Flag1"
-            }
-        },
-        {
-            body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-            name: "Harvest8",
-            memory: {
-                role: "harvester",
-                harvestNear: "Flag1"
+                role: "harvestTruck"
             }
         },
         {
             body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
-            name: "HarvestTruck3",
+            name: "HarvestTruck4",
             memory: {
                 role: "harvestTruck"
             }
