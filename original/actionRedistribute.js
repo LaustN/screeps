@@ -17,6 +17,7 @@ module.exports = function(creep){
       storages.push(structure);
     }
   }
+
   var collectFromStorage = function(){
     if(creep.carry.energy == creep.carryCapacity){
       return false;
@@ -62,7 +63,4 @@ module.exports = function(creep){
     }
     return true;
   }
-
-  console.log(creep.name + " is not redistributing right now");
-
 }
