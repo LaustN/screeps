@@ -5,7 +5,7 @@ module.exports = function(creep){
     console.log("I found this scoutTarget:" + scoutTarget);
     if(scoutTarget){
 
-      if(creep.pos.room == scoutTarget.pos.room){
+      if(creep.pos.roomName == scoutTarget.pos.roomName){
         console.log("I am in the room now!" + scoutTarget);
         return false;
       }
