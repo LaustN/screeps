@@ -13,7 +13,7 @@ module.exports = function(creep){
             creep.memory.fleeing = false;
             return false;
         }
-        creep.moveTo(destiantion);
+        creep.moveTo(destination);
         return true;
     }
     return false;

@@ -1,4 +1,5 @@
 var harvester = require("harvester");
+var harvestTruck = require("harvestTruck");
 var guard = require("guard");
 var healer = require("healer");
 var builder = require("builder");
@@ -21,6 +22,9 @@ module.exports.loop = function () {
     ensureHome(creep);
     if(creep.memory.role == 'harvester'){
       harvester(creep);
+    }
+    if(creep.memory.role == 'harvestTruck'){
+      harvestTruck(creep);
     }
     if(creep.memory.role == 'builder'){
       builder(creep);
