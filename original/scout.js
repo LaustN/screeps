@@ -6,6 +6,7 @@ module.exports = function (creep) {
   var actionBuild = require("actionBuild");
   var actionFortify = require("actionFortify");
   var actionUpgradeControl = require("actionUpgradeControl");
+  var actionUnloadEnergy = require("actionUnloadEnergy");
 
   if(actionFlee(creep))
     return;
@@ -20,5 +21,7 @@ module.exports = function (creep) {
   if(actionFortify(creep))
     return;
   if(actionUpgradeControl(creep))
+    return;
+  if(actionUnloadEnergy(creep))
     return;
 }
