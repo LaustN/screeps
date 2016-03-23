@@ -18,7 +18,7 @@ module.exports = function(creep){
   }
 
   var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
-    if(filterCreep.memory.role == "harvest" && creep.carry.energy / creep.carryCapacity > 0.5 ){
+    if(filterCreep.memory.role == "harvest" && filterCreep.carry.energy / filterCreep.carryCapacity > 0.5 ){
       return true;
     }
     return false;
