@@ -4,7 +4,6 @@ module.exports = function(creep){
   if(creep.memory.focus) {
     var focus = Game.getObjectById(creep.memory.focus);
     if(focus){
-      console.log(creep.name + " fous is " + focus.pos);
       harvestTarget = focus.pos.findClosestByRange(FIND_SOURCES);
     }
   }
