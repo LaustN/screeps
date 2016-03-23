@@ -68,7 +68,7 @@ module.exports = function (spawn) {
             }
         },
         {
-            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest7",
             memory: {
                 role: "harvester",
@@ -76,7 +76,7 @@ module.exports = function (spawn) {
             }
         },
         {
-            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest8",
             memory: {
                 role: "harvester",
@@ -91,21 +91,21 @@ module.exports = function (spawn) {
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Builder1",
             memory: {
                 role: "builder"
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Fortifier1",
             memory: {
                 role: "fortifier"
             }
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "ControlUpgrader1",
             memory: {
                 role: "controlUpgrader"
