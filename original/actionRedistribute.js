@@ -17,17 +17,52 @@ module.exports = function(creep){
       storages.push(structure);
     }
   }
+  var collectFromStorage = function(){
+    if(creep.carry.energy == creep.carryCapacity){
+      return false;
+    }
+    var collectionPoint = null;
+    for(var storageIndex in storages){
+      var storage = storages[storageIndex];
+      if(storage.store[RESOURCE_ENERGY] > 0){
+        collectionPoint = storage;
+      }
+    }
+    if(collectionPoint){
+      if(collectionPoint.transfer(creep,RESOURCE_ENERGY) != OK){
+        creep.moveTo(collectionPoint);
+      }
+      return true;
+    }
+  };
 
   if(home.energy == home.energyCapacity && towers && towers.length>0){
     //home is full, so fill any towers
-    console.log(creep.name + " wants to refill towers");
-//    return true;
+    if(!collectFromStorage()){
+      for(var towerIndex in towers){
+        var tower = towers[towerIndex];
+        if(tower.energy < tower.energyCapacity){
+          console.log(creep.name + " wants to refill tower at " + tower.pos);
+          if(creep.transfer(tower, RESOURCE_ENERGY) != OK){
+            creep.moveTo(tower);
+          }
+          return true;
+        }
+      }
+    }
   }
 
   if(home.energy / home.energyCapacity < 0.75){
     //home is not so full
     console.log(creep.name + " wants to refill home");
-//    return true;
+    if(!collectFromStorage()){
+      if(creep.transfer(home, RESOURCE_ENERGY) != OK){
+        creep.moveTo(home);
+      }
+      return true;
+    }
   }
+
+  console.log(creep.name + " is not redistributing right now");
 
 }
