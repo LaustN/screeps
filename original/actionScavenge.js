@@ -8,7 +8,7 @@ module.exports = function(creep){
       if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
           creep.moveTo(target);
       }
-      console.log(creep.name + " is scavenging at " + target.pos);
+      creep.say("S" + target.pos.x + ";" + target.pos.y);
       return true;
   }
 }

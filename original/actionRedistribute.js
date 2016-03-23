@@ -55,7 +55,6 @@ module.exports = function(creep){
 
   if(home.energy / home.energyCapacity < 0.75){
     //home is not so full
-    console.log(creep.name + " wants to refill home");
     if(!collectFromStorage()){
       if(creep.transfer(home, RESOURCE_ENERGY) != OK){
         creep.moveTo(home);
