@@ -131,7 +131,7 @@ module.exports = function (spawn) {
             }
         },
         {
-            body: [CARRY,CARRY,MOVE],
+            body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
             name: "Roadie1",
             memory: {
                 role: "roadie"
