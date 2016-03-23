@@ -23,14 +23,6 @@ module.exports = function(creep){
 	              return true;
 	            };
 
-              if(structure.storeCapacity){
-                console.log("Something has storeCapacity at " + structure.pos);
-                var collectedCapacity = 0;
-                for (var storeKey in structure.store) {
-                  console.log(storeKey + "=" + structure.store[storeKey]);
-                  collectedCapacity += structure.store[storeKey];
-                }
-              }
               if(structure.storeCapacity && _.sum(structure.store) < structure.storeCapacity){
                 return true;
               }
