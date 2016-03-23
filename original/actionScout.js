@@ -1,12 +1,12 @@
 module.exports = function(creep){
   if(creep.memory.scoutTarget){
-    console.log("scouting");
+    creep.say("scouting");
     var scoutTarget = Game.getObjectById(creep.memory.scoutTarget);
     console.log("I found this scoutTarget:" + scoutTarget);
     if(scoutTarget){
 
       if(creep.pos.room == scoutTarget.pos.room){
-        console.log("I am in the room now!");
+        console.log("I am in the room now!" + scoutTarget);
         return false;
       }
 
