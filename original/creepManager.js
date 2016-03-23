@@ -14,12 +14,12 @@ module.exports = function (spawn) {
             memory: { role: "harvester"}
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest1",
             memory: { role: "harvester"}
         },
         {
-            body: [WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+            body: [WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
             name: "Harvest2",
             memory: {
                 role: "harvester"
