@@ -11,7 +11,7 @@ module.exports = function(creep){
   var harvestMessage =  creep.harvest(harvestTarget);
   if(harvestMessage  == ERR_NOT_IN_RANGE) {
     var moveMessage = creep.moveTo(harvestTarget)
-    if(moveMessage != OK){
+    if(moveMessage != OK && moveMessage != ERR_TIRED){
       console.log(creep.name + " said " + moveMessage + " when moving to " + harvestTarget.id + " at " + harvestTarget.pos);
       var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter: function(source){ return source.id != harvestTarget.id }});
       if(alternativeSource) {
