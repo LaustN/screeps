@@ -8,16 +8,22 @@ module.exports = function(creep){
     }
   }
 
+  var findOtherSource = function(){
+    var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter: function(source){ return source.id != harvestTarget.id }});
+    if(alternativeSource) {
+      console.log(creep.name + " is now targeting " + alternativeSource.pos);
+      creep.memory.focus = alternativeSource.id;
+    }
+  }
+
   var harvestMessage =  creep.harvest(harvestTarget);
   if(harvestMessage  == ERR_NOT_IN_RANGE) {
     var moveMessage = creep.moveTo(harvestTarget)
     if(moveMessage != OK && moveMessage != ERR_TIRED){
-      var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter: function(source){ return source.id != harvestTarget.id }});
-      if(alternativeSource) {
-        console.log(creep.name + " is now targeting " + alternativeSource.pos);
-        creep.memory.focus = alternativeSource.id;
-      }
-
+      findOtherSource();
     }
+  }
+  if(harvestMessage == ERR_NOT_ENOUGH_RESOURCES){
+    findOtherSource();
   }
 }
