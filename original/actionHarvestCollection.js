@@ -18,11 +18,11 @@ module.exports = function(creep){
     return harvestingCreep
   }
 
-  var wantedFullness = 0.5;
+  var wantedFullness = 0.6;
   var harvestingCreep = null;
   while (wantedFullness >= 0  && harvestingCreep == null) {
     harvestingCreep = findFullHavestingCreep(wantedFullness);
-    wantedFullness-= 0.1;
+    wantedFullness-= 0.2;
 
   }
 
