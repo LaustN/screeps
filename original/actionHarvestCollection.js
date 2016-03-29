@@ -10,7 +10,7 @@ module.exports = function(creep){
 
   var findFullHavestingCreep = function(fullness){
     var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
-      if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity > fullness ){
+      if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity >= fullness ){
         return true;
       }
       return false;
