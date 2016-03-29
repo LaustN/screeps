@@ -29,7 +29,7 @@ module.exports = function (spawn) {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck1",
       memory: {
-        role: "harvestTruck"
+        role: "harvestTruck", scavengeRange: 3,
       }
     },
     {
@@ -43,7 +43,7 @@ module.exports = function (spawn) {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck2",
       memory: {
-        role: "harvestTruck"
+        role: "harvestTruck", scavengeRange: 3,
       }
     },
     {
@@ -64,14 +64,14 @@ module.exports = function (spawn) {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck3",
       memory: {
-        role: "harvestTruck"
+        role: "harvestTruck", scavengeRange: 3,
       }
     },
     {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck4",
       memory: {
-        role: "harvestTruck"
+        role: "harvestTruck", scavengeRange: 3,
       }
     },
     {
@@ -127,7 +127,8 @@ module.exports = function (spawn) {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "Roadie1",
       memory: {
-        role: "roadie"
+        role: "roadie",
+        scavengeRange: 100
       }
     },
     {

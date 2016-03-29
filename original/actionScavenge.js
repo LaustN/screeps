@@ -3,8 +3,13 @@ module.exports = function(creep){
     return false;
   }
 
+  var scavengeRange = 1;
+  if(creep.memory.scavengeRange){
+    scavengeRange = creep.memory.scavengeRange;
+  }
+
   var target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-  if(target) {
+  if(target && target.pos.getRangeTo(creep) <= scavengeRange) {
       if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
           creep.moveTo(target);
       }
