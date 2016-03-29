@@ -9,18 +9,6 @@ module.exports = function (spawn) {
 
   var creepsToMaintain = [
     {
-      body: [WORK,MOVE,CARRY],
-      name: "Harvest0",
-      memory: { role: "harvester"}
-    },
-    {
-      body: [CARRY,CARRY,MOVE],
-      name: "HarvestTruck0",
-      memory: {
-        role: "harvestTruck"
-      }
-    },
-    {
       body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
       name: "Harvest1",
       memory: { role: "harvester"}
