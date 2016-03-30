@@ -100,31 +100,7 @@ module.exports = function (spawn) {
       name: "Harvest6",
       memory: {
         role: "harvester",
-        focus: "55db34b2efa8e3fe66e06052"
-      }
-    },
-    {
-      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-      name: "Harvest7",
-      memory: {
-        role: "harvester",
-        focus: "55db34b2efa8e3fe66e06052"
-      }
-    },
-    {
-      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-      name: "Harvest8",
-      memory: {
-        role: "harvester",
-        focus: "55db34b2efa8e3fe66e06052"
-      }
-    },
-    {
-      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-      name: "Harvest9",
-      memory: {
-        role: "harvester",
-        focus: "55db34b2efa8e3fe66e06052"
+        focus: "56f303cea51212a0762f091a"
       }
     },
     {
