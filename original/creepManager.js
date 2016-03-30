@@ -111,6 +111,7 @@ module.exports = function (spawn) {
         scoutTarget: "56f303cea51212a0762f091a"
       }
     },
+    /* assault force removed
     {
       body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
       name: "Assault1",
@@ -143,8 +144,8 @@ module.exports = function (spawn) {
         assault: "Assault" //signifies the name of the flag to assault at
       }
     },
-
-    /* battle force removed do free more cash up for upgrading
+*/
+    /* guard force removed do free more cash up for upgrading
     {
     body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
     name: "Guard1",
