@@ -16,7 +16,7 @@ module.exports = function(creep){
   }
 
   if(creep.memory.dropoff == true){
-    var dropoff = creep.room.find(FIND_MY_STRUCTURES,{
+    var dropoff = creep.room.find(FIND_STRUCTURES,{
       filter: function(structure){
         if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
           return true;
@@ -28,6 +28,10 @@ module.exports = function(creep){
         return false;
       }
     });
+
+    if (dropoff.length == 0) {
+      dropoff = Game.getObjectById(creep.memory.home);
+    }
 
     if(dropoff && dropoff.length>0)
     {
