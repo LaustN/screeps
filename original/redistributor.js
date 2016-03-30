@@ -13,6 +13,4 @@ module.exports = function (creep) {
     return;
   if(actionScavenge(creep))
     return;
-  if(actionFlagRoadie(creep))
-    return;
 }
