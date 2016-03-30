@@ -16,18 +16,32 @@ module.exports = function(creep){
     }
 
     if(creep.memory.dropoff == true){
+      if(creep.name == "Harvest6"){
+        console.log("dropping off");
+      }
+
 
 	    var dropoff = creep.room.find(FIND_MY_STRUCTURES,{
 	        filter: function(structure){
-	            if (structure.energyCapacity > structure.energy) {
+            if(creep.name == "Harvest6"){
+              console.log("filtering structures");
+            }
+
+	            if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
+                if(creep.name == "Harvest6"){
+                  console.log("true case 1");
+                }
 	              return true;
 	            };
-              if(creep.name == "Harvest6"){
-                console.log(structure);
-              }
 
               if(structure.storeCapacity && _.sum(structure.store) < structure.storeCapacity){
+                if(creep.name == "Harvest6"){
+                  console.log("true case 2");
+                }
                 return true;
+              }
+              if(creep.name == "Harvest6"){
+                console.log("false case 1");
               }
               return false;
 	        }
