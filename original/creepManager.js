@@ -94,7 +94,7 @@ module.exports = function (spawn) {
       memory: {
         role: "controlUpgrader"
       }
-    },
+    },/* battle force removed do free more cash up for upgrading
     {
       body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
       name: "Guard1",
@@ -122,7 +122,7 @@ module.exports = function (spawn) {
       memory: {
         role: "healer"
       }
-    },
+    },*/
     {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "Roadie1",
