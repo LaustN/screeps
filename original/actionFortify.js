@@ -4,6 +4,9 @@ module.exports = function(creep) {
   if(!target){
     var targets = creep.room.find(FIND_STRUCTURES,
       { filter: function(structure){
+        if(structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART && structure.hits<structure.hitsMax){
+          return true;
+        }
         if(structure.hits > 100000){
           return false;
         }
@@ -13,8 +16,9 @@ module.exports = function(creep) {
             return false;
           return true;
         }
-        if(structure.structureType == STRUCTURE_RAMPART)
+        if(structure.structureType == STRUCTURE_RAMPART){
           return true;
+        }
         return false;
       }
     });
