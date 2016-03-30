@@ -111,6 +111,39 @@ module.exports = function (spawn) {
         scoutTarget: "56f303cea51212a0762f091a"
       }
     },
+    {
+      body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
+      name: "Assault1",
+      memory: {
+        role: "assault",
+        assault: "Assault" //signifies the name of the flag to assault at
+      }
+    },
+    {
+      body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
+      name: "Assault2",
+      memory: {
+        role: "assault",
+        assault: "Assault" //signifies the name of the flag to assault at
+      }
+    },
+    {
+      body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
+      name: "Assault3",
+      memory: {
+        role: "assault",
+        assault: "Assault" //signifies the name of the flag to assault at
+      }
+    },
+    {
+      body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
+      name: "Assault4",
+      memory: {
+        role: "assault",
+        assault: "Assault" //signifies the name of the flag to assault at
+      }
+    },
+
     /* battle force removed do free more cash up for upgrading
     {
     body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
