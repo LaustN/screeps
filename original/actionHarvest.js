@@ -36,7 +36,7 @@ module.exports = function(creep){
     if(harvestMessage  == ERR_NOT_IN_RANGE) {
       var moveMessage = creep.moveTo(harvestTarget)
       if(moveMessage != OK && moveMessage != ERR_TIRED){
-        console.console.log("Odd move moveMessage:" + moveMessage);
+        console.log("Odd move moveMessage:" + moveMessage);
         findOtherSource();
       }
     }
