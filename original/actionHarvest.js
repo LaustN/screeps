@@ -14,7 +14,13 @@ module.exports = function(creep){
     if(creep.memory.focus) {
       var focus = Game.getObjectById(creep.memory.focus);
       if(focus){
-        harvestTarget = focus.pos.findClosestByRange(FIND_SOURCES);
+        try{
+          harvestTarget = focus.pos.findClosestByRange(FIND_SOURCES);
+        }
+        catch(e){
+          creep.say(e);
+          console.log(e);
+        }
       }
     }
 
