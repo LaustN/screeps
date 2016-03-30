@@ -142,14 +142,6 @@ role: "healer"
 },*/
 {
   body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
-  name: "Roadie1",
-  memory: {
-    role: "roadie",
-    scavengeRange: 100
-  }
-},
-{
-  body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
   name: "Redistributor1",
   memory: {
     role: "redistributor"
