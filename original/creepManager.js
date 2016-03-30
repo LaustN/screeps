@@ -94,7 +94,41 @@ module.exports = function (spawn) {
       memory: {
         role: "controlUpgrader"
       }
-    },/* battle force removed do free more cash up for upgrading
+    },
+    {
+      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+      name: "Harvest6",
+      memory: {
+        role: "harvester",
+        focus: "55db34b2efa8e3fe66e06052"
+      }
+    },
+    {
+      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+      name: "Harvest7",
+      memory: {
+        role: "harvester",
+        focus: "55db34b2efa8e3fe66e06052"
+      }
+    },
+    {
+      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+      name: "Harvest8",
+      memory: {
+        role: "harvester",
+        focus: "55db34b2efa8e3fe66e06052"
+      }
+    },
+    {
+      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+      name: "Harvest9",
+      memory: {
+        role: "harvester",
+        focus: "55db34b2efa8e3fe66e06052"
+      }
+    },
+
+    /* battle force removed do free more cash up for upgrading
     {
       body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
       name: "Guard1",
