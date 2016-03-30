@@ -24,6 +24,10 @@ module.exports = function(creep){
     var dropoff = creep.room.find(FIND_MY_STRUCTURES,{
       filter: function(structure){
         console.log("filtering structures");
+        console.log("structure.energyCapacity" + structure.energyCapacity);
+        console.log("structure.energy" + structure.energy);
+        console.log("structure.storeCapacity" + structure.storeCapacity);
+        console.log("_.sum(structure.store)" + _.sum(structure.store));
 
         if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
           console.log("true case 1");
