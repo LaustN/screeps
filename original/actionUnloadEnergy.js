@@ -22,6 +22,9 @@ module.exports = function(creep){
 	            if (structure.energyCapacity > structure.energy) {
 	              return true;
 	            };
+              if(creep.name == "Harvest6"){
+                console.log(structure);
+              }
 
               if(structure.storeCapacity && _.sum(structure.store) < structure.storeCapacity){
                 return true;
