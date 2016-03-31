@@ -16,7 +16,7 @@ module.exports = function(creep){
   }
 
   if(creep.memory.dropoff == true){
-    var dropoff = creep.room.find(FIND_STRUCTURES,{
+    var dropoff = creep.pos.findClosestByRange(FIND_STRUCTURES,{
       filter: function(structure){
         if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
           return true;
@@ -29,14 +29,15 @@ module.exports = function(creep){
       }
     });
 
-    if (dropoff.length == 0) {
+
+    if (!dropoff) {
       dropoff = Game.getObjectById(creep.memory.home);
     }
 
-    if(dropoff && dropoff.length>0)
+    if(dropoff)
     {
-      creep.moveTo(dropoff[0]);
-      creep.transferEnergy(dropoff[0]);
+      creep.moveTo(dropoff);
+      creep.transferEnergy(dropoff);
     }
     return true;
   }
