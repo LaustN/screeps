@@ -2,8 +2,8 @@ module.exports = function (creep) {
     var actionFlee = require("actionFlee");
     var actionRenew =  require("actionRenew");
     var actionCollectEnergy = require("actionCollectEnergy");
-    var actionBuild = require("actionBuild");
     var actionFortify = require("actionFortify");
+    var actionBuild = require("actionBuild");
     var actionUpgradeControl = require("actionUpgradeControl");
 
 
