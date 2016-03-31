@@ -29,7 +29,9 @@ module.exports = function (spawn) {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck1",
       memory: {
-        role: "harvestTruck", scavengeRange: 3,
+        role: "harvestTruck",
+        scavengeRange: 3,
+        focus: "Harvest1"
       }
     },
     {
@@ -43,7 +45,9 @@ module.exports = function (spawn) {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck2",
       memory: {
-        role: "harvestTruck", scavengeRange: 3,
+        role: "harvestTruck",
+        scavengeRange: 3,
+        focus: "Harvest3"
       }
     },
     {
@@ -51,6 +55,15 @@ module.exports = function (spawn) {
       name: "Harvest4",
       memory: {
         role: "harvester"
+      }
+    },
+    {
+      body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
+      name: "HarvestTruck3",
+      memory: {
+        role: "harvestTruck",
+        scavengeRange: 3,
+        focus: "Harvest4"
       }
     },
     {
@@ -62,16 +75,11 @@ module.exports = function (spawn) {
     },
     {
       body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
-      name: "HarvestTruck3",
-      memory: {
-        role: "harvestTruck", scavengeRange: 3,
-      }
-    },
-    {
-      body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
       name: "HarvestTruck4",
       memory: {
-        role: "harvestTruck", scavengeRange: 3,
+        role: "harvestTruck",
+        scavengeRange: 3,
+        focus: "Harvest5"
       }
     },
     {
@@ -101,6 +109,15 @@ module.exports = function (spawn) {
       memory: {
         role: "harvester",
         focus: "56f303cea51212a0762f091a"
+      }
+    },
+    {
+      body: [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
+      name: "HarvestTruck5",
+      memory: {
+        role: "harvestTruck",
+        scavengeRange: 3,
+        focus: "Harvest6"
       }
     },
     {

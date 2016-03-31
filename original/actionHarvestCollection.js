@@ -9,21 +9,33 @@ module.exports = function(creep){
   }
 
   var findFullHavestingCreep = function(fullness){
-    var harvestingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter : function(filterCreep){
-      if(filterCreep.memory.role == "harvester" && filterCreep.carry.energy / filterCreep.carryCapacity >= fullness ){
-        return true;
+    var focusObject = Game.getObjectById(creep.memory.focus);
+    if (!focusObject) {
+      focusObject = Game.creeps[creep.memory.focus];
+    }
+    if (!focusObject) {
+      focusObject = creep;
+    }
+
+    var harvestingCreep =
+    focusObject.pos.findClosestByRange(FIND_MY_CREEPS,
+      { filter : function(filterCreep){
+        if(filterCreep.memory.role == "harvester"
+            && filterCreep.carry.energy / filterCreep.carryCapacity >= fullness
+          ){
+          return true;
+        }
+        return false;
       }
-      return false;
-    }});
+    });
     return harvestingCreep
   }
 
-  var wantedFullness = 0.6;
+  var wantedFullness = 1;
   var harvestingCreep = null;
   while (wantedFullness >= 0  && harvestingCreep == null) {
     harvestingCreep = findFullHavestingCreep(wantedFullness);
-    wantedFullness-= 0.2;
-
+    wantedFullness-= 0.25;
   }
 
 
