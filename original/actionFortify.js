@@ -55,8 +55,8 @@ module.exports = function(creep) {
       if(creep.memory.chosenTargetHitCount<0){
         creep.memory.chosenTargetId = null;
       }
-      return true;
     }
+    return true;
   }
 
 }
