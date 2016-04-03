@@ -128,6 +128,22 @@ module.exports = function (spawn) {
         scoutTarget: "56f303cea51212a0762f091a"
       }
     },
+    {
+      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+      name: "Scout2",
+      memory: {
+        role: "scout",
+        scoutTarget: "56f303cea51212a0762f091a"
+      }
+    },
+    {
+      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
+      name: "Scout3",
+      memory: {
+        role: "scout",
+        scoutTarget: "56f303cea51212a0762f091a"
+      }
+    },
     /* assault force removed
     {
       body: [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,ATTACK,ATTACK,RANGED_ATTACK],
