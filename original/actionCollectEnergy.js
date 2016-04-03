@@ -44,10 +44,22 @@ module.exports = function(creep){
         bestCarrier.transferEnergy(creep);
         return true;
       }
-    }
 
-    creep.moveTo(home);
-    home.transferEnergy(creep);
-    return true;
+      var localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
+        if(structure && structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 ){
+          return true;
+        }
+        return false;
+      }});
+
+      if(localEnergyStorage){
+        creep.moveTo(localEnergyStorage);
+        localEnergyStorage.transfer(RESOURCE_ENERGY,creep);
+      }
+
+      creep.moveTo(home);
+      home.transferEnergy(creep);
+      return true;
+    }
   }
 }
