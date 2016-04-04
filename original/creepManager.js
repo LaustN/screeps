@@ -1,5 +1,6 @@
 module.exports = function (spawn) {
   var capacity = spawn.room.energyCapacityAvailable;
+  console.log(spawn.name + " has capacity " + capacity);
 
   //calculate next body form based on rules + templating
   //calculate how many harvester are needed
