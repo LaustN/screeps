@@ -12,15 +12,17 @@ module.exports = function (spawn) {
     {x:0,y:1},
     {x:1,y:1},
   ];
+  console.log("Iterating sources start");
   for(var sourceKey in sources){
     var source = sources[sourceKey];
     var initial = source.pos;
     for (var offsetKey in offsets) {
       var offset = offsets[offsetKey];
       var newPos = new RoomPosition(initial.x + offset.x, initial.y + offset.y,initial.roomName);
-      console.log(JSON.stringify(newPos.look()));
+      console.log(newPos + JSON.stringify(newPos.look()));
     }
   }
+  console.log("Iterating sources end");
 
 
   //calculate next body form based on rules + templating
