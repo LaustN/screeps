@@ -2,10 +2,24 @@ module.exports = function (spawn) {
   var capacity = spawn.room.energyCapacityAvailable;
   var harvestPoints = 0;
   var sources = spawn.room.find(FIND_SOURCES);
+  var offsets = [
+    {x: -1,y: -1},
+    {x:0, y:-1},
+    {x:1,y:-1},
+    {x:-1,y:0},
+    {x:1,y:0},
+    {x:-1,y:1},
+    {x:0,y:1},
+    {x:1,y:1},
+  ];
   for(var sourceKey in sources){
     var source = sources[sourceKey];
-//    var nearbyTerrain  = source.pos.findInRange(FIND_TERRAIN);
-//    console.log(JSON.stringify(nearbyTerrain));
+    var initial = source.pos;
+    for (var offsetKey in offsets) {
+      var offset = offsets[offsetKey];
+      var newPos = new RoomPosition(initial.x + offset.x, initial.y + offset.y,initial.roomName);
+      console.log(JSON.stringify(newPos.look()));
+    }
   }
 
 
