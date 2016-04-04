@@ -1,6 +1,13 @@
 module.exports = function (spawn) {
   var capacity = spawn.room.energyCapacityAvailable;
-  console.log(spawn.name + " has capacity " + capacity);
+  var harvestPoints = 0;
+  var sources = spawn.room.find(FIND_SOURCES);
+  for(var sourceKey in sources){
+    var source = sources[sourceKey];
+    var nearbyTerrain  = source.pos.findInRange(FIND_TERRAIN);
+    console.log(JSON.stringify(nearbyTerrain));
+  }
+
 
   //calculate next body form based on rules + templating
   //calculate how many harvester are needed
