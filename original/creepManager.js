@@ -19,7 +19,7 @@ module.exports = function (spawn) {
     for (var offsetKey in offsets) {
       var offset = offsets[offsetKey];
       var newPos = new RoomPosition(initial.x + offset.x, initial.y + offset.y,initial.roomName);
-      console.log(newPos + JSON.stringify(newPos.look()));
+      console.log(newPos + JSON.stringify(newPos.lookFor("terrain")));
     }
   }
   console.log("Iterating sources end");
