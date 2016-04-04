@@ -19,10 +19,16 @@ module.exports = function (spawn) {
     for (var offsetKey in offsets) {
       var offset = offsets[offsetKey];
       var newPos = new RoomPosition(initial.x + offset.x, initial.y + offset.y,initial.roomName);
-      console.log(newPos + JSON.stringify(newPos.lookFor("terrain")));
+      var terrain = newPos.lookFor("terrain");
+      if (terrain == "plain") {
+        harvestPoints++;
+      }
+      if (terrain == "swamp") {
+        harvestPoints++;
+      }
     }
   }
-  console.log("Iterating sources end");
+  console.log("Iterating sources end, poins found=" + harvestPoints);
 
 
   //calculate next body form based on rules + templating
