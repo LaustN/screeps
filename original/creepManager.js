@@ -4,8 +4,8 @@ module.exports = function (spawn) {
   var sources = spawn.room.find(FIND_SOURCES);
   for(var sourceKey in sources){
     var source = sources[sourceKey];
-    var nearbyTerrain  = source.pos.findInRange(FIND_TERRAIN);
-    console.log(JSON.stringify(nearbyTerrain));
+//    var nearbyTerrain  = source.pos.findInRange(FIND_TERRAIN);
+//    console.log(JSON.stringify(nearbyTerrain));
   }
 
 
