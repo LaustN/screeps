@@ -1,49 +1,50 @@
 module.exports = function (spawn) {
-  // var capacity = spawn.room.energyCapacityAvailable;
-  // var harvestPoints = 0;
-  // var sources = spawn.room.find(FIND_SOURCES);
-  // var sourcesCount = sources.length;
-  // var offsets = [
-  //   {x: -1,y: -1},
-  //   {x:0, y:-1},
-  //   {x:1,y:-1},
-  //   {x:-1,y:0},
-  //   {x:1,y:0},
-  //   {x:-1,y:1},
-  //   {x:0,y:1},
-  //   {x:1,y:1},
-  // ];
-  // console.log("Iterating sources start");
-  // for(var sourceKey in sources){
-  //   var source = sources[sourceKey];
-  //   var initial = source.pos;
-  //   for (var offsetKey in offsets) {
-  //     var offset = offsets[offsetKey];
-  //     var newPos = new RoomPosition(initial.x + offset.x, initial.y + offset.y,initial.roomName);
-  //     var terrain = newPos.lookFor("terrain");
-  //     if (terrain == "plain") {
-  //       harvestPoints++;
-  //     }
-  //     if (terrain == "swamp") {
-  //       harvestPoints++;
-  //     }
-  //   }
-  // }
-  // console.log("Iterating sources end, poins found=" + harvestPoints);
-  // var harvestBody = [CARRY,MOVE];
-  // var truckBody = [CARRY,MOVE];
-  // var remainingCapacity = capacity - 100;
-  // if(capacity > 400){
-  //   harvestBody = [CARRY,CARRY,MOVE,MOVE];
-  //   truckBody = [CARRY,CARRY,MOVE,MOVE];
-  //   remainingCapacity = capacity - 200;
-  // }
-  // while (remainingCapacity>100) {
-  //   harvestBody.unshift(WORK);
-  //   truckBody.unshift(CARRY,MOVE);
-  // }
-  // console.log(harvestBody);
-  // console.log(truckBody);
+  var capacity = spawn.room.energyCapacityAvailable;
+  var harvestPoints = 0;
+  var sources = spawn.room.find(FIND_SOURCES);
+  var sourcesCount = sources.length;
+  var offsets = [
+    {x: -1,y: -1},
+    {x:0, y:-1},
+    {x:1,y:-1},
+    {x:-1,y:0},
+    {x:1,y:0},
+    {x:-1,y:1},
+    {x:0,y:1},
+    {x:1,y:1},
+  ];
+  console.log("Iterating sources start");
+  for(var sourceKey in sources){
+    var source = sources[sourceKey];
+    var initial = source.pos;
+    for (var offsetKey in offsets) {
+      var offset = offsets[offsetKey];
+      var newPos = new RoomPosition(initial.x + offset.x, initial.y + offset.y,initial.roomName);
+      var terrain = newPos.lookFor("terrain");
+      if (terrain == "plain") {
+        harvestPoints++;
+      }
+      if (terrain == "swamp") {
+        harvestPoints++;
+      }
+    }
+  }
+  console.log("Iterating sources end, poins found=" + harvestPoints);
+  var harvestBody = [CARRY,MOVE];
+  var truckBody = [CARRY,MOVE];
+  var remainingCapacity = capacity - 100;
+  if(capacity > 400){
+    harvestBody = [CARRY,CARRY,MOVE,MOVE];
+    truckBody = [CARRY,CARRY,MOVE,MOVE];
+    remainingCapacity = capacity - 200;
+  }
+  while (remainingCapacity>100) {
+    remainingCapacity -= 100;
+    harvestBody.unshift(WORK);
+    truckBody.unshift(CARRY,MOVE);
+  }
+  console.log(harvestBody);
+  console.log(truckBody);
 
 
   //calculate next body form based on rules + templating
