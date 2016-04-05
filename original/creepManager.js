@@ -38,7 +38,7 @@ module.exports = function (spawn) {
     truckBody = [CARRY,CARRY,MOVE,MOVE];
     remainingCapacity = capacity - 200;
   }
-  while (remainingCapacity>100) {
+  while (remainingCapacity>=100) {
     remainingCapacity -= 100;
     harvestBody.unshift(WORK);
     truckBody.unshift(CARRY,MOVE);
