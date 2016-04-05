@@ -29,9 +29,10 @@ module.exports = function (spawn) {
       }
     }
   }
-  console.log("Iterating sources end, poins found=" + harvestPoints);
+  console.log("Iterating sources end, points found=" + harvestPoints);
   var harvestBody = [CARRY,MOVE];
   var truckBody = [CARRY,MOVE];
+  var workerPartsPerWorker = 0;
   var remainingCapacity = capacity - 100;
   if(capacity > 400){
     harvestBody = [CARRY,CARRY,MOVE,MOVE];
@@ -41,11 +42,17 @@ module.exports = function (spawn) {
   while (remainingCapacity>=100) {
     remainingCapacity -= 100;
     harvestBody.unshift(WORK);
+    workerPartsPerWorker++;
     truckBody.unshift(CARRY,MOVE);
   }
   console.log(harvestBody);
   console.log(truckBody);
 
+var maxWorkerCount = harvestPoints;
+if(harvestPoints * workerPartsPerWorker > 25){
+  maxWorkerCount = Math.ceil(sourcesCount * 20 / workerPartsPerWorker);
+}
+console.log("Max workers in " + spawn.pos.roomName + " will be " + maxWorkerCount);
 
   //calculate next body form based on rules + templating
   //calculate how many harvester are needed
