@@ -2,6 +2,7 @@ module.exports = function (spawn) {
   var capacity = spawn.room.energyCapacityAvailable;
   var harvestPoints = 0;
   var sources = spawn.room.find(FIND_SOURCES);
+  var sourcesCount = sources.length;
   var offsets = [
     {x: -1,y: -1},
     {x:0, y:-1},
@@ -29,6 +30,20 @@ module.exports = function (spawn) {
     }
   }
   console.log("Iterating sources end, poins found=" + harvestPoints);
+  var harvestBody = [CARRY,MOVE];
+  var truckBody = [CARRY,MOVE];
+  var remainingCapacity = capacity - 100;
+  if(capacity > 400){
+    harvestBody = [CARRY,CARRY,MOVE,MOVE];
+    truckBody = [CARRY,CARRY,MOVE,MOVE];
+    remainingCapacity = capacity - 200;
+  }
+  while (remainingCapacity>100) {
+    harvestBody.unshift(WORK);
+    truckBody.unshift(CARRY,MOVE);
+  }
+  console.log(harvestBody);
+  console.log(truckBody);
 
 
   //calculate next body form based on rules + templating
@@ -38,11 +53,6 @@ module.exports = function (spawn) {
 
 
   var creepsToMaintain = [
-    {
-      body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
-      name: "Harvest1",
-      memory: { role: "harvester"}
-    },
     {
       body: [WORK,WORK,WORK,WORK,WORK,WORK,MOVE,CARRY,MOVE,CARRY],
       name: "Harvest1",
