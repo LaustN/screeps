@@ -53,20 +53,25 @@ module.exports = function (spawn) {
 
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
+
+    if(existingCreep.body.length < body.length){
+      existingCreep.suicide();
+      existingCreep = null;
+    }
+
     if(!existingCreep) {
       var createMessage = spawn.createCreep(body,name,memory);
       if(createMessage == name){
         spawn.memory.state = "OK";
         console.log("Respawning " + name);
-        return true;
       }
       else if(createMessage == ERR_NOT_ENOUGH_RESOURCES){
         spawn.memory.state = "SaveEnergy";
         console.log(spawn.name + " saving up for " + name);
-        return true;
       }
-      return false;
+      return true;
     }
+    return false;
   }
 
   for (var i = 1; i <= maxWorkerCount; i++) {
