@@ -16,9 +16,6 @@ module.exports = function(creep){
     if(structure.structureType == STRUCTURE_STORAGE){
       storages.push(structure);
     }
-    if(structure.structureType == STRUCTURE_STORAGE){
-      storages.push(structure);
-    }
     if(structure.structureType == STRUCTURE_CONTAINER){
       storages.push(structure);
     }
@@ -44,6 +41,30 @@ module.exports = function(creep){
     }
   };
 
+  if(home.energy / home.energyCapacity < 0.75){
+    //home is not so full
+    if(!collectFromStorage()){
+      if(creep.transfer(home, RESOURCE_ENERGY) != OK){
+        creep.moveTo(home);
+      }
+    }
+    return true;
+  }
+
+  var lowEnergyExtension = creep.pos.findClosestByRange(FIND_MY_STRUCTURES{ filter: function(structure){
+    if(structure.structureType == STRUCTURE_EXTENSION && structure.energy < structure.energyCapacity){
+      return true;
+    }
+  }});
+  if(lowEnergyExtension){
+    if(!collectFromStorage()){
+      if(creep.transfer(lowEnergyExtension, RESOURCE_ENERGY) != OK){
+        creep.moveTo(lowEnergyExtension);
+      }
+    }
+    return true;
+  }
+
   if(home.energy == home.energyCapacity && towers && towers.length>0){
     //home is full, so fill any towers
     if(!collectFromStorage()){
@@ -57,15 +78,5 @@ module.exports = function(creep){
         }
       }
     }
-  }
-
-  if(home.energy / home.energyCapacity < 0.75){
-    //home is not so full
-    if(!collectFromStorage()){
-      if(creep.transfer(home, RESOURCE_ENERGY) != OK){
-        creep.moveTo(home);
-      }
-    }
-    return true;
   }
 }
