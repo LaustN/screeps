@@ -48,7 +48,6 @@ module.exports = function (spawn) {
 
   var workerCountBasedOnWorkerParts = Math.ceil( sourcesCount * 15 / workerPartsPerWorker);
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
-  console.log(spawn.name + " wants " + maxWorkerCount + " harvester teams");
 
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
