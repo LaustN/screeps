@@ -104,6 +104,13 @@ module.exports = function (spawn) {
     },
     {
       body: harvestBody,
+      name: "FortifierAssistant",
+      memory: {
+        role: "fortifier"
+      }
+    },
+    {
+      body: harvestBody,
       name: "ControlUpgrader",
       memory: {
         role: "controlUpgrader"
