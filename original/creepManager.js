@@ -46,7 +46,7 @@ module.exports = function (spawn) {
     truckBody.unshift(CARRY,MOVE);
   }
 
-  var workerCountBasedOnWorkerParts = Math.ceil( sourcesCount * 10 / workerPartsPerWorker);
+  var workerCountBasedOnWorkerParts = Math.ceil( sourcesCount * 15 / workerPartsPerWorker);
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   console.log(spawn.name + " wants " + maxWorkerCount + " harvester teams");
 
