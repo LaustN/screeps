@@ -54,7 +54,6 @@ module.exports = function (spawn) {
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
-  console.log(spawn.name + " want " + maxWorkerCount + " harvesting teams");
 
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
