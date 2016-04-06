@@ -54,7 +54,7 @@ module.exports = function (spawn) {
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
 
-    if(existingCreep.body.length < body.length){
+    if(existingCreep && existingCreep.body.length < body.length){
       existingCreep.suicide();
       existingCreep = null;
     }
