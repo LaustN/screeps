@@ -121,6 +121,7 @@ module.exports = function (spawn) {
     if(harvester){
       harvester.memory.focus = sources[i].id;
       console.log("F" + sources[i].pos);
+      harvester.say("Focusing");
     }
   }
 
