@@ -113,6 +113,14 @@ module.exports = function (spawn) {
     fnSuicideNamedCreep(newTruckName);
   }
 
+  for (var i = 0; i < maxWorkerCount && i < sources.length; i++) {
+    var harvesterName = spawn.name +  "Harvest" + (i+1);
+    var harvester = Game.creeps[harvesterName];
+    if(harvester){
+      harvester.memory.focus = sources[i].id;
+      harvester.say("F" + sources[i].pos);
+    }
+  }
 
   var creepsToMaintain = [
     {
