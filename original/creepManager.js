@@ -30,6 +30,11 @@ module.exports = function (spawn) {
     }
   }
 
+  //we seemingly need 5 worker parts per source
+  //3000 energy in a source every 300 ticks = 10 energy generated per tick
+  //each worker part harvests 2 energy per tick
+  // -> 5 worker parts should be enough to drain a source between each regenerate
+
   var harvestBody = [CARRY,MOVE];
   var truckBody = [CARRY,MOVE];
   var workerPartsPerWorker = 0;
@@ -46,8 +51,9 @@ module.exports = function (spawn) {
     truckBody.unshift(CARRY,MOVE);
   }
 
-  var workerCountBasedOnWorkerParts = Math.ceil( sourcesCount * 15 / workerPartsPerWorker);
+  var workerCountBasedOnWorkerParts = Math.ceil( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
+  console.log(spawn.name + " want " + maxWorkerCount + " harvesting teams");
 
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
@@ -73,7 +79,8 @@ module.exports = function (spawn) {
     return false;
   }
 
-  for (var i = 1; i <= maxWorkerCount; i++) {
+  var i = 1;
+  for (; i <= maxWorkerCount; i++) {
     var newHarvesterName = spawn.name +  "Harvest" + i;
     if(fnCreateCreep(newHarvesterName,harvestBody,{role:"harvester"})){
       return;
@@ -90,6 +97,22 @@ module.exports = function (spawn) {
       return;
     }
   }
+
+  var fnSuicideNamedCreep = function(creepName){
+    var suicidingCreep = Game.creeps[creepName];
+    if(suicidingCreep){
+      console.log("Suiciding " + creepName);
+      suicidingCreep.suicide();
+    }
+  }
+
+  for (; i <= maxWorkerCount+10; i++) {
+    var newHarvesterName = spawn.name +  "Harvest" + i;
+    fnSuicideNamedCreep(newHarvesterName);
+    var newTruckName = spawn.name + "Truck" + i;
+    fnSuicideNamedCreep(newTruckName);
+  }
+
 
   var creepsToMaintain = [
     {
