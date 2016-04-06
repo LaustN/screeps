@@ -55,6 +55,7 @@ module.exports = function (spawn) {
     var existingCreep = Game.creeps[name];
 
     if(existingCreep && existingCreep.body.length < body.length){
+      console.log("Suiciding " + existingCreep.name + " since it is smaller than I want it to be");
       existingCreep.suicide();
       existingCreep = null;
     }
