@@ -30,7 +30,7 @@ module.exports = function(creep) {
           chosenTarget = nextTarget;
         }
       }
-      console.log(creep.name + " chose " + chosenTarget.pos.x + "," + chosenTarget.pos.y  + " for further fortification");
+      creep.say("V" + (chosenTarget.pos.x - creep.pos.x) + "," + (chosenTarget.pos.y - creep.pos.y));
       creep.memory.chosenTargetId = chosenTarget.id;
       creep.memory.chosenTargetHitCount = 5;
     }
