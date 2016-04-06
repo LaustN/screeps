@@ -18,13 +18,14 @@ module.exports = function(creep){
   if(creep.memory.dropoff == true){
     var dropoff = creep.pos.findClosestByRange(FIND_STRUCTURES,{
       filter: function(structure){
-        console.log("Considering dropoff = " + JSON.stringify(structure));
         if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
           return true;
+          console.log("Structure at " + structure.pos + " has energyCapacity"):
         };
 
-        if(structure.storeCapacity > 0 && _.sum(structure.store) < structure.storeCapacity) {
+        if(structure.storeCapacity && structure.storeCapacity > 0 && _.sum(structure.store) < structure.storeCapacity) {
           return true;
+          console.log("Structure at " + structure.pos + " has storeCapacity"):
         }
         return false;
       }
