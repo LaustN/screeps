@@ -20,12 +20,12 @@ module.exports = function(creep){
       filter: function(structure){
         if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
           return true;
-          console.log("Structure at " + structure.pos + " has energyCapacity"):
+          console.log("Structure at " + structure.pos + " has energyCapacity");
         };
 
         if(structure.storeCapacity && structure.storeCapacity > 0 && _.sum(structure.store) < structure.storeCapacity) {
           return true;
-          console.log("Structure at " + structure.pos + " has storeCapacity"):
+          console.log("Structure at " + structure.pos + " has storeCapacity");
         }
         return false;
       }
