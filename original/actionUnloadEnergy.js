@@ -16,8 +16,9 @@ module.exports = function(creep){
   }
 
   if(creep.memory.dropoff == true){
-    var dropoff = creep.pos.findClosestByRange(FIND_STRUCTURES,{
+    var dropoff = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{
       filter: function(structure){
+        console.log(JSON.stringify(structure));
         if (structure.energyCapacity && structure.energy && structure.energyCapacity > structure.energy) {
           return true;
           console.log("Structure at " + structure.pos + " has energyCapacity");
