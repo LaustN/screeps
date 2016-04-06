@@ -13,7 +13,7 @@ module.exports = function (spawn) {
     {x:0,y:1},
     {x:1,y:1},
   ];
-  console.log("Iterating sources start");
+
   for(var sourceKey in sources){
     var source = sources[sourceKey];
     var initial = source.pos;
@@ -29,7 +29,7 @@ module.exports = function (spawn) {
       }
     }
   }
-  console.log("Iterating sources end, points found=" + harvestPoints);
+
   var harvestBody = [CARRY,MOVE];
   var truckBody = [CARRY,MOVE];
   var workerPartsPerWorker = 0;
