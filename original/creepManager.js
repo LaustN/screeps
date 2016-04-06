@@ -46,10 +46,8 @@ module.exports = function (spawn) {
     truckBody.unshift(CARRY,MOVE);
   }
 
-  var maxWorkerCount = harvestPoints;
-  if(harvestPoints * workerPartsPerWorker / sourcesCount > 25){
-    maxWorkerCount = Math.ceil(sourcesCount * 20 / workerPartsPerWorker);
-  }
+  var workerCountBasedOnWorkerParts = Math.ceil( sourcesCount * 10 / workerPartsPerWorker);
+  var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
 
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
