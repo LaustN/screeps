@@ -63,5 +63,12 @@ module.exports = function(creep){
       home.transferEnergy(creep);
       return true;
     }
+    else{
+      if(creep.pos.getRangeTo(home) > 5){
+        creep.moveTo(home);
+      }
+      return true;
+    }
+
   }
 }
