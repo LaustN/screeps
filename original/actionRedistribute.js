@@ -51,7 +51,7 @@ module.exports = function(creep){
     return true;
   }
 
-  var lowEnergyExtension = creep.pos.findClosestByRange(FIND_MY_STRUCTURES{ filter: function(structure){
+  var lowEnergyExtension = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: function(structure){
     if(structure.structureType == STRUCTURE_EXTENSION && structure.energy < structure.energyCapacity){
       return true;
     }
