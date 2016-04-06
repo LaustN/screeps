@@ -50,7 +50,6 @@ module.exports = function (spawn) {
   if(harvestPoints * workerPartsPerWorker / sourcesCount > 25){
     maxWorkerCount = Math.ceil(sourcesCount * 20 / workerPartsPerWorker);
   }
-  console.log("Max workers in " + spawn.pos.roomName + " will be " + maxWorkerCount);
 
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
