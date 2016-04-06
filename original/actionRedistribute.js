@@ -16,6 +16,12 @@ module.exports = function(creep){
     if(structure.structureType == STRUCTURE_STORAGE){
       storages.push(structure);
     }
+    if(structure.structureType == STRUCTURE_STORAGE){
+      storages.push(structure);
+    }
+    if(structure.structureType == STRUCTURE_CONTAINER){
+      storages.push(structure);
+    }
   }
 
   var collectFromStorage = function(){
@@ -27,6 +33,7 @@ module.exports = function(creep){
       var storage = storages[storageIndex];
       if(storage.store[RESOURCE_ENERGY] > 0){
         collectionPoint = storage;
+        break;
       }
     }
     if(collectionPoint){

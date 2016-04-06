@@ -72,7 +72,7 @@ module.exports = function (spawn) {
 
   for (var i = 1; i <= maxWorkerCount; i++) {
     var newHarvesterName = spawn.name +  "Harvest" + i;
-    if(fnCreateCreep(newHarvesterName,harvestBody,{role:"harvest"})){
+    if(fnCreateCreep(newHarvesterName,harvestBody,{role:"harvester"})){
       return;
     }
     var newTruckName = spawn.name + "Truck" + i;
