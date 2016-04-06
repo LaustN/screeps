@@ -161,7 +161,7 @@ module.exports = function (spawn) {
   for(var creepNumber in creepsToMaintain){
     var creepDefinition = creepsToMaintain[creepNumber];
     var newCreepName = spawn.name +  creepDefinition.name;
-    if(fnCreateCreep(newCreepName,harvestBody,creepDefinition.memory)){
+    if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
       return;
     }
   }
