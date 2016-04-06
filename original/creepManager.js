@@ -115,13 +115,9 @@ module.exports = function (spawn) {
 
   for (var i = 0; i < maxWorkerCount && i < sources.length; i++) {
     var harvesterName = spawn.name +  "Harvest" + (i+1);
-    console.log(harvesterName);
     var harvester = Game.creeps[harvesterName];
-    console.log(JSON.stringify(harvester));
     if(harvester){
       harvester.memory.focus = sources[i].id;
-      console.log("F" + sources[i].pos);
-      harvester.say("Focusing");
     }
   }
 
