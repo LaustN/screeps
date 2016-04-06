@@ -22,7 +22,7 @@ module.exports = function(creep){
   }
 
   var collectFromStorage = function(){
-    if(creep.carry.energy == creep.carryCapacity){
+    if(creep.carry.energy != 0){
       return false;
     }
     var collectionPoint = null;
