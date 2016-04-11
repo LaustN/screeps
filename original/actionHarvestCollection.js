@@ -35,7 +35,7 @@ module.exports = function(creep){
   var harvestingCreep = null;
   while (wantedFullness >= 0  && harvestingCreep == null) {
     harvestingCreep = findFullHavestingCreep(wantedFullness);
-    wantedFullness-= 0.25;
+    wantedFullness-= 0.5;
   }
 
 
