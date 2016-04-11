@@ -1,5 +1,5 @@
 module.exports = function(creep){
-    var hostiles = creep.pos.findInRange(FIND_HOSTILE_CREEPS,10);
+    var hostiles = creep.pos.findInRange(FIND_HOSTILE_CREEPS,3);
 
     if(hostiles.length > 0){
         creep.memory.fleeing = true;
