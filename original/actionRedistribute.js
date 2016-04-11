@@ -25,19 +25,24 @@ module.exports = function(creep){
     if(creep.carry.energy != 0){
       return false;
     }
-    var collectionPoint = null;
     for(var storageIndex in storages){
       var storage = storages[storageIndex];
+
       if(storage.store[RESOURCE_ENERGY] > 0){
-        collectionPoint = storage;
-        break;
+        if(storage.transfer(creep,RESOURCE_ENERGY) != OK){
+          creep.moveTo(collectionPoint);
+        }
+        return true;
       }
     }
-    if(collectionPoint){
-      if(collectionPoint.transfer(creep,RESOURCE_ENERGY) != OK){
-        creep.moveTo(collectionPoint);
+    for(var storageIndex in towers){
+      var storage = towers[storageIndex];
+      if(storage.energy > 0){
+        if(storage.transferEnergy(creep) != OK){
+          creep.moveTo(collectionPoint);
+        }
+        return true;
       }
-      return true;
     }
   };
 
