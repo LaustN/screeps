@@ -18,7 +18,7 @@ module.exports = function(creep){
     }
 
     var harvestingCreep =
-    focusObject.pos.findClosestByRange(FIND_MY_CREEPS,
+    focusObject.pos.findInRange(FIND_MY_CREEPS,5,
       { filter : function(filterCreep){
         if(filterCreep.memory.role == "harvester"
             && filterCreep.carry.energy / filterCreep.carryCapacity >= fullness
@@ -41,6 +41,9 @@ module.exports = function(creep){
 
   if(!harvestingCreep){
     console.log(creep.name + " failed to find a creep to collect energy from");
+    if(focusObject){
+      creep.moveTo(focusObject);
+    }
     return false;
   }
 
