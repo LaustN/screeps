@@ -30,7 +30,7 @@ module.exports = function(creep){
 
       if(storage.store[RESOURCE_ENERGY] > 0){
         if(storage.transfer(creep,RESOURCE_ENERGY) != OK){
-          creep.moveTo(collectionPoint);
+          creep.moveTo(storage);
         }
         return true;
       }
@@ -39,7 +39,7 @@ module.exports = function(creep){
       var storage = towers[storageIndex];
       if(storage.energy > 0){
         if(storage.transferEnergy(creep) != OK){
-          creep.moveTo(collectionPoint);
+          creep.moveTo(storage);
         }
         return true;
       }
