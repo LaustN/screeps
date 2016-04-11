@@ -47,7 +47,9 @@ module.exports = function(creep){
     return false;
   }
 
-  if(harvestingCreep.transferEnergy(creep) != OK){
-    creep.moveTo(harvestingCreep);
+  if (harvestingCreep) {
+    if(harvestingCreep.transferEnergy(creep) != OK){
+      creep.moveTo(harvestingCreep);
+    }
   }
 }
