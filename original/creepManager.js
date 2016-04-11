@@ -39,16 +39,19 @@ module.exports = function (spawn) {
   var truckBody = [CARRY,MOVE];
   var workerPartsPerWorker = 0;
   var remainingCapacity = capacity - 100;
+
   if(capacity > 400){
     harvestBody = [CARRY,CARRY,MOVE,MOVE];
     truckBody = [CARRY,CARRY,MOVE,MOVE];
     remainingCapacity = capacity - 200;
   }
-  while (remainingCapacity>=100) {
+  var keepAddingParts = true;
+  while (remainingCapacity>=100 && keepAddingParts) {
     remainingCapacity -= 100;
-    if(workerPartsPerWorker<5){
-      harvestBody.unshift(WORK);
+    if(workerPartsPerWorker>5){
+      keepAddingParts = false;
     }
+    harvestBody.unshift(WORK);
     workerPartsPerWorker++;
     truckBody.unshift(CARRY,MOVE);
   }
