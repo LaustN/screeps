@@ -60,14 +60,19 @@ module.exports = function (spawn) {
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
 
-  var fnCreateCreep = function(name, body, memory){
+  var fnCullCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
 
     if(existingCreep && existingCreep.body.length < body.length){
       console.log("Suiciding " + existingCreep.name + " since it is smaller than I want it to be");
       existingCreep.suicide();
       existingCreep = null;
+      return true;
     }
+  }
+
+  var fnCreateCreep = function(name, body, memory){
+    var existingCreep = Game.creeps[name];
 
     if(!existingCreep) {
       var createMessage = spawn.createCreep(body,name,memory);
