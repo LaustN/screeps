@@ -60,7 +60,7 @@ module.exports = function (spawn) {
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
 
-  var fnCullCreep = function(name, body, memory){
+  var fnCullCreep = function(name, body){
     var existingCreep = Game.creeps[name];
 
     if(existingCreep && existingCreep.body.length < body.length){
@@ -104,6 +104,18 @@ module.exports = function (spawn) {
         scavengeRange: 3,
         focus: newHarvesterName
       })){
+      return;
+    }
+  }
+
+  i = 1;
+  for (; i <= maxWorkerCount; i++) {
+    var newHarvesterName = spawn.name +  "Harvest" + i;
+    if(fnCullCreep(newHarvesterName,harvestBody)){
+      return;
+    }
+    var newTruckName = spawn.name + "Truck" + i;
+    if(fnCullCreep(newTruckName, truckBody)){
       return;
     }
   }
@@ -172,6 +184,14 @@ module.exports = function (spawn) {
     var creepDefinition = creepsToMaintain[creepNumber];
     var newCreepName = spawn.name +  creepDefinition.name;
     if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
+      return;
+    }
+  }
+
+  for(var creepNumber in creepsToMaintain){
+    var creepDefinition = creepsToMaintain[creepNumber];
+    var newCreepName = spawn.name +  creepDefinition.name;
+    if(fnCullCreep(newCreepName,creepDefinition.body)){
       return;
     }
   }
