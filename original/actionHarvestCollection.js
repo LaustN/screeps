@@ -8,15 +8,19 @@ module.exports = function(creep){
     return false;
   }
 
-  var findFullHavestingCreep = function(fullness){
-    var focusObject = Game.getObjectById(creep.memory.focus);
+  var getFocusObject = function(creepWithFocus){
+    var focusObject = Game.getObjectById(creepWithFocus.memory.focus);
     if (!focusObject) {
-      focusObject = Game.creeps[creep.memory.focus];
+      focusObject = Game.creeps[creepWithFocus.memory.focus];
     }
     if (!focusObject) {
-      focusObject = creep;
+      focusObject = creepWithFocus;
     }
+    return focusObject;
+  }
 
+  var findFullHavestingCreep = function(fullness){
+    var focusObject = getFocusObject(creep);
     var harvestingCreeps =
     focusObject.pos.findInRange(FIND_MY_CREEPS,5,
       { filter : function(filterCreep){
@@ -44,10 +48,7 @@ module.exports = function(creep){
 
   if(!harvestingCreep){
     console.log(creep.name + " failed to find a creep to collect energy from");
-    if(focusObject){
-      creep.moveTo(focusObject);
-    }
-    return false;
+    creep.moveTo(getFocusObject(creep));
   }
 
   if (harvestingCreep) {
