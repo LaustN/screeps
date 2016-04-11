@@ -48,11 +48,11 @@ module.exports = function (spawn) {
   var keepAddingParts = true;
   while (remainingCapacity>=100 && keepAddingParts) {
     remainingCapacity -= 100;
-    if(workerPartsPerWorker>5){
+    workerPartsPerWorker++;
+    if(workerPartsPerWorker>=5){
       keepAddingParts = false;
     }
     harvestBody.unshift(WORK);
-    workerPartsPerWorker++;
     truckBody.unshift(CARRY,MOVE);
   }
 
