@@ -159,13 +159,6 @@ module.exports = function (spawn) {
         role: "redistributor"
       }
     },
-    {
-      body: truckBody,
-      name: "RedistributorAssistant",
-      memory: {
-        role: "redistributor"
-      }
-    },
   ];
   for(var creepNumber in creepsToMaintain){
     var creepDefinition = creepsToMaintain[creepNumber];
