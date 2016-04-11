@@ -17,7 +17,7 @@ module.exports = function(creep){
       focusObject = creep;
     }
 
-    var harvestingCreep =
+    var harvestingCreeps =
     focusObject.pos.findInRange(FIND_MY_CREEPS,5,
       { filter : function(filterCreep){
         if(filterCreep.memory.role == "harvester"
@@ -28,7 +28,10 @@ module.exports = function(creep){
         return false;
       }
     });
-    return harvestingCreep
+    if(harvestingCreeps && harvestingCreeps.length>0){
+      return harvestingCreeps[0];
+    }
+    return null;
   }
 
   var wantedFullness = 1;
