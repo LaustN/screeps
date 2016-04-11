@@ -35,15 +35,6 @@ module.exports = function(creep){
         return true;
       }
     }
-    for(var storageIndex in towers){
-      var storage = towers[storageIndex];
-      if(storage.energy > 0){
-        if(storage.transferEnergy(creep) != OK){
-          creep.moveTo(storage);
-        }
-        return true;
-      }
-    }
   };
 
   if(home.energy / home.energyCapacity < 0.75){
