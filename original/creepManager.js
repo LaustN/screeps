@@ -46,7 +46,9 @@ module.exports = function (spawn) {
   }
   while (remainingCapacity>=100) {
     remainingCapacity -= 100;
-    harvestBody.unshift(WORK);
+    if(workerPartsPerWorker<5){
+      harvestBody.unshift(WORK);
+    }
     workerPartsPerWorker++;
     truckBody.unshift(CARRY,MOVE);
   }
