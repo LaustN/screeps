@@ -1,6 +1,6 @@
 module.exports = function(creep){
-  if(creep.memory.scoutTarget){
-    var scoutTarget = Game.getObjectById(creep.memory.scoutTarget);
+  if(creep.memory.focus){
+    var scoutTarget = Game.getObjectById(creep.memory.focus);
     if(scoutTarget){
       if(creep.pos.roomName == scoutTarget.pos.roomName){
         return false;
