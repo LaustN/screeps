@@ -13,7 +13,8 @@ module.exports = function(creep){
     if(creep.pos.roomName != focusObject.pos.roomName){
       var exitDir = creep.room.findExitTo(focusObject.room);
       var exit = creep.pos.findClosestByRange(exitDir);
-      creep.moveTo(exit);
+      var moveMessage = creep.moveTo(exit);
+      creep.say(moveMessage);
       return true;
     }
 
