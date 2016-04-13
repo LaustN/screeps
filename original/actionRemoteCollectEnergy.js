@@ -16,11 +16,12 @@ module.exports = function(creep){
         focusObject = flag;
         break;
       }
-    }   
+    }
 
     console.log("focusObject id:" + focusObject.id);
     if(creep.pos.roomName != focusObject.pos.roomName){
       var exitDir = creep.room.findExitTo(focusObject.pos.roomName);
+      console.log(JSON.stringify(exitDir));
       var exit = creep.pos.findClosestByRange(exitDir);
       var moveMessage = creep.moveTo(exit);
       creep.say(moveMessage);
