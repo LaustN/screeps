@@ -11,7 +11,7 @@ module.exports = function(creep){
 
     var focusObject = Game.getObjectById(creep.memory.focus);
     if(creep.pos.roomName != focusObject.pos.roomName){
-      creep.say("Moving out!");
+      creep.say("to " + focusObject.pos.roomName);
       creep.moveTo(focusObject);
       return true;
     }
