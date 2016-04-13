@@ -18,12 +18,8 @@ module.exports = function(creep){
       }
     }
 
-    console.log("focusObject id:" + focusObject.id);
     if(creep.pos.roomName != focusObject.pos.roomName){
-      var exitDir = creep.room.findExitTo(focusObject.pos.roomName);
-      console.log(JSON.stringify(exitDir));
-      var exit = creep.pos.findClosestByRange(exitDir);
-      var moveMessage = creep.moveTo(exit);
+      var moveMessage = creep.moveTo(focusObject);
       creep.say(moveMessage);
       return true;
     }
