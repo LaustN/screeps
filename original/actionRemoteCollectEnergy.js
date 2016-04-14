@@ -40,7 +40,7 @@ module.exports = function(creep){
       }
 
       localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
-        if(structure && structure.energy > 0 ){
+        if(structure && structure.energy > 0 && structureType != "spawn"){
           return true;
         }
         return false;
