@@ -5,7 +5,7 @@ module.exports = function (creep) {
   var actionProximityHealer = require("actionProximityHealer");
   var actionAssaultStructures = require("actionAssaultStructures");
 
-  actionProximityHealer(); //never returns false;
+  actionProximityHealer(creep); //never returns false;
 
   if(actionRenew(creep))
     return;

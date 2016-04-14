@@ -1,4 +1,3 @@
-var rally = require("rally");
 module.exports = function(creep){
   var woundedCreep = creep.room.findClosestByRange(FIND_MY_CREEPS, {filter:
     function(filteredCreep){
