@@ -27,14 +27,10 @@ module.exports = function(creep){
     }
     for(var storageIndex in storages){
       var storage = storages[storageIndex];
-      creep.say("1");
       if(storage.store[RESOURCE_ENERGY] > 0){
-        creep.say("2");
         if(storage.transfer(creep,RESOURCE_ENERGY) != OK){
-          creep.say("3");
           creep.moveTo(storage);
         }
-        creep.say("4");
         return true;
       }
     }
