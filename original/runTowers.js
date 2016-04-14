@@ -5,8 +5,8 @@ module.exports = function () {
         if(tower.structureType == STRUCTURE_TOWER){
             var enemy = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if(enemy){
-                if(tower.attack(enemy) == OK)
-                    return true;
+              tower.attack(enemy);
+              break;
             }
             var woundedFriend = tower.pos.findClosestByRange(FIND_MY_CREEPS);
             if(woundedFriend){
