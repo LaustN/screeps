@@ -17,26 +17,27 @@ module.exports = function(creep){
         break;
       }
     }
-
-    if(creep.pos.roomName != focusObject.pos.roomName){
-      var moveMessage = creep.moveTo(focusObject);
-      creep.say(moveMessage);
-      return true;
-    }
-
-    var home = Game.getObjectById(creep.memory.home);
-
-    var localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
-      if(structure && structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 ){
+    if(focusObject){
+      if(creep.pos.roomName != focusObject.pos.roomName){
+        var moveMessage = creep.moveTo(focusObject);
+        creep.say(moveMessage);
         return true;
       }
-      return false;
-    }});
 
-    if(localEnergyStorage){
-      creep.moveTo(localEnergyStorage);
-      localEnergyStorage.transfer(creep,RESOURCE_ENERGY);
-      return true;
+      var home = Game.getObjectById(creep.memory.home);
+
+      var localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
+        if(structure && structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 ){
+          return true;
+        }
+        return false;
+      }});
+
+      if(localEnergyStorage){
+        creep.moveTo(localEnergyStorage);
+        localEnergyStorage.transfer(creep,RESOURCE_ENERGY);
+        return true;
+      }
     }
   }
 }
