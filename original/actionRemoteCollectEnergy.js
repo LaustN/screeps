@@ -52,6 +52,11 @@ module.exports = function(creep){
         }
         return true;
       }
+
+      //getting all the way down here means that we did not find any local energy, so drop what we have at home
+      if(creep.energy > 0){
+        creep.memory.dropoff = true;
+      }
     }
   }
 }
