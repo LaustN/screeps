@@ -101,7 +101,7 @@ module.exports = function (spawn) {
       truckBody,
       {
         role: "harvestTruck",
-        scavengeRange: 10,
+        scavengeRange: 3,
         focus: newHarvesterName
       })){
       return;
