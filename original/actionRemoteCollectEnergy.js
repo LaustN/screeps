@@ -55,6 +55,7 @@ module.exports = function(creep){
 
       //getting all the way down here means that we did not find any local energy, so drop what we have at home
       if(creep.energy > 0){
+        creep.memory.collectingEnergy = false;
         creep.memory.dropoff = true;
       }
     }
