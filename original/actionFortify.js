@@ -12,8 +12,7 @@ module.exports = function(creep) {
         }
         if(structure.structureType == STRUCTURE_WALL)
         {
-          console.log(JSON.stringify(structure));
-          if(typeof(structure.ticksToDecay) != "undefined" && structure.ticksToDecay > 0 ) {
+          if(structure.my) {
             return false;
           }
           return true;
