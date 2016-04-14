@@ -12,8 +12,9 @@ module.exports = function(creep) {
         }
         if(structure.structureType == STRUCTURE_WALL)
         {
-          if(structure.ticksToLive > 0 )
+          if(typeof(structure.ticksToDecay) != "undefined" && structure.ticksToDecay > 0 ) {
             return false;
+          }
           return true;
         }
         if(structure.structureType == STRUCTURE_RAMPART){
