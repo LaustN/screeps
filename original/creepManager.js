@@ -197,7 +197,7 @@ module.exports = function (spawn) {
   }
 
   if(spawn.memory.assaultCount){
-    var assaultBody = [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,ATTACK,RANGED_ATTACK,HEAL,MOVE,MOVE,MOVE,MOVE];
+    var assaultBody = [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,ATTACK,RANGED_ATTACK,HEAL,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE];
     i=1;
     for (; i <= spawn.memory.assaultCount; i++) {
       var newAssaultName = spawn.name +  "Assault" + i;
