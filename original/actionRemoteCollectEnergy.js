@@ -48,7 +48,6 @@ module.exports = function(creep){
 
       if(localEnergyStorage){
         if(localEnergyStorage.transferEnergy(creep)!=OK){
-          console.log("Trying to collect from " + JSON.stringify(localEnergyStorage));
           creep.moveTo(localEnergyStorage);
         }
         return true;
