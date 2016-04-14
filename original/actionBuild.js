@@ -6,7 +6,7 @@ module.exports = function (creep) {
     filter:function(constructionSite){
       return constructionSite.structureType != STRUCTURE_ROAD
     }});
-    if(target == null && creep.room.controller && creep.rom.controller.my){
+    if(target == null && creep.room.controller && creep.room.controller.my){
       target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
     }
     if(target != null) {
