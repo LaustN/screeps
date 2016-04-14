@@ -8,12 +8,11 @@ module.exports = function(creep) {
           return true;
         }
         if(structure.hits > 100000){
-          console.log(structure.pos + " has a lot of hits");
           return false;
         }
         if(structure.structureType == STRUCTURE_WALL)
         {
-          console.log("found a wall at " + structure.pos);
+          console.log(JSON.stringify(structure));
           if(typeof(structure.ticksToDecay) != "undefined" && structure.ticksToDecay > 0 ) {
             return false;
           }
