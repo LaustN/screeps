@@ -27,7 +27,7 @@ module.exports = function(creep){
       var home = Game.getObjectById(creep.memory.home);
 
       var localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
-        if(structure && structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 ){
+        if(structure && structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 && structureType != "spawn"){
           return true;
         }
         return false;
