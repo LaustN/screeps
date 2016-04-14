@@ -140,7 +140,6 @@ module.exports = function (spawn) {
     var harvester = Game.creeps[harvesterName];
     if(harvester){
       harvester.memory.focus = sources[i].id;
-      console.log(harvester + " focuses at " + sources[i].pos);
     }
   }
 
