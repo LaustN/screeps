@@ -36,7 +36,7 @@ module.exports = function(creep){
     }
   };
 
-  if(home.energy / home.energyCapacity < 0.75){
+  if(home.energy / home.energyCapacity < 1){
     //home is not so full
     if(!collectFromStorage()){
       if(creep.transfer(home, RESOURCE_ENERGY) != OK){
