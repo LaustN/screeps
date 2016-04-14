@@ -1,5 +1,5 @@
 module.exports = function(creep){
-  var woundedCreep = creep.room.findClosestByRange(FIND_MY_CREEPS, {filter:
+  var woundedCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter:
     function(filteredCreep){
         return filteredCreep.hits < filteredCreep.hitsMax;
     }});
