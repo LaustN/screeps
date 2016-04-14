@@ -1,6 +1,10 @@
 module.exports = function(creep){
     var spawn = Game.getObjectById(creep.memory.home);
-    if(creep.ticksToLive < 100 || creep.memory.renewing){
+    var lifetimeThatTriggersRenew = 100;
+    if(creep.pos.roomName != spawn.pos.roomName){
+      lifetimeThatTriggersRenew = 200;
+    }
+    if(creep.ticksToLive < lifetimeThatTriggersRenew || creep.memory.renewing){
         creep.memory.renewing = true;
         var renewMessage = spawn.renewCreep(creep);
         if( renewMessage == OK){
