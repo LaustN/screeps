@@ -38,6 +38,20 @@ module.exports = function(creep){
         localEnergyStorage.transfer(creep,RESOURCE_ENERGY);
         return true;
       }
+
+      localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
+        if(structure && structure.energy > 0 ){
+          return true;
+        }
+        return false;
+      }});
+
+      if(localEnergyStorage){
+        if(localEnergyStorage.transferEnergy(creep)!=OK){
+          creep.moveTo(localEnergyStorage);
+        }
+        return true;
+      }
     }
   }
 }
