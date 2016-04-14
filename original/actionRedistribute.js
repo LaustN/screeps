@@ -5,7 +5,7 @@ module.exports = function(creep){
   - fill tower
   */
   var home = Game.getObjectById(creep.memory.home);
-  var structures = creep.room.find(FIND_MY_STRUCTURES);
+  var structures = creep.room.find(FIND_STRUCTURES);
   var towers = [];
   var storages = [];
   for(var structureName in structures){
