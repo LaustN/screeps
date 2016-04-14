@@ -153,6 +153,13 @@ module.exports = function (spawn) {
     },
     {
       body: harvestBody,
+      name: "BuilderAssistant",
+      memory: {
+        role: "builder"
+      }
+    },
+    {
+      body: harvestBody,
       name: "Fortifier",
       memory: {
         role: "fortifier"
