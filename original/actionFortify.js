@@ -12,6 +12,7 @@ module.exports = function(creep) {
         }
         if(structure.structureType == STRUCTURE_WALL)
         {
+          console.log("found a wall at " + structure.pos);
           if(typeof(structure.ticksToDecay) != "undefined" && structure.ticksToDecay > 0 ) {
             return false;
           }
