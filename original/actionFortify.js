@@ -8,6 +8,7 @@ module.exports = function(creep) {
           return true;
         }
         if(structure.hits > 100000){
+          console.log(structure.pos + " has a lot of hits");
           return false;
         }
         if(structure.structureType == STRUCTURE_WALL)
