@@ -18,7 +18,6 @@ module.exports = function(creep){
     }
     if(structure.structureType == STRUCTURE_CONTAINER){
       storages.push(structure);
-      console.log("pushing container at " + structure.pos);
     }
   }
 
