@@ -9,10 +9,10 @@ module.exports = function (creep) {
 
   if(actionRenew(creep))
     return;
-  if(actionAssaultMove(creep))
-    return;
   if(actionAssaultCreeps(creep))
     return;
   if(actionAssaultStructures(creep))
+    return;
+  if(actionAssaultMove(creep))
     return;
 }
