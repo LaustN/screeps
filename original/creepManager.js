@@ -201,7 +201,7 @@ module.exports = function (spawn) {
     i=1;
     for (; i <= spawn.memory.assaultCount; i++) {
       var newAssaultName = spawn.name +  "Assault" + i;
-      if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault": assault:"AssaultFlag"})){
+      if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:"AssaultFlag"})){
         return;
       }
     }
