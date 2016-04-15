@@ -209,7 +209,25 @@ module.exports = function (spawn) {
         focus: "RunsHouse"
       }
     },
+    {
+      body: harvestBody,
+      name: "Scout2",
+      memory: {
+        role: "scout",
+        focus: "5711527fa51212a076a71ae5"
+      }
+    },
+    {
+      body: truckBody,
+      name: "remoteTruck2",
+      memory: {
+        role: "remoteTruck",
+        focus: "Bonus"
+      }
+    },
   ];
+
+
   for(var creepNumber in creepsToMaintain){
     var creepDefinition = creepsToMaintain[creepNumber];
     var newCreepName = spawn.name +  creepDefinition.name;
