@@ -203,7 +203,7 @@ module.exports = function (spawn) {
     },
     {
       body: truckBody,
-      name: "Redistributor",
+      name: "remoteTruck",
       memory: {
         role: "remoteTruck",
         focus: "RunsHouse"
