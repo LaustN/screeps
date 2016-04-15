@@ -35,8 +35,9 @@ module.exports = function(creep){
 
     if(dropoff)
     {
-      creep.moveTo(dropoff);
-      creep.transferEnergy(dropoff);
+      if(creep.transferEnergy(dropoff) != OK) {
+        creep.moveTo(dropoff);
+      }
     }
     return true;
   }
