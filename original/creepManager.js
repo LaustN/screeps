@@ -193,6 +193,22 @@ module.exports = function (spawn) {
         role: "redistributor"
       }
     },
+    {
+      body: harvestBody,
+      name: "Scout1",
+      memory: {
+        role: "scout",
+        focus: "571140dfa51212a07686b0e3"
+      }
+    },
+    {
+      body: truckBody,
+      name: "Redistributor",
+      memory: {
+        role: "remoteTruck",
+        focus: "RunsHouse"
+      }
+    },
   ];
   for(var creepNumber in creepsToMaintain){
     var creepDefinition = creepsToMaintain[creepNumber];
