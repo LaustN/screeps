@@ -187,13 +187,6 @@ module.exports = function (spawn) {
       }
     },
     {
-      body: truckBody,
-      name: "Redistributor2",
-      memory: {
-        role: "redistributor"
-      }
-    },
-    {
       body: harvestBody,
       name: "Scout1",
       memory: {
