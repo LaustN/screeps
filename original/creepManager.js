@@ -210,6 +210,14 @@ module.exports = function (spawn) {
         focus: "5711527fa51212a076a71ae5"
       }
     },
+    {
+      body: harvestBody,
+      name: "Scout3",
+      memory: {
+        role: "scout",
+        focus: "5711527fa51212a076a71ae5"
+      }
+    },
   ];
 
 
