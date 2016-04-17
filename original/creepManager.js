@@ -210,14 +210,6 @@ module.exports = function (spawn) {
         focus: "5711527fa51212a076a71ae5"
       }
     },
-    {
-      body: truckBody,
-      name: "remoteTruck2",
-      memory: {
-        role: "remoteTruck",
-        focus: "Bonus"
-      }
-    },
   ];
 
 
