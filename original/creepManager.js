@@ -64,14 +64,11 @@ module.exports = function (spawn) {
     var existingCreep = Game.creeps[name];
 
     if(existingCreep && existingCreep.spawning){
-      console.log("not suiciding anyone that is spawning");
       return false;
     }
 
     if(existingCreep && existingCreep.body.length != body.length){
       console.log("Suiciding " + existingCreep.name + " since it is differently sized than I want it to be");
-      console.log(JSON.stringify(existingCreep.body));
-      console.log(JSON.stringify(body));
       existingCreep.suicide();
       existingCreep = null;
       return true;
