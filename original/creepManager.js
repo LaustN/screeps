@@ -186,6 +186,14 @@ module.exports = function (spawn) {
         role: "redistributor"
       }
     },
+    {
+      body: harvestBody,
+      name: "Scout1",
+      memory: {
+        role: "scout",
+        focus: "571140dfa51212a07686b0e3"
+      }
+    },
   ];
 
 
