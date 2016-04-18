@@ -70,8 +70,10 @@ module.exports = function (spawn) {
       return true;
     }
 
+    console.log(JSON.stringify( existingCreep.body));
+    console.log(JSON.stringify( body));
     return false;
-    
+
     if(existingCreep && JSON.stringify( existingCreep.body) != JSON.stringify(body)){
       console.log("Suiciding " + existingCreep.name + " since it does not have the parts I want it to have");
       existingCreep.suicide();
