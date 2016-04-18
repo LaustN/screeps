@@ -63,12 +63,22 @@ module.exports = function (spawn) {
   var fnCullCreep = function(name, body){
     var existingCreep = Game.creeps[name];
 
+    if(existingCreep && existingCreep.body.length < body.length){
+      console.log("Suiciding " + existingCreep.name + " since it is smaller than I want it to be");
+      existingCreep.suicide();
+      existingCreep = null;
+      return true;
+    }
+
+    return false;
+    
     if(existingCreep && JSON.stringify( existingCreep.body) != JSON.stringify(body)){
       console.log("Suiciding " + existingCreep.name + " since it does not have the parts I want it to have");
       existingCreep.suicide();
       existingCreep = null;
       return true;
     }
+
   }
 
   var fnCreateCreep = function(name, body, memory){
