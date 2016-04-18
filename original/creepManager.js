@@ -275,6 +275,9 @@ module.exports = function (spawn) {
       if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:"AssaultFlag"})){
         return;
       }
+      if(fnCullCreep(newAssaultName,creepDefinition.body)){
+        return;
+      }
     }
 
   }
