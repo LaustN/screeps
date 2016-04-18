@@ -251,7 +251,7 @@ module.exports = function (spawn) {
 
     var assaultBody = [TOUGH,TOUGH,ATTACK,MOVE,MOVE];
 
-    foreach(var bodyKey in assaultBodies){
+    for(var bodyKey in assaultBodies){
       var newBodyConfig = assaultBodies[bodyKey];
       if(newBodyConfig.cost <= capacity){
         assaultBody = newBodyConfig.body;
