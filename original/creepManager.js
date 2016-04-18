@@ -214,7 +214,49 @@ module.exports = function (spawn) {
   }
 
   if(spawn.memory.assaultCount){
-    var assaultBody = [TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,MOVE,MOVE];
+    var assaultBodies = [
+      {
+        cost: 300,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,MOVE,MOVE]
+      },
+      {
+        cost: 400,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE]
+      },
+      {
+        cost: 500,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE]
+      },
+      {
+        cost: 600,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
+      },
+      {
+        cost: 700,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,RANGED_ATTACK,MOVE,MOVE,MOVE,MOVE]
+      },
+      {
+        cost: 800,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,RANGED_ATTACK,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
+      },
+      {
+        cost: 900,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,HEAL,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
+      },
+      {
+        cost: 1200,
+        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,HEAL,HEAL,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
+      },
+    ];
+
+    var assaultBody = [TOUGH,TOUGH,ATTACK,MOVE,MOVE];
+
+    foreach(var bodyKey in assaultBodies){
+      var newBodyConfig = assaultBodies[bodyKey];
+      if(newBodyConfig.cost <= capacity){
+        assaultBody = newBodyConfig.body;
+      }
+    }
     i=1;
     for (; i <= spawn.memory.assaultCount; i++) {
       var newAssaultName = spawn.name +  "Assault" + i;
