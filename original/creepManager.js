@@ -70,8 +70,6 @@ module.exports = function (spawn) {
       return true;
     }
 
-    console.log(JSON.stringify( existingCreep.body));
-    console.log(JSON.stringify( body));
     for(var bodyIterator = 0; bodyIterator < body.length; bodyIterator++ ){
       if(existingCreep.body[bodyIterator].type != body[bodyIterator]){
         console.log("Suiciding " + existingCreep.name + " since it does not have the parts I want it to have");
