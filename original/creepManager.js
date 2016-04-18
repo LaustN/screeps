@@ -203,19 +203,11 @@ module.exports = function (spawn) {
       }
     },
     {
-      body: harvestBody,
-      name: "Scout2",
+      body: truckBody,
+      name: "remoteTruck2",
       memory: {
-        role: "scout",
-        focus: "5711527fa51212a076a71ae5"
-      }
-    },
-    {
-      body: harvestBody,
-      name: "Scout3",
-      memory: {
-        role: "scout",
-        focus: "5711527fa51212a076a71ae5"
+        role: "remoteTruck",
+        focus: "RunsHouse"
       }
     },
   ];
