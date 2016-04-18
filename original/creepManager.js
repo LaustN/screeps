@@ -63,6 +63,11 @@ module.exports = function (spawn) {
   var fnCullCreep = function(name, body){
     var existingCreep = Game.creeps[name];
 
+    if(existingCreep && existingCreep.spawning){
+      console.log("not suiciding anyone that is spawning");
+      return false;
+    }
+
     if(existingCreep && existingCreep.body.length != body.length){
       console.log("Suiciding " + existingCreep.name + " since it is differently sized than I want it to be");
       existingCreep.suicide();
