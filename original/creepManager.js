@@ -72,6 +72,17 @@ module.exports = function (spawn) {
       return false;
     }
 
+    var extensionsBeingBuilt = spawn.room.find(FIND_MY_CONSTRUCTION_SITES,{filter:function(structure){
+      if(structure.structureType == "extension"){
+        return true;
+      }
+      return false;
+    }});
+    if(extensionsBeingBuilt.length>0){
+      console.log("Not culling anything while extensions are being built");
+      return;
+    }
+
     if(existingCreep && existingCreep.body.length != body.length){
       console.log("Suiciding " + existingCreep.name + " since it is differently sized than I want it to be");
       existingCreep.suicide();
