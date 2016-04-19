@@ -45,6 +45,11 @@ module.exports = function (spawn) {
     truckBody = [CARRY,CARRY,MOVE,MOVE];
     remainingCapacity = capacity - 200;
   }
+  if(capacity > 600){
+    harvestBody = [CARRY,CARRY,CARRY,MOVE,MOVE,MOVE];
+    truckBody = [CARRY,CARRY,CARRY,MOVE,MOVE,MOVE];
+    remainingCapacity = capacity - 300;
+  }
   var keepAddingParts = true;
   while (remainingCapacity>=100 && keepAddingParts) {
     remainingCapacity -= 100;
