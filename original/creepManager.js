@@ -79,7 +79,7 @@ module.exports = function (spawn) {
       return false;
     }});
     if(extensionsBeingBuilt.length>0){
-      console.log("Not culling anything while extensions are being built");
+      //not culling anything while extensions are being built;
       return;
     }
 
