@@ -4,6 +4,17 @@ module.exports = function(creep) {
   if(!target){
     var targets = creep.room.find(FIND_STRUCTURES,
       { filter: function(structure){
+
+        //do not repair roads until they are halfway worn down, in order to waste less time driving around
+        if(structure.structureType == STRUCTURE_ROAD){
+          if(structure.hits < (structure.hitsMax/2)){
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+
         if(structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART && structure.hits<structure.hitsMax){
           return true;
         }
