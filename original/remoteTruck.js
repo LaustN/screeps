@@ -9,6 +9,8 @@ module.exports = function (creep) {
         return;
     if(actionRenew(creep))
         return;
+    if(actionScavenge(creep))
+        return;
     if(actionRemoteCollectEnergy(creep))
         return;
     if(actionHomeUnloadEnergy(creep))
