@@ -22,6 +22,9 @@ module.exports.loop = function () {
   }
   runTowers();
 
+  //remember the idea of making rooms override decisions for creeps in defensive situations and such
+  //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
+
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
     ensureHome(creep);
