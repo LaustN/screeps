@@ -45,11 +45,6 @@ module.exports = function (spawn) {
     truckBody = [CARRY,CARRY,MOVE,MOVE];
     remainingCapacity = capacity - 200;
   }
-  if(capacity > 600){
-    harvestBody = [CARRY,CARRY,CARRY,MOVE,MOVE,MOVE];
-    truckBody = [CARRY,CARRY,CARRY,MOVE,MOVE,MOVE];
-    remainingCapacity = capacity - 300;
-  }
   var keepAddingParts = true;
   while (remainingCapacity>=100 && keepAddingParts) {
     remainingCapacity -= 100;
@@ -68,37 +63,12 @@ module.exports = function (spawn) {
   var fnCullCreep = function(name, body){
     var existingCreep = Game.creeps[name];
 
-    if(existingCreep && existingCreep.spawning){
-      return false;
-    }
-
-    var extensionsBeingBuilt = spawn.room.find(FIND_MY_CONSTRUCTION_SITES,{filter:function(structure){
-      if(structure.structureType == "extension"){
-        return true;
-      }
-      return false;
-    }});
-    if(extensionsBeingBuilt.length>0){
-      //not culling anything while extensions are being built;
-      return;
-    }
-
-    if(existingCreep && existingCreep.body.length != body.length){
-      console.log("Suiciding " + existingCreep.name + " since it is differently sized than I want it to be");
+    if(existingCreep && existingCreep.body.length < body.length){
+      console.log("Suiciding " + existingCreep.name + " since it is smaller than I want it to be");
       existingCreep.suicide();
       existingCreep = null;
       return true;
     }
-
-    for(var bodyIterator = 0; bodyIterator < body.length; bodyIterator++ ){
-      if(existingCreep.body[bodyIterator].type != body[bodyIterator]){
-        console.log("Suiciding " + existingCreep.name + " since it does not have the parts I want it to have");
-        existingCreep.suicide();
-        existingCreep = null;
-        return true;
-      }
-    }
-    return false;
   }
 
   var fnCreateCreep = function(name, body, memory){
@@ -216,14 +186,38 @@ module.exports = function (spawn) {
         role: "redistributor"
       }
     },
-    {
-      body: harvestBody,
-      name: "Scout1",
-      memory: {
-        role: "scout",
-        focus: "571140dfa51212a07686b0e3"
-      }
-    },
+    // {
+    //   body: harvestBody,
+    //   name: "Scout1",
+    //   memory: {
+    //     role: "scout",
+    //     focus: "571140dfa51212a07686b0e3"
+    //   }
+    // },
+    // {
+    //   body: truckBody,
+    //   name: "remoteTruck",
+    //   memory: {
+    //     role: "remoteTruck",
+    //     focus: "RunsHouse"
+    //   }
+    // },
+    // {
+    //   body: harvestBody,
+    //   name: "Scout2",
+    //   memory: {
+    //     role: "scout",
+    //     focus: "5711527fa51212a076a71ae5"
+    //   }
+    // },
+    // {
+    //   body: harvestBody,
+    //   name: "Scout2",
+    //   memory: {
+    //     role: "scout",
+    //     focus: "5711527fa51212a076a71ae5"
+    //   }
+    // },
   ];
 
 
@@ -244,57 +238,11 @@ module.exports = function (spawn) {
   }
 
   if(spawn.memory.assaultCount){
-    var assaultBodies = [
-      {
-        cost: 300,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,MOVE,MOVE]
-      },
-      {
-        cost: 400,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE]
-      },
-      {
-        cost: 500,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE]
-      },
-      {
-        cost: 600,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
-      },
-      {
-        cost: 700,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,RANGED_ATTACK,MOVE,MOVE,MOVE,MOVE]
-      },
-      {
-        cost: 800,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,RANGED_ATTACK,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
-      },
-      {
-        cost: 900,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,HEAL,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
-      },
-      {
-        cost: 1200,
-        body: [TOUGH,TOUGH,TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,HEAL,HEAL,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]
-      },
-    ];
-
-    var assaultBody = [TOUGH,TOUGH,ATTACK,MOVE,MOVE];
-
-    for(var bodyKey in assaultBodies){
-      var newBodyConfig = assaultBodies[bodyKey];
-      if(newBodyConfig.cost <= capacity){
-        assaultBody = newBodyConfig.body;
-      }
-    }
-
+    var assaultBody = [TOUGH,TOUGH,ATTACK,ATTACK,RANGED_ATTACK,MOVE,MOVE];
     i=1;
     for (; i <= spawn.memory.assaultCount; i++) {
       var newAssaultName = spawn.name +  "Assault" + i;
       if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:"AssaultFlag"})){
-        return;
-      }
-      if(fnCullCreep(newAssaultName,assaultBody)){
         return;
       }
     }
