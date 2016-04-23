@@ -3,6 +3,7 @@ module.exports = function (creep) {
   var actionRenew =  require("actionRenew");
   var actionScout = require("actionScout");
   var actionScavenge = require("actionScavenge");
+  var actionRaze = require("actionRaze");
   var actionHarvest = require("actionHarvest");
   var actionBuild = require("actionBuild");
   var actionFortify = require("actionFortify");
@@ -16,6 +17,8 @@ module.exports = function (creep) {
   if(actionScout(creep))
     return;
   if(actionScavenge(creep))
+    return;
+  if(actionRaze(creep))
     return;
   if(actionHarvest(creep))
     return;

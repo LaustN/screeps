@@ -216,6 +216,21 @@ module.exports = function (spawn) {
         role: "redistributor"
       }
     },
+    {
+      body: harvestBody,
+      name: "Scout1",
+      memory: {
+        role: "scout"
+      }
+    },
+    {
+      body: harvestBody,
+      name: "Scout2",
+      memory: {
+        role: "scout"
+      }
+    },
+
   ];
 
 
