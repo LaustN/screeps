@@ -7,12 +7,12 @@ module.exports = function (creep) {
 
   actionProximityHealer(creep); //never returns false;
 
-  if(actionAssaultMove(creep))
-    return;
   if(actionRenew(creep))
     return;
   if(actionAssaultCreeps(creep))
     return;
   if(actionAssaultStructures(creep))
+    return;
+  if(actionAssaultMove(creep))
     return;
 }
