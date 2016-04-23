@@ -250,6 +250,33 @@ module.exports = function (spawn) {
     }
   }
 
+  if(!spawn.memory.scoutTargets){
+    spawn.memory.scoutTargets = [{flagName:"[FlagName]", scoutCount:0,remoteTruckCount:0}]
+  }
+
+  if(spawn.memory.scoutTargets){
+    for(var scoutTargetsIterator = 0 ; scoutTargetsIterator<spawn.memory.scoutTargets[scoutTargetsIterator] ; scoutTargetsIterator++){
+      var scoutTarget = spawn.memory.scoutTarget[scoutTargetsIterator];
+      var scoutTargetFlag = Game.flags[scoutTarget.flagName];
+
+      i = 1;
+      for (; i <= scoutTarget.scoutCount+1; i++) {
+        var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
+        if(fnCreateCreep(newScoutName,harvestBody,{focus: scoutTargetFlag.id,role:"scout"})){
+          return;
+        }
+      }
+
+      i = 1;
+      for (; i <= scoutTarget.remoteTruckCount+1; i++) {
+        var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
+        if(fnCreateCreep(remoteTruckName,truckBody,{focus: scoutTargetFlag.id,role:"remoteTruck"})){
+          return;
+        }
+      }
+    }
+  }
+
   if(spawn.memory.assaultCount){
     var assaultBodies = [
       {
