@@ -255,18 +255,13 @@ module.exports = function (spawn) {
   }
 
   if(spawn.memory.scoutTargets){
-    console.log("ScoutTargets detected");
     for(var scoutTargetsIterator = 0 ; scoutTargetsIterator<spawn.memory.scoutTargets.length ; scoutTargetsIterator++){
-console.log("getting a scoutTarget from backlog");
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
-console.log(JSON.stringify(scoutTarget));
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
-      console.log(JSON.stringify(scoutTargetFlag));
 
       i = 1;
       for (; i <= scoutTarget.scoutCount+1; i++) {
         var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
-console.log("new name is " + newScoutName);
         if(fnCreateCreep(newScoutName,harvestBody,{focus: scoutTargetFlag.id,role:"scout"})){
           return;
         }
