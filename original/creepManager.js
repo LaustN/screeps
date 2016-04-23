@@ -245,7 +245,7 @@ module.exports = function (spawn) {
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
 
       i = 1;
-      for (; i <= scoutTarget.scoutCount+1; i++) {
+      for (; i <= scoutTarget.scoutCount; i++) {
         var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
         if(fnCreateCreep(newScoutName,harvestBody,{focus: scoutTargetFlag.id,role:"scout"})){
           return;
@@ -253,7 +253,7 @@ module.exports = function (spawn) {
       }
 
       i = 1;
-      for (; i <= scoutTarget.remoteTruckCount+1; i++) {
+      for (; i <= scoutTarget.remoteTruckCount; i++) {
         var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
         if(fnCreateCreep(remoteTruckName,truckBody,{focus: scoutTargetFlag.id,role:"remoteTruck"})){
           return;
