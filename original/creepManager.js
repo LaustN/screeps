@@ -258,7 +258,7 @@ module.exports = function (spawn) {
     console.log("ScoutTargets detected");
     for(var scoutTargetsIterator = 0 ; scoutTargetsIterator<spawn.memory.scoutTargets.length ; scoutTargetsIterator++){
 console.log("getting a scoutTarget from backlog");
-      var scoutTarget = spawn.memory.scoutTarget[scoutTargetsIterator];
+      var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
 console.log(JSON.stringify(scoutTarget));
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
       console.log(JSON.stringify(scoutTargetFlag));
