@@ -6,7 +6,7 @@ console.log("Too full");
       return false; //do not raze on a full stomach
     }
     var razeFlag = Game.flags[razeTarget];
-    if(razeFlag){
+    if(razeFlag != null){
       console.log("found a flag");
       var razeRange = 0;
       if(creep.memory.razeRange){
