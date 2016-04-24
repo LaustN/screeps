@@ -1,10 +1,13 @@
 module.exports = function(creep){
   if(creep.memory.razeTarget){
+console.log("Razing");
     if(creep.carryCapacity > 0 && _.sum(creep.carry)  == creep.carryCapacity){
+console.log("Too full");
       return false; //do not raze on a full stomach
     }
     var razeFlag = Game.flags[razeTarget];
     if(razeFlag){
+      console.log("found a flag");
       var razeRange = 0;
       if(creep.memory.razeRange){
         razeRange = creep.memory.razeRange;
@@ -12,6 +15,7 @@ module.exports = function(creep){
       else {
         creep.memory.razeRange = 0;
       }
+      console.log("Raze range is " + razeRange);
       var razeTarget = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: function(structure){
         if (structure.my) {
           return false;
