@@ -6,6 +6,7 @@ console.log("Too full");
       return false; //do not raze on a full stomach
     }
     var razeFlag = Game.flags[razeTarget];
+    console.log(razeFlag);
     if(razeFlag != null){
       console.log("found a flag");
       var razeRange = 0;
