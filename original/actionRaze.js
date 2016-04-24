@@ -17,7 +17,7 @@ console.log("Too full");
         creep.memory.razeRange = 0;
       }
       console.log("Raze range is " + razeRange);
-      var razeTarget = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: function(structure){
+      var razeTarget = razeFlag.pos.findClosestByRange(FIND_STRUCTURES, {filter: function(structure){
         if (structure.my) {
           return false;
         }
