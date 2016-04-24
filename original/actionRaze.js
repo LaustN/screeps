@@ -21,7 +21,7 @@ console.log("Too full");
         if (structure.my) {
           return false;
         }
-        if (creep.pos.getRangeTo(structure) <=razeRange) {
+        if (razeFlag.pos.getRangeTo(structure) <=razeRange) {
           return true;
         }
         return false;
