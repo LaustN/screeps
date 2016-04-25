@@ -31,7 +31,6 @@ module.exports = function(creep){
     var findOtherSource = function(){
       var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter: function(source){ return source.id != harvestTarget.id }});
       if(alternativeSource) {
-        console.log(creep.name + " is now targeting " + alternativeSource.pos);
         creep.memory.focus = alternativeSource.id;
       }
     }
