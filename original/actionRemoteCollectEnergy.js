@@ -53,6 +53,20 @@ module.exports = function(creep){
         return true;
       }
 
+      localUnloadingScout = creep.pos.findClosestByRange(FIND_MY_CREEPS,{filter : function(creep){
+        if(creep.carry.RESOURCE_ENERGY > 0 && creep.carryCapacity > 0 && creep.memory.dropoff && creep.memory.role == "scout"){
+          return true;
+        }
+        return false;
+      }});
+
+      if(localUnloadingScout){
+        if(localUnloadingScout.transferEnergy(creep)!=OK){
+          creep.moveTo(localUnloadingScout);
+        }
+        return true;
+      }
+
       //getting all the way down here means that we did not find any local energy, so drop what we have at home
       if(creep.energy > 0){
         creep.memory.collectingEnergy = false;
