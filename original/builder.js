@@ -8,8 +8,8 @@ module.exports = function (creep) {
 
     if(actionFlee(creep))
         return;
-    if(actionRenew(creep))
-        return;
+//    if(actionRenew(creep))
+//        return;
     if(actionCollectEnergy(creep))
         return;
     if(actionBuild(creep))

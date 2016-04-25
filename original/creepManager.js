@@ -150,20 +150,20 @@ module.exports = function (spawn) {
     }
   }
 
-  var fnSuicideNamedCreep = function(creepName){
-    var suicidingCreep = Game.creeps[creepName];
-    if(suicidingCreep){
-      console.log("Suiciding " + creepName);
-      suicidingCreep.suicide();
-    }
-  }
-
-  for (; i <= maxWorkerCount+10; i++) {
-    var newHarvesterName = spawn.name +  "Harvest" + i;
-    fnSuicideNamedCreep(newHarvesterName);
-    var newTruckName = spawn.name + "Truck" + i;
-    fnSuicideNamedCreep(newTruckName);
-  }
+  // var fnSuicideNamedCreep = function(creepName){
+  //   var suicidingCreep = Game.creeps[creepName];
+  //   if(suicidingCreep){
+  //     console.log("Suiciding " + creepName);
+  //     suicidingCreep.suicide();
+  //   }
+  // }
+  //
+  // for (; i <= maxWorkerCount+10; i++) {
+  //   var newHarvesterName = spawn.name +  "Harvest" + i;
+  //   fnSuicideNamedCreep(newHarvesterName);
+  //   var newTruckName = spawn.name + "Truck" + i;
+  //   fnSuicideNamedCreep(newTruckName);
+  // }
 
   for (var i = 0; i < maxWorkerCount && i < sources.length; i++) {
     var harvesterName = spawn.name +  "Harvest" + (i+1);
@@ -185,19 +185,13 @@ module.exports = function (spawn) {
       body: harvestBody,
       name: "Fortifier",
       memory: {
-        role: "fortifier"
+        role: "fortifier",
+        scavengeRange: 50
       }
     },
     {
       body: harvestBody,
       name: "ControlUpgrader",
-      memory: {
-        role: "controlUpgrader"
-      }
-    },
-    {
-      body: harvestBody,
-      name: "ControlUpgraderAssist",
       memory: {
         role: "controlUpgrader"
       }
@@ -211,20 +205,21 @@ module.exports = function (spawn) {
     },
   ];
 
-
-  for(var creepNumber in creepsToMaintain){
-    var creepDefinition = creepsToMaintain[creepNumber];
-    var newCreepName = spawn.name +  creepDefinition.name;
-    if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
-      return;
+  for (var sourceCountIterator = 1; sourceCountIterator <= sourcesCount; sourceCountIterator++) {
+    for(var creepNumber in creepsToMaintain){
+      var creepDefinition = creepsToMaintain[creepNumber];
+      var newCreepName = spawn.name +  creepDefinition.name + sourceCountIterator;
+      if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
+        return;
+      }
     }
-  }
 
-  for(var creepNumber in creepsToMaintain){
-    var creepDefinition = creepsToMaintain[creepNumber];
-    var newCreepName = spawn.name +  creepDefinition.name;
-    if(fnCullCreep(newCreepName,creepDefinition.body)){
-      return;
+    for(var creepNumber in creepsToMaintain){
+      var creepDefinition = creepsToMaintain[creepNumber];
+      var newCreepName = spawn.name +  creepDefinition.name + sourceCountIterator;
+      if(fnCullCreep(newCreepName,creepDefinition.body)){
+        return;
+      }
     }
   }
 

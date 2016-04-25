@@ -7,8 +7,8 @@ module.exports = function (creep) {
 
     if(actionFlee(creep))
         return;
-    if(actionRenew(creep))
-        return;
+//    if(actionRenew(creep))
+//        return;
     if(actionScavenge(creep))
         return;
     if(actionRemoteCollectEnergy(creep))

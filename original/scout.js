@@ -12,8 +12,8 @@ module.exports = function (creep) {
 
   if(actionFlee(creep))
     return;
-  if(actionRenew(creep))
-    return;
+//  if(actionRenew(creep))
+//    return;
   if(actionScout(creep))
     return;
   if(actionScavenge(creep))
