@@ -40,7 +40,6 @@ module.exports = function(creep){
             bestCarrier = currentCarrier;
           }
         }
-        console.log(creep.name + " is getting some energy from " + bestCarrier.name);
         bestCarrier.transferEnergy(creep);
         return true;
       }
@@ -64,7 +63,7 @@ module.exports = function(creep){
       return true;
     }
     else{
-      creep.say("not collecting right now"); 
+      creep.say("not collecting right now");
       var nearbyPosition = new RoomPosition(home.pos.x + 5, home.pos.y + 5, home.pos.roomName ) ;
       creep.moveTo(nearbyPosition);
       return true;
