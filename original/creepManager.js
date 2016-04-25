@@ -269,13 +269,13 @@ module.exports = function (spawn) {
       var resultingBody  =[];
       while (true) {
         for (var assaultPartsIterator = 0; assaultPartsIterator < assaultParts.length; assaultPartsIterator++) {
-          if(remainingCapacity < 50){
+          if(remainingAssaultBodyCapacity < 50){
             return resultingBody;
           }
           var nextPart =  assaultParts[assaultPartsIterator];
-          if (nextPart.cost <= remainingCapacity) {
+          if (nextPart.cost <= remainingAssaultBodyCapacity) {
             resultingBody.unshift(nextPart.part)
-            remainingCapacity-=nextPart.cost;
+            remainingAssaultBodyCapacity-=nextPart.cost;
           }
         }
       }
