@@ -9,7 +9,7 @@ module.exports = function(creep){
       if(moveMessage != OK && moveMessage != ERR_TIRED ){
         return false;
       }
-      return true;
     }
+    return true;
   }
 }
