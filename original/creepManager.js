@@ -106,7 +106,7 @@ module.exports = function (spawn) {
   }
 
   if(fnCreateCreep(
-    "Tiny",
+    spawn.name + "Tiny",
     [CARRY,CARRY,MOVE,MOVE],
     {
       role: "redistributor",
