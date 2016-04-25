@@ -35,30 +35,16 @@ module.exports = function (spawn) {
   //each worker part harvests 2 energy per tick
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
-  var harvestBody = [CARRY,MOVE];
-  var truckBody = [CARRY,MOVE];
+  var harvestBody = [];
+  var truckBody = [];
   var workerPartsPerWorker = 0;
-  var remainingCapacity = capacity - 100;
+  var remainingCapacity = capacity;
 
-  if(capacity > 400){
-    harvestBody = [CARRY,CARRY,MOVE,MOVE];
-    truckBody = [CARRY,CARRY,MOVE,MOVE];
-    remainingCapacity = capacity - 200;
-  }
-  if(capacity > 600){
-    harvestBody = [CARRY,CARRY,CARRY,MOVE,MOVE,MOVE];
-    truckBody = [CARRY,CARRY,CARRY,MOVE,MOVE,MOVE];
-    remainingCapacity = capacity - 300;
-  }
-  var keepAddingParts = true;
-  while (remainingCapacity>=100 && keepAddingParts) {
-    remainingCapacity -= 100;
-    workerPartsPerWorker++;
-    if(workerPartsPerWorker>=5){
-      keepAddingParts = false;
-    }
-    harvestBody.unshift(WORK);
-    truckBody.unshift(CARRY,MOVE);
+  while (remainingCapacity>=300) {
+    remainingCapacity -= 300;
+    harvestBody.unshift(WORK,WORK,CARRY,MOVE);
+    truckBody.unshift(CARRY,MOVE,CARRY,MOVE,CARRY,MOVE);
+    workerPartsPerWorker += 2;
   }
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
