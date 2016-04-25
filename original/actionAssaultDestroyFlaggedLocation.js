@@ -8,15 +8,14 @@ module.exports = function(creep){
         }
         return true;
       }});
-      if(targetStructure != null){
+      if(targetStructure != null && targetStructure.length > 0){
         creep.say("KILL!!!");
-        console.log(JSON.stringify(targetStructure));
-        creep.moveTo(targetStructure);
-        creep.attack(targetStructure);
-        creep.rangedAttack (targetStructure);
+        console.log(JSON.stringify(targetStructure[0]));
+        creep.moveTo(targetStructure[0]);
+        creep.attack(targetStructure[0]);
+        creep.rangedAttack (targetStructure[0]);
+        return true;
       }
-      creep.moveTo(targetFlag);
-      return true;
     }
   }
 }
