@@ -54,7 +54,7 @@ module.exports = function(creep){
       }
 
       localUnloadingScout = creep.pos.findClosestByRange(FIND_MY_CREEPS,{filter : function(creep){
-        if(creep.carry.RESOURCE_ENERGY > 0 && creep.carryCapacity > 0 && creep.memory.dropoff && creep.memory.role == "scout"){
+        if(creep.carryCapacity > 0 && creep.carry[RESOURCE_ENERGY] > 0 && creep.memory.dropoff && creep.memory.role == "scout"){
           return true;
         }
         return false;
