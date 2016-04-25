@@ -196,6 +196,13 @@ module.exports = function (spawn) {
       }
     },
     {
+      body: harvestBody,
+      name: "ControlUpgraderAssist",
+      memory: {
+        role: "controlUpgrader"
+      }
+    },
+    {
       body: truckBody,
       name: "Redistributor",
       memory: {
