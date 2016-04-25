@@ -282,7 +282,7 @@ module.exports = function (spawn) {
     }
 
     var assaultBody = fnAssaultBodyBuild();
-    console.log(JSON.stringify("assaultBody is " + assaultBody));
+    console.log("assaultBody is " + JSON.stringify(assaultBody));
 
     i=1;
     for (; i <= spawn.memory.assaultCount; i++) {
