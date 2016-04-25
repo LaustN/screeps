@@ -282,8 +282,6 @@ module.exports = function (spawn) {
     }
 
     var assaultBody = fnAssaultBodyBuild();
-    console.log("assaultBody is " + JSON.stringify(assaultBody));
-
     i=1;
     for (; i <= spawn.memory.assaultCount; i++) {
       var newAssaultName = spawn.name +  "Assault" + i;
