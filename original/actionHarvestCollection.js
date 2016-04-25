@@ -47,7 +47,7 @@ module.exports = function(creep){
 
 
   if(!harvestingCreep){
-    console.log(creep.name + " failed to find a creep to collect energy from");
+    creep.say("C?");
     creep.moveTo(getFocusObject(creep));
   }
 
