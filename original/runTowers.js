@@ -9,9 +9,9 @@ module.exports = function () {
 
             }
             else {
-
-
-            var woundedFriend = tower.pos.findClosestByRange(FIND_MY_CREEPS);
+            var woundedFriend = tower.pos.findClosestByRange(FIND_MY_CREEPS,{filter: function(creep){
+              return creep.hits < creep.hitsMax;
+            }});
             if(woundedFriend){
                 tower.heal(woundedFriend);
             }
