@@ -10,6 +10,7 @@ module.exports = function(creep){
       }});
       if(targetStructure != null){
         creep.say("KILL!!!");
+        console.log(JSON.stringify(targetStructure));
         creep.moveTo(targetStructure);
         creep.attack(targetStructure);
         creep.rangedAttack (targetStructure);
