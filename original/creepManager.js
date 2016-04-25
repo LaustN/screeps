@@ -105,6 +105,18 @@ module.exports = function (spawn) {
     return false;
   }
 
+  if(fnCreateCreep(
+    "Tiny",
+    [CARRY,CARRY,MOVE,MOVE],
+    {
+      role: "redistributor",
+      scavengeRange: 50
+    })){
+    return;
+  }
+
+
+
   var i = 1;
   for (; i <= maxWorkerCount; i++) {
     var newHarvesterName = spawn.name +  "Harvest" + i;
