@@ -64,9 +64,9 @@ module.exports = function(creep){
       return true;
     }
     else{
-      if(creep.pos.getRangeTo(home) > 5){
-        creep.moveTo(home);
-      }
+      creep.say("not collecting right now"); 
+      var nearbyPosition = new RoomPosition(home.pos.x + 5, home.pos.y + 5, home.pos.roomName ) ;
+      creep.moveTo(nearbyPosition);
       return true;
     }
 

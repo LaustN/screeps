@@ -183,21 +183,7 @@ module.exports = function (spawn) {
     },
     {
       body: harvestBody,
-      name: "BuilderAssistant",
-      memory: {
-        role: "builder"
-      }
-    },
-    {
-      body: harvestBody,
       name: "Fortifier",
-      memory: {
-        role: "fortifier"
-      }
-    },
-    {
-      body: harvestBody,
-      name: "FortifierAssistant",
       memory: {
         role: "fortifier"
       }
@@ -216,14 +202,6 @@ module.exports = function (spawn) {
         role: "redistributor"
       }
     },
-    {
-      body: harvestBody,
-      name: "Scout1",
-      memory: {
-        role: "scout",
-        focus: "571140dfa51212a07686b0e3"
-      }
-    },
   ];
 
 
@@ -240,6 +218,33 @@ module.exports = function (spawn) {
     var newCreepName = spawn.name +  creepDefinition.name;
     if(fnCullCreep(newCreepName,creepDefinition.body)){
       return;
+    }
+  }
+
+  if(!spawn.memory.scoutTargets){
+    spawn.memory.scoutTargets = [{flagName:"[FlagName]", scoutCount:0,remoteTruckCount:0}]
+  }
+
+  if(spawn.memory.scoutTargets){
+    for(var scoutTargetsIterator = 0 ; scoutTargetsIterator<spawn.memory.scoutTargets.length ; scoutTargetsIterator++){
+      var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
+      var scoutTargetFlag = Game.flags[scoutTarget.flagName];
+
+      i = 1;
+      for (; i <= scoutTarget.scoutCount; i++) {
+        var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
+        if(fnCreateCreep(newScoutName,harvestBody,{focus: scoutTargetFlag.id,role:"scout"})){
+          return;
+        }
+      }
+
+      i = 1;
+      for (; i <= scoutTarget.remoteTruckCount; i++) {
+        var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
+        if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName})){
+          return;
+        }
+      }
     }
   }
 

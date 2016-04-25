@@ -2,6 +2,11 @@ module.exports = function(creep) {
   var target = Game.getObjectById(creep.memory.chosenTargetId);
 
   if(!target){
+
+    var controllerLevel = 0;
+    if(creep.room.controller && creep.room.controller.my){
+      controllerLevel = creep.room.controller.level;
+    }
     var targets = creep.room.find(FIND_STRUCTURES,
       { filter: function(structure){
 
@@ -18,7 +23,7 @@ module.exports = function(creep) {
         if(structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART && structure.hits<structure.hitsMax){
           return true;
         }
-        if(structure.hits > 100000){
+        if(structure.hits > 20000 * controllerLevel){
           return false;
         }
         if(structure.structureType == STRUCTURE_WALL)
