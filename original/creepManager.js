@@ -45,6 +45,9 @@ module.exports = function (spawn) {
     harvestBody.unshift(WORK,WORK,CARRY,MOVE);
     truckBody.unshift(CARRY,MOVE,CARRY,MOVE,CARRY,MOVE);
     workerPartsPerWorker += 2;
+    if(workerPartsPerWorker>=8){
+      remainingCapacity = 0; //massive workers seem to cause trouble for the economy
+    }
   }
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
@@ -135,33 +138,6 @@ module.exports = function (spawn) {
       return;
     }
   }
-
-  i = 1;
-  for (; i <= maxWorkerCount; i++) {
-    var newHarvesterName = spawn.name +  "Harvest" + i;
-    if(fnCullCreep(newHarvesterName,harvestBody)){
-      return;
-    }
-    var newTruckName = spawn.name + "Truck" + i;
-    if(fnCullCreep(newTruckName, truckBody)){
-      return;
-    }
-  }
-
-  // var fnSuicideNamedCreep = function(creepName){
-  //   var suicidingCreep = Game.creeps[creepName];
-  //   if(suicidingCreep){
-  //     console.log("Suiciding " + creepName);
-  //     suicidingCreep.suicide();
-  //   }
-  // }
-  //
-  // for (; i <= maxWorkerCount+10; i++) {
-  //   var newHarvesterName = spawn.name +  "Harvest" + i;
-  //   fnSuicideNamedCreep(newHarvesterName);
-  //   var newTruckName = spawn.name + "Truck" + i;
-  //   fnSuicideNamedCreep(newTruckName);
-  // }
 
   for (var i = 0; i < maxWorkerCount && i < sources.length; i++) {
     var harvesterName = spawn.name +  "Harvest" + (i+1);
