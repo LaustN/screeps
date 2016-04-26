@@ -2,7 +2,7 @@ module.exports = function (creep) {
   if(creep.carry.energy == 0){
     return false;
   }
-  var target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES,{
+  var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES,{
     filter:function(constructionSite){
       return constructionSite.structureType != STRUCTURE_ROAD
     }});
