@@ -13,7 +13,7 @@ module.exports = function(creep){
       if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
           creep.moveTo(target);
       }
-      creep.say("S" + target.pos.x + ";" + target.pos.y);
+      creep.say("S" + (target.pos.x - creep.pos.x) + ";" + (target.pos.y - creep.pos.y));
       return true;
   }
 }

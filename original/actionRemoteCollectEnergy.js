@@ -20,7 +20,6 @@ module.exports = function(creep){
     if(focusObject){
       if(creep.pos.roomName != focusObject.pos.roomName){
         var moveMessage = creep.moveTo(focusObject);
-        creep.say(moveMessage);
         return true;
       }
 
