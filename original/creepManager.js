@@ -179,10 +179,14 @@ module.exports = function (spawn) {
     },
   ];
 
-  for (var sourceCountIterator = 1; sourceCountIterator <= sourcesCount; sourceCountIterator++) {
+  if(!spawn.memory.workerLayers){
+    spawn.memory.workerLayers = 1;
+  }
+
+  for (var workerLayersIterator = 1; workerLayersIterator <= spawn.memory.workerLayers; workerLayersIterator++) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
-      var newCreepName = spawn.name +  creepDefinition.name + sourceCountIterator;
+      var newCreepName = spawn.name +  creepDefinition.name + workerLayersIterator;
       if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
         return;
       }
@@ -190,7 +194,7 @@ module.exports = function (spawn) {
 
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
-      var newCreepName = spawn.name +  creepDefinition.name + sourceCountIterator;
+      var newCreepName = spawn.name +  creepDefinition.name + workerLayersIterator;
       if(fnCullCreep(newCreepName,creepDefinition.body)){
         return;
       }
