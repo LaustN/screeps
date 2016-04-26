@@ -64,7 +64,6 @@ module.exports = function(creep) {
       creep.moveTo(target);
     }
     else if(repairMessage != OK){
-      console.log("Unexpected repair message: " + repairMessage + " from " + creep.name);
       creep.memory.chosenTargetId = null;
     }
     else{
