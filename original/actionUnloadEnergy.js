@@ -39,8 +39,10 @@ module.exports = function(creep){
       }
     }
 
+    console.log("focus is " + creep.memory.focus);
   if(creep.memory.focus){
     var focusObject = Game.getObjectById(creep.memory.focus);
+    console.log(JSON.stringify(focusObject));
     if(focusObject && focusObject.pos.roomName != creep.pos.roomName){
       creep.drop(RESOURCE_ENERGY);  //we are no longer in the focused room, so just dump + assume that somecreep else will collect
     }
