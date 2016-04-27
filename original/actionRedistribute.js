@@ -25,14 +25,21 @@ module.exports = function(creep){
     if(creep.carry.energy != 0){
       return false;
     }
-    for(var storageIndex in storages){
-      var storage = storages[storageIndex];
-      if(storage.store[RESOURCE_ENERGY] > 0){
-        if(storage.transfer(creep,RESOURCE_ENERGY) != OK){
-          creep.moveTo(storage);
-        }
+
+    var nearestStorage = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
+      if(structure.structureType == STRUCTURE_STORAGE && structure.store[RESOURCE_ENERGY]>0){
         return true;
       }
+      if(structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY]>0){
+        return true;
+      }
+    }});
+
+    if(nearestStorage!=null){
+      if(nearestStorage.transfer(creep,RESOURCE_ENERGY) != OK){
+        creep.moveTo(storage);
+      }
+      return true;
     }
   };
 

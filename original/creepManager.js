@@ -111,7 +111,16 @@ module.exports = function (spawn) {
   }
 
   if(fnCreateCreep(
-    spawn.name + "Tiny",
+    spawn.name + "TinyHarvest",
+    [WORK,CARRY,CARRY,MOVE,MOVE],
+    {
+      role: "harvester"
+    })){
+    return;
+  }
+
+  if(fnCreateCreep(
+    spawn.name + "TinyRedist",
     [CARRY,CARRY,MOVE,MOVE],
     {
       role: "redistributor",
@@ -119,8 +128,6 @@ module.exports = function (spawn) {
     })){
     return;
   }
-
-
 
   var i = 1;
   for (; i <= maxWorkerCount; i++) {
