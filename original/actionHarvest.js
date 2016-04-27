@@ -37,7 +37,7 @@ module.exports = function(creep){
           if(source.energy == 0){
             return false; //do not accept empty sources
           }
-          
+
           for (var xIterator = -1; xIterator <= 1; xIterator++) {
             for (var yIterator = -1; yIterator <= 1; yIterator++) {
               var checkPos = new RoomPosition(source.pos.x + xIterator, source.pos.y + yIterator, source.pos.roomName);
@@ -45,7 +45,6 @@ module.exports = function(creep){
               if(terrain == "plain" || terrain == "swamp"){
                 var creepsAtCheckPos = checkPos.lookFor("creep");
                 if(creepsAtCheckPos.length == 0){
-                  console.log("Found " + terrain + " at " + checkPos + " and no creeps");
                   return true;
                 }
               }
