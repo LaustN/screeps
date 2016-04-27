@@ -39,15 +39,15 @@ module.exports = function(creep){
       }
     }
 
-  if(creep.memory.focus && creep.name == "Spawn1NorwayScout2"){
-    console.log("focus is " + creep.memory.focus);
-    var focusObject = Game.getObjectById(creep.memory.focus);
-    console.log("focus.pos=" + JSON.stringify(focusObject.pos));
-    console.log("creep.pos=" + JSON.stringify(creep.pos));
-    if(focusObject && focusObject.pos.roomName != creep.pos.roomName){
-      creep.drop(RESOURCE_ENERGY);  //we are no longer in the focused room, so just dump + assume that somecreep else will collect
+    if(creep.memory.focus && creep.name == "Spawn1NorwayScout2"){
+      console.log("focus is " + creep.memory.focus);
+      var focusObject = Game.getObjectById(creep.memory.focus);
+      console.log("focus.pos=" + JSON.stringify(focusObject.pos));
+      console.log("creep.pos=" + JSON.stringify(creep.pos));
+      if(focusObject && focusObject.pos.roomName != creep.pos.roomName){
+        creep.drop(RESOURCE_ENERGY);  //we are no longer in the focused room, so just dump + assume that somecreep else will collect
+      }
     }
-  }
 
     return true;
   }
