@@ -37,7 +37,7 @@ module.exports = function(creep){
 
     if(nearestStorage!=null){
       if(nearestStorage.transfer(creep,RESOURCE_ENERGY) != OK){
-        creep.moveTo(storage);
+        creep.moveTo(nearestStorage);
       }
       return true;
     }
