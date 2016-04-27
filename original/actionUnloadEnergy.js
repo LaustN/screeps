@@ -40,7 +40,7 @@ module.exports = function(creep){
     }
 
     console.log("focus is " + creep.memory.focus);
-  if(creep.memory.focus){
+  if(creep.memory.focus && creep.name == "Spawn1NorwayScout1"){
     var focusObject = Game.getObjectById(creep.memory.focus);
     console.log(JSON.stringify(focusObject));
     if(focusObject && focusObject.pos.roomName != creep.pos.roomName){
