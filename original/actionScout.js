@@ -1,5 +1,9 @@
 module.exports = function(creep){
   if(creep.memory.focus){
+    if (creep.memory.dropoff) {
+      return false; //do not run to remote rooms for dropoff
+    }
+
     if (creep.carry.energy == creep.carryCapacity) {
       return false;  //do not scout on a full stomach
     }
