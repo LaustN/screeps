@@ -28,7 +28,6 @@ module.exports = function(creep){
       }
     });
 
-
     if (!dropoff) {
       dropoff = Game.getObjectById(creep.memory.home);
     }
@@ -39,6 +38,14 @@ module.exports = function(creep){
         creep.moveTo(dropoff);
       }
     }
+
+  if(creep.memory.focus){
+    var focusObject = Game.getObjectById(creep.memory.focus);
+    if(focusObject && focusObject.pos.roomName != creep.pos.roomName){
+      creep.drop(RESOURCE_ENERGY);  //we are no longer in the focused room, so just dump + assume that somecreep else will collect
+    }
+  }
+
     return true;
   }
 }
