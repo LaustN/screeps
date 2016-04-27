@@ -29,7 +29,30 @@ module.exports = function(creep){
     }
 
     var findOtherSource = function(){
-      var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter: function(source){ return source.id != harvestTarget.id }});
+      var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter:
+        function(source){
+          if (source.id == harvestTarget.id) {
+            return false; //do not accept the source currently in focus
+          }
+          if(source.energy == 0){
+            return false; //do not accept empty sources
+          }
+          for (var xIterator = -1; xIterator <= 1; xIterator++) {
+            for (var yIterator = -1; yIterator <= 1; yIterator++) {
+              var checkPos = new RoomPosition(source.pos.x + xIterator, source.pos.y + yIterator, source.pos.roomName);
+              var terrain = checkPos.lookFor("terrain");
+              if(terrain == "plain" || terrain == "swamp"){
+                var creepsAtCheckPos = checkPos.lookFor("creep");
+                if(creepsAtCheckPos.length == 0){
+                  console.log("Found " + terrain + " at " checkPos + " and no creeps");
+                  return true;
+                }
+              }
+            }
+          }
+          return source.id != harvestTarget.id ;
+        }
+      });
       if(alternativeSource) {
         creep.memory.focus = alternativeSource.id;
       }
