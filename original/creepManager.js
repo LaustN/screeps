@@ -200,14 +200,6 @@ module.exports = function (spawn) {
         return;
       }
     }
-
-    for(var creepNumber in creepsToMaintain){
-      var creepDefinition = creepsToMaintain[creepNumber];
-      var newCreepName = spawn.name +  creepDefinition.name + workerLayersIterator;
-      if(fnCullCreep(newCreepName,creepDefinition.body)){
-        return;
-      }
-    }
   }
 
   if(!spawn.memory.scoutTargets){
@@ -275,9 +267,6 @@ module.exports = function (spawn) {
     for (; i <= spawn.memory.assaultCount; i++) {
       var newAssaultName = spawn.name +  "Assault" + i;
       if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:"AssaultFlag"})){
-        return;
-      }
-      if(fnCullCreep(newAssaultName,assaultBody)){
         return;
       }
     }
