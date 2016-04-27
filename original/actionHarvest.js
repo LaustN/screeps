@@ -51,8 +51,7 @@ module.exports = function(creep){
             }
           }
           return source.id != harvestTarget.id ;
-        }
-      });
+        }});
       if(alternativeSource) {
         creep.memory.focus = alternativeSource.id;
       }
