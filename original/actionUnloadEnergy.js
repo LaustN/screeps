@@ -39,7 +39,7 @@ module.exports = function(creep){
       }
     }
 
-  if(creep.memory.focus && creep.name == "Spawn1NorwayScout1"){
+  if(creep.memory.focus && creep.name == "Spawn1NorwayScout2"){
     console.log("focus is " + creep.memory.focus);
     var focusObject = Game.getObjectById(creep.memory.focus);
     console.log("focus.pos=" + JSON.stringify(focusObject.pos));
