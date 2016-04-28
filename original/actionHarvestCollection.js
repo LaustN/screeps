@@ -62,7 +62,7 @@ module.exports = function(creep){
     var directionToSource = creep.pos.getDirectionTo(nearbySource[0]);
     var moveDirection  = (directionToSource + 4) % 8;
     console.log("moving away from " + directionToSource + " in direction " + moveDirection);
-    creep.move(moveDirection);
+    console.log(  creep.move(moveDirection));
 
   }
 }
