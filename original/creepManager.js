@@ -175,9 +175,9 @@ module.exports = function (spawn) {
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
 
-      if(scoutTarget.memory.razeRange && scoutTarget.memory.razeRange > -1 && scoutTarget.memory.razeTarget){
-        newScoutMemory.razeTarget = scoutTarget.memory.razeTarget;
-        newScoutMemory.razeRange = scoutTarget.memory.razeRange;
+      if(scoutTarget.razeRange > -1 && scoutTarget.memory.razeTarget){
+        newScoutMemory.razeTarget = scoutTarget.razeTarget;
+        newScoutMemory.razeRange = scoutTarget.razeRange;
       }
 
       i = 1;
