@@ -56,4 +56,13 @@ module.exports = function(creep){
       creep.moveTo(harvestingCreep);
     }
   }
+
+  var nearbySource = creep.pos.findInRange(FIND_SOURCES,1)
+  if(nearbySource.length){
+    var directionToSource = creep.pos.getDirectionTo(nearbySource[0}]);
+    var moveDirection  = (directionToSource + 4) % 8;
+    console.log("moving away from " + directionToSource + " in direction " + moveDirection);
+    creep.move(moveDirection);
+
+  }
 }
