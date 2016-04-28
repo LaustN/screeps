@@ -54,42 +54,6 @@ module.exports = function (spawn) {
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
 
-  var fnCullCreep = function(name, body){
-    var existingCreep = Game.creeps[name];
-
-    if(existingCreep && existingCreep.spawning){
-      return false;
-    }
-
-    var extensionsBeingBuilt = spawn.room.find(FIND_MY_CONSTRUCTION_SITES,{filter:function(structure){
-      if(structure.structureType == "extension"){
-        return true;
-      }
-      return false;
-    }});
-    if(extensionsBeingBuilt.length>0){
-      //not culling anything while extensions are being built;
-      return;
-    }
-
-    if(existingCreep && existingCreep.body.length != body.length){
-      console.log("Suiciding " + existingCreep.name + " since it is differently sized than I want it to be");
-      existingCreep.suicide();
-      existingCreep = null;
-      return true;
-    }
-
-    for(var bodyIterator = 0; bodyIterator < body.length; bodyIterator++ ){
-      if(existingCreep.body[bodyIterator].type != body[bodyIterator]){
-        console.log("Suiciding " + existingCreep.name + " since it does not have the parts I want it to have");
-        existingCreep.suicide();
-        existingCreep = null;
-        return true;
-      }
-    }
-    return false;
-  }
-
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
 
@@ -203,7 +167,7 @@ module.exports = function (spawn) {
   }
 
   if(!spawn.memory.scoutTargets){
-    spawn.memory.scoutTargets = [{flagName:"[FlagName]", scoutCount:0,remoteTruckCount:0}]
+    spawn.memory.scoutTargets = [{flagName:"[FlagName]",razeRange:-1, scoutCount:0,remoteTruckCount:0}]
   }
 
   if(spawn.memory.scoutTargets){
@@ -214,7 +178,12 @@ module.exports = function (spawn) {
       i = 1;
       for (; i <= scoutTarget.scoutCount; i++) {
         var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
-        if(fnCreateCreep(newScoutName,harvestBody,{focus: scoutTargetFlag.id,role:"scout"})){
+        var newScoutMemory = {focus: scoutTargetFlag.id,role:"scout"};
+        if(scoutTarget.memory.razeRange > -1 && scoutTarget.memory.razeTarget){
+          newScoutMemory.razeTarget = scoutTarget.memory.razeTarget;
+          newScoutMemory.razeRange = scoutTarget.memory.razeRange;
+        }
+        if(fnCreateCreep(newScoutName,harvestBody,newScoutMemory)){
           return;
         }
       }

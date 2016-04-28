@@ -6,7 +6,6 @@ module.exports = function (creep) {
     var actionBuild = require("actionBuild");
     var actionUpgradeControl = require("actionUpgradeControl");
 
-
     if(actionFlee(creep))
         return;
 //    if(actionRenew(creep))
