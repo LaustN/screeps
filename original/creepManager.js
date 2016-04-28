@@ -174,26 +174,27 @@ module.exports = function (spawn) {
     for(var scoutTargetsIterator = 0 ; scoutTargetsIterator<spawn.memory.scoutTargets.length ; scoutTargetsIterator++){
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
-
-      var newScoutMemory = {focus: scoutTargetFlag.id,role:"scout"};
-      if(scoutTarget.razeRange > -1 && scoutTarget.razeTarget){
-        newScoutMemory.razeTarget = scoutTarget.razeTarget;
-        newScoutMemory.razeRange = scoutTarget.razeRange;
-      }
-
-      i = 1;
-      for (; i <= scoutTarget.scoutCount; i++) {
-        var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
-        if(fnCreateCreep(newScoutName,harvestBody,newScoutMemory)){
-          return;
+      if(scoutTargetFlag){
+        var newScoutMemory = {focus: scoutTargetFlag.id,role:"scout"};
+        if(scoutTarget.razeRange > -1 && scoutTarget.razeTarget){
+          newScoutMemory.razeTarget = scoutTarget.razeTarget;
+          newScoutMemory.razeRange = scoutTarget.razeRange;
         }
-      }
 
-      i = 1;
-      for (; i <= scoutTarget.remoteTruckCount; i++) {
-        var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
-        if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 20})){
-          return;
+        i = 1;
+        for (; i <= scoutTarget.scoutCount; i++) {
+          var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
+          if(fnCreateCreep(newScoutName,harvestBody,newScoutMemory)){
+            return;
+          }
+        }
+
+        i = 1;
+        for (; i <= scoutTarget.remoteTruckCount; i++) {
+          var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
+          if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 20})){
+            return;
+          }
         }
       }
     }
