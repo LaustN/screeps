@@ -175,14 +175,15 @@ module.exports = function (spawn) {
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
 
+      if(scoutTarget.memory.razeRange && scoutTarget.memory.razeRange > -1 && scoutTarget.memory.razeTarget){
+        newScoutMemory.razeTarget = scoutTarget.memory.razeTarget;
+        newScoutMemory.razeRange = scoutTarget.memory.razeRange;
+      }
+
       i = 1;
       for (; i <= scoutTarget.scoutCount; i++) {
         var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
         var newScoutMemory = {focus: scoutTargetFlag.id,role:"scout"};
-        if(scoutTarget.memory.razeRange > -1 && scoutTarget.memory.razeTarget){
-          newScoutMemory.razeTarget = scoutTarget.memory.razeTarget;
-          newScoutMemory.razeRange = scoutTarget.memory.razeRange;
-        }
         if(fnCreateCreep(newScoutName,harvestBody,newScoutMemory)){
           return;
         }
