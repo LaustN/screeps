@@ -16,9 +16,9 @@ module.exports = function (creep) {
 //    return;
   if(actionScout(creep))
     return;
-  if(actionScavenge(creep))
+    if(actionRaze(creep))
     return;
-  if(actionRaze(creep))
+  if(actionScavenge(creep))
     return;
   if(actionHarvest(creep))
     return;

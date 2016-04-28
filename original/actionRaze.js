@@ -30,6 +30,9 @@ module.exports = function(creep){
           creep.moveTo(razeTarget);
           creep.dismantle(razeTarget);
           creep.attack(razeTarget);
+          if(creep.carry.energy == creep.carryCapacity){
+            creep.drop(RESOURCE_ENERGY); //while breaking stuff, do not return anything. Let others do that!
+          }
           return true;
         }
         creep.memory.razing = false;
