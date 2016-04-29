@@ -14,6 +14,13 @@ module.exports = function (spawn) {
     {x:1,y:1},
   ];
 
+  var storedEnergyInRoom = function(room){
+      return
+      _.sum(_.map(Game.spawns.Spawn1.room.find(FIND_MY_STRUCTURES), "energy")) +
+      _.sum(_.map(Game.spawns.Spawn1.room.find(FIND_MY_STRUCTURES), "store.energy")) ;
+
+  }
+
   for(var sourceKey in sources){
     var source = sources[sourceKey];
     var initial = source.pos;
@@ -122,10 +129,10 @@ module.exports = function (spawn) {
 
   var creepsToMaintain = [
     {
-      body: harvestBody,
-      name: "Builder",
+      body: truckBody,
+      name: "Redistributor",
       memory: {
-        role: "builder"
+        role: "redistributor"
       }
     },
     {
@@ -138,16 +145,16 @@ module.exports = function (spawn) {
     },
     {
       body: harvestBody,
-      name: "ControlUpgrader",
+      name: "Builder",
       memory: {
-        role: "controlUpgrader"
+        role: "builder"
       }
     },
     {
-      body: truckBody,
-      name: "Redistributor",
+      body: harvestBody,
+      name: "ControlUpgrader",
       memory: {
-        role: "redistributor"
+        role: "controlUpgrader"
       }
     },
   ];
@@ -155,6 +162,9 @@ module.exports = function (spawn) {
   if(!spawn.memory.workerLayers){
     spawn.memory.workerLayers = 1;
   }
+
+  var maxMiscCount = Math.ceil(storedEnergyInRoom(spawn.room) / 2000) + 1;
+  console.log(spawn.room.name + " miscCount:" + maxMiscCount);
 
   for (var workerLayersIterator = 1; workerLayersIterator <= spawn.memory.workerLayers; workerLayersIterator++) {
     for(var creepNumber in creepsToMaintain){
