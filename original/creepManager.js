@@ -16,11 +16,8 @@ module.exports = function (spawn) {
 
   var storedEnergyInRoom = function(room){
     var energySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) ;
-    console.log("energySum=" + energySum);
     var storedEnergySum =       _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store.energy")) ;
-    console.log("storedEnergySum=" + storedEnergySum);
     return  energySum + storedEnergySum;
-
   }
 
   for(var sourceKey in sources){
@@ -168,13 +165,20 @@ module.exports = function (spawn) {
   var maxMiscCount = Math.ceil(storedEnergyInRoom(spawn.room) / 2000) + 1;
   console.log(spawn.room.name + " miscCount:" + maxMiscCount);
 
+  var spawnCount = 0;
+
   for (var workerLayersIterator = 1; workerLayersIterator <= spawn.memory.workerLayers; workerLayersIterator++) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
       var newCreepName = spawn.name +  creepDefinition.name + workerLayersIterator;
+      if(spawnCount > maxMiscCount){
+        console.log("Skipping ahead ");
+        break;
+      }
       if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
         return;
       }
+      spawnCount++;
     }
   }
 
