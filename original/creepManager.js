@@ -15,9 +15,11 @@ module.exports = function (spawn) {
   ];
 
   var storedEnergyInRoom = function(room){
-      return
-      _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) +
-      _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store.energy")) ;
+    var energySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) ;
+    console.log("energySum=" + energySum);
+    var storedEnergySum =       _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store.energy")) ;
+    console.log("storedEnergySum=" + storedEnergySum);
+    return  energySum + storedEnergySum;
 
   }
 
