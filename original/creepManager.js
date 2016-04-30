@@ -263,14 +263,21 @@ module.exports = function (spawn) {
   }
 
   if(spawn.memory.reserveRoomFlagNames.length > 0){
+    var maxReserveLayers = Math.floor(energyCapacityAvailable/700);
+    var reserverBody = [];
+    for (var i = 0; i < maxReserveLayers; i++) {
+      reserverBody.unshift(CLAIM,MOVE,MOVE);
+    }
     for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
       var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
       if(reserveRoomFlag){
-        var maxReserveLayers = Math.floor(energyCapacityAvailable/700);
-        var reserverBody = [];
-        for (var i = 0; i < maxReserveLayers; i++) {
-          reserverBody.unshift(CLAIM,MOVE,MOVE);
+        if (reserveRoomFlag.room.controller.my) {
+          continue;
         }
+        if (reserveRoomFlag.room.controller.reservation && reserveRoomFlag.room.controller.reservation.ticksToEnd > 1000 ) {
+          continue;
+        }
+
         if(fnCreateCreep(spawn.name + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
           return;
         }
