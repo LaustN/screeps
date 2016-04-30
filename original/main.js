@@ -16,6 +16,8 @@ var ensureHome = require("actionEnsureHome");
 var runTowers = require("runTowers");
 
 module.exports.loop = function () {
+  console.log("======================== tick " + Game.time + " ========================");
+
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
   }
