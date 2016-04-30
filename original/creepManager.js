@@ -257,7 +257,7 @@ module.exports = function (spawn) {
       var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
       i=1;
       for (; i <= assaultOrder.assaultCount; i++) {
-        var newAssaultName = spawn.name + assaultOrders.flagName  +  "Assault" + i;
+        var newAssaultName = spawn.name + assaultOrder.flagName  +  "Assault" + i;
         if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
           return;
         }
