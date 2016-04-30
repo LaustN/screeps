@@ -5,7 +5,6 @@ var healer = require("healer");
 var builder = require("builder");
 var fortifier = require("fortifier");
 var controlUpgrader = require("controlUpgrader");
-var roadie = require("roadie");
 var redistributor = require("redistributor");
 var scout = require("scout");
 var assault = require("assault");
@@ -23,7 +22,7 @@ module.exports.loop = function () {
   runTowers();
   var rolenames = [
     "harvester","harvestTruck","guard","healer","builder","fortifier",
-    "controlUpgrader","roadie","redistributor","scout","assault","claimer",
+    "controlUpgrader","redistributor","scout","assault","claimer",
     "remoteTruck"];
   var roles = {};
 
