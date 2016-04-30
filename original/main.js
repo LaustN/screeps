@@ -21,6 +21,17 @@ module.exports.loop = function () {
     creepManager(Game.spawns[spawnName]);
   }
   runTowers();
+  var roleNames = [
+    "harvester","harvestTruck","guard","healer","builder","fortifier",
+    "controlUpgrader","roadie","redistributor","scout","assault","claimer",
+    "remoteTruck"];
+  var roles = {};
+
+  for (var i = 0; i < rolenames.length; i++) {
+     roles[rolenames[i]] = require(rolenames[i]);
+  }
+
+
 
   //remember the idea of making rooms override decisions for creeps in defensive situations and such
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
