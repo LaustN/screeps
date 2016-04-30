@@ -214,7 +214,11 @@ module.exports = function (spawn) {
     }
   }
 
-  if(spawn.memory.assaultCount){
+  if(!spawn.memory.assaultOrders){
+    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0}];
+  }
+
+  if(spawn.memory.assaultOrders.length > 0){
 
     var fnAssaultBodyBuild = function(){
       var remainingAssaultBodyCapacity = capacity;
@@ -248,14 +252,17 @@ module.exports = function (spawn) {
     }
 
     var assaultBody = fnAssaultBodyBuild();
-    i=1;
-    for (; i <= spawn.memory.assaultCount; i++) {
-      var newAssaultName = spawn.name +  "Assault" + i;
-      if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:"AssaultFlag"})){
-        return;
+
+    for (var assaultOrderIndex in spawn.memory.assaultOrders) {
+      var assaultOrder =  spawn.memory.assaultOrders
+      i=1;
+      for (; i <= assaultOrder.assaultCount; i++) {
+        var newAssaultName = spawn.name +  "Assault" + i;
+        if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
+          return;
+        }
       }
     }
-
   }
 
   if(!spawn.memory.reserveRoomFlagNames){
