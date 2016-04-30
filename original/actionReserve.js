@@ -1,6 +1,6 @@
 module.exports = function(creep){
   var reservationFlag = Game.flags[creep.memory.focus];
-  if(creep.room.roomName != reservationFlag.room.name ){
+  if(creep.pos.roomName != reservationFlag.pos.roomName ){
     creep.moveTo(reservationFlag);
   }
   else if(creep.reserveController(creep.room.controller)!= OK){
