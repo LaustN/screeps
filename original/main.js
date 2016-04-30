@@ -43,7 +43,7 @@ module.exports.loop = function () {
       role(creep);
     }
     else {
-      console.log("No role called \"" + creep.memory.role "\" found for " + creep.name);
+      console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
     }
 /*
     if(creep.memory.role == 'harvester'){
