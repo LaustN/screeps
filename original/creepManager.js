@@ -254,7 +254,7 @@ module.exports = function (spawn) {
     var assaultBody = fnAssaultBodyBuild();
 
     for (var assaultOrderIndex in spawn.memory.assaultOrders) {
-      var assaultOrder =  spawn.memory.assaultOrders
+      var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
       i=1;
       for (; i <= assaultOrder.assaultCount; i++) {
         var newAssaultName = spawn.name + assaultOrders.flagName  +  "Assault" + i;
