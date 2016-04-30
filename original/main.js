@@ -45,46 +45,5 @@ module.exports.loop = function () {
     else {
       console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
     }
-/*
-    if(creep.memory.role == 'harvester'){
-      harvester(creep);
-    }
-    if(creep.memory.role == 'harvestTruck'){
-      harvestTruck(creep);
-    }
-    if(creep.memory.role == 'builder'){
-      builder(creep);
-    }
-    if(creep.memory.role == 'fortifier'){
-      fortifier(creep);
-    }
-    if(creep.memory.role == 'guard') {
-      guard(creep);
-    }
-    if(creep.memory.role == 'healer') {
-      healer(creep);
-    }
-    if(creep.memory.role == 'controlUpgrader') {
-      controlUpgrader(creep);
-    }
-    if(creep.memory.role == 'roadie') {
-      roadie(creep);
-    }
-    if(creep.memory.role == 'redistributor') {
-      redistributor(creep);
-    }
-    if(creep.memory.role == 'scout') {
-      scout(creep);
-    }
-    if(creep.memory.role == 'assault') {
-      assault(creep);
-    }
-    if(creep.memory.role == 'claimer') {
-      claimer(creep);
-    }
-    if(creep.memory.role == 'remoteTruck') {
-      remoteTruck(creep);
-    }
-    */
   }
 }

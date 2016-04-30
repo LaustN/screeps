@@ -8,6 +8,11 @@ module.exports = function(creep){
       return false;  //do not scout on a full stomach
     }
     var scoutTarget = Game.getObjectById(creep.memory.focus);
+
+    if(!scoutTarget){
+      scoutTarget = Game.flags[focus];
+    }
+
     if(scoutTarget){
       if(creep.pos.roomName == scoutTarget.pos.roomName){
         return false;

@@ -14,6 +14,9 @@ module.exports = function(creep){
       focusObject = Game.creeps[creepWithFocus.memory.focus];
     }
     if (!focusObject) {
+      focusObject = Game.flags[creepWithFocus.memory.focus];
+    }
+    if (!focusObject) {
       focusObject = creepWithFocus;
     }
     return focusObject;
