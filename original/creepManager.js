@@ -263,7 +263,7 @@ module.exports = function (spawn) {
   }
 
   if(spawn.memory.reserveRoomFlagNames.length > 0){
-    var maxReserveLayers = Math.floor(energyCapacityAvailable/700);
+    var maxReserveLayers = Math.floor(capacity/700);
     var reserverBody = [];
     for (var i = 0; i < maxReserveLayers; i++) {
       reserverBody.unshift(CLAIM,MOVE,MOVE);

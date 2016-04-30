@@ -23,7 +23,7 @@ module.exports.loop = function () {
   var rolenames = [
     "harvester","harvestTruck","guard","healer","builder","fortifier",
     "controlUpgrader","redistributor","scout","assault","claimer",
-    "remoteTruck"];
+    "remoteTruck", "reserver"];
   var roles = {};
 
   for (var i = 0; i < rolenames.length; i++) {
