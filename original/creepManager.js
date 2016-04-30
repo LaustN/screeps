@@ -258,5 +258,27 @@ module.exports = function (spawn) {
 
   }
 
+  if(!spawn.memory.reserveRoomFlagNames){
+    spawn.memory.reserveRoomFlagNames = [];
+  }
+
+  if(spawn.memory.reserveRoomFlagNames.length > 0){
+    for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
+      var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
+      if(reserveRoomFlag){
+        var maxReserveLayers = Math.floor(energyCapacityAvailable/700);
+        var reserverBody = [];
+        for (var i = 0; i < maxReserveLayers; i++) {
+          reserverBody.unshift(CLAIM,MOVE,MOVE);
+        }
+        if(fnCreateCreep(spawn.name + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+          return;
+        }
+      }
+
+    }
+  }
+
+
   spawn.memory.state = "OK";
 }
