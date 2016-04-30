@@ -21,7 +21,7 @@ module.exports.loop = function () {
     creepManager(Game.spawns[spawnName]);
   }
   runTowers();
-  var roleNames = [
+  var rolenames = [
     "harvester","harvestTruck","guard","healer","builder","fortifier",
     "controlUpgrader","roadie","redistributor","scout","assault","claimer",
     "remoteTruck"];
