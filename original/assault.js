@@ -1,6 +1,6 @@
 module.exports = function (creep) {
 //  var actionRenew =  require("actionRenew");
-  var actionAssaultDestroyFlaggedLocation = require("actionAssaultDestroyFlaggedLocation");
+var actionAssaultDestroyFlaggedLocation = require("actionAssaultDestroyFlaggedLocation");
   var actionAssaultMove = require("actionAssaultMove");
   var actionAssaultCreeps = require("actionAssaultCreeps");
   var actionProximityHealer = require("actionProximityHealer");
