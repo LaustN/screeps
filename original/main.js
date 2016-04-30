@@ -31,14 +31,21 @@ module.exports.loop = function () {
      roles[rolenames[i]] = require(rolenames[i]);
   }
 
-
-
   //remember the idea of making rooms override decisions for creeps in defensive situations and such
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
 
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
     ensureHome(creep);
+
+    var role = roles[creep.memory.role];
+    if(role){
+      role(creep);
+    }
+    else {
+      console.log("No role called \"" + creep.memory.role "\" found for " + creep.name);
+    }
+/*
     if(creep.memory.role == 'harvester'){
       harvester(creep);
     }
@@ -78,5 +85,6 @@ module.exports.loop = function () {
     if(creep.memory.role == 'remoteTruck') {
       remoteTruck(creep);
     }
+    */
   }
 }
