@@ -16,6 +16,10 @@ module.exports = function (creep) {
 //    return;
   if(actionScout(creep))
     return;
+  if(actionUnloadEnergy(creep))
+    return;
+  if(actionHarvest(creep))
+    return;
   if(actionRaze(creep))
     return;
   if(actionScavenge(creep))
@@ -25,9 +29,5 @@ module.exports = function (creep) {
   if(actionFortify(creep))
     return;
   if(actionUpgradeControl(creep))
-    return;
-  if(actionUnloadEnergy(creep))
-    return;
-  if(actionHarvest(creep))
     return;
 }
