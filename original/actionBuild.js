@@ -10,6 +10,7 @@ module.exports = function (creep) {
       target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
     }
     if(target != null) {
+      creep.memory.dropoff = false;
       var buildMessage = creep.build(target);
       if( buildMessage == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
