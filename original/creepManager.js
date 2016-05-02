@@ -137,7 +137,7 @@ module.exports = function (spawn) {
 
     if ( i<= sources.length) {
       var sourceToFocusOn = sources[i-1];
-      if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,2,{filter:function(structure){
+      if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:function(structure){
         return structure.structureType == "link";
       }}) != null){
         console.log("not respawning truck for " + newHarvesterName + " since it has a link");
