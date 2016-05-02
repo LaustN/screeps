@@ -23,7 +23,7 @@ module.exports = function () {
       }
     }
 
-    if (centerLink && Memory.workingLinks[centerLink.id]) {
+    if (centerLink != null && Memory.workingLinks[centerLink.id]) {
       continue;
     }
 
