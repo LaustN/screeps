@@ -54,8 +54,10 @@ module.exports = function () {
         }
       }
 
-      console.log("transfwer" + outerLink.transferEnergy(centerLink)); //WHY IS THIS INVERTED???
-      Memory.workingLinks[link.id] = true;
+      if(outerLink){
+        outerLink.transferEnergy(centerLink); //WHY IS THIS INVERTED???
+        Memory.workingLinks[link.id] = true;
+      }
     }
 
   }
