@@ -55,7 +55,7 @@ module.exports = function(creep){
   }
 
   if (harvestingCreep) {
-    if(harvestingCreep.transferEnergy(creep) != OK){
+    if(harvestingCreep.transfer(creep, RESOURCE_ENERGY) != OK){
       creep.moveTo(harvestingCreep);
     }
   }

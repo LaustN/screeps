@@ -10,16 +10,6 @@ module.exports = function(creep){
   if(creep.memory.collectingEnergy) {
     var home = Game.getObjectById(creep.memory.home);
     if(home.memory.state != "SaveEnergy") {
-      var collectionPointsHere = creep.pos.findInRange(FIND_MY_STRUCTURES,1,{
-        filter: function(structure){
-          return structure.energy > 0;
-        }
-      });
-      if(collectionPointsHere && collectionPointsHere[0]){
-        collectionPointsHere[0].transferEnergy(creep);
-        return true;
-      }
-
       var energyCarriersHere = creep.pos.findInRange(FIND_MY_CREEPS,1,{
         filter: function(harvestCreep){
           if (harvestCreep.memory.role == "harvestTruck" && harvestCreep.carry.energy > 0 ) {
@@ -40,7 +30,7 @@ module.exports = function(creep){
             bestCarrier = currentCarrier;
           }
         }
-        bestCarrier.transferEnergy(creep);
+        bestCarrier.transfer(creep, RESOURCE_ENERGY);
         return true;
       }
 

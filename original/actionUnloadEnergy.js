@@ -5,7 +5,7 @@ module.exports = function(creep){
     }
   });
   if(dropPointsHere){
-    creep.transferEnergy(dropPointsHere[0]);
+    creep.transfer(dropPointsHere[0], RESOURCE_ENERGY);
   }
 
   if(creep.carry.energy == 0){
@@ -44,7 +44,7 @@ module.exports = function(creep){
 
     if(dropoff)
     {
-      if(creep.transferEnergy(dropoff) != OK) {
+      if(creep.transfer(dropoff, RESOURCE_ENERGY) != OK) {
         creep.moveTo(dropoff);
       }
     }

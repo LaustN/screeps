@@ -31,7 +31,7 @@ module.exports = function(creep){
       }});
 
       if(localUnloadingScout){
-        if(localUnloadingScout.transferEnergy(creep)!=OK){
+        if(localUnloadingScout.transfer(creep, RESOURCE_ENERGY)!=OK){
           creep.moveTo(localUnloadingScout);
         }
         return true;
@@ -61,7 +61,7 @@ module.exports = function(creep){
       }});
 
       if(localEnergyStorage){
-        if(localEnergyStorage.transferEnergy(creep)!=OK){
+        if(localEnergyStorage.transfer(creep, RESOURCE_ENERGY)!=OK){
           creep.moveTo(localEnergyStorage);
         }
         return true;

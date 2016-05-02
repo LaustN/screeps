@@ -32,7 +32,7 @@ module.exports = function(creep){
 
     if(dropoff)
     {
-      if(creep.transferEnergy(dropoff)!=OK){
+      if(creep.transfer(dropoff, RESOURCE_ENERGY)!=OK){
         creep.moveTo(dropoff);
       }
     }

@@ -23,7 +23,7 @@ module.exports = function(creep){
       return true;
     }
     if (nearestLink) {
-      var transferMessage = nearestLink.transferEnergy(creep)
+      var transferMessage = nearestLink.transfer(creep, RESOURCE_ENERGY)
       console.log("transferMessage:" + transferMessage);
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
@@ -39,8 +39,6 @@ module.exports = function(creep){
     return false;
   };
   var dumpAtStorage = function(){
-    creep.say("DuSt");
-
     var storage = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{filter: function(structure){
         if(structure.structureType == STRUCTURE_STORAGE && (_.sum(structure.store) < structure.storeCapacity)){
           return true;
