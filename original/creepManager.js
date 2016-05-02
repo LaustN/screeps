@@ -220,38 +220,34 @@ module.exports = function (spawn) {
 
   if(spawn.memory.assaultOrders.length > 0){
 
-    var fnAssaultBodyBuild = function(){
+    var fnBodyBuild = function(bodyParts){
+      var priceMap = {};
+      priceMap[MOVE] = 50;
+      priceMap[WORK] = 100;
+      priceMap[CARRY] = 50;
+      priceMap[ATTACK] = 80;
+      priceMap[RANGED_ATTACK] = 150;
+      priceMap[TOUGH] = 10;
+      priceMap[HEAL] = 250;
+      priceMap[CLAIM] = 600;
       var remainingAssaultBodyCapacity = capacity;
-      var assaultParts = [
-        {cost:50, part: MOVE},
-        {cost:80, part: ATTACK},
-        {cost:50, part: MOVE},
-        {cost:80, part: ATTACK},
-        {cost:50, part: MOVE},
-        {cost:150, part: RANGED_ATTACK},
-        {cost:50, part: MOVE},
-        {cost:80, part: ATTACK},
-        {cost:50, part: MOVE},
-        {cost:150, part: RANGED_ATTACK},
-        {cost:50, part: MOVE},
-        {cost:250, part: HEAL}
-      ];
       var resultingBody  =[];
       while (true) {
-        for (var assaultPartsIterator = 0; assaultPartsIterator < assaultParts.length; assaultPartsIterator++) {
+        for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
           if(remainingAssaultBodyCapacity < 50){
             return resultingBody;
           }
-          var nextPart =  assaultParts[assaultPartsIterator];
-          if (nextPart.cost <= remainingAssaultBodyCapacity) {
-            resultingBody.unshift(nextPart.part)
-            remainingAssaultBodyCapacity-=nextPart.cost;
+          var nextPart =  bodyParts[assaultPartsIterator];
+          if (priceMap[nextPart] <= remainingAssaultBodyCapacity) {
+            resultingBody.unshift(nextPart)
+            remainingAssaultBodyCapacity-=priceMap[nextPart];
           }
         }
       }
     }
+    var assaultParts = [MOVE,ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
 
-    var assaultBody = fnAssaultBodyBuild();
+    var assaultBody = fnBodyBuild(assaultParts);
 
     for (var assaultOrderIndex in spawn.memory.assaultOrders) {
       var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];

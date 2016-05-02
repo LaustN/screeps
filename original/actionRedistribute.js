@@ -33,6 +33,9 @@ module.exports = function(creep){
       if(structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY]>0){
         return true;
       }
+      if(structure.structureType == STRUCTURE_LINK && structure.store[RESOURCE_ENERGY]>0){
+        return true;
+      }
     }});
 
     if(nearestStorage!=null){
