@@ -32,6 +32,11 @@ module.exports = function () {
     if (centerLink != null && Memory.workingLinks[centerLink.id]) {
       continue;
     }
+
+    if(centerLink.energy == centerLink.energyCapacity){
+      continue;
+    }
+
     console.log("centerlinkId: " + centerLink.id + " - working links:" + JSON.stringify(Memory.workingLinks));
 
     var outerLinks = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
@@ -41,7 +46,7 @@ module.exports = function () {
     console.log("outerLink:" + outerLinks.length);
     console.log("outerLink[0]:" + JSON.stringify(outerLinks[0]));
     if (outerLinks.length > 0) {
-      console.log("transferMessage:" + outerLinks[0].transferEnergy(centerLink, outerLinks[0].energy));
+      console.log("transferMessage:" + outerLinks[0].transferEnergy(centerLink, Math.min( outerLinks[0].energy, centerLink.energyCapacity - centerLink.energy));
       Memory.workingLinks[outerLinks[0].id] = true;
     }
 
