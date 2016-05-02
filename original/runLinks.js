@@ -19,6 +19,7 @@ module.exports = function () {
         if(range < minRange){
           centerLink = links[linkIterator];
           centerSpawn = spawns[spawnIterator];
+          minRange = range;
         }
       }
     }
