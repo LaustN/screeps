@@ -274,6 +274,9 @@ module.exports = function (spawn) {
     for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
       var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
       if(reserveRoomFlag){
+        if (!reserveRoomFlag.room.controller) {
+          continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
+        }
         if (reserveRoomFlag.room.controller.my) {
           continue;
         }
