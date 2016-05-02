@@ -24,7 +24,7 @@ module.exports = function(creep){
     }
     if (nearestLink) {
       var transferMessage = nearestLink.transferEnergy(creep, creep.carryCapacity);
-      console.log(creep.name  +" is collecting from " + nearestLink.pos  );
+      console.log(creep.name  +" is collecting from " + nearestLink.pos + " and got the response " + transferMessage );
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
       }
