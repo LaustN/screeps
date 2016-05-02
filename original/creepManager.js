@@ -14,6 +14,12 @@ module.exports = function (spawn) {
     {x:1,y:1},
   ];
 
+  var storedEnergyInRoom = function(room){
+    var energySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) ;
+    var storedEnergySum =       _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store.energy")) ;
+    return  energySum + storedEnergySum;
+  }
+
   for(var sourceKey in sources){
     var source = sources[sourceKey];
     var initial = source.pos;
@@ -122,10 +128,10 @@ module.exports = function (spawn) {
 
   var creepsToMaintain = [
     {
-      body: harvestBody,
-      name: "Builder",
+      body: truckBody,
+      name: "Redistributor",
       memory: {
-        role: "builder"
+        role: "redistributor"
       }
     },
     {
@@ -138,16 +144,16 @@ module.exports = function (spawn) {
     },
     {
       body: harvestBody,
-      name: "ControlUpgrader",
+      name: "Builder",
       memory: {
-        role: "controlUpgrader"
+        role: "builder"
       }
     },
     {
-      body: truckBody,
-      name: "Redistributor",
+      body: harvestBody,
+      name: "ControlUpgrader",
       memory: {
-        role: "redistributor"
+        role: "controlUpgrader"
       }
     },
   ];
@@ -156,13 +162,21 @@ module.exports = function (spawn) {
     spawn.memory.workerLayers = 1;
   }
 
+  var maxMiscCount = Math.ceil(storedEnergyInRoom(spawn.room) / 2000) + 1;
+
+  var spawnCount = 0;
+
   for (var workerLayersIterator = 1; workerLayersIterator <= spawn.memory.workerLayers; workerLayersIterator++) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
       var newCreepName = spawn.name +  creepDefinition.name + workerLayersIterator;
+      if(spawnCount > maxMiscCount){
+        break;
+      }
       if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
         return;
       }
+      spawnCount++;
     }
   }
 
@@ -200,7 +214,11 @@ module.exports = function (spawn) {
     }
   }
 
-  if(spawn.memory.assaultCount){
+  if(!spawn.memory.assaultOrders){
+    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0}];
+  }
+
+  if(spawn.memory.assaultOrders.length > 0){
 
     var fnAssaultBodyBuild = function(){
       var remainingAssaultBodyCapacity = capacity;
@@ -234,15 +252,47 @@ module.exports = function (spawn) {
     }
 
     var assaultBody = fnAssaultBodyBuild();
-    i=1;
-    for (; i <= spawn.memory.assaultCount; i++) {
-      var newAssaultName = spawn.name +  "Assault" + i;
-      if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:"AssaultFlag"})){
-        return;
+
+    for (var assaultOrderIndex in spawn.memory.assaultOrders) {
+      var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
+      i=1;
+      for (; i <= assaultOrder.assaultCount; i++) {
+        var newAssaultName = spawn.name + assaultOrder.flagName  +  "Assault" + i;
+        if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
+          return;
+        }
       }
     }
-
   }
 
+  if(!spawn.memory.reserveRoomFlagNames){
+    spawn.memory.reserveRoomFlagNames = [];
+  }
+
+  if(spawn.memory.reserveRoomFlagNames.length > 0){
+    var maxReserveLayers = Math.floor(capacity/700);
+    var reserverBody = [];
+    for (var i = 0; i < maxReserveLayers; i++) {
+      reserverBody.unshift(CLAIM,MOVE,MOVE);
+    }
+    for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
+      var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
+      if(reserveRoomFlag){
+        if (reserveRoomFlag.room.controller.my) {
+          continue;
+        }
+        if (reserveRoomFlag.room.controller.reservation && reserveRoomFlag.room.controller.reservation.ticksToEnd > 1000 ) {
+          continue;
+        }
+
+        if(fnCreateCreep(spawn.name + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+          return;
+        }
+      }
+
+    }
+  }
+
+  console.log(spawn.name + " has all the creeps it wants");
   spawn.memory.state = "OK";
 }

@@ -5,7 +5,6 @@ var healer = require("healer");
 var builder = require("builder");
 var fortifier = require("fortifier");
 var controlUpgrader = require("controlUpgrader");
-var roadie = require("roadie");
 var redistributor = require("redistributor");
 var scout = require("scout");
 var assault = require("assault");
@@ -17,10 +16,21 @@ var ensureHome = require("actionEnsureHome");
 var runTowers = require("runTowers");
 
 module.exports.loop = function () {
+  console.log("======================== tick " + Game.time + " ========================");
+
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
   }
   runTowers();
+  var rolenames = [
+    "harvester","harvestTruck","guard","healer","builder","fortifier",
+    "controlUpgrader","redistributor","scout","assault","claimer",
+    "remoteTruck", "reserver"];
+  var roles = {};
+
+  for (var i = 0; i < rolenames.length; i++) {
+     roles[rolenames[i]] = require(rolenames[i]);
+  }
 
   //remember the idea of making rooms override decisions for creeps in defensive situations and such
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
@@ -28,44 +38,13 @@ module.exports.loop = function () {
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
     ensureHome(creep);
-    if(creep.memory.role == 'harvester'){
-      harvester(creep);
+
+    var role = roles[creep.memory.role];
+    if(role){
+      role(creep);
     }
-    if(creep.memory.role == 'harvestTruck'){
-      harvestTruck(creep);
-    }
-    if(creep.memory.role == 'builder'){
-      builder(creep);
-    }
-    if(creep.memory.role == 'fortifier'){
-      fortifier(creep);
-    }
-    if(creep.memory.role == 'guard') {
-      guard(creep);
-    }
-    if(creep.memory.role == 'healer') {
-      healer(creep);
-    }
-    if(creep.memory.role == 'controlUpgrader') {
-      controlUpgrader(creep);
-    }
-    if(creep.memory.role == 'roadie') {
-      roadie(creep);
-    }
-    if(creep.memory.role == 'redistributor') {
-      redistributor(creep);
-    }
-    if(creep.memory.role == 'scout') {
-      scout(creep);
-    }
-    if(creep.memory.role == 'assault') {
-      assault(creep);
-    }
-    if(creep.memory.role == 'claimer') {
-      claimer(creep);
-    }
-    if(creep.memory.role == 'remoteTruck') {
-      remoteTruck(creep);
+    else {
+      console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
     }
   }
 }

@@ -3,7 +3,6 @@ module.exports = function (creep) {
   var actionRenew =  require("actionRenew");
   var actionScavenge = require("actionScavenge");
   var actionRedistribute = require("actionRedistribute");
-  var actionFlagRoadie = require("actionFlagRoadie");
 
   if(actionFlee(creep))
     return;

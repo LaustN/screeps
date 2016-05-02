@@ -72,6 +72,7 @@ module.exports = function(creep) {
         creep.memory.chosenTargetId = null;
       }
     }
+    creep.memory.dropoff = false;
     return true;
   }
 
