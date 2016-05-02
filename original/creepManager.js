@@ -127,9 +127,24 @@ module.exports = function (spawn) {
   var i = 1;
   for (; i <= maxWorkerCount; i++) {
     var newHarvesterName = spawn.name +  "Harvest" + i;
-    if(fnCreateCreep(newHarvesterName,harvestBody,{role:"harvester"})){
+    var harvesterMemory = {role:"harvester"};
+    if ( i<= sources.length) {
+      harvesterMemory["focus"] = sources[i-1].id;
+    }
+    if(fnCreateCreep(newHarvesterName,harvestBody,harvesterMemory)){
       return;
     }
+
+    if ( i<= sources.length) {
+      var sourceToFocusOn = sources[i-1].id;
+      if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,2,{filter:function(structure){
+        return structure.structureType == "link";
+      }}) != null){
+        console.log("not respawning truck for " + newHarvesterName + " since it has a link");
+        continue;
+      }
+    }
+
     var newTruckName = spawn.name + "Truck" + i;
     if(fnCreateCreep(
       newTruckName,
