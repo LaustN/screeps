@@ -12,6 +12,7 @@ module.exports = function(creep){
 
     var nearestLink = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
       if(structure.structureType == STRUCTURE_LINK && structure.energy>0){
+        console.log("link found: " + JSON.stringify(structure));
         return true;
       }
     }});
