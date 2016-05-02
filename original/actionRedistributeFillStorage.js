@@ -39,7 +39,8 @@ module.exports = function(creep){
   };
   var dumpAtStorage = function(){
     var storage = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{filter: function(structure){
-        if(structure.structureType == STRUCTURE_STORAGE && _.sum(structure.store) < structure.storeCapacity){
+        console.log();
+        if(structure.structureType == STRUCTURE_STORAGE && (_.sum(structure.store) < structure.storeCapacity)){
           return true;
         }
         return false;
