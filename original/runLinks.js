@@ -47,14 +47,14 @@ module.exports = function () {
       var outerLink = null;
       for (var outerlinkIterator in outerLinks) {
         var link =  outerLinks[outerlinkIterator];
-        if(link.energy > bestEnergyAmount){
+        if(link.energy > bestEnergyAmount) {
           console.log("energy " + link.energy + " > " + bestEnergyAmount );
           bestEnergyAmount = link.energy;
           outerLink = link;
         }
       }
 
-      console.log("transfwer" + link.transferEnergy(centerLink)); //WHY IS THIS INVERTED???
+      console.log("transfwer" + outerLink.transferEnergy(centerLink)); //WHY IS THIS INVERTED???
       Memory.workingLinks[link.id] = true;
     }
 
