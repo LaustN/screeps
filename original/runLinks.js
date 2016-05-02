@@ -10,6 +10,8 @@ module.exports = function () {
       return structure.structureType == "link";
     }});
 
+    console.log("Spawns:" + spawns.length + " links:" +  links.length);
+
     var minRange = 100;
     var centerLink = null;
     var centerSpawn = null;
