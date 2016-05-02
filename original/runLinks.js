@@ -26,8 +26,9 @@ module.exports = function () {
       }
     }
 
-
-
+    if (centerLink == null) {
+      continue;
+    }
     if (centerLink != null && Memory.workingLinks[centerLink.id]) {
       continue;
     }
