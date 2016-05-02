@@ -44,6 +44,7 @@ module.exports = function(creep){
         }
         return false;
       }});
+    console.log("Dumping at " + storage.pos);
     if(creep.transfer(storage, RESOURCE_ENERGY) != OK){
       creep.moveTo(storage);
     }
