@@ -71,7 +71,6 @@ module.exports = function(creep){
   }
 
   if(home.energy == home.energyCapacity && towers && towers.length>0){
-    creep.say("ReTo");
     //home is full, so fill any towers
     if(!collectFromStorage()){
       for(var towerIndex in towers){
@@ -80,6 +79,7 @@ module.exports = function(creep){
           if(creep.transfer(tower, RESOURCE_ENERGY) != OK){
             creep.moveTo(tower);
           }
+          creep.say("ReTo");
           return true;
         }
       }
