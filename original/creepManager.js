@@ -140,7 +140,6 @@ module.exports = function (spawn) {
       if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:function(structure){
         return structure.structureType == "link";
       }}) != null){
-        console.log("not respawning truck for " + newHarvesterName + " since it has a link");
         continue;
       }
     }
