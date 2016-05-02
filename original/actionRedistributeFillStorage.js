@@ -11,37 +11,31 @@ module.exports = function(creep){
     }});
 
     var nearestLink = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
-      if(structure.structureType == STRUCTURE_LINK && structure.energy>0){
-        console.log("link found: " + JSON.stringify(structure));
+      if((structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)){
         return true;
       }
     }});
 
     if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink)) {
-      creep.say("CoDu1");
-      console.log("Collecting at " + nearestContainer.pos);
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
         creep.moveTo(nearestContainer);
       }
       return true;
     }
     if (nearestLink) {
-      creep.say("CoDu2");
-      console.log("Collecting at " + nearestLink.pos);
-      if(nearestLink.transferEnergy(creep) != OK){
+      var transferMessage = nearestLink.transferEnergy(creep)
+      console.log("transferMessage:" + transferMessage);
+      if(transferMessage != OK){
         creep.moveTo(nearestLink);
       }
       return true;
     }
     if (nearestContainer) {
-      creep.say("CoDu3");
-      console.log("Fallback Collecting at " + nearestContainer.pos);
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
         creep.moveTo(nearestContainer);
       }
       return true;
     }
-    creep.say("FSE!")
     return false;
   };
   var dumpAtStorage = function(){
@@ -60,6 +54,7 @@ module.exports = function(creep){
   }
 
   if(!collectFromDump()){
+    console.log(creep.name + " dumping at storage");
     dumpAtStorage();
   }
   return true;
