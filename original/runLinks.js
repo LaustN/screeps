@@ -26,7 +26,10 @@ module.exports = function () {
       }
     }
 
+
+
     if (centerLink != null && Memory.workingLinks[centerLink.id]) {
+      console.log("centerlinkId: " + centerLink.id + " - working links:" + JSON.stringify(Memory.workingLinks));
       continue;
     }
 
