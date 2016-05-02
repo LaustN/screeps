@@ -29,14 +29,15 @@ module.exports = function () {
 
 
     if (centerLink != null && Memory.workingLinks[centerLink.id]) {
-      console.log("centerlinkId: " + centerLink.id + " - working links:" + JSON.stringify(Memory.workingLinks));
       continue;
     }
+    console.log("centerlinkId: " + centerLink.id + " - working links:" + JSON.stringify(Memory.workingLinks));
 
     var outerLinks = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
-      return structure.structureType == "link" && !Memory.workingLinks[structure.id] && (structure.id != centerLink.id);
+      return structure.structureType == "link" && (!Memory.workingLinks[structure.id]) && (structure.id != centerLink.id);
     }});
 
+    console.log("outerLink:" + outerLinks.length);
     if (outerLinks.length > 0) {
       outerLinks[0].transferEnergy(centerLink);
       Memory.workingLinks[outerLinks[0].id] = true;
