@@ -13,4 +13,6 @@ module.exports = function (creep) {
     return;
   if(actionScavenge(creep))
     return;
+  if(actionRedistributeFillStorage(creep))
+    return;
 }
