@@ -13,6 +13,31 @@ module.exports = function (spawn) {
     {x:0,y:1},
     {x:1,y:1},
   ];
+  var fnBodyBuild = function(bodyParts){
+    var priceMap = {};
+    priceMap[MOVE] = 50;
+    priceMap[WORK] = 100;
+    priceMap[CARRY] = 50;
+    priceMap[ATTACK] = 80;
+    priceMap[RANGED_ATTACK] = 150;
+    priceMap[TOUGH] = 10;
+    priceMap[HEAL] = 250;
+    priceMap[CLAIM] = 600;
+    var remainingAssaultBodyCapacity = capacity;
+    var resultingBody  =[];
+    while (true) {
+      for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
+        if(remainingAssaultBodyCapacity < 50){
+          return resultingBody;
+        }
+        var nextPart =  bodyParts[assaultPartsIterator];
+        if (priceMap[nextPart] <= remainingAssaultBodyCapacity) {
+          resultingBody.unshift(nextPart)
+          remainingAssaultBodyCapacity-=priceMap[nextPart];
+        }
+      }
+    }
+  }
 
   var storedEnergyInRoom = function(room){
     var energySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) ;
@@ -180,6 +205,29 @@ module.exports = function (spawn) {
     }
   }
 
+  if(!spawn.memory.assaultOrders){
+    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0}];
+  }
+
+  if(spawn.memory.assaultOrders.length > 0){
+
+    var assaultParts = [MOVE,ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
+
+    var assaultBody = fnBodyBuild(assaultParts);
+
+    for (var assaultOrderIndex in spawn.memory.assaultOrders) {
+      var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
+      i=1;
+      for (; i <= assaultOrder.assaultCount; i++) {
+        var newAssaultName = spawn.name + assaultOrder.flagName  +  "Assault" + i;
+        if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
+          return;
+        }
+      }
+    }
+  }
+
+
   if(!spawn.memory.scoutTargets){
     spawn.memory.scoutTargets = [{flagName:"[FlagName]",razeRange:-1, scoutCount:0,remoteTruckCount:0}]
   }
@@ -214,52 +262,6 @@ module.exports = function (spawn) {
     }
   }
 
-  if(!spawn.memory.assaultOrders){
-    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0}];
-  }
-
-  if(spawn.memory.assaultOrders.length > 0){
-
-    var fnBodyBuild = function(bodyParts){
-      var priceMap = {};
-      priceMap[MOVE] = 50;
-      priceMap[WORK] = 100;
-      priceMap[CARRY] = 50;
-      priceMap[ATTACK] = 80;
-      priceMap[RANGED_ATTACK] = 150;
-      priceMap[TOUGH] = 10;
-      priceMap[HEAL] = 250;
-      priceMap[CLAIM] = 600;
-      var remainingAssaultBodyCapacity = capacity;
-      var resultingBody  =[];
-      while (true) {
-        for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
-          if(remainingAssaultBodyCapacity < 50){
-            return resultingBody;
-          }
-          var nextPart =  bodyParts[assaultPartsIterator];
-          if (priceMap[nextPart] <= remainingAssaultBodyCapacity) {
-            resultingBody.unshift(nextPart)
-            remainingAssaultBodyCapacity-=priceMap[nextPart];
-          }
-        }
-      }
-    }
-    var assaultParts = [MOVE,ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
-
-    var assaultBody = fnBodyBuild(assaultParts);
-
-    for (var assaultOrderIndex in spawn.memory.assaultOrders) {
-      var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
-      i=1;
-      for (; i <= assaultOrder.assaultCount; i++) {
-        var newAssaultName = spawn.name + assaultOrder.flagName  +  "Assault" + i;
-        if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
-          return;
-        }
-      }
-    }
-  }
 
   if(!spawn.memory.reserveRoomFlagNames){
     spawn.memory.reserveRoomFlagNames = [];
