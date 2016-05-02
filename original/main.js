@@ -26,11 +26,11 @@ module.exports.loop = function () {
   }
   runTowers();
   runLinks();
-  
+
   var rolenames = [
     "harvester","harvestTruck","guard","healer","builder","fortifier",
     "controlUpgrader","redistributor","scout","assault","claimer",
-    "remoteTruck", "reserver"];
+    "remoteTruck", "reserver","refiller"];
   var roles = {};
 
   for (var i = 0; i < rolenames.length; i++) {

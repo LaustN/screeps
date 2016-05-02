@@ -151,6 +151,16 @@ module.exports = function (spawn) {
     }
   }
 
+  if(fnCreateCreep(
+    spawn.name + "Refiller",
+    truckBody,
+    {
+      role: "refiller",
+      scavengeRange: 10
+    })){
+    return;
+  }
+
   var creepsToMaintain = [
     {
       body: truckBody,
