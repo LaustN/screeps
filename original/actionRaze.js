@@ -2,6 +2,9 @@ module.exports = function(creep){
   if(creep.memory.razeTarget){
     var razeFlag = Game.flags[creep.memory.razeTarget];
     if(razeFlag != null){
+      if(creep.pos.roomName != razeFlag.pos.roomName ){
+        return false; //cannot raze without being in the room
+      }
       var razeRange = 0;
       if(creep.memory.razeRange){
         razeRange = creep.memory.razeRange;
