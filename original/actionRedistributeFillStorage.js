@@ -11,7 +11,7 @@ module.exports = function(creep){
     }});
 
     var nearestLink = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
-      if((structure.structureType == STRUCTURE_LINK) && (structure.energy > 0) && (structure.memory.lastTransferTime != Game.time)){
+      if((structure.structureType == STRUCTURE_LINK) && (structure.energy > 0) ){
         return true;
       }
     }});
@@ -27,9 +27,6 @@ module.exports = function(creep){
       console.log(creep.name  +" is collecting from " + nearestLink.pos + " and got the response " + transferMessage );
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
-      }
-      else {
-        nearestLink.memory.lastTransferTime = Game.time;
       }
       return true;
     }
