@@ -15,7 +15,6 @@ module.exports = function(creep){
         return true;
       }
     }});
-    console.log("nearest link: " + JSON.stringify(nearestLink));
 
     if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink)) {
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
@@ -24,8 +23,7 @@ module.exports = function(creep){
       return true;
     }
     if (nearestLink) {
-      var transferMessage = nearestLink.transferEnergy(creep, 800);
-      console.log("transferMessage:" + transferMessage);
+      var transferMessage = nearestLink.transferEnergy(creep, creep.carryCapacity);
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
       }
@@ -46,14 +44,12 @@ module.exports = function(creep){
         }
         return false;
       }});
-    console.log("Dumping at " + storage.pos);
     if(creep.transfer(storage, RESOURCE_ENERGY) != OK){
       creep.moveTo(storage);
     }
   }
 
   if(!collectFromDump()){
-    console.log(creep.name + " dumping at storage");
     dumpAtStorage();
   }
   return true;
