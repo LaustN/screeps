@@ -15,7 +15,7 @@ module.exports = function () {
     var centerSpawn = null;
     for (var spawnIterator = 0; spawnIterator < spawns.length; spawnIterator++) {
       for (var linkIterator = 0; linkIterator < links.length; linkIterator++) {
-        var range = spawns[spawnIterator].getRangeTo(links[linkIterator]);
+        var range = spawns[spawnIterator].pos.getRangeTo(links[linkIterator]);
         if(range < minRange){
           centerLink = links[linkIterator];
           centerSpawn = spawns[spawnIterator];
