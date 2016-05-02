@@ -18,6 +18,11 @@ module.exports = function(creep){
       }
     }
     if(focusObject){
+      if(creep.pos.roomName != focusObject.pos.roomName){
+        var moveMessage = creep.moveTo(focusObject);
+        return true;
+      }
+
       localUnloadingScout = creep.pos.findClosestByRange(FIND_MY_CREEPS,{filter : function(creep){
         if(creep.carryCapacity > 0 && creep.carry[RESOURCE_ENERGY] > 0 && creep.memory.dropoff && creep.memory.role == "scout"){
           return true;
@@ -32,10 +37,6 @@ module.exports = function(creep){
         return true;
       }
 
-      if(creep.pos.roomName != focusObject.pos.roomName){
-        var moveMessage = creep.moveTo(focusObject);
-        return true;
-      }
 
       var home = Game.getObjectById(creep.memory.home);
 
