@@ -50,7 +50,7 @@ module.exports = function () {
         }
       }
 
-      centerLink.transferEnergy(link); //WHY IS THIS INVERTED???
+      console.log("transfwer" link.transferEnergy(centerLink)); //WHY IS THIS INVERTED???
       Memory.workingLinks[link.id] = true;
     }
 
