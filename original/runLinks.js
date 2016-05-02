@@ -23,6 +23,8 @@ module.exports = function () {
       }
     }
 
+    console.log("centerlink pos:" + centerlink.pos);
+
     if (centerLink == null) {
       continue;
     }
