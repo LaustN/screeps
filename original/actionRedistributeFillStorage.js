@@ -24,7 +24,7 @@ module.exports = function(creep){
       return true;
     }
     if (nearestLink) {
-      var transferMessage = nearestLink.transferEnergy(creep)
+      var transferMessage = nearestLink.transferEnergy(creep, 800);
       console.log("transferMessage:" + transferMessage);
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
