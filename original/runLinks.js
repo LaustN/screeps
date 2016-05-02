@@ -42,11 +42,10 @@ module.exports = function () {
     }});
 
     if (outerLinks.length > 0) {
-
       var bestEnergyAmount = 0;
       var outerLink = null;
       for (var outerlinkIterator in outerLinks) {
-        var link =  outerLinks[outerlinkIterator];
+        var link = outerLinks[outerlinkIterator];
         if(link.energy > bestEnergyAmount) {
           console.log("energy " + link.energy + " > " + bestEnergyAmount );
           bestEnergyAmount = link.energy;
