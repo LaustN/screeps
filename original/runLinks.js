@@ -23,12 +23,12 @@ module.exports = function () {
       }
     }
 
-    console.log("centerlink pos:" + centerlink.pos);
 
     if (centerLink == null) {
       continue;
     }
-    if (centerLink != null && Memory.workingLinks[centerLink.id]) {
+    console.log("centerlink pos:" + centerLink.pos);
+    if (Memory.workingLinks[centerLink.id]) {
       continue;
     }
 
