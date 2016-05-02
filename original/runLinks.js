@@ -10,15 +10,12 @@ module.exports = function () {
       return structure.structureType == "link";
     }});
 
-    console.log("Spawns:" + spawns.length + " links:" +  links.length);
-
     var minRange = 100;
     var centerLink = null;
     var centerSpawn = null;
     for (var spawnIterator in  spawns) {
       for (var linkIterator in links) {
         var range = spawns[spawnIterator].pos.getRangeTo(links[linkIterator]);
-        console.log("Range:" + range);
         if(range < minRange){
           centerLink = links[linkIterator];
           centerSpawn = spawns[spawnIterator];
