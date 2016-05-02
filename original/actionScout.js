@@ -10,7 +10,7 @@ module.exports = function(creep){
     var scoutTarget = Game.getObjectById(creep.memory.focus);
 
     if(!scoutTarget){
-      scoutTarget = Game.flags[focus];
+      scoutTarget = Game.flags[creep.memory.focus];
     }
 
     if(scoutTarget){
