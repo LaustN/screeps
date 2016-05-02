@@ -23,7 +23,7 @@ module.exports = function(creep){
       return true;
     }
     if (nearestLink) {
-      var transferMessage = nearestLink.transfer(creep, RESOURCE_ENERGY)
+      var transferMessage = nearestLink.transferEnergy(creep)
       console.log("transferMessage:" + transferMessage);
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
