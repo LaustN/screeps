@@ -35,7 +35,7 @@ module.exports = function () {
     }
 
     var outerLinks = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
-      return structure.structureType == "link" && (!Memory.workingLinks[structure.id]) && (structure.id != centerLink.id) && structure.energy == structure.energyCapacity;
+      return structure.structureType == "link" && (!Memory.workingLinks[structure.id]) && (structure.id != centerLink.id) && (structure.energy == structure.energyCapacity);
     }});
 
     if (outerLinks.length > 0) {
