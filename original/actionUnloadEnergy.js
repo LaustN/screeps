@@ -10,9 +10,19 @@ module.exports = function(creep){
 
   if(creep.carry.energy == 0){
     creep.memory.dropoff = false;
+    creep.memory.dropoffWaitStart = 0;
   }
   else if(creep.carry.energy == creep.carryCapacity){
     creep.memory.dropoff = true;
+  }
+  else {
+    if(!creep.memory.dropoffWaitStart){
+      creep.memory.dropoffWaitStart = Game.time;
+    }
+    if ((creep.memory.dropoffWaitStart + 50) < Game.time) {
+      //waited 50 ticks for a load, so drop whatever we have
+      creep.memory.dropoff = true;
+    }
   }
 
   if(creep.memory.dropoff == true){
