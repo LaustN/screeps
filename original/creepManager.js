@@ -136,7 +136,7 @@ module.exports = function (spawn) {
     }
 
     if ( i<= sources.length) {
-      var sourceToFocusOn = sources[i-1].id;
+      var sourceToFocusOn = sources[i-1];
       if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,2,{filter:function(structure){
         return structure.structureType == "link";
       }}) != null){
