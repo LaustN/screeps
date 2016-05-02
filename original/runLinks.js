@@ -46,7 +46,7 @@ module.exports = function () {
     console.log("outerLink:" + outerLinks.length);
     console.log("outerLink[0]:" + JSON.stringify(outerLinks[0]));
     if (outerLinks.length > 0) {
-      console.log("transferMessage:" + outerLinks[0].transferEnergy(centerLink, Math.min( outerLinks[0].energy, centerLink.energyCapacity - centerLink.energy));
+      console.log("transferMessage:" + outerLinks[0].transferEnergy(centerLink, Math.min( outerLinks[0].energy, centerLink.energyCapacity - centerLink.energy)));
       Memory.workingLinks[outerLinks[0].id] = true;
     }
 
