@@ -37,17 +37,12 @@ module.exports = function () {
       continue;
     }
 
-    console.log("centerlinkId: " + centerLink.id + " - working links:" + JSON.stringify(Memory.workingLinks));
-
     var outerLinks = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
       return structure.structureType == "link" && (!Memory.workingLinks[structure.id]) && (structure.id != centerLink.id);
     }});
 
-    console.log("outerLink:" + outerLinks.length);
-    console.log("outerLink[0]:" + JSON.stringify(outerLinks[0]));
     if (outerLinks.length > 0) {
-      console.log("transfer " + centerLink.pos + " to " + outerLinks[0].pos );
-      console.log("transferMessage:" + centerLink.transferEnergy(outerLinks[0], Math.min( outerLinks[0].energy, centerLink.energyCapacity - centerLink.energy)));
+      centerLink.transferEnergy(outerLinks[0]); //WHY IS THIS INVERTED???
       Memory.workingLinks[outerLinks[0].id] = true;
     }
 
