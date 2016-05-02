@@ -23,12 +23,12 @@ module.exports = function () {
       }
     }
 
-    if ( Memory.workingLinks[centerLink.id]) {
+    if (centerLink && Memory.workingLinks[centerLink.id]) {
       continue;
     }
 
     var outerLinks = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
-      return structure.structureType == "link" && !Memory.workingLinks[structure.id];
+      return structure.structureType == "link" && !Memory.workingLinks[structure.id] && (structure.id != centerLink.id);
     }});
 
     if (outerLinks.length > 0) {
