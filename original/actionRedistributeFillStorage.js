@@ -15,6 +15,7 @@ module.exports = function(creep){
         return true;
       }
     }});
+    console.log("nearest link: " + JSON.stringify(nearestLink));
 
     if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink)) {
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
