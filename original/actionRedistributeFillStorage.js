@@ -15,19 +15,20 @@ module.exports = function(creep){
         return true;
       }
     }});
-
-    if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink)) {
+    console.log("Working links: " + JSON.stringify(Memory.workingLinks));
+    if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink) && !Memory.workingLinks[nearestLink.id]) {
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
         creep.moveTo(nearestContainer);
       }
       return true;
     }
     if (nearestLink) {
-      var transferMessage = nearestLink.transferEnergy(creep, creep.carryCapacity);
+      var transferMessage = nearestLink.transferEnergy(creep);
       console.log(creep.name  +" is collecting from " + nearestLink.pos + " and got the response " + transferMessage );
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
       }
+      Memory.workingLinks[nearestLink.id] = true;
       return true;
     }
     if (nearestContainer) {

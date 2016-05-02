@@ -18,6 +18,8 @@ var runTowers = require("runTowers");
 module.exports.loop = function () {
   console.log("======================== tick " + Game.time + " ========================");
 
+  Memory.workingLinks = {};
+
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
   }
