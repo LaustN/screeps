@@ -15,7 +15,6 @@ module.exports = function(creep){
         return true;
       }
     }});
-    console.log("Working links: " + JSON.stringify(Memory.workingLinks));
     if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink) && !Memory.workingLinks[nearestLink.id]) {
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
         creep.moveTo(nearestContainer);

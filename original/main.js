@@ -14,6 +14,7 @@ var remoteTruck = require("remoteTruck");
 var creepManager = require("creepManager");
 var ensureHome = require("actionEnsureHome");
 var runTowers = require("runTowers");
+var runLinks = require("runLinks");
 
 module.exports.loop = function () {
   console.log("======================== tick " + Game.time + " ========================");
@@ -24,6 +25,8 @@ module.exports.loop = function () {
     creepManager(Game.spawns[spawnName]);
   }
   runTowers();
+  runLinks();
+  
   var rolenames = [
     "harvester","harvestTruck","guard","healer","builder","fortifier",
     "controlUpgrader","redistributor","scout","assault","claimer",
