@@ -48,7 +48,7 @@ module.exports = function () {
       for (var outerlinkIterator in outerLinks) {
         var link =  outerLinks[outerlinkIterator];
         if(link.energy > bestEnergyAmount){
-          console.log("energy " + link.energy " > " + bestEnergyAmount );
+          console.log("energy " + link.energy + " > " + bestEnergyAmount );
           bestEnergyAmount = link.energy;
           outerLink = link;
         }
