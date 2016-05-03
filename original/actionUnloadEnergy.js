@@ -24,6 +24,9 @@ module.exports = function(creep){
       creep.memory.dropoffWaitStart = 0;
       creep.memory.dropoff = true;
     }
+    else {
+      console.log(creep.name + " waiting another " + ((creep.memory.dropoffWaitStart + 50) - Game.time) + " ticks before unloading");
+    }
   }
 
   if(creep.memory.dropoff == true){
