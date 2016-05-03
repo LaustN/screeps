@@ -51,4 +51,6 @@ module.exports = function(creep){
 
     return true;
   }
+  
+  return false;
 }
