@@ -9,6 +9,7 @@ module.exports = function (creep) {
   var actionFortify = require("actionFortify");
   var actionUpgradeControl = require("actionUpgradeControl");
   var actionUnloadEnergy = require("actionUnloadEnergy");
+  var actionResetScout = require("actionResetScout");
 
   if(actionFlee(creep))
     return;
@@ -30,4 +31,5 @@ module.exports = function (creep) {
     return;
   if(actionUnloadEnergy(creep))
     return;
+  actionResetScout();
 }
