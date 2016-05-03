@@ -5,5 +5,6 @@ module.exports = function(creep){
   }
   var newMemory = { role: creep.memory.role, focus: creep.memory.focus, home: creep.memory.home };
   creep.memory = newMemory;
+  creep.drop(RESOURCE_ENERGY);
   return true;
 }
