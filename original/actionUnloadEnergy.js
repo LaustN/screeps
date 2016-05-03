@@ -18,17 +18,12 @@ module.exports = function(creep){
   }
   else {
     if(!creep.memory.dropoffWaitStart){
-      console.log(creep.name + " starts waiting for dropoff");
       creep.memory.dropoffWaitStart = Game.time;
     }
     if ((creep.memory.dropoffWaitStart + 50) < Game.time) {
-      console.log(creep.name + " is done waiting");
       //waited 50 ticks for a load, so drop whatever we have
       creep.memory.dropoffWaitStart = 0;
       creep.memory.dropoff = true;
-    }
-    else {
-      console.log(creep.name + " waiting another " + ((creep.memory.dropoffWaitStart + 50) - Game.time) + " ticks before unloading");
     }
   }
 
