@@ -14,6 +14,7 @@ module.exports = function(creep){
   }
   else if(creep.carry.energy == creep.carryCapacity){
     creep.memory.dropoff = true;
+    creep.memory.dropoffWaitStart = 0;
   }
   else {
     if(!creep.memory.dropoffWaitStart){
