@@ -27,10 +27,7 @@ module.exports = function (creep) {
     return;
   if(actionUpgradeControl(creep))
     return;
-    console.log("h");
   if(actionUnloadEnergy(creep))
     return;
-    console.log("i");
   actionResetScout(creep);
-  console.log("j");
 }
