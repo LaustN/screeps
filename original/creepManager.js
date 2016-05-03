@@ -105,20 +105,27 @@ module.exports = function (spawn) {
     return false;
   }
 
-  if(fnCreateCreep(
-    spawn.name + "TinyHarvest",
-    [WORK,CARRY,CARRY,MOVE,MOVE],
-    {
-      role: "harvester"
-    })){
-    return;
-  }
+    var livingHarvesters = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
+      return maybeAHarvester.memory.role == "harvest";
+    });
+
+    if(livingHarvesters.length == 0){
+      //only keep a tiny harvester around when no proper ones exist here
+      if(fnCreateCreep(
+        spawn.name + "TinyHarvest",
+        [WORK,CARRY,CARRY,MOVE,MOVE],
+        {
+          role: "harvester"
+        })){
+        return;
+      }
+    }
 
   if(fnCreateCreep(
-    spawn.name + "TinyRedist",
+    spawn.name + "TinyRefiller",
     [CARRY,CARRY,MOVE,MOVE],
     {
-      role: "redistributor",
+      role: "refiller",
       scavengeRange: 50
     })){
     return;
