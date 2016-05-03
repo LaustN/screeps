@@ -17,6 +17,9 @@ module.exports = function(creep){
       if(creep.pos.roomName == scoutTarget.pos.roomName){
         return false;
       }
+      if(creep.carry.energy){
+        console.log("maybe " + creep.name + " should drop energy at " + creep.pos);
+      }
       creep.moveTo(scoutTarget);
       return true;
     }
