@@ -19,6 +19,7 @@ module.exports = function(creep){
       }
       if(creep.carry.energy){
         console.log("maybe " + creep.name + " should drop energy at " + creep.pos);
+        creep.drop(RESOURCE_ENERGY);
       }
       creep.moveTo(scoutTarget);
       return true;
