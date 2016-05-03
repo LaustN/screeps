@@ -21,6 +21,7 @@ module.exports = function(creep){
     }
     if ((creep.memory.dropoffWaitStart + 50) < Game.time) {
       //waited 50 ticks for a load, so drop whatever we have
+      creep.memory.dropoffWaitStart = 0;
       creep.memory.dropoff = true;
     }
   }
