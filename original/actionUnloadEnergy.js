@@ -47,10 +47,8 @@ module.exports = function(creep){
       if(creep.transfer(dropoff, RESOURCE_ENERGY) != OK) {
         creep.moveTo(dropoff);
       }
+      return true;
     }
-
-    return true;
   }
-  
   return false;
 }
