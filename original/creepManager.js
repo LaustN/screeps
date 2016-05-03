@@ -328,6 +328,5 @@ module.exports = function (spawn) {
     }
   }
 
-  console.log(spawn.name + " has all the creeps it wants");
   spawn.memory.state = "OK";
 }

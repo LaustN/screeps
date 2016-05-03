@@ -17,8 +17,6 @@ var runTowers = require("runTowers");
 var runLinks = require("runLinks");
 
 module.exports.loop = function () {
-  console.log("======================== tick " + Game.time + " ========================");
-
   Memory.workingLinks = {};
 
   for(var spawnName in Game.spawns){
