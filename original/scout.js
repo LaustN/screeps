@@ -13,33 +13,24 @@ module.exports = function (creep) {
 
   if(actionFlee(creep))
     return;
-    console.log("a");
-//  if(actionRenew(creep))
-//    return;
   if(actionScout(creep))
     return;
-    console.log("b");
   if(actionRaze(creep))
     return;
-    console.log("c");
   if(actionScavenge(creep))
     return;
-    console.log("d");
   if(actionHarvest(creep))
     return;
-    console.log("e");
   if(actionBuild(creep))
     return;
-    console.log("f");
   if(actionFortify(creep))
     return;
-    console.log("g");
   if(actionUpgradeControl(creep))
     return;
     console.log("h");
   if(actionUnloadEnergy(creep))
     return;
     console.log("i");
-  actionResetScout();
+  actionResetScout(creep);
   console.log("j");
 }
