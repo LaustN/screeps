@@ -70,7 +70,7 @@ module.exports = function (spawn) {
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
   var maxWorkerPrice = Math.min(1200, capacity);
-  var harvestBody = fnBodyBuild([MOVE,CARRY,WORK],maxWorkerPrice);
+  var harvestBody = fnBodyBuild([MOVE,CARRY,WORK,WORK],maxWorkerPrice);
   var truckBody = fnBodyBuild([MOVE,CARRY],maxWorkerPrice);;
   var workerPartsPerWorker = 0;
   for (var partIndex in harvestBody) {
