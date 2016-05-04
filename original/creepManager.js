@@ -81,8 +81,6 @@ module.exports = function (spawn) {
 
   var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK]);
 
-  console.log(spawn.name + " uses " + workerPartsPerWorker + " worker parts");
-
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
