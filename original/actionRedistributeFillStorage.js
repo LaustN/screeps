@@ -1,8 +1,5 @@
 module.exports = function(creep){
   var collectFromDump = function(){
-    if(creep.carry.energy != 0){
-      return false;
-    }
 
     var nearestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
       if(structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY]>100){
@@ -22,12 +19,20 @@ module.exports = function(creep){
       creep.memory.refillingStorage = true;
       return true;
     }
+
+    if(nearestLink || nearestContainer ){
+      creep.memory.refillingStorage = true;
+    }
+
+    if(creep.carry.energy != 0){
+      return false;
+    }
+
     if (nearestLink) {
       var transferMessage = nearestLink.transferEnergy(creep);
       if(transferMessage != OK){
         creep.moveTo(nearestLink);
       }
-      creep.memory.refillingStorage = true;
       Memory.workingLinks[nearestLink.id] = true;
       return true;
     }
@@ -35,7 +40,6 @@ module.exports = function(creep){
       if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
         creep.moveTo(nearestContainer);
       }
-      creep.memory.refillingStorage = true;
       return true;
     }
     creep.memory.refillingStorage = false;
