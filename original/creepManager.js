@@ -69,20 +69,19 @@ module.exports = function (spawn) {
   //each worker part harvests 2 energy per tick
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
-  var harvestBody = [];
-  var truckBody = [];
+  var maxWorkerPrice = Math.min(1200, capacity);
+  var harvestBody = fnBodyBuild([MOVE,CARRY,WORK],maxWorkerPrice);
+  var truckBody = fnBodyBuild([MOVE,CARRY],maxWorkerPrice);;
   var workerPartsPerWorker = 0;
-  var remainingCapacity = capacity;
-
-  while (remainingCapacity>=300) {
-    remainingCapacity -= 300;
-    harvestBody.unshift(WORK,WORK,CARRY,MOVE);
-    truckBody.unshift(CARRY,MOVE,CARRY,MOVE,CARRY,MOVE);
-    workerPartsPerWorker += 2;
-    if(workerPartsPerWorker>=8){
-      remainingCapacity = 0; //massive workers seem to cause trouble for the economy
+  for (var partIndex in harvestBody) {
+    if(harvestBody[partIndex] == WORK){
+      workerPartsPerWorker++;
     }
   }
+
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK]);
+
+  console.log(spawn.name + " uses " + workerPartsPerWorker + " worker parts");
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
@@ -194,7 +193,7 @@ module.exports = function (spawn) {
       }
     },
     {
-      body: harvestBody,
+      body: scoutBody,
       name: "Fortifier",
       memory: {
         role: "fortifier",
@@ -202,14 +201,14 @@ module.exports = function (spawn) {
       }
     },
     {
-      body: harvestBody,
+      body: scoutBody,
       name: "Builder",
       memory: {
         role: "builder"
       }
     },
     {
-      body: harvestBody,
+      body: scoutBody,
       name: "ControlUpgrader",
       memory: {
         role: "controlUpgrader"
@@ -280,7 +279,7 @@ module.exports = function (spawn) {
         i = 1;
         for (; i <= scoutTarget.scoutCount; i++) {
           var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
-          if(fnCreateCreep(newScoutName,harvestBody,newScoutMemory)){
+          if(fnCreateCreep(newScoutName,scoutBody,newScoutMemory)){
             return;
           }
         }
