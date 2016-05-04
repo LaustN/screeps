@@ -1,13 +1,4 @@
 module.exports = function(creep){
-  var dropPointsHere = creep.pos.findInRange(FIND_MY_STRUCTURES,1,{
-    filter: function(structure){
-      return structure.energyCapacity > structure.energy;
-    }
-  });
-  if(dropPointsHere){
-    creep.transfer(dropPointsHere[0], RESOURCE_ENERGY);
-  }
-
   if(creep.carry.energy == 0){
     creep.memory.dropoff = false;
     creep.memory.dropoffWaitStart = 0;
