@@ -13,7 +13,7 @@ module.exports = function (spawn) {
     {x:0,y:1},
     {x:1,y:1},
   ];
-  var fnBodyBuild = function(bodyParts){
+  var fnBodyBuild = function(bodyParts, maxPrice){
     var priceMap = {};
     priceMap[MOVE] = 50;
     priceMap[WORK] = 100;
@@ -23,17 +23,20 @@ module.exports = function (spawn) {
     priceMap[TOUGH] = 10;
     priceMap[HEAL] = 250;
     priceMap[CLAIM] = 600;
-    var remainingAssaultBodyCapacity = capacity;
+    var remainingCapacity = capacity;
+    if(maxPrice){
+      remainingCapacity = maxPrice;
+    }
     var resultingBody  =[];
     while (true) {
       for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
-        if(remainingAssaultBodyCapacity < 50){
+        if(remainingCapacity < 50){
           return resultingBody;
         }
         var nextPart =  bodyParts[assaultPartsIterator];
-        if (priceMap[nextPart] <= remainingAssaultBodyCapacity) {
+        if (priceMap[nextPart] <= remainingCapacity) {
           resultingBody.unshift(nextPart)
-          remainingAssaultBodyCapacity-=priceMap[nextPart];
+          remainingCapacity-=priceMap[nextPart];
         }
       }
     }
