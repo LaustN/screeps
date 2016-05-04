@@ -5,13 +5,13 @@ module.exports = function(creep){
     }
 
     var nearestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
-      if(structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY]>0){
+      if(structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY]>100){
         return true;
       }
     }});
 
     var nearestLink = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
-      if((structure.structureType == STRUCTURE_LINK) && (structure.energy > 0) ){
+      if((structure.structureType == STRUCTURE_LINK) && (structure.energy > 100) ){
         return true;
       }
     }});
