@@ -38,6 +38,10 @@ module.exports = function(creep){
     return false;
   };
   var dumpAtStorage = function(){
+    if(creep.carry.energy == 0){
+      return false;
+    }
+
     var storage = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{filter: function(structure){
         if(structure.structureType == STRUCTURE_STORAGE && (_.sum(structure.store) < structure.storeCapacity)){
           return true;
@@ -50,7 +54,7 @@ module.exports = function(creep){
   }
 
   if(!collectFromDump()){
-    dumpAtStorage();
+    return dumpAtStorage();
   }
-  return true;
+  return false;
 }
