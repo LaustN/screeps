@@ -46,6 +46,7 @@ module.exports = function(creep){
 
     return false;
   };
+
   var dumpAtStorage = function(){
     if(creep.carry.energy == 0){
       return false;
@@ -65,8 +66,12 @@ module.exports = function(creep){
     }
   }
 
-  if(!collectFromDump()){
-    return dumpAtStorage();
+  if(collectFromDump()){
+    return true;
+  }
+  if(dumpAtStorage()) {
+    return true;
   }
   return false;
+
 }
