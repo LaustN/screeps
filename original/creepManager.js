@@ -105,29 +105,28 @@ module.exports = function (spawn) {
     return false;
   }
 
-    var livingHarvesters = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
-      return maybeAHarvester.memory.role == "harvest";
-    });
+  var livingHarvesters = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
+    return maybeAHarvester.memory.role == "harvest";
+  });
 
-    if(livingHarvesters.length == 0){
-      //only keep a tiny harvester around when no proper ones exist here
-      if(fnCreateCreep(
-        spawn.name + "TinyHarvest",
-        [WORK,CARRY,CARRY,MOVE,MOVE],
-        {
-          role: "harvester"
-        })){
-        return;
-      }
+  if(livingHarvesters.length == 0){
+    //only keep a tiny harvester around when no proper ones exist here
+    if(fnCreateCreep(spawn.name + "TinyHarvest", [WORK,CARRY,CARRY,MOVE,MOVE], {role: "harvester", scavengeRange: 3})){
+      return;
     }
+  }
 
-  if(fnCreateCreep(
-    spawn.name + "TinyRefiller",
-    [CARRY,CARRY,MOVE,MOVE],
-    {
-      role: "refiller",
-      scavengeRange: 50
-    })){
+  var livingRefillers = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
+    return maybeAHarvester.memory.role == "refiller";
+  });
+  if(livingRefillers.length == 0 &&  fnCreateCreep(spawn.name + "TinyRefiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
+    return;
+  }
+
+  var livingRedistributors = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
+    return maybeAHarvester.memory.role == "redistributor";
+  });
+  if(livingRedistributors.length == 0 &&  fnCreateCreep(spawn.name + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
     return;
   }
 
@@ -152,14 +151,7 @@ module.exports = function (spawn) {
     }
 
     var newTruckName = spawn.name + "Truck" + i;
-    if(fnCreateCreep(
-      newTruckName,
-      truckBody,
-      {
-        role: "harvestTruck",
-        scavengeRange: 3,
-        focus: newHarvesterName
-      })){
+    if(fnCreateCreep(newTruckName, truckBody, { role: "harvestTruck", scavengeRange: 3, focus: newHarvesterName})){
       return;
     }
   }
@@ -172,13 +164,7 @@ module.exports = function (spawn) {
     }
   }
 
-  if(fnCreateCreep(
-    spawn.name + "Refiller",
-    truckBody,
-    {
-      role: "refiller",
-      scavengeRange: 10
-    })){
+  if(fnCreateCreep(spawn.name + "Refiller", truckBody, {role: "refiller", scavengeRange: 10})){
     return;
   }
 
