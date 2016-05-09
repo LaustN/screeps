@@ -7,10 +7,10 @@ module.exports = function(creep){
     if (creep.carry.energy == creep.carryCapacity) {
       return false;  //do not scout on a full stomach
     }
-    var scoutTarget = Game.getObjectById(creep.memory.focus);
+    var scoutTarget = Game.flags[creep.memory.scoutFlag];
 
     if(!scoutTarget){
-      scoutTarget = Game.flags[creep.memory.focus];
+      scoutTarget = Game.getObjectById(creep.memory.focus);
     }
 
     if(scoutTarget){
