@@ -116,23 +116,11 @@ module.exports = function (spawn) {
     }
   }
 
-  var livingRefillers = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
-    return maybeAHarvester.memory.role == "refiller";
-  });
-  if(spawn.name == "Spawn1"){
-    console.log("livingRefillers=" + JSON.stringify(livingRefillers));
-  }
-  if(livingRefillers.length == 0 &&  fnCreateCreep(spawn.name + "TinyRefiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
+  if(fnCreateCreep(spawn.name + "TinyRefiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
     return;
   }
 
-  var livingRedistributors = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
-    return maybeAHarvester.memory.role == "redistributor";
-  });
-  if(spawn.name == "Spawn1"){
-    console.log("livingRedistributors=" + JSON.stringify(livingRedistributors));
-  }
-  if(livingRedistributors.length == 0 &&  fnCreateCreep(spawn.name + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
+  if(fnCreateCreep(spawn.name + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
     return;
   }
 
