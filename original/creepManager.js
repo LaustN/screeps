@@ -106,7 +106,7 @@ module.exports = function (spawn) {
   }
 
   var livingHarvesters = spawn.room.find(FIND_MY_CREEPS, {filter: function(maybeAHarvester){
-    return maybeAHarvester.memory.role == "harvest";
+    return maybeAHarvester.memory.role == "harvester";
   }});
 
   if(livingHarvesters.length == 0){
