@@ -105,9 +105,9 @@ module.exports = function (spawn) {
     return false;
   }
 
-  var livingHarvesters = spawn.room.find(FIND_MY_CREEPS, function(maybeAHarvester){
+  var livingHarvesters = spawn.room.find(FIND_MY_CREEPS, {filter: function(maybeAHarvester){
     return maybeAHarvester.memory.role == "harvest";
-  });
+  }});
 
   if(livingHarvesters.length == 0){
     //only keep a tiny harvester around when no proper ones exist here
