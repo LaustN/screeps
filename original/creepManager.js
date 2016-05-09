@@ -185,13 +185,6 @@ module.exports = function (spawn) {
         role: "builder"
       }
     },
-    {
-      body: scoutBody,
-      name: "ControlUpgrader",
-      memory: {
-        role: "controlUpgrader"
-      }
-    },
   ];
 
   if(!spawn.memory.workerLayers){
