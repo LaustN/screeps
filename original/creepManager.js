@@ -167,15 +167,15 @@ module.exports = function (spawn) {
       body: truckBody,
       name: "Redistributor",
       memory: {
-        role: "redistributor"
+        role: "redistributor",
+        scavengeRange: 50
       }
     },
     {
       body: scoutBody,
       name: "Fortifier",
       memory: {
-        role: "fortifier",
-        scavengeRange: 50
+        role: "fortifier"
       }
     },
     {
