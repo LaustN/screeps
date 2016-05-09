@@ -265,7 +265,7 @@ module.exports = function (spawn) {
         i = 1;
         for (; i <= scoutTarget.remoteTruckCount; i++) {
           var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
-          if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 3})){
+          if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 10})){
             return;
           }
         }
