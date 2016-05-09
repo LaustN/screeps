@@ -10,6 +10,7 @@ module.exports = function(creep){
 
       var targetStructure = targetFlag.pos.findInRange(FIND_STRUCTURES,0,{filter:function(structure){
         if(structure.my){
+          console.log(creep.name + " will not destroy structure at " + structure.pos + " since it is my own");
           return false;
         }
         return true;
