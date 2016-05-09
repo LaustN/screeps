@@ -116,7 +116,7 @@ module.exports = function (spawn) {
     }
   }
 
-  if(fnCreateCreep(spawn.name + "TinyRefiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
+  if(fnCreateCreep(spawn.name + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
     return;
   }
 
@@ -156,10 +156,6 @@ module.exports = function (spawn) {
     if(harvester){
       harvester.memory.focus = sources[i].id;
     }
-  }
-
-  if(fnCreateCreep(spawn.name + "Refiller", truckBody, {role: "refiller", scavengeRange: 10})){
-    return;
   }
 
   var creepsToMaintain = [
