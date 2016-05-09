@@ -3,7 +3,7 @@ module.exports = function(creep){
   if(creep.carryCapacity == creep.carry.energy){
     return false;
   }
-  var newMemory = { role: creep.memory.role, focus: creep.memory.focus, home: creep.memory.home, harvest: true };
+  var newMemory = { role: creep.memory.role, focus: null, home: creep.memory.home, harvest: true, scoutFlag: creep.memory.scoutFlag };
   creep.memory = newMemory;
   return true;
 }
