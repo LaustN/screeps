@@ -248,7 +248,7 @@ module.exports = function (spawn) {
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
       if(scoutTargetFlag){
-        var newScoutMemory = {focus: scoutTargetFlag.id,role:"scout"};
+        var newScoutMemory = {focus: scoutTargetFlag.name, role:"scout"};
         if(scoutTarget.razeRange > -1 && scoutTarget.razeTarget){
           newScoutMemory.razeTarget = scoutTarget.razeTarget;
           newScoutMemory.razeRange = scoutTarget.razeRange;
