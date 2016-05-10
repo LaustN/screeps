@@ -15,10 +15,8 @@ module.exports = function(creep){
     creep.memory.focus = null;
 
     if(scoutTarget){
-      console.log(creep.name + " is running for a scout target at " + scoutTarget.pos);
 
       if(creep.pos.roomName == scoutTarget.pos.roomName){
-        console.log(creep.name + " is already in the same room as " + scoutTarget.pos);
         return false;
       }
       if(creep.carry[RESOURCE_ENERGY] > 0){
