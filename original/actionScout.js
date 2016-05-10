@@ -1,5 +1,5 @@
 module.exports = function(creep){
-  if(creep.memory.focus){
+  if(creep.memory.scoutFlag){
     if (creep.memory.dropoff) {
       console.log(creep.name + " is not scouting right now since it is dropping off");
       return false; //do not run to remote rooms for dropoff
