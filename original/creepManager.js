@@ -79,7 +79,7 @@ module.exports = function (spawn) {
     }
   }
 
-  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK]);
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], 1250);
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
