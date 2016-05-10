@@ -1,7 +1,6 @@
 module.exports = function(creep){
   if(creep.memory.scoutFlag){
     if (creep.memory.dropoff) {
-      console.log(creep.name + " is not scouting right now since it is dropping off");
       return false; //do not run to remote rooms for dropoff
     }
 
@@ -24,7 +23,6 @@ module.exports = function(creep){
         creep.drop(RESOURCE_ENERGY);
       }
       creep.moveTo(scoutTarget);
-      console.log(creep.name + " did the scout moving thing");
       return true;
     }
   }
