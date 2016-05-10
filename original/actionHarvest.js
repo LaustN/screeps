@@ -10,6 +10,12 @@ module.exports = function(creep){
   if(creep.memory.harvest == true){
 
     var harvestTarget = creep.room.find(FIND_SOURCES)[0];
+    if(creep.memory.focus){
+      var focus = Game.getObjectById(creep.memory.focus);
+      if(focus){
+        harvestTarget = focus;
+      }
+    }
 
     var findOtherSource = function(){
       var alternativeSource =  creep.pos.findClosestByRange(FIND_SOURCES,{ filter:
