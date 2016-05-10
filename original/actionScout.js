@@ -5,7 +5,6 @@ module.exports = function(creep){
     }
 
     if (creep.carry[RESOURCE_ENERGY] == creep.carryCapacity) {
-      console.log(creep.name + " is full, so not scouting");
       return false;  //do not scout on a full stomach
     }
     var scoutTarget = Game.flags[creep.memory.scoutFlag];
