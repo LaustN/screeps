@@ -64,7 +64,11 @@ module.exports = function(creep){
         console.log(creep.name + " failed to find something to pick up while carrying " + creep.energy);
         creep.memory.collectingEnergy = false;
         creep.memory.dropoff = true;
+        return true;
       }
+
+      creep.moveTo(focusObject);
+      return true;
     }
   }
 }
