@@ -9,14 +9,8 @@ module.exports = function(creep){
 
   if(creep.memory.collectingEnergy) {
 
-    var focusObject = null;
-    for (var flagName in Game.flags) {
-      var flag = Game.flags[flagName];
-      if(flag.name == creep.memory.focus){
-        focusObject = flag;
-        break;
-      }
-    }
+    var focusObject = Game.flags[creep.memory.focus];
+
     if(focusObject){
       if(creep.pos.roomName != focusObject.pos.roomName){
         var moveMessage = creep.moveTo(focusObject);
@@ -66,7 +60,8 @@ module.exports = function(creep){
       }
 
       //getting all the way down here means that we did not find any local energy, so drop what we have at home
-      if(creep.energy > 0){
+      if(creep.carry[RESOURCE_ENERGY] > 0){
+        console.log(creep.name + " failed to find something to pick up while carrying " + creep.energy);
         creep.memory.collectingEnergy = false;
         creep.memory.dropoff = true;
       }
