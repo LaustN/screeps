@@ -1,9 +1,9 @@
 module.exports = function(creep){
 
-  if(creep.carry.energy == 0){
+  if(creep.carry[RESOURCE_ENERGY] == 0){
     creep.memory.harvest = true;
   }
-  if(creep.carry.energy == creep.carryCapacity){
+  if(creep.carry[RESOURCE_ENERGY] == creep.carryCapacity){
     creep.memory.harvest = false;
   }
 
