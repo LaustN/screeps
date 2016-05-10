@@ -18,6 +18,7 @@ var runLinks = require("runLinks");
 
 module.exports.loop = function () {
   Memory.workingLinks = {};
+  console.log("============= " + Game.time + " ==============");
 
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
