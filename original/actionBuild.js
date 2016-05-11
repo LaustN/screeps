@@ -1,11 +1,15 @@
 module.exports = function (creep) {
-  if(creep.carry.energy == 0){
-    return false;
+  if(creep.carry[RESOURCE_ENERGY] == 0){
+    creep.memory.building = false;
   }
-  var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES,{
-    filter:function(constructionSite){
-      return constructionSite.structureType != STRUCTURE_ROAD
-    }});
+  if(creep.carry[RESOURCE_ENERGY] == creep.carryCapacity){
+    creep.memory.building = true;
+  }
+  if(creep.memory.building){
+    var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES,{
+      filter:function(constructionSite){
+        return constructionSite.structureType != STRUCTURE_ROAD
+      }});
     if(target == null){
       target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
     }
@@ -17,4 +21,9 @@ module.exports = function (creep) {
       }
       return true;
     }
+    else {
+      creep.building = false;
+      return false;
+    }
   }
+}
