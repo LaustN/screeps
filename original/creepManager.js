@@ -206,17 +206,18 @@ module.exports = function (spawn) {
   }
 
   if(!spawn.memory.assaultOrders){
-    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0}];
+    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0, maxPrice: 1500}];
   }
 
   if(spawn.memory.assaultOrders.length > 0){
 
     var assaultParts = [MOVE,ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
 
-    var assaultBody = fnBodyBuild(assaultParts);
 
     for (var assaultOrderIndex in spawn.memory.assaultOrders) {
       var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
+      var assaultMaxPrice = Math.max(300,assaultOrder.maxPrice)
+      var assaultBody = fnBodyBuild(assaultParts, assaultMaxPrice);
       i=1;
       for (; i <= assaultOrder.assaultCount; i++) {
         var newAssaultName = spawn.name + assaultOrder.flagName  +  "Assault" + i;
