@@ -13,7 +13,7 @@ module.exports = function(creep){
       }
     }});
     if (nearestContainer && nearestLink && creep.pos.getRangeTo(nearestContainer) < creep.pos.getRangeTo(nearestLink) && !Memory.workingLinks[nearestLink.id]) {
-      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
+      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) ==  ERR_NOT_IN_RANGE){
         creep.moveTo(nearestContainer);
       }
       creep.memory.refillingStorage = true;
@@ -30,14 +30,14 @@ module.exports = function(creep){
 
     if (nearestLink) {
       var transferMessage = nearestLink.transferEnergy(creep);
-      if(transferMessage != OK){
+      if(transferMessage ==  ERR_NOT_IN_RANGE){
         creep.moveTo(nearestLink);
       }
       Memory.workingLinks[nearestLink.id] = true;
       return true;
     }
     if (nearestContainer) {
-      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
+      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) ==  ERR_NOT_IN_RANGE){
         creep.moveTo(nearestContainer);
       }
       return true;
