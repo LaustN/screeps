@@ -31,11 +31,7 @@ module.exports = function (spawn) {
     while (true) {
       for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
         if(remainingCapacity < 50){
-
-          console.log("presort:" + JSON.stringify(resultingBody));
           resultingBody.sort(function(a,b){ return priceMap[a] - priceMap[b]; });
-          console.log("postsort:" + JSON.stringify(resultingBody));
-
           return resultingBody;
         }
         var nextPart =  bodyParts[assaultPartsIterator];
