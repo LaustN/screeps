@@ -31,6 +31,11 @@ module.exports = function (spawn) {
     while (true) {
       for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
         if(remainingCapacity < 50){
+
+          console.log("presort:" + JSON.stringify(resultingBody));
+          resultingBody.sort(function(a,b){ return priceMap[a] - priceMap[b]; });
+          console.log("postsort:" + JSON.stringify(resultingBody));
+
           return resultingBody;
         }
         var nextPart =  bodyParts[assaultPartsIterator];
@@ -79,7 +84,7 @@ module.exports = function (spawn) {
     }
   }
 
-  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], 1250);
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], 1500);
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
