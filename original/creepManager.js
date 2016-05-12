@@ -1,6 +1,6 @@
 module.exports = function (spawn) {
+  var roomName = spawn.room.name;
   var capacity = spawn.room.energyCapacityAvailable;
-  console.log("span at " + spawn.pos + " found capacity " + capacity);
   var harvestPoints = 0;
   var sources = spawn.room.find(FIND_SOURCES);
   var sourcesCount = sources.length;
@@ -113,22 +113,22 @@ module.exports = function (spawn) {
 
   if(livingHarvesters.length == 0){
     //only keep a tiny harvester around when no proper ones exist here
-    if(fnCreateCreep(spawn.name + "TinyHarvest", [WORK,CARRY,CARRY,MOVE,MOVE], {role: "harvester", scavengeRange: 3})){
+    if(fnCreateCreep(roomName + "TinyHarvest", [WORK,CARRY,CARRY,MOVE,MOVE], {role: "harvester", scavengeRange: 3})){
       return;
     }
   }
 
-  if(fnCreateCreep(spawn.name + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
+  if(fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 50 })){
     return;
   }
 
-  if(fnCreateCreep(spawn.name + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
+  if(fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
     return;
   }
 
   var i = 1;
   for (; i <= maxWorkerCount; i++) {
-    var newHarvesterName = spawn.name +  "Harvest" + i;
+    var newHarvesterName = roomName +  "Harvest" + i;
     var harvesterMemory = {role:"harvester"};
     if ( i<= sources.length) {
       harvesterMemory["focus"] = sources[i-1].id;
@@ -146,14 +146,14 @@ module.exports = function (spawn) {
       }
     }
 
-    var newTruckName = spawn.name + "Truck" + i;
+    var newTruckName = roomName + "Truck" + i;
     if(fnCreateCreep(newTruckName, truckBody, { role: "harvestTruck", scavengeRange: 3, focus: newHarvesterName})){
       return;
     }
   }
 
   for (var i = 0; i < maxWorkerCount && i < sources.length; i++) {
-    var harvesterName = spawn.name +  "Harvest" + (i+1);
+    var harvesterName = roomName +  "Harvest" + (i+1);
     var harvester = Game.creeps[harvesterName];
     if(harvester){
       harvester.memory.focus = sources[i].id;
@@ -196,7 +196,7 @@ module.exports = function (spawn) {
   for (var workerLayersIterator = 1; workerLayersIterator <= spawn.memory.workerLayers; workerLayersIterator++) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
-      var newCreepName = spawn.name +  creepDefinition.name + workerLayersIterator;
+      var newCreepName = roomName +  creepDefinition.name + workerLayersIterator;
       if(spawnCount > maxMiscCount){
         break;
       }
@@ -222,7 +222,7 @@ module.exports = function (spawn) {
       var assaultBody = fnBodyBuild(assaultParts, assaultMaxPrice);
       i=1;
       for (; i <= assaultOrder.assaultCount; i++) {
-        var newAssaultName = spawn.name + assaultOrder.flagName  +  "Assault" + i;
+        var newAssaultName = roomName + assaultOrder.flagName  +  "Assault" + i;
         if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
           return;
         }
@@ -248,7 +248,7 @@ module.exports = function (spawn) {
 
         i = 1;
         for (; i <= scoutTarget.scoutCount; i++) {
-          var newScoutName = spawn.name + scoutTarget.flagName +  "Scout" + i;
+          var newScoutName = roomName + scoutTarget.flagName +  "Scout" + i;
           if(fnCreateCreep(newScoutName,scoutBody,newScoutMemory)){
             return;
           }
@@ -256,7 +256,7 @@ module.exports = function (spawn) {
 
         i = 1;
         for (; i <= scoutTarget.remoteTruckCount; i++) {
-          var remoteTruckName = spawn.name + scoutTarget.flagName +  "RemoteTruck" + i;
+          var remoteTruckName = roomName + scoutTarget.flagName +  "RemoteTruck" + i;
           if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 3})){
             return;
           }
@@ -284,7 +284,7 @@ module.exports = function (spawn) {
         }
 
         if (reserveRoomFlag.room.controller.owner && reserveRoomFlag.room.controller.my == false) {
-          if(fnCreateCreep(spawn.name + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+          if(fnCreateCreep(roomName + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
             return;
           }
         }
@@ -293,7 +293,7 @@ module.exports = function (spawn) {
           continue;
         }
 
-        if(fnCreateCreep(spawn.name + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+        if(fnCreateCreep(roomName + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
           return;
         }
       }
