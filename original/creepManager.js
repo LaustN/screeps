@@ -1,5 +1,6 @@
 module.exports = function (spawn) {
   var capacity = spawn.room.energyCapacityAvailable;
+  console.log("span at " + spawn.pos + " found capacity " + capacity);
   var harvestPoints = 0;
   var sources = spawn.room.find(FIND_SOURCES);
   var sourcesCount = sources.length;
