@@ -272,7 +272,7 @@ module.exports = function (spawn) {
 
   if(spawn.memory.reserveRoomFlagNames.length > 0){
     var maxReserveLayers = Math.floor(capacity/700);
-    var reserverBody = fnBodyBuild([CLAIM,MOVE]);
+    var reserverBody = fnBodyBuild([CLAIM,MOVE,MOVE]);
     for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
       var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
       if(reserveRoomFlag){
@@ -285,6 +285,7 @@ module.exports = function (spawn) {
 
         if (reserveRoomFlag.room.controller.owner && reserveRoomFlag.room.controller.my == false) {
           if(fnCreateCreep(roomName + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+            console.log("Trying to create " + roomName + "Reserver" + reserveRoomFlag.name);
             return;
           }
         }
