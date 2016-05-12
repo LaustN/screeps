@@ -281,7 +281,13 @@ module.exports = function (spawn) {
         if (!reserveRoomFlag.room.controller) {
           continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
         }
-        console.log("Reserver wants to know if controller is 'my' in room " + reserveRoomFlag.pos + " my is="  + reserveRoomFlag.room.controller.my);
+
+        if (reserveRoomFlag.room.controller.owner && reserveRoomFlag.room.controller.my == false) {
+          if(fnCreateCreep(spawn.name + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+            return;
+          }
+        }
+
         if (reserveRoomFlag.room.controller.reservation && reserveRoomFlag.room.controller.reservation.ticksToEnd > 1000 ) {
           continue;
         }

@@ -4,7 +4,14 @@ module.exports = function(creep){
     creep.moveTo(reservationFlag);
     return true;
   }
-  else if(creep.reserveController(creep.room.controller)!= OK){
+  if (reservationFlag.room.controller.owner && reservationFlag.room.controller.my == false) {
+    console.log("attacking controller");
+    if(creep.attackController(creep.room.controller)!= OK){
+      creep.moveTo(creep.room.controller);
+    }
+  }
+
+  if(creep.reserveController(creep.room.controller)!= OK){
     creep.moveTo(creep.room.controller);
   }
 }
