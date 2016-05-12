@@ -271,10 +271,7 @@ module.exports = function (spawn) {
 
   if(spawn.memory.reserveRoomFlagNames.length > 0){
     var maxReserveLayers = Math.floor(capacity/700);
-    var reserverBody = [];
-    for (var i = 0; i < maxReserveLayers; i++) {
-      reserverBody.unshift(CLAIM,MOVE,MOVE);
-    }
+    var reserverBody = fnBodyBuild([CLAIM,MOVE]);
     for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
       var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
       if(reserveRoomFlag){
@@ -284,9 +281,7 @@ module.exports = function (spawn) {
         if (!reserveRoomFlag.room.controller) {
           continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
         }
-        if (reserveRoomFlag.room.controller.my) {
-          continue;
-        }
+        console.log("Reserver wants to know if controller is 'my':"  + reserveRoomFlag.room.controller.);
         if (reserveRoomFlag.room.controller.reservation && reserveRoomFlag.room.controller.reservation.ticksToEnd > 1000 ) {
           continue;
         }
