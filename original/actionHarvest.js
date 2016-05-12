@@ -1,15 +1,9 @@
 module.exports = function(creep){
 
   if(creep.carry[RESOURCE_ENERGY] == 0){
-    if (creep.memory.harvest == false) {
-      console.log(creep.name + " toggling harvest on");
-    }
     creep.memory.harvest = true;
   }
   if(creep.carry[RESOURCE_ENERGY] == creep.carryCapacity){
-    if (creep.memory.harvest == true) {
-      console.log(creep.name + " toggling harvest off");
-    }
     creep.memory.harvest = false;
   }
 

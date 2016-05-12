@@ -1,5 +1,4 @@
 module.exports = function(creep){
-  console.log("resetting " + creep.name);
   if(creep.carryCapacity == creep.carry.energy){
     return false;
   }
