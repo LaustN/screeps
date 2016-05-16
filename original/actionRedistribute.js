@@ -43,7 +43,7 @@ module.exports = function(creep){
     }
   };
 
-  if(home.energy / home.energyCapacity < 1){
+  if(home.energy < home.energyCapacity ){
     creep.say("ReHo");
     //home is not so full
     if(!collectFromStorage()){
