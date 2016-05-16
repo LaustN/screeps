@@ -54,6 +54,22 @@ module.exports = function(creep){
     return true;
   }
 
+  var lowEnergySpawn = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: function(structure){
+    if(structure.structureType == STRUCTURE_SPAWN && structure.energy < structure.energyCapacity){
+      return true;
+    }
+  }});
+  if(lowEnergySpawn){
+    creep.say("ReSp");
+
+    if(!collectFromStorage()){
+      if(creep.transfer(lowEnergySpawn, RESOURCE_ENERGY) != OK){
+        creep.moveTo(lowEnergySpawn);
+      }
+    }
+    return true;
+  }
+
   var lowEnergyExtension = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: function(structure){
     if(structure.structureType == STRUCTURE_EXTENSION && structure.energy < structure.energyCapacity){
       return true;
