@@ -63,9 +63,11 @@ module.exports = function (spawn) {
     for (var structureName in myStructures) {
       var structure = myStructures[structureName];
       if (structure.energy > 0) {
+        console.log("energy=" + structure.energy);
         energySum += structure.energy;
       }
       if(structure.store && structure.store[RESOURCE_ENERGY] > 0){
+        console.log("store=" + structure.store[RESOURCE_ENERGY]);
         energySum += structure.store[RESOURCE_ENERGY];
       }
     }
