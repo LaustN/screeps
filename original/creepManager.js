@@ -59,7 +59,7 @@ module.exports = function (spawn) {
 
   var storedEnergyInRoom = function(room){
     var energySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) ;
-    var storedEnergySum =       _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store.energy")) ;
+    var storedEnergySum =       _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store[RESOURCE_ENERGY]")) ;
     return  energySum + storedEnergySum;
   }
 
@@ -84,7 +84,7 @@ module.exports = function (spawn) {
   //each worker part harvests 2 energy per tick
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
-  var maxWorkerPrice = Math.min(1200, capacity);
+  var maxWorkerPrice = Math.min(1500, capacity);
   var harvestBody = fnBodyBuild([MOVE,CARRY,WORK,WORK],maxWorkerPrice);
   var truckBody = fnBodyBuild([MOVE,CARRY],maxWorkerPrice);;
   var workerPartsPerWorker = 0;
@@ -94,7 +94,7 @@ module.exports = function (spawn) {
     }
   }
 
-  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], 1500);
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], maxWorkerPrice);
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
