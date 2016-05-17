@@ -119,7 +119,6 @@ module.exports = function (spawn) {
         console.log("Respawning " + name);
       }
       else if(createMessage == ERR_NOT_ENOUGH_RESOURCES){
-        console.log(spawn.name + " did not have energy for creating "  + name + "=" + JSON.stringify(body));
         if(spawn.memory.state != "SaveEnergy"){
           console.log(spawn.name + " saving up for " + name);
         }
