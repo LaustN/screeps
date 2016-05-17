@@ -34,6 +34,7 @@ module.exports = function(creep){
               if(terrain == "plain" || terrain == "swamp"){
                 var creepsAtCheckPos = checkPos.lookFor("creep");
                 if(creepsAtCheckPos.length == 0){
+                  console.log("no creeps present at " + checkPos);
                   return true;
                 }
               }
