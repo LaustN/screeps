@@ -9,7 +9,7 @@ module.exports = function(creep){
 
   if(creep.memory.harvest == true){
 
-    var harvestTarget = creep.room.find(FIND_SOURCES)[0];
+    var harvestTarget = creep.pos.findClosestByRange(FIND_SOURCES);
     if(creep.memory.focus != null){
       var focus = Game.getObjectById(creep.memory.focus);
       if(focus != null && focus.pos.roomName == harvestTarget.pos.roomName){
@@ -56,9 +56,6 @@ module.exports = function(creep){
     }
     if(harvestMessage == ERR_NOT_ENOUGH_RESOURCES){
       findOtherSource();
-    }
-    if(harvestMessage != OK){
-      console.log("harvestMessage=" + harvestMessage);
     }
 
     return true;
