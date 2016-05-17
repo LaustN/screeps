@@ -62,17 +62,15 @@ module.exports = function (spawn) {
     var myStructures = room.find(FIND_MY_STRUCTURES);
     for (var structureName in myStructures) {
       var structure = myStructures[structureName];
-      console.log("structure=" + JSON.stringify(structure));
       if (structure.energy) {
-        console.log("energy:" + structure.energy);
         energySum += structure.energy;
       }
       if(structure.store){
-        console.log("stored energy:" + structure.store[RESOURCE_ENERGY]);
         energySum += structure.store[RESOURCE_ENERGY];
       }
-      return energySum;
     }
+    console.log("energySum="  + energySum);
+    return energySum;
 
     var energySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "energy")) ;
     var storedEnergySum = _.sum(_.map(room.find(FIND_MY_STRUCTURES), "store[RESOURCE_ENERGY]")) ;
