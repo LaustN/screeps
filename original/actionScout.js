@@ -9,9 +9,6 @@ module.exports = function(creep){
     }
     var scoutTarget = Game.flags[creep.memory.scoutFlag];
 
-    //reset focus to null when moving like a scout, hopefully making scouts not get stuck at room borders
-    creep.memory.focus = null;
-
     if(scoutTarget){
 
       if(creep.pos.roomName == scoutTarget.pos.roomName){
@@ -20,6 +17,9 @@ module.exports = function(creep){
       if(creep.carry[RESOURCE_ENERGY] > 0){
         creep.drop(RESOURCE_ENERGY);
       }
+
+      //reset focus to null when moving like a scout, hopefully making scouts not get stuck at room borders
+      creep.memory.focus = null;
       creep.moveTo(scoutTarget);
       return true;
     }
