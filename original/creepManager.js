@@ -1,6 +1,11 @@
 module.exports = function (spawn) {
   var roomName = spawn.room.name;
   var capacity = spawn.room.energyCapacityAvailable;
+  var spawnsInRoom = spawn.room.find(FIND_MY_STRUCTURES, {filter: function(structure){ return structure.structureType == STRUCTURE_SPAWN; }});
+  if (spawnsInRoom.length > 1) {
+    capacity -= (spawnsInRoom.length - 1) * 300;
+  }
+
   var harvestPoints = 0;
   var sources = spawn.room.find(FIND_SOURCES);
   var sourcesCount = sources.length;
