@@ -1,5 +1,5 @@
 module.exports = function(creep){
-  if(creep.carryCapacity == creep.carry.energy){
+  if(creep.carry.energy > 0){
     return false;
   }
 
