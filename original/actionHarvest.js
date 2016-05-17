@@ -12,7 +12,8 @@ module.exports = function(creep){
     var harvestTarget = creep.room.find(FIND_SOURCES)[0];
     if(creep.memory.focus != null){
       var focus = Game.getObjectById(creep.memory.focus);
-      if(focus != null && focus.pos.roomName == harvestTarget.pos.roomName){
+      if(focus != null && focus.pos.roomName == harvestTarget.pos.roomName
+        console.log("setting harvestTarget to focus object at " + focus.pos);
         harvestTarget = focus;
       }
     }
@@ -34,7 +35,6 @@ module.exports = function(creep){
               if(terrain == "plain" || terrain == "swamp"){
                 var creepsAtCheckPos = checkPos.lookFor("creep");
                 if(creepsAtCheckPos.length == 0){
-                  console.log("no creeps present at " + checkPos);
                   return true;
                 }
               }
