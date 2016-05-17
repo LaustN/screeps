@@ -62,10 +62,10 @@ module.exports = function (spawn) {
     var myStructures = room.find(FIND_MY_STRUCTURES);
     for (var structureName in myStructures) {
       var structure = myStructures[structureName];
-      if (structure.energy) {
+      if (structure.energy > 0) {
         energySum += structure.energy;
       }
-      if(structure.store && structure.store[RESOURCE_ENERGY]){
+      if(structure.store && structure.store[RESOURCE_ENERGY] > 0){
         energySum += structure.store[RESOURCE_ENERGY];
       }
     }
