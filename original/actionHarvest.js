@@ -57,6 +57,10 @@ module.exports = function(creep){
     if(harvestMessage == ERR_NOT_ENOUGH_RESOURCES){
       findOtherSource();
     }
+    if(harvestMessage != OK){
+      console.log("harvestMessage=" + harvestMessage);
+    }
+
     return true;
   }
   return false;
