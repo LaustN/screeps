@@ -65,7 +65,7 @@ module.exports = function (spawn) {
       if (structure.energy) {
         energySum += structure.energy;
       }
-      if(structure.store){
+      if(structure.store && structure.store[RESOURCE_ENERGY]){
         energySum += structure.store[RESOURCE_ENERGY];
       }
     }
