@@ -9,9 +9,9 @@ module.exports = function (creep) {
     return;
 //  if(actionRenew(creep))
 //    return;
-  if(actionRedistribute(creep))
-    return;
   if(actionScavenge(creep))
+    return;
+  if(actionRedistribute(creep))
     return;
   if(actionRedistributeFillStorage(creep))
     return;
