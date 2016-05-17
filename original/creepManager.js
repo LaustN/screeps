@@ -1,9 +1,17 @@
 module.exports = function (spawn) {
   var roomName = spawn.room.name;
   var capacity = spawn.room.energyCapacityAvailable;
-  var spawnsInRoom = spawn.room.find(FIND_MY_STRUCTURES, {filter: function(structure){ return structure.structureType == STRUCTURE_SPAWN; }});
-  if (spawnsInRoom.length > 1) {
-    capacity -= (spawnsInRoom.length - 1) * 300;
+  var extensionsInRoom = spawn.room.find(FIND_MY_STRUCTURES, {filter: function(structure){ return structure.structureType == STRUCTURE_EXTENSION && structure.isActive(); }});
+  switch (spawn.room.controller.level) {
+    case 7:
+      capacity = extensionsInRoom.length * 100 + 300;
+      break;
+    case 8:
+      capacity = extensionsInRoom.length * 200 + 300;
+      break;
+    default:
+      capacity = extensionsInRoom.length * 50 + 300;
+      break;
   }
 
   var harvestPoints = 0;
