@@ -4,8 +4,7 @@ module.exports = function(creep){
     if(targetFlag && targetFlag.pos){
 
       if(targetFlag.pos.roomName != creep.pos.roomName){
-        creep.moveTo(targetFlag);
-        return true;
+        return false;
       }
 
       var targetStructure = targetFlag.pos.findInRange(FIND_STRUCTURES,0,{filter:function(structure){
