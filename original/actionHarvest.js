@@ -42,7 +42,7 @@ module.exports = function(creep){
           }
           return source.id != harvestTarget.id ;
         }});
-      if(alternativeSource) {
+      if(alternativeSource != null) {
         console.log(creep.name + " shifting focus to source at " + alternativeSource.pos);
         creep.memory.focus = alternativeSource.id;
       }
