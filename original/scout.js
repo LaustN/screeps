@@ -21,9 +21,9 @@ module.exports = function (creep) {
     return;
   if(actionFortify(creep))
     return;
-  if(actionHarvest(creep))
-    return;
   if(actionScavenge(creep))
+    return;
+  if(actionHarvest(creep))
     return;
   if(actionUpgradeControl(creep))
     return;
