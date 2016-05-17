@@ -140,7 +140,7 @@ module.exports = function (spawn) {
     }
   }
 
-  if(fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 50})){
+  if(fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
     return;
   }
 
