@@ -1,6 +1,6 @@
 module.exports = function (creep) {
     var actionFlee = require("actionFlee");
-    var actionRenew =  require("actionRenew");
+    var actionScavenge =  require("actionScavenge");
     var actionCollectEnergy = require("actionCollectEnergy");
     var actionBuild = require("actionBuild");
     var actionFortify = require("actionFortify");
@@ -8,8 +8,8 @@ module.exports = function (creep) {
 
     if(actionFlee(creep))
         return;
-//    if(actionRenew(creep))
-//        return;
+    if(actionScavenge(creep))
+        return;
     if(actionCollectEnergy(creep))
         return;
     if(actionBuild(creep))
