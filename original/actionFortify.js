@@ -82,9 +82,5 @@ module.exports = function(creep) {
       creep.memory.dropoff = false;
       return true;
     }
-    else {
-      creep.memory.fortifying = false;
-      return false;
-    }
   }
 }
