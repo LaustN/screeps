@@ -213,7 +213,6 @@ module.exports = function (spawn) {
 
   var storedValue = storedEnergyInRoom(spawn.room);
   var maxMiscCount = Math.ceil(storedValue / 1000) + 1;
-  console.log("maxMiscCount @" + spawn.pos.roomName + "=" + maxMiscCount + "based on storedValue=" + storedValue);
 
   var spawnCount = 0;
 
