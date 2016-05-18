@@ -1,5 +1,5 @@
 module.exports = function(creep){
-  var target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+  var target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter : function(structure){ return structure.structureType != STRUCTURE_RAMPART;}});
   if(target) {
     creep.say("Engaging " + target.pos);
     var rangedAttackMessage = creep.rangedAttack(target);
