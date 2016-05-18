@@ -211,7 +211,7 @@ module.exports = function (spawn) {
     spawn.memory.workerLayers = 1;
   }
 
-  var maxMiscCount = Math.ceil(storedEnergyInRoom(spawn.room) / 2000) + 1;
+  var maxMiscCount = Math.ceil(storedEnergyInRoom(spawn.room) / 1000) + 1;
 
   var spawnCount = 0;
 
