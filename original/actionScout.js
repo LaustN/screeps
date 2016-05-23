@@ -1,12 +1,9 @@
 module.exports = function(creep){
   if(creep.memory.scoutFlag){
-    if (creep.memory.dropoff) {
+    if (creep.memory.dropoff && creep.carry[RESOURCE_ENERGY] == creep.carryCapacity) {
       return false; //do not run to remote rooms for dropoff
     }
 
-    if (creep.carry[RESOURCE_ENERGY] == creep.carryCapacity) {
-      return false;  //do not scout on a full stomach
-    }
     var scoutTarget = Game.flags[creep.memory.scoutFlag];
 
     if(scoutTarget){
