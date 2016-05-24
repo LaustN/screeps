@@ -249,7 +249,7 @@ module.exports = function (spawn) {
   if(spawn.memory.assaultOrders.length > 0){
 
     var assaultParts = [MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
-    var healParts = [MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
+    var healParts = [MOVE,HEAL];
 
 
     for (var assaultOrderIndex in spawn.memory.assaultOrders) {
