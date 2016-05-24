@@ -126,7 +126,7 @@ module.exports = function (spawn) {
         spawn.memory.state = "SaveEnergy";
       }
       else {
-        console.log("unexpected spawn message:" + createMessage);
+        console.log("unexpected spawn message:" + createMessage + " body was " + JSON.stringify(body));
       }
       return true;
     }
