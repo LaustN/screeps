@@ -93,7 +93,7 @@ module.exports = function (spawn) {
   //each worker part harvests 2 energy per tick
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
-  var maxWorkerPrice = Math.min(1500, capacity);
+  var maxWorkerPrice = capacity;
   var harvestBody = fnBodyBuild([MOVE,CARRY,WORK,WORK],maxWorkerPrice);
   var truckBody = fnBodyBuild([MOVE,CARRY],maxWorkerPrice);;
   var workerPartsPerWorker = 0;
