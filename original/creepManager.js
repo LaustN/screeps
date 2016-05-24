@@ -243,6 +243,7 @@ module.exports = function (spawn) {
     for (var assaultOrderIndex in spawn.memory.assaultOrders) {
       var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
       var assaultMaxPrice = Math.min(capacity, assaultOrder.maxPrice);
+      console.log(spawn.name + " calculated max assault price at " + assaultMaxPrice);
       var assaultBody = fnBodyBuild(assaultParts, assaultMaxPrice);
       i=1;
       for (; i <= assaultOrder.assaultCount; i++) {
