@@ -119,14 +119,21 @@ module.exports = function (spawn) {
         spawn.memory.state = "OK";
         console.log("Respawning " + name);
       }
-      else if(createMessage == ERR_NOT_ENOUGH_RESOURCES){
-        if(spawn.memory.state != "SaveEnergy"){
-          console.log(spawn.name + " saving up for " + name);
-        }
-        spawn.memory.state = "SaveEnergy";
-      }
       else {
-        console.log("unexpected spawn message:" + createMessage + " body was " + JSON.stringify(body));
+        switch (createMessage) {
+          case ERR_NOT_ENOUGH_RESOURCES:
+          case ERR_NOT_ENOUGH_ENERGY:
+            if(spawn.memory.state != "SaveEnergy"){
+              console.log(spawn.name + " saving up for " + name);
+            }
+            spawn.memory.state = "SaveEnergy";
+            break;
+          case ERR_BUSY:
+            break;
+          default:
+            console.log("unexpected spawn message:" + createMessage + " body was " + JSON.stringify(body));
+            break;
+        }
       }
       return true;
     }
