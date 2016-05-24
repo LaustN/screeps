@@ -269,7 +269,7 @@ module.exports = function (spawn) {
       var healBody = fnBodyBuild(healParts, assaultMaxPrice);
       i=1;
       for (; i <= assaultOrder.healCount; i++) {
-        var newHealName = roomName + assaultOrder.flagName  +  "Assault" + i;
+        var newHealName = roomName + assaultOrder.flagName  +  "Healer" + i;
         if(fnCreateCreep(newHealName,healBody,{role:"healer", assault:assaultOrder.flagName})){
           return;
         }
