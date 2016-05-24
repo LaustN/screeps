@@ -125,6 +125,9 @@ module.exports = function (spawn) {
         }
         spawn.memory.state = "SaveEnergy";
       }
+      else {
+        console.log("unexpected spawn message:" + createMessage);
+      }
       return true;
     }
     return false;
