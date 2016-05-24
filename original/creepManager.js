@@ -94,7 +94,6 @@ module.exports = function (spawn) {
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
   var maxWorkerPrice = capacity;
-  console.log(spawn.name + " calculated maxWorkerPrice=" + maxWorkerPrice);
   var harvestBody = fnBodyBuild([MOVE,CARRY,WORK,WORK],maxWorkerPrice);
   var truckBody = fnBodyBuild([MOVE,CARRY],maxWorkerPrice);;
   var workerPartsPerWorker = 0;
@@ -129,9 +128,10 @@ module.exports = function (spawn) {
             spawn.memory.state = "SaveEnergy";
             break;
           case ERR_BUSY:
+          case -4:
             break;
           default:
-            console.log("unexpected spawn message:" + createMessage + " body was " + JSON.stringify(body));
+            console.log("unexpected spawn message: " + createMessage + " body was " + JSON.stringify(body));
             break;
         }
       }
