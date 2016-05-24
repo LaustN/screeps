@@ -1,7 +1,6 @@
 module.exports = function(creep){
   var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
   if(target) {
-    creep.say("Engaging " + target.name);
     var rangedAttackMessage = creep.rangedAttack(target);
     var attackMessage = creep.attack(target);
     if(attackMessage == ERR_NOT_IN_RANGE) {
