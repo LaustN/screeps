@@ -139,14 +139,17 @@ module.exports = function (spawn) {
       return;
     }
   }
+  console.log(spawn.name + " passed tinyharvester");
 
   if(fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
     return;
   }
+  console.log(spawn.name + " passed tinyREDISTRIBUTOR");
 
   if(fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
     return;
   }
+  console.log(spawn.name + " passed refiller");
 
   var i = 1;
   for (; i <= maxWorkerCount; i++) {
@@ -173,6 +176,7 @@ module.exports = function (spawn) {
       return;
     }
   }
+  console.log(spawn.name + " passed harvesters");
 
   for (var i = 0; i < maxWorkerCount && i < sources.length; i++) {
     var harvesterName = roomName +  "Harvest" + (i+1);
@@ -229,6 +233,8 @@ module.exports = function (spawn) {
       spawnCount++;
     }
   }
+  console.log(spawn.name + " passed workers");
+
 
   if(!spawn.memory.assaultOrders){
     spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0,  healCount: 0, maxPrice: 1500}];
@@ -265,6 +271,7 @@ module.exports = function (spawn) {
       }
     }
   }
+  console.log(spawn.name + " passed assault");
 
 
   if(!spawn.memory.scoutTargets){
@@ -300,6 +307,7 @@ module.exports = function (spawn) {
       }
     }
   }
+  console.log(spawn.name + " passed scouts");
 
 
   if(!spawn.memory.reserveRoomFlagNames){
@@ -337,6 +345,7 @@ module.exports = function (spawn) {
 
     }
   }
+  console.log(spawn.name + " passed reservers");
 
   spawn.memory.state = "OK";
 }
