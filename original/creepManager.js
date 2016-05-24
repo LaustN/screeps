@@ -243,7 +243,7 @@ module.exports = function (spawn) {
     for (var assaultOrderIndex in spawn.memory.assaultOrders) {
       var assaultOrder =  spawn.memory.assaultOrders[assaultOrderIndex];
       var assaultMaxPrice = capacity;
-      if (assaultOrder.maxPrice) {
+      if (assaultOrder.maxPrice > 0) {
         assaultMaxPrice = assaultOrder.maxPrice;
       }
       console.log(spawn.name + " calculated max assault price at " + assaultMaxPrice);
