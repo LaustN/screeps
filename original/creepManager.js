@@ -93,7 +93,7 @@ module.exports = function (spawn) {
   //each worker part harvests 2 energy per tick
   // -> 5 worker parts should be enough to drain a source between each regenerate
 
-  var maxWorkerPrice = capacity;
+  var maxWorkerPrice = Math.min(capacity, 1500); //harvesters costing more than 1500 seem inefficient
   var harvestBody = fnBodyBuild([MOVE,CARRY,WORK,WORK],maxWorkerPrice);
   var truckBody = fnBodyBuild([MOVE,CARRY],maxWorkerPrice);;
   var workerPartsPerWorker = 0;
@@ -103,7 +103,8 @@ module.exports = function (spawn) {
     }
   }
 
-  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], maxWorkerPrice);
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], capacity); //huge scouts should be OK
+  var remotetruckBody = fnBodyBuild([MOVE,CARRY], capacity);;
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
@@ -195,7 +196,7 @@ module.exports = function (spawn) {
 
   var creepsToMaintain = [
     {
-      body: truckBody,
+      body: remotetruckBody,
       name: "Redistributor",
       memory: {
         role: "redistributor",
@@ -302,7 +303,7 @@ module.exports = function (spawn) {
         i = 1;
         for (; i <= scoutTarget.remoteTruckCount; i++) {
           var remoteTruckName = roomName + scoutTarget.flagName +  "RemoteTruck" + i;
-          if(fnCreateCreep(remoteTruckName,truckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 3})){
+          if(fnCreateCreep(remoteTruckName,remotetruckBody,{role:"remoteTruck", focus: scoutTarget.flagName, scavengeRange: 3})){
             return;
           }
         }
