@@ -44,7 +44,7 @@ module.exports = function (spawn) {
     var resultingBody  =[];
     while (true) {
       for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
-        if(remainingCapacity < 50){
+        if(remainingCapacity < 50 || resultingBody.length == 50){
           resultingBody.sort(function(a,b){ return priceMap[a] - priceMap[b]; });
           return resultingBody;
         }
