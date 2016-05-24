@@ -257,7 +257,6 @@ module.exports = function (spawn) {
       if (assaultOrder.maxPrice > 0) {
         assaultMaxPrice = assaultOrder.maxPrice;
       }
-      console.log(spawn.name + " calculated max assault price at " + assaultMaxPrice);
       var assaultBody = fnBodyBuild(assaultParts, assaultMaxPrice);
       i=1;
       for (; i <= assaultOrder.assaultCount; i++) {
