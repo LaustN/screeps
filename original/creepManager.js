@@ -110,6 +110,9 @@ module.exports = function (spawn) {
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
 
+  var maxReserveLayers = Math.floor(capacity/700);
+  var reserverBody = fnBodyBuild([CLAIM,MOVE,MOVE]);
+
   var fnCreateCreep = function(name, body, memory){
     var existingCreep = Game.creeps[name];
 
@@ -278,7 +281,7 @@ module.exports = function (spawn) {
   }
 
   if(!spawn.memory.scoutTargets){
-    spawn.memory.scoutTargets = [{flagName:"[FlagName]",razeRange:-1, scoutCount:0,remoteTruckCount:0}]
+    spawn.memory.scoutTargets = [{flagName:"[FlagName]",razeRange:-1, scoutCount:0,remoteTruckCount:0, reserve: false}];
   }
 
   if(spawn.memory.scoutTargets){
@@ -307,43 +310,34 @@ module.exports = function (spawn) {
             return;
           }
         }
-      }
-    }
-  }
 
-  if(!spawn.memory.reserveRoomFlagNames){
-    spawn.memory.reserveRoomFlagNames = [];
-  }
+        if(!scoutTarget.reserve){
+          continue;
+        }
 
-  if(spawn.memory.reserveRoomFlagNames.length > 0){
-    var maxReserveLayers = Math.floor(capacity/700);
-    var reserverBody = fnBodyBuild([CLAIM,MOVE,MOVE]);
-    for (var flagIndex in spawn.memory.reserveRoomFlagNames) {
-      var reserveRoomFlag = Game.flags[spawn.memory.reserveRoomFlagNames[flagIndex]];
-      if(reserveRoomFlag){
-        if (!reserveRoomFlag.room) {
+        if (!scoutTargetFlag.room) {
           continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
         }
-        if (!reserveRoomFlag.room.controller) {
+        if (!scoutTargetFlag.room.controller) {
           continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
         }
 
-        if (reserveRoomFlag.room.controller.owner && reserveRoomFlag.room.controller.my == false) {
-          if(fnCreateCreep(roomName + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
-            console.log("Trying to create " + roomName + "Reserver" + reserveRoomFlag.name);
+        if (scoutTargetFlag.room.controller.owner && scoutTargetFlag.room.controller.my == false) {
+          if(fnCreateCreep(roomName + "Reserver" + scoutTargetFlag.name, reserverBody, {role:"reserver",focus:scoutTargetFlag.name})){
+            console.log("Trying to create " + roomName + "Reserver" + scoutTargetFlag.name);
             return;
           }
         }
 
-        if (reserveRoomFlag.room.controller.reservation && reserveRoomFlag.room.controller.reservation.ticksToEnd > 1000 ) {
+        if (scoutTargetFlag.room.controller.reservation && scoutTargetFlag.room.controller.reservation.ticksToEnd > 1000 ) {
           continue;
         }
 
-        if(fnCreateCreep(roomName + "Reserver" + reserveRoomFlag.name, reserverBody, {role:"reserver",focus:reserveRoomFlag.name})){
+        if(fnCreateCreep(roomName + "Reserver" + scoutTargetFlag.name, reserverBody, {role:"reserver",focus:scoutTargetFlag.name})){
           return;
         }
-      }
 
+      }
     }
   }
 
