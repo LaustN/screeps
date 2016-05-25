@@ -103,8 +103,8 @@ module.exports = function (spawn) {
     }
   }
 
-  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], capacity); //huge scouts should be OK
-  var remotetruckBody = fnBodyBuild([MOVE,CARRY], capacity);;
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], Math.min(capacity,3000)); 
+  var remotetruckBody = fnBodyBuild([MOVE,CARRY], Math.min(capacity,3000));;
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
