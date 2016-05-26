@@ -274,7 +274,7 @@ module.exports = function (spawn) {
       i=1;
       for (; i <= assaultOrder.rangerCount; i++) {
         var newAssaultName = roomName + assaultOrder.flagName  +  "Ranger" + i;
-        if(fnCreateCreep(newAssaultName,assaultBody,{role:"assaultRanger", assault:assaultOrder.flagName})){
+        if(fnCreateCreep(newAssaultName,rangerBody,{role:"assaultRanger", assault:assaultOrder.flagName})){
           return;
         }
       }
