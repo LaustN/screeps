@@ -4,6 +4,11 @@ module.exports = function(creep){
         return filteredCreep.hits < filteredCreep.hitsMax;
     }});
   if(woundedCreep){
-    creep.heal(woundedCreep);
+    if(woundedCreep.pos.getRangeTo(creep) > 1){
+      creep.rangedHeal(woundedCreep);
+    }
+    else {
+      creep.heal(woundedCreep);
+    }
   }
 }

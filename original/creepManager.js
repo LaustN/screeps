@@ -246,12 +246,13 @@ module.exports = function (spawn) {
   }
 
   if(!spawn.memory.assaultOrders){
-    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0,  healCount: 0, maxPrice: 1500}];
+    spawn.memory.assaultOrders = [{flagName: "null", assaultCount: 0, rangerCount: 0, healCount: 0, maxPrice: 1500}];
   }
 
   if(spawn.memory.assaultOrders.length > 0){
 
     var assaultParts = [MOVE,ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
+    var assaultRangerParts = [MOVE,RANGED_ATTACK,MOVE,RANGED_ATTACK,MOVE,HEAL];
     var healParts = [MOVE,HEAL];
 
 
@@ -266,6 +267,14 @@ module.exports = function (spawn) {
       for (; i <= assaultOrder.assaultCount; i++) {
         var newAssaultName = roomName + assaultOrder.flagName  +  "Assault" + i;
         if(fnCreateCreep(newAssaultName,assaultBody,{role:"assault", assault:assaultOrder.flagName})){
+          return;
+        }
+      }
+      var rangerBody = fnBodyBuild(assaultRangerParts, assaultMaxPrice);
+      i=1;
+      for (; i <= assaultOrder.rangerCount; i++) {
+        var newAssaultName = roomName + assaultOrder.flagName  +  "Ranger" + i;
+        if(fnCreateCreep(newAssaultName,assaultBody,{role:"assaultRanger", assault:assaultOrder.flagName})){
           return;
         }
       }

@@ -4,6 +4,7 @@ module.exports = function(creep){
     var healMessage = creep.heal(target);
     if(healMessage == ERR_NOT_IN_RANGE) {
       creep.moveTo(target);
+      healMessage = creep.rangedHeal(target);
     }
     return true;
   }
