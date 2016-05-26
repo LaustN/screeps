@@ -7,12 +7,12 @@ module.exports = function(creep){
         return true;
       }
 
-      var closestCombatCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS,{filter: function(filteredCreep){ return (creep.getActiveBodyparts(ATTACK) + creep.getActiveBodyparts(RANGED_ATTACK)) > 0;  }});
+      var closestCombatCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS,{filter: function(filteredCreep){ return (filteredCreep.getActiveBodyparts(ATTACK) + filteredCreep.getActiveBodyparts(RANGED_ATTACK)) > 0;  }});
       if(closestCombatCreep){
         creep.moveTo(closestCombatCreep);
         return true;
       }
     }
   }
-  return false;      
+  return false;
 }
