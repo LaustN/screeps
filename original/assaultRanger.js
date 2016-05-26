@@ -3,9 +3,10 @@ module.exports = function (creep) {
   var actionAssaultRanged = require("actionAssaultRanged");
   var actionAssaultMove = require("actionAssaultMove");
 
-  actionProximityHealer(creep); //never returns false;
   if(actionAssaultRanged(creep))
     return;
+  if (actionProximityHealer(creep))
+    return; 
   if(actionAssaultMove(creep))
     return;
 }
