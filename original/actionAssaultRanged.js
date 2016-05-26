@@ -67,27 +67,22 @@ module.exports = function(creep){
         }
 
         var nearbyHostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS,3);
-        console.log("hostiles:" + JSON.stringify(nearbyHostileCreeps));
         var attackMessage = null;
         if (nearbyHostileCreeps) {
           if (nearbyHostileCreeps.length>1) {
             attackMessage = creep.rangedMassAttack();
-            console.log("nearby rangedMassAttack=" + attackMessage );
             return true;
           }
           if (nearbyHostileCreeps.length=1) {
             attackMessage = creep.rangedAttack(nearbyHostileCreeps[0]);
-            console.log("nearby rangedAttack=" + attackMessage );
             return true;
           }
         }
         attackMessage = creep.rangedAttack(target);
-        console.log("normal attack=" + attackMessage);
         return true;
       }
     }
   }
-  console.log("no so busy just now");
   //getting here means that creep is not busy doing ranged assault
   return false;
 }
