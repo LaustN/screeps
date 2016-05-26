@@ -71,11 +71,11 @@ module.exports = function(creep){
         if (nearbyHostileCreeps) {
           if (nearbyHostileCreeps.length>1) {
             creep.rangedMassAttack();
-            return;
+            return true;
           }
           if (nearbyHostileCreeps.length=1) {
             creep.rangedAttack(nearbyHostileCreeps[0]);
-            return;
+            return true;
           }
         }
         creep.rangedAttack(target);
@@ -83,7 +83,7 @@ module.exports = function(creep){
       }
     }
   }
-
+  console.log("no so busy just now");
   //getting here means that creep is not busy doing ranged assault
   return false;
 }
