@@ -25,7 +25,7 @@ module.exports = function(creep){
         console.log("target found");
 
         var rangeToTarget = creep.pos.getRangeTo(target);
-        creep.say("range to target="+rangeToTarget)
+        console.log("range to target="+rangeToTarget);
         if (rangeToTarget>3) {
           creep.moveTo(target);
         }
