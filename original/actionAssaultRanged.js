@@ -21,7 +21,11 @@ module.exports = function(creep){
         target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter : function(structure){ return structure.structureType != STRUCTURE_RAMPART && structure.structureType != STRUCTURE_CONTROLLER && structure.structureType != STRUCTURE_POWER_BANK && structure.structureType != STRUCTURE_KEEPER_LAIR;}});
       }
       if (target) {
+
+        console.log("target found");
+
         var rangeToTarget = creep.pos.getRangeTo(target);
+        creep.say("range to target="+rangeToTarget)
         if (rangeToTarget>3) {
           creep.moveTo(target);
         }
@@ -63,6 +67,7 @@ module.exports = function(creep){
         }
 
         var nearbyHostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS,3);
+        console.log("hostiles:" + JSON.stringify(nearbyHostileCreeps));
         if (nearbyHostileCreeps) {
           if (nearbyHostileCreeps.length>1) {
             creep.rangedMassAttack();
