@@ -1,10 +1,10 @@
 module.exports = function (creep) {
 //  var actionRenew =  require("actionRenew");
   var actionHealCreeps = require("actionHealCreeps");
-  var actionAssaultMove = require("actionAssaultMove");
+  var actionHealerMove = require("actionHealerMove");
 
   if(actionHealCreeps(creep))
     return;
-  if(actionAssaultMove(creep))
+  if(actionHealerMove(creep))
     return;
 }
