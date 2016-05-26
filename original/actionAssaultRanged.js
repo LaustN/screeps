@@ -50,7 +50,7 @@ module.exports = function(creep){
                 continue;
               }
 
-              var newPos = new RoomPostion(creep.pos.x + xDirection * lookMultiplier, creep.pos.y + yDirection * lookMultiplier, creep.pos.roomName);
+              var newPos = new RoomPosition(creep.pos.x + xDirection * lookMultiplier, creep.pos.y + yDirection * lookMultiplier, creep.pos.roomName);
               var terrainAtNewPos = newPos.lookFor(LOOK_TERRAIN);
               var terrainQualityAtNewPos = terrainAtNewPos == "plain"? 0 : terrainAtNewPos == "swamp" ? 1 : 10;
               var directnessAwayAtNewPos = Math.abs(deltaX) + Math.abs(deltaX);
