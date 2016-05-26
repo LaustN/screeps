@@ -21,11 +21,7 @@ module.exports = function(creep){
         target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter : function(structure){ return structure.structureType != STRUCTURE_RAMPART && structure.structureType != STRUCTURE_CONTROLLER && structure.structureType != STRUCTURE_POWER_BANK && structure.structureType != STRUCTURE_KEEPER_LAIR;}});
       }
       if (target) {
-
-        console.log("target found");
-
         var rangeToTarget = creep.pos.getRangeTo(target);
-        console.log("range to target="+rangeToTarget);
         if (rangeToTarget>3) {
           creep.moveTo(target);
         }
