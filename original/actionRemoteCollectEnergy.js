@@ -59,6 +59,15 @@ module.exports = function(creep){
         return true;
       }
 
+      var target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+      if(target) {
+          if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+              creep.moveTo(target);
+          }
+          creep.say("RTS" + (target.pos.x - creep.pos.x) + ";" + (target.pos.y - creep.pos.y));
+          return true;
+      }
+
       //getting all the way down here means that we did not find any local energy, so drop what we have at home
       if(creep.carry[RESOURCE_ENERGY] > 0){
         console.log(creep.name + " failed to find something to pick up while carrying " + creep.energy);
