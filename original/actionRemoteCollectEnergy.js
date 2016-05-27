@@ -17,6 +17,24 @@ module.exports = function(creep){
         return true;
       }
 
+      var target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+      if(target) {
+        if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(target);
+        }
+        creep.say("RTS" + (target.pos.x - creep.pos.x) + ";" + (target.pos.y - creep.pos.y));
+        return true;
+      }
+
+      if(localUnloadingScout){
+        if(localUnloadingScout.transfer(creep, RESOURCE_ENERGY)!=OK){
+          creep.moveTo(localUnloadingScout);
+        }
+        return true;
+      }
+      if(creep.carryCapacity > 0 && creep.carry[RESOURCE_ENERGY] > 0 && creep.memory.dropoff && creep.memory.role == "scout"){
+        return true;
+      }
 
       var localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
         if(structure && structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 && structure.structureType != "spawn"){
@@ -46,27 +64,9 @@ module.exports = function(creep){
       }
 
       localUnloadingScout = creep.pos.findClosestByRange(FIND_MY_CREEPS,{filter : function(creep){
-        if(creep.carryCapacity > 0 && creep.carry[RESOURCE_ENERGY] > 0 && creep.memory.dropoff && creep.memory.role == "scout"){
-          return true;
-        }
         return false;
       }});
 
-      if(localUnloadingScout){
-        if(localUnloadingScout.transfer(creep, RESOURCE_ENERGY)!=OK){
-          creep.moveTo(localUnloadingScout);
-        }
-        return true;
-      }
-
-      var target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-      if(target) {
-          if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-              creep.moveTo(target);
-          }
-          creep.say("RTS" + (target.pos.x - creep.pos.x) + ";" + (target.pos.y - creep.pos.y));
-          return true;
-      }
 
       //getting all the way down here means that we did not find any local energy, so drop what we have at home
       if(creep.carry[RESOURCE_ENERGY] > 0){
