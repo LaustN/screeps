@@ -318,7 +318,7 @@ module.exports = function (spawn) {
           var aDefenderWasCreated = false;
           while (!aDefenderWasCreated) {
             var defenderName = scoutTargetFlag.name + "Defender" + defenderIndex;
-            aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender": defendFlag: scoutTargetFlag.name});
+            aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender", defendFlag: scoutTargetFlag.name});
           }
           console.log(spawn.name + " creep management quitting after reaching defenderIndex=" + defenderIndex);
           return;
