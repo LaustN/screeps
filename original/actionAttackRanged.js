@@ -4,6 +4,11 @@ module.exports = function(creep, target){
     target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
   }
   if (target) {
+    if(target.pos.roomName != creep.pos.roomName){
+      creep.moveTo(target);
+      return true;
+    }
+
     var rangeToTarget = creep.pos.getRangeTo(target);
     if (rangeToTarget>3) {
       creep.moveTo(target);

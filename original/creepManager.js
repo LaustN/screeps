@@ -104,7 +104,8 @@ module.exports = function (spawn) {
   }
 
   var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], Math.min(capacity,2000));
-  var remotetruckBody = fnBodyBuild([MOVE,CARRY], Math.min(capacity,2000));;
+  var remotetruckBody = fnBodyBuild([MOVE,CARRY], Math.min(capacity,2000));
+  var defenderBody = fnBodyBuild([MOVE,RANGED_ATTACK]);
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
@@ -166,7 +167,6 @@ module.exports = function (spawn) {
   if(spawn.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
     console.log(spawn.name + " is spawning defenders");
     var defenderIndex = 1;
-    var defenderBody = fnBodyBuild([MOVE,RANGED_ATTACK]);
     var aDefenderWasCreated = false;
     while (!aDefenderWasCreated) {
       var defenderName = roomName + "Defender" + defenderIndex;
@@ -311,6 +311,19 @@ module.exports = function (spawn) {
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
       if(scoutTargetFlag){
+
+        if(scoutTargetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
+          console.log(spawn.name + " is spawning defenders for " + scoutTargetFlag.name);
+          var defenderIndex = 1;
+          var aDefenderWasCreated = false;
+          while (!aDefenderWasCreated) {
+            var defenderName = scoutTargetFlag.name + "Defender" + defenderIndex;
+            aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender": defendFlag: scoutTargetFlag.name});
+          }
+          console.log(spawn.name + " creep management quitting after reaching defenderIndex=" + defenderIndex);
+          return;
+        }
+
         var newScoutMemory = {scoutFlag: scoutTargetFlag.name, role:"scout", scavengeRange: 3};
         if(scoutTarget.razeRange > -1 && scoutTarget.razeTarget){
           newScoutMemory.razeTarget = scoutTarget.razeTarget;
