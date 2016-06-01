@@ -27,7 +27,7 @@ module.exports.loop = function () {
   runLinks();
 
   var rolenames = [
-    "harvester","harvestTruck","guard","healer","builder","fortifier",
+    "harvester","harvestTruck","guard","defender","healer","builder","fortifier",
     "controlUpgrader","redistributor","scout","assault","assaultRanger","claimer",
     "remoteTruck", "reserver","refiller"];
   var roles = {};

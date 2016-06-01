@@ -163,6 +163,19 @@ module.exports = function (spawn) {
     return;
   }
 
+  if(spawn.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
+    console.log(spawn.name + " is spawning defenders");
+    var defenderIndex = 1;
+    var defenderBody = fnBodyBuild([MOVE,RANGED_ATTACK]);
+    var aDefenderWasCreated = false;
+    while (!aDefenderWasCreated) {
+      var defenderName = roomName + "Defender" + defenderIndex;
+      aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender"});
+    }
+    console.log(spawn.name + " creep management quitting after reaching defenderIndex=" + defenderIndex);
+    return;
+  }
+
   var i = 1;
   for (; i <= maxWorkerCount; i++) {
     var newHarvesterName = roomName +  "Harvest" + i;
