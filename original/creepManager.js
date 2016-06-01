@@ -311,8 +311,14 @@ module.exports = function (spawn) {
       var scoutTarget = spawn.memory.scoutTargets[scoutTargetsIterator];
       var scoutTargetFlag = Game.flags[scoutTarget.flagName];
       if(scoutTargetFlag){
+        var distantTarget = null;
+        try {
+          distantTarget = scoutTargetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        } catch (e) {
 
-        if(scoutTargetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
+        }
+
+        if(distantTarget){
           console.log(spawn.name + " is spawning defenders for " + scoutTargetFlag.name);
           var defenderIndex = 1;
           var aDefenderWasCreated = false;
