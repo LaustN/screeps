@@ -172,10 +172,12 @@ module.exports.loop = function () {
     if (profilingData[profilePointName].totalCost > largestTotalCost) {
       largestTotalCostName = profilePointName;
       largestTotalCostData = profilingData[profilePointName];
+      largestTotalCost = profilingData[profilePointName].totalCost;
     }
     if (profilingData[profilePointName].maxCost > largestSpikeCost) {
       largestSpikeCostName = profilePointName;
       largestSpikeCostData = profilingData[profilePointName];
+      largestSpikeCost = profilingData[profilePointName].maxCost;
     }
   }
   console.log(largestTotalCostName + " : " + JSON.stringify(largestTotalCostData));
