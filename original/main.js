@@ -39,8 +39,10 @@ module.exports.loop = function () {
   //remember the idea of making rooms override decisions for creeps in defensive situations and such
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
 
+  console.log("ticklimit is " + Game.cpu.ticklimit);
   for(var creepName in Game.creeps){
     var usedCpu = Game.cpu.getUsed();
+    console.log("before running " + creepName + ", " + usedCpu + " ticks were spent");
     if(usedCpu > Game.cpu.ticklimit * 0.99){
       console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.ticklimit);
       break;
