@@ -5,39 +5,38 @@ module.exports = function(creep){
   - fill tower
   */
   var home = Game.getObjectById(creep.memory.home);
-  var structures = creep.room.find(FIND_STRUCTURES);
-  var towers = [];
-  var storages = [];
-  for(var structureName in structures){
-    var structure = structures[structureName];
-    if(structure.structureType == STRUCTURE_TOWER){
-      towers.push(structure);
-    }
-    if(structure.structureType == STRUCTURE_STORAGE){
-      storages.push(structure);
-    }
-    if(structure.structureType == STRUCTURE_CONTAINER){
-      storages.push(structure);
-    }
-  }
+  var towers = creep.room.find(FIND_STRUCTURES, {filter:function(structure){ return structure.structureType == STRUCTURE_TOWER }});
 
-  var collectFromStorage = function(){
+  var collectFromStorage = function(ignoreRoomStorage){
     if(creep.carry.energy != 0){
       return false;
     }
-
-    var nearestStorage = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
-      if(structure.structureType == STRUCTURE_STORAGE && structure.store[RESOURCE_ENERGY]>0){
-        return true;
+    var homeLink = home.findClosestByRange(FIND_STRUCTURES, {filter : function(structure){ return structure.structureType == STRUCTURE_LINK;}});
+    if (homeLink && homeLink.energy > 0) {
+      if (homeLink.pos.getRangeTo(creep)>1) {
+        creep.moveTo(homeLink);
       }
+      else {
+        homeLink.transferEnergy(creep);
+      }
+      return true;
+    }
+
+    var nearestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure){
       if(structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY]>0){
         return true;
       }
     }});
 
-    if(nearestStorage!=null){
-      if(nearestStorage.transfer(creep,RESOURCE_ENERGY) != OK){
-        creep.moveTo(nearestStorage);
+    if(nearestContainer!=null){
+      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
+        creep.moveTo(nearestContainer);
+      }
+      return true;
+    }
+    if(!ignoreRoomStorage && creep.room.storage){
+      if(creep.room.storage.transfer(creep,RESOURCE_ENERGY) != OK){
+        creep.moveTo(creep.room.storage);
       }
       return true;
     }
@@ -95,5 +94,14 @@ module.exports = function(creep){
         }
       }
     }
+  }
+  if(creep.room.storage){
+    if(!collectFromStorage(true)){
+      if(creep.transfer(creep.room.storage, RESOURCE_ENERGY) != OK){
+        creep.moveTo(creep.room.storage);
+      }
+      return true;
+    }
+
   }
 }
