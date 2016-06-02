@@ -33,7 +33,63 @@ module.exports.loop = function () {
   var roles = {};
 
   for (var i = 0; i < rolenames.length; i++) {
-     roles[rolenames[i]] = require(rolenames[i]);
+    roles[rolenames[i]] = require(rolenames[i]);
+  }
+
+  var actionsNames = [
+    "actionAssaultCreeps",
+    "actionAssaultDestroyFlaggedLocations",
+    "actionAssaultMove",
+    "actionAssaultRanged",
+    "actionAssaultStructures",
+    "actionAttackRanged",
+    "actionBuild",
+    "actionClaim",
+    "actionCollectEnergy",
+    "actionDefend",
+    "actionEnsureHome",
+    "actionFlee",
+    "actionFortify",
+    "actionHarvest",
+    "actionHarvestCollection",
+    "actionHealCreeps",
+    "actionHealerMove",
+    "actionHomeUnloadEnergy",
+    "actionProximityHealer",
+    "actionRaze",
+    "actionRecycle",
+    "actionRedistribute",
+    "actionRedistributeFillStorage",
+    "actionRemoteCollectEnergy",
+    "actionRenew",
+    "actionReserve",
+    "actionResetScout",
+    "actionScavenge",
+    "actionScout",
+    "actionUnloadEnergy",
+    "actionUpgradeControl"];
+
+  var actions={};
+  for (var i = 0; i < actionsNames.length; i++) {
+    actionsNames[i]
+  }
+
+  var roleActions = {
+    "harvester": ["actionFlee", "actionScavenge", "actionUnloadEnergy", "actionHarvest"],
+    "harvestTruck": ["actionFlee", "actionScavenge", "actionHarvestCollection", "actionUnloadEnergy"],
+    "defender": ["actionAttackRanged","actionRecycle"],
+    "healer": ["actionHealCreeps","actionHealerMove"],
+    "builder": ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionBuild", "actionFortify", "actionUpgradeControl"],
+    "fortifier": ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionFortify", "actionBuild", "actionUpgradeControl"],
+    "controlUpgrader" : ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionUpgradeControl"],
+    "redistributor" : ["actionFlee", "actionScavenge", "actionRedistribute", "actionRedistributeFillStorage"],
+    "scout" : ["actionFlee", "actionScout" , "actionRaze", "actionBuild", "actionFortify",  "actionScavenge", "actionHarvest", "actionUpgradeControl", "actionUnloadEnergy", "actionResetScout"],
+    "assault" : ["actionAssaultDestroyFlaggedLocations", "actionAssaultCreeps", "actionAssaultStructures", "actionAssaultMove"],
+    "assaultRanger" : ["actionAssaultRanged", "actionProximityHealer", "actionAssaultMove"],
+    "claimer" : ["actionScout", "actionClaim"],
+    "remoteTruck" : ["actionFlee", "actionScavenge", "actionRemoteCollectEnergy", "actionHomeUnloadEnergy"],
+    "reserver" : ["actionReserve"],
+    "refiller" : ["actionFlee", "actionRedistributeFillStorage", "actionScavenge"]
   }
 
   //remember the idea of making rooms override decisions for creeps in defensive situations and such
@@ -48,6 +104,26 @@ module.exports.loop = function () {
     var creep = Game.creeps[creepName];
     ensureHome(creep);
 
+    var actionsToTake = roleActions[creep.memory.role];
+    if (actionsToTake) {
+      for (var actionName in actionsToTake) {
+        var action = actions[actionName];
+        if (action) {
+          var actionResult = action(creep);
+          if(actionResult){
+            continue;
+          }
+        }
+        else {
+          console.log("no action called " + actionName + " was found for role " + role);
+        }
+      }
+      else {
+        console.log("no actions found for " + role);
+      }
+    }
+
+    /*
     var role = roles[creep.memory.role];
     if(role){
       role(creep);
@@ -55,6 +131,8 @@ module.exports.loop = function () {
     else {
       console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
     }
+    */
+    
     var afterCreepUsedCpu = Game.cpu.getUsed();
     var deltaCPU = afterCreepUsedCpu - usedCpu;
     usedCpu = afterCreepUsedCpu;
