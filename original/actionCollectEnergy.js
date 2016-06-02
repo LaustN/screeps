@@ -10,7 +10,7 @@ module.exports = function(creep){
   if(creep.memory.collectingEnergy) {
     var home = Game.getObjectById(creep.memory.home);
     if(home.memory.state != "SaveEnergy") {
-      var energyCarriersHere = creep.pos.findInRange(FIND_MY_CREEPS,1,{
+      var nearestEnergyCarrier = creep.pos.findClosestByRange(FIND_MY_CREEPS,{
         filter: function(harvestCreep){
           if (harvestCreep.memory.role == "harvestTruck" && harvestCreep.carry.energy > 0 ) {
             return true;
@@ -21,19 +21,6 @@ module.exports = function(creep){
         }
       });
 
-      if(energyCarriersHere && energyCarriersHere[0])
-      {
-        var bestCarrier = energyCarriersHere[0]
-        for(var energyCarrierKey in energyCarriersHere){
-          var currentCarrier = energyCarriersHere[energyCarrierKey];
-          if(currentCarrier.carry.energy > bestCarrier.carry.energy){
-            bestCarrier = currentCarrier;
-          }
-        }
-        bestCarrier.transfer(creep, RESOURCE_ENERGY);
-        return true;
-      }
-
       var localEnergyStorage = creep.pos.findClosestByRange(FIND_STRUCTURES,{filter : function(structure){
         if(structure.store && structure.store[RESOURCE_ENERGY] && structure.store[RESOURCE_ENERGY] > 0 ){
           return true;
@@ -41,16 +28,31 @@ module.exports = function(creep){
         return false;
       }});
 
-      if(localEnergyStorage){
-        creep.say("I want energy");
-        creep.moveTo(localEnergyStorage);
-        localEnergyStorage.transfer(creep,RESOURCE_ENERGY);
-        return true;
+      var collectionSource = null;
+
+      if(nearestEnergyCarrier && localEnergyStorage){
+        if(nearestContainer.pos.getRangeTo(creep) > localEnergyStorage.pos.getRangeTo(creep))
+        {
+          collectionSource = localEnergyStorage;
+        }
+        else {
+          collectionSource = nearestContainer;
+        }
+      }
+      if(nearestEnergyCarrier){
+        collectionSource = nearestEnergyCarrier;
+      }
+      else {
+        collectionSource = localEnergyStorage;
       }
 
-      creep.moveTo(home);
-      home.transferEnergy(creep);
-      return true;
+      if(collectionSource){
+        if (localEnergyStorage.transfer(creep,RESOURCE_ENERGY) != OK) {
+          creep.moveTo(localEnergyStorage);
+        }
+        return true;
+      }
+      return false;
     }
     else{
       creep.say("not collecting right now");

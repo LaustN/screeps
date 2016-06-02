@@ -5,13 +5,13 @@ module.exports = function(creep){
   - fill tower
   */
   var home = Game.getObjectById(creep.memory.home);
-  var towers = creep.room.find(FIND_STRUCTURES, {filter:function(structure){ return structure.structureType == STRUCTURE_TOWER }});
+  var towers = creep.room.find(FIND_MY_STRUCTURES, {filter:function(structure){ return structure.structureType == STRUCTURE_TOWER }});
 
   var collectFromStorage = function(ignoreRoomStorage){
     if(creep.carry.energy != 0){
       return false;
     }
-    var homeLink = home.pos.findClosestByRange(FIND_STRUCTURES, {filter : function(structure){ return structure.structureType == STRUCTURE_LINK;}});
+    var homeLink = home.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter : function(structure){ return structure.structureType == STRUCTURE_LINK;}});
     if (homeLink && homeLink.energy > 0) {
       if (homeLink.pos.getRangeTo(creep)>1) {
         creep.moveTo(homeLink);
