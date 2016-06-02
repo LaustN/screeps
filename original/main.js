@@ -40,6 +40,11 @@ module.exports.loop = function () {
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
 
   for(var creepName in Game.creeps){
+    var usedCpu = Game.cpu.getUsed();
+    if(usedCpu > Game.cpu.ticklimit * 0.99){
+      console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.ticklimit);
+      break;
+    }
     var creep = Game.creeps[creepName];
     ensureHome(creep);
 
