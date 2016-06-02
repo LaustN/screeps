@@ -115,7 +115,7 @@ module.exports.loop = function () {
           }
         }
         else {
-          console.log("no action called " + actionName + " was found for role " + role);
+          console.log("no action called " + actionName + " was found for role " + creep.memory.role);
         }
       }
     }
