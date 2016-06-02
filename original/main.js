@@ -100,6 +100,7 @@ module.exports.loop = function () {
   var largestSpenderName = "";
   var largestSpenderRole = "";
   var largestCost = 0;
+  creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
     ensureHome(creep);
@@ -112,7 +113,7 @@ module.exports.loop = function () {
           var actionResult = action(creep);
           if(actionResult){
             console.log(creep.name + " terminated on " + actionsToTake[actionName]);
-            continue;
+            continue creepLoop;
           }
         }
         else {
