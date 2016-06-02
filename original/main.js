@@ -41,6 +41,9 @@ module.exports.loop = function () {
 
   console.log("ticklimit is " + Game.cpu.tickLimit);
   var usedCpu = Game.cpu.getUsed();
+  var largestSpenderName = "";
+  var largestSpenderRole = "";
+  var largestCost = 0;
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
     ensureHome(creep);
@@ -55,10 +58,15 @@ module.exports.loop = function () {
     var afterCreepUsedCpu = Game.cpu.getUsed();
     var deltaCPU = afterCreepUsedCpu - usedCpu;
     usedCpu = afterCreepUsedCpu;
-    console.log(creepName + " used " + deltaCPU + " cpu");
     if(usedCpu > Game.cpu.tickLimit-2){
       console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.tickLimit);
       break;
     }
+    if(deltaCPU > largestCost){
+      largestSpenderName = creep.name;
+      largestCost = deltaCPU;
+      largestSpenderRole = creep.memory.role;
+    }
   }
+  console.log("Most expensive creep was a " + largestSpenderRole +  " costing " + largestCost + " : " + largestSpenderName );
 }
