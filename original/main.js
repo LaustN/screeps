@@ -38,7 +38,7 @@ module.exports.loop = function () {
 
   var actionsNames = [
     "actionAssaultCreeps",
-    "actionAssaultDestroyFlaggedLocations",
+    "actionAssaultDestroyFlaggedLocation",
     "actionAssaultMove",
     "actionAssaultRanged",
     "actionAssaultStructures",
