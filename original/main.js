@@ -107,7 +107,7 @@ module.exports.loop = function () {
     var actionsToTake = roleActions[creep.memory.role];
     if (actionsToTake) {
       for (var actionName in actionsToTake) {
-        var action = actions[actionName];
+        var action = actions[actionsToTake[actionName]];
         if (action) {
           var actionResult = action(creep);
           if(actionResult){
@@ -115,7 +115,7 @@ module.exports.loop = function () {
           }
         }
         else {
-          console.log("no action called " + actionName + " was found for role " + creep.memory.role);
+          console.log("no action called " + actionsToTake[actionName] + " was found for role " + creep.memory.role);
         }
       }
     }
