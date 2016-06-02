@@ -40,13 +40,8 @@ module.exports.loop = function () {
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
 
   console.log("ticklimit is " + Game.cpu.tickLimit);
+  var usedCpu = Game.cpu.getUsed();
   for(var creepName in Game.creeps){
-    var usedCpu = Game.cpu.getUsed();
-    console.log("before running " + creepName + ", " + usedCpu + " ticks were spent");
-    if(usedCpu > Game.cpu.tickLimit * 0.99){
-      console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.tickLimit);
-      break;
-    }
     var creep = Game.creeps[creepName];
     ensureHome(creep);
 
@@ -56,6 +51,14 @@ module.exports.loop = function () {
     }
     else {
       console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
+    }
+    var afterCreepUsedCpu = Game.cpu.getUsed();
+    var deltaCPU = afterCreepUsedCpu - usedCpu;
+    usedCpu = afterCreepUsedCpu;
+    console.log(creepName + " used " + deltaCPU + " cpu");
+    if(usedCpu > Game.cpu.tickLimit-2){
+      console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.tickLimit);
+      break;
     }
   }
 }
