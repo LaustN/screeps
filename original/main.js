@@ -70,8 +70,10 @@ module.exports.loop = function () {
     "actionUpgradeControl"];
 
   var actions={};
+  var profilingData = {};
   for (var i = 0; i < actionsNames.length; i++) {
     actions[actionsNames[i]] = require(actionsNames[i]);
+    profilingData[actionsNames[i]]=  {callCount:0, totalCost:0.0, maxCost:0.0};
   }
 
   var roleActions = {
@@ -100,6 +102,9 @@ module.exports.loop = function () {
   var largestSpenderName = "";
   var largestSpenderRole = "";
   var largestCost = 0;
+
+
+
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
@@ -110,7 +115,15 @@ module.exports.loop = function () {
       for (var actionName in actionsToTake) {
         var action = actions[actionsToTake[actionName]];
         if (action) {
+          var preActionTick = Game.cpu.getUsed();
           var actionResult = action(creep);
+          var postActionTick = Game.cpu.getUsed();
+
+          var actionProfile = profilingData[actionsToTake[actionName]];
+          actionProfile.callCount++;
+          var callCost = (postActionTick - preActionTick);
+          actionProfile.totalCost += callCost;
+          actionProfile.maxCost = Math.max(callCost, actionProfile.maxCost);
           if(actionResult){
             continue creepLoop;
           }
@@ -148,4 +161,5 @@ module.exports.loop = function () {
     }
   }
   console.log("Most expensive creep was a " + largestSpenderRole +  " costing " + largestCost + " : " + largestSpenderName );
+  console.log( "profiling data:" + JSON.stringify(profilingData));
 }
