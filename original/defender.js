@@ -1,8 +1,8 @@
 module.exports = function (creep) {
-  var actionRangedAttack = require("actionRangedAttack");
+  var actionAttackRanged = require("actionAttackRanged");
   var actionRecycle = require("actionRecycle");
 
-  if(actionRangedAttack(creep))
+  if(actionAttackRanged(creep))
     return;
   if(actionRecycle(creep))
     return;
