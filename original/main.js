@@ -161,5 +161,24 @@ module.exports.loop = function () {
     }
   }
   console.log("Most expensive creep was a " + largestSpenderRole +  " costing " + largestCost + " : " + largestSpenderName );
-  console.log( "profiling data:" + JSON.stringify(profilingData));
+  //console.log( "profiling data:" + JSON.stringify(profilingData));
+  var largestTotalCost = 0.0;
+  var largestTotalCostName = "";
+  var largestTotalCostData = null;
+  var largestSpikeCost = 0.0;
+  var largestSpikeCostName = "";
+  var largestSpikeCostData = null;
+  for (var profilePointName in profilingData) {
+    if (profilingData[profilePointName].totalCost > largestTotalCost) {
+      largestTotalCostName = profilePointName;
+      largestTotalCostData = profilingData[profilePointName];
+    }
+    if (profilingData[profilePointName].maxCost > largestSpikeCost) {
+      largestSpikeCostName = profilePointName;
+      largestSpikeCostData = profilingData[profilePointName];
+    }
+  }
+  console.log(largestTotalCostName + " : " + JSON.stringify(largestTotalCostData));
+  console.log(largestSpikeCostName + " : " + JSON.stringify(largestSpikeCostData));
+
 }
