@@ -71,7 +71,7 @@ module.exports.loop = function () {
 
   var actions={};
   for (var i = 0; i < actionsNames.length; i++) {
-    actionsNames[i]
+    actions[actionsNames[i]] = require(actionsNames[i]);
   }
 
   var roleActions = {
