@@ -182,5 +182,6 @@ module.exports.loop = function () {
   }
   console.log(largestTotalCostName + " : " + JSON.stringify(largestTotalCostData));
   console.log(largestSpikeCostName + " : " + JSON.stringify(largestSpikeCostData));
+  console.log("CPU used this tick:" + Game.cpu.getUsed());
 
 }
