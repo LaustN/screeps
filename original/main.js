@@ -111,6 +111,7 @@ module.exports.loop = function () {
         if (action) {
           var actionResult = action(creep);
           if(actionResult){
+            console.log(creep.name + " terminated on " + actionsToTake[actionName]);
             continue;
           }
         }
