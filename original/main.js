@@ -84,7 +84,7 @@ module.exports.loop = function () {
     "controlUpgrader" : ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionUpgradeControl"],
     "redistributor" : ["actionFlee", "actionScavenge", "actionRedistribute", "actionRedistributeFillStorage"],
     "scout" : ["actionFlee", "actionScout" , "actionRaze", "actionBuild", "actionFortify",  "actionScavenge", "actionHarvest", "actionUpgradeControl", "actionUnloadEnergy", "actionResetScout"],
-    "assault" : ["actionAssaultDestroyFlaggedLocations", "actionAssaultCreeps", "actionAssaultStructures", "actionAssaultMove"],
+    "assault" : ["actionAssaultDestroyFlaggedLocation", "actionAssaultCreeps", "actionAssaultStructures", "actionAssaultMove"],
     "assaultRanger" : ["actionAssaultRanged", "actionProximityHealer", "actionAssaultMove"],
     "claimer" : ["actionScout", "actionClaim"],
     "remoteTruck" : ["actionFlee", "actionScavenge", "actionRemoteCollectEnergy", "actionHomeUnloadEnergy"],
