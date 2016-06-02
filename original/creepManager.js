@@ -171,6 +171,7 @@ module.exports = function (spawn) {
     while (!aDefenderWasCreated) {
       var defenderName = roomName + "Defender" + defenderIndex;
       aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender"});
+      defenderIndex++;
     }
     console.log(spawn.name + " creep management quitting after reaching defenderIndex=" + defenderIndex);
     return;
