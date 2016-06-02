@@ -27,7 +27,7 @@ module.exports = function(creep){
     }
 
     if (dropOff) {
-      if(typeof(structure.storeCapacity) != "undefined" && structure.storeCapacity > 0 && _.sum(structure.store) == structure.storeCapacity) {
+      if(typeof(dropOff.storeCapacity) != "undefined" && dropOff.storeCapacity > 0 && _.sum(dropOff.store) == dropOff.storeCapacity) {
         dropOff = null;
       }
     }
