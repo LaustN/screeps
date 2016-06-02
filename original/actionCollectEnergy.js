@@ -31,7 +31,7 @@ module.exports = function(creep){
       var collectionSource = null;
 
       if(nearestEnergyCarrier && localEnergyStorage){
-        if(nearestContainer.pos.getRangeTo(creep) > localEnergyStorage.pos.getRangeTo(creep))
+        if(nearestEnergyCarrier.pos.getRangeTo(creep) > localEnergyStorage.pos.getRangeTo(creep))
         {
           collectionSource = localEnergyStorage;
         }
