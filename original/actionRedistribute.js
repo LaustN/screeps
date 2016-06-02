@@ -11,7 +11,7 @@ module.exports = function(creep){
     if(creep.carry.energy != 0){
       return false;
     }
-    var homeLink = home.findClosestByRange(FIND_STRUCTURES, {filter : function(structure){ return structure.structureType == STRUCTURE_LINK;}});
+    var homeLink = home.pos.findClosestByRange(FIND_STRUCTURES, {filter : function(structure){ return structure.structureType == STRUCTURE_LINK;}});
     if (homeLink && homeLink.energy > 0) {
       if (homeLink.pos.getRangeTo(creep)>1) {
         creep.moveTo(homeLink);
