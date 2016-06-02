@@ -11,10 +11,7 @@ module.exports = function(creep){
 
     var harvestTarget = null;
     if(creep.memory.focus != null){
-      var focus = Game.getObjectById(creep.memory.focus);
-      if(focus != null && focus.pos.roomName == harvestTarget.pos.roomName){
-        harvestTarget = focus;
-      }
+      harvestTarget = Game.getObjectById(creep.memory.focus);
     }
     if(!harvestTarget){
       harvestTarget = creep.pos.findClosestByRange(FIND_SOURCES);
