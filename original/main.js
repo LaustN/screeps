@@ -118,9 +118,9 @@ module.exports.loop = function () {
           console.log("no action called " + actionName + " was found for role " + role);
         }
       }
-      else {
-        console.log("no actions found for " + role);
-      }
+    }
+    else {
+      console.log("no actions found for " + role);
     }
 
     /*
@@ -132,7 +132,7 @@ module.exports.loop = function () {
       console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
     }
     */
-    
+
     var afterCreepUsedCpu = Game.cpu.getUsed();
     var deltaCPU = afterCreepUsedCpu - usedCpu;
     usedCpu = afterCreepUsedCpu;
