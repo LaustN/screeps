@@ -17,14 +17,18 @@ var runTowers = require("runTowers");
 var runLinks = require("runLinks");
 
 module.exports.loop = function () {
+  console.log("Loop start ticks spent: " + Game.cpu.getUsed());
   Memory.workingLinks = {};
   console.log("============= " + Game.time + " ==============");
 
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
   }
+  console.log("After creepManagers : " + Game.cpu.getUsed());
   runTowers();
+  console.log("After towers        : " + Game.cpu.getUsed());
   runLinks();
+  console.log("After links         : " + Game.cpu.getUsed());
 
   var rolenames = [
     "harvester","harvestTruck","guard","defender","healer","builder","fortifier",
