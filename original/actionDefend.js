@@ -5,7 +5,14 @@ module.exports = function(creep){
   if (creep.memory.defendFlag) {
     var targetFlag = Game.flags[creep.memory.defendFlag];
     if(targetFlag && targetFlag.pos){
+      if(creep.pos.roomName == targetFlag.pos.roomName ){
+        creep.memory.hasBeenToDefendedRoom = true;
+      }
+
       target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    }
+    else {
+      creep.memory.hasBeenToDefendedRoom = true;
     }
   }
   else {
@@ -13,6 +20,15 @@ module.exports = function(creep){
   }
   if(target) {
     return actionAttackRanged(creep,target);
+  }
+
+  if(!creep.memory.hasBeenToDefendedRoom){
+    var targetFlag = Game.flags[creep.memory.defendFlag];
+    if(targetFlag){
+      creep.moveTo(targetFlag);
+    }
+    return true;
+
   }
 
 
