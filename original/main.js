@@ -17,9 +17,9 @@ var runTowers = require("runTowers");
 var runLinks = require("runLinks");
 
 module.exports.loop = function () {
-  console.log("Loop start ticks spent: " + Game.cpu.getUsed());
   Memory.workingLinks = {};
   console.log("============= " + Game.time + " ==============");
+  console.log("Loop start ticks spent: " + Game.cpu.getUsed());
 
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
