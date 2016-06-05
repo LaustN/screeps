@@ -8,7 +8,7 @@ module.exports = function(creep){
       if(creep.pos.roomName == targetFlag.pos.roomName ){
         creep.memory.hasBeenToDefendedRoom = true;
       }
-      if(targetFlag.pos.roomName != creep.pos.roomName){
+      if(targetFlag.pos.roomName != creep.pos.roomName && !creep.memory.hasBeenToDefendedRoom){
         creep.moveTo(targetFlag);
         return true;
       }
