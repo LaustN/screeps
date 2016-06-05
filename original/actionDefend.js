@@ -8,8 +8,13 @@ module.exports = function(creep){
       if(creep.pos.roomName == targetFlag.pos.roomName ){
         creep.memory.hasBeenToDefendedRoom = true;
       }
-
-      target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+      if(targetFlag.pos.roomName != creep.pos.roomName){
+        creep.moveTo(targetFlag);
+        return true;
+      }
+      else {
+        target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+      }
     }
     else {
       creep.memory.hasBeenToDefendedRoom = true;
