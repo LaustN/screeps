@@ -104,7 +104,7 @@ module.exports.loop = function () {
   var largestCost = 0;
 
 
-
+console.log("Ticks spent before creeps: " + Game.cpu.getUsed());
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
@@ -160,7 +160,6 @@ module.exports.loop = function () {
       largestSpenderRole = creep.memory.role;
     }
   }
-  console.log("Most expensive creep was a " + largestSpenderRole +  " costing " + largestCost + " : " + largestSpenderName );
   //console.log( "profiling data:" + JSON.stringify(profilingData));
   var largestTotalCost = 0.0;
   var largestTotalCostName = "";
@@ -180,8 +179,9 @@ module.exports.loop = function () {
       largestSpikeCost = profilingData[profilePointName].maxCost;
     }
   }
-  console.log(largestTotalCostName + " : " + JSON.stringify(largestTotalCostData));
-  console.log(largestSpikeCostName + " : " + JSON.stringify(largestSpikeCostData));
+  console.log("Largest creep: " + largestSpenderRole +  " costing " + largestCost + " : " + largestSpenderName );
+  console.log("Largest total: " + largestTotalCostName);
+  console.log("Largets spike: " +largestSpikeCostName);
   console.log("CPU used this tick:" + Game.cpu.getUsed());
   Memory.profilingData = profilingData;
 
