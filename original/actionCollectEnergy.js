@@ -46,7 +46,7 @@ module.exports = function(creep){
           collectionSource = nearestEnergyCarrier;
         }
       }
-      if(nearestEnergyCarrier){
+      else if(nearestEnergyCarrier){
         collectionSource = nearestEnergyCarrier;
       }
       else {
