@@ -30,6 +30,9 @@ module.exports = function(creep){
 
       var collectionSource = null;
 
+      console.log("nearestEnergyCarrier:" + nearestEnergyCarrier);
+      console.log("localEnergyStorage:" + localEnergyStorage);
+
       if(nearestEnergyCarrier && localEnergyStorage){
         if(nearestEnergyCarrier.pos.getRangeTo(creep) > localEnergyStorage.pos.getRangeTo(creep))
         {
