@@ -103,8 +103,8 @@ module.exports = function (spawn) {
     }
   }
 
-  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK], Math.min(capacity,2000));
-  var remotetruckBody = fnBodyBuild([MOVE,CARRY], Math.min(capacity,2000));
+  var scoutBody = fnBodyBuild([MOVE,CARRY,MOVE,WORK]);
+  var remotetruckBody = fnBodyBuild([MOVE,CARRY]);
   var defenderBody = fnBodyBuild([MOVE,RANGED_ATTACK]);
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
