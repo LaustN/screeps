@@ -160,7 +160,7 @@ module.exports = function (spawn) {
     return;
   }
 
-  if(fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
+  if(creep.room.storage && fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
     return;
   }
 
