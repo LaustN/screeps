@@ -17,11 +17,9 @@ module.exports = function(creep){
         target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
       }
     }
-    else {
-      creep.memory.hasBeenToDefendedRoom = true;
-    }
   }
   else {
+    creep.memory.hasBeenToDefendedRoom = true;
     target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
   }
   if(target) {
