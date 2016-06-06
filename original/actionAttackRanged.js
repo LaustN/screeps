@@ -39,7 +39,7 @@ module.exports = function(creep, target){
           var terrainQualityAtNewPos = terrainAtNewPos == "plain"? 0 : terrainAtNewPos == "swamp" ? 1 : 10;
           var directnessAwayAtNewPos = Math.abs(deltaX) + Math.abs(deltaX);
 
-          if(terrainQualityAtNewPos + directnessAwayAtNewPos < terrainQualityAtBestPos + directnessAwayAtBestPos && newPos.x > 0 && newPos.y > 0 && newPos.x < 49 && newPos.y < 49 )
+          if((terrainQualityAtNewPos + directnessAwayAtNewPos < terrainQualityAtBestPos + directnessAwayAtBestPos) && newPos.x > 0 && newPos.y > 0 && newPos.x < 49 && newPos.y < 49 )
           {
             bestPosition = newPos;
             terrainQualityAtBestPos = terrainQualityAtNewPos;
