@@ -284,19 +284,19 @@ module.exports = function (spawn) {
           return;
         }
       }
-      var rangerBody = fnBodyBuild(assaultRangerParts, assaultMaxPrice);
-      i=1;
-      for (; i <= assaultOrder.rangerCount; i++) {
-        var newAssaultName = roomName + assaultOrder.flagName  +  "Ranger" + i;
-        if(fnCreateCreep(newAssaultName,rangerBody,{role:"assaultRanger", assault:assaultOrder.flagName})){
-          return;
-        }
-      }
       var healBody = fnBodyBuild(healParts, assaultMaxPrice);
       i=1;
       for (; i <= assaultOrder.healCount; i++) {
         var newHealName = roomName + assaultOrder.flagName  +  "Healer" + i;
         if(fnCreateCreep(newHealName,healBody,{role:"healer", assault:assaultOrder.flagName})){
+          return;
+        }
+      }
+      var rangerBody = fnBodyBuild(assaultRangerParts, assaultMaxPrice);
+      i=1;
+      for (; i <= assaultOrder.rangerCount; i++) {
+        var newAssaultName = roomName + assaultOrder.flagName  +  "Ranger" + i;
+        if(fnCreateCreep(newAssaultName,rangerBody,{role:"assaultRanger", assault:assaultOrder.flagName})){
           return;
         }
       }
