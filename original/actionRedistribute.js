@@ -34,6 +34,15 @@ module.exports = function(creep){
       }
       return true;
     }
+
+    if (creep.room.terminal && creep.room.terminal.store[RESOURCE_ENERGY] > 0) {
+      if(creep.room.terminal.transfer(creep,RESOURCE_ENERGY) != OK){
+        creep.moveTo(creep.room.terminal);
+      }
+      return true;
+
+    }
+
     if(!ignoreRoomStorage && creep.room.storage){
       if(creep.room.storage.transfer(creep,RESOURCE_ENERGY) != OK){
         creep.moveTo(creep.room.storage);
