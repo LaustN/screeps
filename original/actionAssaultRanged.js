@@ -16,10 +16,10 @@ module.exports = function(creep){
 
       if(!target) {
         //find a creep to attack
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
       }
       if(!target){
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter : function(structure){ return structure.structureType != STRUCTURE_RAMPART && structure.structureType != STRUCTURE_CONTROLLER && structure.structureType != STRUCTURE_POWER_BANK && structure.structureType != STRUCTURE_KEEPER_LAIR;}});
+        target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter : function(structure){ return structure.structureType != STRUCTURE_RAMPART && structure.structureType != STRUCTURE_CONTROLLER && structure.structureType != STRUCTURE_POWER_BANK && structure.structureType != STRUCTURE_KEEPER_LAIR;}});
       }
       return actionAttackRanged(creep,target);
     }
