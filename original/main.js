@@ -112,9 +112,6 @@ module.exports.loop = function () {
   var largestSpenderName = "";
   var largestSpenderRole = "";
   var largestCost = 0;
-
-
-console.log("Ticks spent before creeps: " + Game.cpu.getUsed());
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
