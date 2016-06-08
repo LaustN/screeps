@@ -321,7 +321,7 @@ module.exports = function (spawn) {
 
         if(distantTarget){
           var threatLevel = distantTarget.getActiveBodyparts(ATTACK) + distantTarget.getActiveBodyparts(RANGED_ATTACK);
-          var myCreeps = scoutTargetFlag.find(FIND_MY_CREEPS);
+          var myCreeps = scoutTargetFlag.pos.find(FIND_MY_CREEPS);
           var defenderLevel = 0;
           for (var defender in myCreeps) {
             defenderLevel +=  (defender.getActiveBodyparts(ATTACK) + defender.getActiveBodyparts(RANGED_ATTACK) + defender.getActiveBodyparts(HEAL));
