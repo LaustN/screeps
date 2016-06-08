@@ -19,16 +19,22 @@ var runLinks = require("runLinks");
 module.exports.loop = function () {
   Memory.workingLinks = {};
   console.log("============= " + Game.time + " ==============");
-  console.log("Loop start ticks spent: " + Game.cpu.getUsed());
+  var profilingData = {};
+  var lastTick = Game.cpu.getUsed();
+  profilingData["aStart"] = lastTick;
 
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
   }
-  console.log("After creepManagers : " + Game.cpu.getUsed());
+  profilingData["bCreepManagers"] = Game.cpu.getUsed() - lastTick;
+  lastTick = Game.cpu.getUsed();
+
   runTowers();
-  console.log("After towers        : " + Game.cpu.getUsed());
+  profilingData["cTowers"] = Game.cpu.getUsed() - lastTick;
+  lastTick = Game.cpu.getUsed();
   runLinks();
-  console.log("After links         : " + Game.cpu.getUsed());
+  profilingData["dLinks"] = Game.cpu.getUsed() - lastTick;
+  lastTick = Game.cpu.getUsed();
 
   var rolenames = [
     "harvester","harvestTruck","guard","defender","healer","builder","fortifier",
@@ -74,7 +80,6 @@ module.exports.loop = function () {
     "actionUpgradeControl"];
 
   var actions={};
-  var profilingData = {};
   for (var i = 0; i < actionsNames.length; i++) {
     actions[actionsNames[i]] = require(actionsNames[i]);
     profilingData[actionsNames[i]]=  {callCount:0, totalCost:0.0, maxCost:0.0};
@@ -97,11 +102,12 @@ module.exports.loop = function () {
     "reserver" : ["actionReserve"],
     "refiller" : ["actionFlee", "actionRedistributeFillStorage", "actionScavenge"]
   }
+  profilingData["eSetupRoles"] = Game.cpu.getUsed() - lastTick;
+  lastTick = Game.cpu.getUsed();
 
   //remember the idea of making rooms override decisions for creeps in defensive situations and such
   //  JSON.stringify(Game.rooms["W2S25"].find(FIND_MY_CREEPS))
 
-  console.log("ticklimit is " + Game.cpu.tickLimit);
   var usedCpu = Game.cpu.getUsed();
   var largestSpenderName = "";
   var largestSpenderRole = "";
@@ -164,6 +170,9 @@ console.log("Ticks spent before creeps: " + Game.cpu.getUsed());
       largestSpenderRole = creep.memory.role;
     }
   }
+  profilingData["fCreeps"] = Game.cpu.getUsed() - lastTick;
+  lastTick = Game.cpu.getUsed();
+
   //console.log( "profiling data:" + JSON.stringify(profilingData));
   var largestTotalCost = 0.0;
   var largestTotalCostName = "";
@@ -183,10 +192,8 @@ console.log("Ticks spent before creeps: " + Game.cpu.getUsed());
       largestSpikeCost = profilingData[profilePointName].maxCost;
     }
   }
-  console.log("Largest creep: " + largestSpenderRole +  " costing " + largestCost + " : " + largestSpenderName );
-  console.log("Largest total: " + largestTotalCostName);
-  console.log("Largets spike: " +largestSpikeCostName);
-  console.log("CPU used this tick:" + Game.cpu.getUsed());
+  profilingData["gSumProfiling"] = Game.cpu.getUsed() - lastTick;
+  profilingData["total"] = Game.cpu.getUsed();
   Memory.profilingData = profilingData;
 
 }
