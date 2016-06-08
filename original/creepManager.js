@@ -320,16 +320,27 @@ module.exports = function (spawn) {
         }
 
         if(distantTarget){
-          console.log(spawn.name + " is spawning defenders for " + scoutTargetFlag.name);
-          var defenderIndex = 1;
-          var aDefenderWasCreated = false;
-          while (!aDefenderWasCreated) {
-            var defenderName = scoutTargetFlag.name + "Defender" + defenderIndex;
-            aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender", defendFlag: scoutTargetFlag.name});
-            defenderIndex++;
+          var threatLevel = distantTarget.getActiveBodyparts(ATTACK) + distantTarget.getActiveBodyparts(RANGED_ATTACK);
+          var myCreeps = scoutTargetFlag.find(FIND_MY_CREEPS);
+          var defenderLevel = 0;
+          for (var defender in myCreeps) {
+            defenderLevel +=  (defender.getActiveBodyparts(ATTACK) + defender.getActiveBodyparts(RANGED_ATTACK) + defender.getActiveBodyparts(HEAL));
           }
-          console.log(spawn.name + " creep management quitting after reaching defenderIndex=" + defenderIndex);
-          return;
+          if(defenderLevel<threatLevel){
+            console.log(spawn.name + " is spawning defenders for " + scoutTargetFlag.name);
+            var defenderIndex = 1;
+            var aDefenderWasCreated = false;
+            while (!aDefenderWasCreated) {
+              var defenderName = scoutTargetFlag.name + "Defender" + defenderIndex;
+              aDefenderWasCreated =  fnCreateCreep(defenderName,defenderBody,{role:"defender", defendFlag: scoutTargetFlag.name});
+              defenderIndex++;
+            }
+            console.log(spawn.name + " creep management quitting after reaching defenderIndex=" + defenderIndex);
+            return;
+          }
+          else {
+            console.log(spawn.name + " saw a threat near " + scoutTargetFlag.name + " but estimated that local defense can handle it");
+          }
         }
 
         var newScoutMemory = {scoutFlag: scoutTargetFlag.name, role:"scout", scavengeRange: 3};
