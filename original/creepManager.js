@@ -121,9 +121,11 @@ module.exports = function (spawn) {
       var createMessage = spawn.createCreep(body,name,memory);
       if(createMessage == name){
         spawn.memory.state = "OK";
+        spawn.memory.spawning = name;
         console.log("Respawning " + name);
       }
       else {
+        spawn.memory.spawning = "";
         switch (createMessage) {
           case ERR_NOT_ENOUGH_RESOURCES:
           case ERR_NOT_ENOUGH_ENERGY:
