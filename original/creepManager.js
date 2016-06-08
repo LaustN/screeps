@@ -71,6 +71,7 @@ module.exports = function (spawn) {
     }
     return energySum;
   }
+  var storedValue = storedEnergyInRoom(spawn.room);
 
   for(var sourceKey in sources){
     var source = sources[sourceKey];
@@ -132,10 +133,12 @@ module.exports = function (spawn) {
         switch (createMessage) {
           case ERR_NOT_ENOUGH_RESOURCES:
           case ERR_NOT_ENOUGH_ENERGY:
-            if(spawn.memory.state != "SaveEnergy"){
-              console.log(spawn.name + " saving up for " + name);
+            if (storedValue < 100000) {
+              if(spawn.memory.state != "SaveEnergy"){
+                console.log(spawn.name + " saving up for " + name);
+              }
+              spawn.memory.state = "SaveEnergy";
             }
-            spawn.memory.state = "SaveEnergy";
             break;
           case ERR_BUSY:
           case -4:
@@ -245,7 +248,6 @@ module.exports = function (spawn) {
     spawn.memory.workerLayers = 1;
   }
 
-  var storedValue = storedEnergyInRoom(spawn.room);
   var maxMiscCount = Math.ceil(storedValue / 1000) + 1;
 
   var spawnCount = 0;
