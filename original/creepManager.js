@@ -115,6 +115,9 @@ module.exports = function (spawn) {
   var reserverBody = fnBodyBuild([CLAIM,MOVE,MOVE]);
 
   var fnCreateCreep = function(name, body, memory){
+    if(spawn.spawning){
+      return true;
+    }
     var existingCreep = Game.creeps[name];
 
     if(!existingCreep) {
