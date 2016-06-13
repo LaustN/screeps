@@ -1,4 +1,5 @@
 module.exports = function(creep){
+  var profiler = require("profiler")("actionHomeUnloadEnergy");
   if(creep.carry.energy == 0){
     creep.memory.dropoff = false;
   }
