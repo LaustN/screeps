@@ -3,7 +3,7 @@ module.exports = function(profilerLabel) {
     Label : profilerLabel,
     StartTick : Game.cpu.getUsed(),
     CurrentTick : Game.cpu.getUsed(),
-    Log: function(label){
+    log: function(label){
       var oldTick = this.CurrentTick;
       this.CurrentTick = Game.cpu.getUsed();
       console.log(""+ profilerLabel + ":" + label + ":" + (this.CurrentTick - oldTick));

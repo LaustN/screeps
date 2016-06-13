@@ -1,5 +1,5 @@
 module.exports = function(creep){
-  var profiler = require("profiler")("actionHomeUnloadEnergy");
+  var profiler = require("profiler")(creep.name);
   if(creep.carry.energy == 0){
     creep.memory.dropoff = false;
   }
@@ -8,11 +8,13 @@ module.exports = function(creep){
   }
 
   if(creep.memory.dropoff == true){
+    profiler.log("a");
     var home = Game.getObjectById(creep.memory.home);
     if(creep.pos.roomName != home.pos.roomName) {
       creep.moveTo(home, {reusePath: 30});
       return true;
     }
+    profiler.log("b");
 
     var dropoff = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{
       filter: function(structure){
@@ -26,6 +28,7 @@ module.exports = function(creep){
         return false;
       }
     });
+    profiler.log("c");
 
     if(!dropoff){
       dropoff = creep.pos.findClosestByRange(FIND_STRUCTURES,{
@@ -37,10 +40,12 @@ module.exports = function(creep){
         }
       });
     }
+    profiler.log("d");
 
     if (!dropoff) {
       dropoff = Game.getObjectById(creep.memory.home);
     }
+    profiler.log("e");
 
     if(dropoff)
     {
@@ -48,6 +53,8 @@ module.exports = function(creep){
         creep.moveTo(dropoff, {reusePath: 30});
       }
     }
+    profiler.log("f");
+
     return true;
   }
 }
