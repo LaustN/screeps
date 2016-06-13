@@ -8,12 +8,13 @@ module.exports = function(creep, target){
       creep.moveTo(target);
       return true;
     }
+    var targetIsAttacker = ((target.getActiveBodyparts(ATTACK) + target.getActiveBodyparts(RANGED_ATTACK)) > 0);
 
     var rangeToTarget = creep.pos.getRangeTo(target);
-    if (rangeToTarget>3) {
+    if (rangeToTarget>3 || !targetIsAttacker) {
       creep.moveTo(target);
     }
-    if (rangeToTarget<3) {
+    if (rangeToTarget<3 && targetIsAttacker) {
       //look for a good spot 3 times the distance away
       var lookMultiplier = 3;
       var vectorXfromTarget = (creep.pos.x > target.pos.x) ? 1 : ((creep.pos.x < target.pos.x) ? -1 : 0) ;
