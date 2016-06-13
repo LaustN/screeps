@@ -16,18 +16,27 @@ module.exports = function(creep){
     }
     profiler.log("b");
 
-    var dropoff = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{
-      filter: function(structure){
-        if (typeof(structure.energy) != "undefined" && structure.energyCapacity > structure.energy && structure.isActive()) {
-          return true;
+    var dropoff = null;
 
-        };
-        if(typeof(structure.storeCapacity) != "undefined" && structure.storeCapacity > 0 && _.sum(structure.store) < structure.storeCapacity) {
-          return true;
+    if (creep.memory.dropoffId) {
+      dropOff = Game.getObjectById(creep.memory.dropoffId)
+    }
+    profiler.log("b+");
+
+    if(!dropoff){
+      dropoff = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{
+        filter: function(structure){
+          if (typeof(structure.energy) != "undefined" && structure.energyCapacity > structure.energy && structure.isActive()) {
+            return true;
+
+          };
+          if(typeof(structure.storeCapacity) != "undefined" && structure.storeCapacity > 0 && _.sum(structure.store) < structure.storeCapacity) {
+            return true;
+          }
+          return false;
         }
-        return false;
-      }
-    });
+      });
+    }
     profiler.log("c");
 
     if(!dropoff){
@@ -49,8 +58,13 @@ module.exports = function(creep){
 
     if(dropoff)
     {
-      if(creep.transfer(dropoff, RESOURCE_ENERGY)!=OK){
+      creep.memory.dropoffId = dropoff.id;
+      var transferMessage = creep.transfer(dropoff, RESOURCE_ENERGY);
+      if(transferMessage == ERR_NOT_IN_RANGE || transferMessage == ERR_TIRED){
         creep.moveTo(dropoff, {reusePath: 30});
+      }
+      else {
+        creep.memory.dropoffId = null;
       }
     }
     profiler.log("f");
