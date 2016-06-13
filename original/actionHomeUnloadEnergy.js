@@ -13,7 +13,7 @@ module.exports = function(creep){
       return true;
     }
 
-    var dropoff = creep.pos.findClosestByRange(FIND_STRUCTURES,{
+    var dropoff = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{
       filter: function(structure){
         if (typeof(structure.energy) != "undefined" && structure.energyCapacity > structure.energy && structure.isActive()) {
           return true;
@@ -26,6 +26,16 @@ module.exports = function(creep){
       }
     });
 
+    if(!dropoff){
+      dropoff = creep.pos.findClosestByRange(FIND_STRUCTURES,{
+        filter: function(structure){
+          if(typeof(structure.storeCapacity) != "undefined" && structure.storeCapacity > 0 && _.sum(structure.store) < structure.storeCapacity) {
+            return true;
+          }
+          return false;
+        }
+      });
+    }
 
     if (!dropoff) {
       dropoff = Game.getObjectById(creep.memory.home);
