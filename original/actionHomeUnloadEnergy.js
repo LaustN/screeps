@@ -9,7 +9,7 @@ module.exports = function(creep){
   if(creep.memory.dropoff == true){
     var home = Game.getObjectById(creep.memory.home);
     if(creep.pos.roomName != home.pos.roomName) {
-      creep.moveTo(home);
+      creep.moveTo(home, {reusePath: 30});
       return true;
     }
 
@@ -34,7 +34,7 @@ module.exports = function(creep){
     if(dropoff)
     {
       if(creep.transfer(dropoff, RESOURCE_ENERGY)!=OK){
-        creep.moveTo(dropoff);
+        creep.moveTo(dropoff, {reusePath: 30});
       }
     }
     return true;
