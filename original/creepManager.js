@@ -208,7 +208,8 @@ module.exports = function (spawn) {
     }
 
     var newTruckName = roomName + "Truck" + i;
-    if(fnCreateCreep(newTruckName, truckBody, { role: "harvestTruck", scavengeRange: 3, focus: newHarvesterName})){
+    if(fnCreateCreep(newTruckName, truckBody, { role: "harvestTruck", scavengeRange: -1, focus: newHarvesterName})){
+      //harvestTrucks do not scavenge
       return;
     }
   }
