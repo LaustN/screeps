@@ -164,12 +164,14 @@ module.exports = function (spawn) {
     }
   }
 
-  if(fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
-    return;
-  }
+  if(spawn.room.controller.level > 2 ){
+    if( fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
+      return;
+    }
 
-  if(spawn.room.storage && fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
-    return;
+    if(spawn.room.storage && fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
+      return;
+    }
   }
 
   if(spawn.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
