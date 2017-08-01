@@ -54,12 +54,21 @@ module.exports = function(creep){
       dropOff = Game.getObjectById(creep.memory.home);
     }
 
-    if(dropOff)
-    {
+    if(dropOff) {
       if(creep.transfer(dropOff, RESOURCE_ENERGY) != OK) {
         creep.moveTo(dropOff);
       }
       return true;
+    }
+    else {
+      if(creep.room.controller){
+        var rangeToController = creep.pos.getRangeTo(creep.room.controller.pos);
+        if(rangeToController < 2){
+          creep.drop(RESOURCE_ENERGY);
+        }
+        else{
+          creep.moveTo(creep.room.controller);}
+      }
     }
   }
   return false;
