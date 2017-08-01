@@ -266,7 +266,7 @@ module.exports = function (spawn) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
       var newCreepName = roomName +  creepDefinition.name + workerLayersIterator;
-      if(spawnCount > maxMiscCount){
+      if((spawnCount > maxMiscCount)  &&  (spawn.room.energyAvailable != spawn.room.energyCapacityAvailable)){
         break;
       }
       if(fnCreateCreep(newCreepName,creepDefinition.body,creepDefinition.memory)){
