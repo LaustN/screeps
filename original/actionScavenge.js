@@ -14,7 +14,7 @@ module.exports = function(creep){
       scavengeRange = creep.memory.scavengeRange;
     }
 
-    var target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+    var target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
     if(target && target.pos.getRangeTo(creep) <= scavengeRange) {
         if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target);
