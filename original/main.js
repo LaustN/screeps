@@ -113,8 +113,6 @@ module.exports.loop = function () {
   var largestSpenderRole = "";
   var largestCost = 0;
 
-  console.log(Game.memory.creeps);
-
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
