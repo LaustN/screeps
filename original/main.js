@@ -112,10 +112,13 @@ module.exports.loop = function () {
   var largestSpenderName = "";
   var largestSpenderRole = "";
   var largestCost = 0;
+
+  Game.memory
+
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
-    console.log("Activating " + creepName);
+    console.log(creep);
     ensureHome(creep);
 
     var actionsToTake = roleActions[creep.memory.role];
