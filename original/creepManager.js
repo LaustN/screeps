@@ -233,6 +233,13 @@ module.exports = function (spawn) {
     },
     {
       body: scoutBody,
+      name: "ControlUpgrader",
+      memory: {
+        role: "controlUpgrader"
+      }
+    },
+    {
+      body: scoutBody,
       name: "Fortifier",
       memory: {
         role: "fortifier"
@@ -243,13 +250,6 @@ module.exports = function (spawn) {
       name: "Builder",
       memory: {
         role: "builder"
-      }
-    },
-    {
-      body: scoutBody,
-      name: "ControlUpgrader",
-      memory: {
-        role: "controlUpgrader"
       }
     }
   ];
