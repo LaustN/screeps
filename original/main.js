@@ -115,6 +115,7 @@ module.exports.loop = function () {
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
+    console.log("Activating " + creepName);
     ensureHome(creep);
 
     var actionsToTake = roleActions[creep.memory.role];
