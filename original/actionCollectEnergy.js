@@ -59,8 +59,15 @@ module.exports = function(creep){
     }
     else{
       creep.say("not collecting right now");
+
+      var rallypoint = Game.flags[home.memory.spawnRally];
       var nearbyPosition = new RoomPosition(home.pos.x + 5, home.pos.y + 5, home.pos.roomName ) ;
-      creep.moveTo(nearbyPosition);
+      if(rallypoint){
+        creep.moveTo(rallypoint);  
+      } 
+      else{
+        creep.moveTo(nearbyPosition);
+      }
       return true;
     }
 
