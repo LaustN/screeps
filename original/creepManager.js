@@ -204,6 +204,7 @@ module.exports = function (spawn) {
       if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:function(structure){
         return structure.structureType == "link";
       }}) != null){
+        console.log("Not spawning more trucks at " + spawn.room.name + " right now");
         continue;
       }
     }
