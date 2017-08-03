@@ -201,9 +201,12 @@ module.exports = function (spawn) {
 
     if ( i<= sources.length) {
       var sourceToFocusOn = sources[i-1];
-      if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:function(structure){
-        return structure.structureType == "link";
-      }}) != null){
+      var linksNearSourceToFocusOn = sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:
+        function(structure){
+          return structure.structureType == "link";
+        }
+      });
+      if(linksNearSourceToFocusOn.length>0) {
         console.log("Not spawning more trucks at " + spawn.room.name + " right now");
         continue;
       }
