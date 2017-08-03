@@ -60,14 +60,14 @@ module.exports = function(creep){
     else{
       creep.say("not collecting right now");
 
-      var rallypoint = creep.room.find(FIND_FLAGS, {filter: { name: home.memory.spawnRally }});
+      var rallypoint = creep.room.find(FIND_FLAGS, {filter: { name: home.memory.rallyFlag }});
       
       var nearbyPosition = new RoomPosition(home.pos.x + 5, home.pos.y + 5, home.pos.roomName ) ;
       if(rallypoint.length>0){
         creep.moveTo(rallypoint[0]);  
       } 
       else{
-        console.log("no rallypoint found for " + home.memory.spawnRally);
+        console.log("no rallypoint found for " + home.memory.rallyFlag);
         creep.moveTo(nearbyPosition);
       }
       return true;
