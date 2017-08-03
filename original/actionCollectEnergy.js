@@ -66,7 +66,7 @@ module.exports = function(creep){
         creep.moveTo(rallypoint);  
       } 
       else{
-        console.log("no rallypoint!")
+        console.log("no rallypoint found for " + home.memory.spawnRally);
         creep.moveTo(nearbyPosition);
       }
       return true;
