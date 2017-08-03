@@ -23,6 +23,13 @@ module.exports.loop = function () {
   var lastTick = Game.cpu.getUsed();
   profilingData["aStart"] = lastTick;
 
+  for(var name in Memory.creeps) {
+    if(!Game.creeps[name]) {
+        delete Memory.creeps[name];
+        console.log('Clearing memory:', name);
+    }
+  }
+
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
   }
@@ -112,6 +119,7 @@ module.exports.loop = function () {
   var largestSpenderName = "";
   var largestSpenderRole = "";
   var largestCost = 0;
+
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];

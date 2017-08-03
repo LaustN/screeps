@@ -108,7 +108,7 @@ module.exports = function (spawn) {
   var remotetruckBody = fnBodyBuild([MOVE,CARRY]);
   var defenderBody = fnBodyBuild([MOVE,RANGED_ATTACK]);
 
-  var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker) + 1; //have 1 harvester team to spare
+  var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker);
   var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
 
@@ -168,11 +168,12 @@ module.exports = function (spawn) {
     if( fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
       return;
     }
-
+  }
+  if(spawn.room.controller.level > 3 ){
     if(spawn.room.storage && fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
       return;
     }
-  }
+  }  
 
   if(spawn.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
     console.log(spawn.name + " is spawning defenders");
@@ -200,9 +201,13 @@ module.exports = function (spawn) {
 
     if ( i<= sources.length) {
       var sourceToFocusOn = sources[i-1];
-      if(sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:function(structure){
-        return structure.structureType == "link";
-      }}) != null){
+      var linksNearSourceToFocusOn = sourceToFocusOn.pos.findInRange(FIND_MY_STRUCTURES,4,{filter:
+        function(structure){
+          return structure.structureType == "link";
+        }
+      });
+      if(linksNearSourceToFocusOn.length>0) {
+        console.log("Not spawning more trucks at " + spawn.room.name + " right now");
         continue;
       }
     }
@@ -224,6 +229,20 @@ module.exports = function (spawn) {
 
   var creepsToMaintain = [
     {
+      body: scoutBody,
+      name: "ControlUpgrader",
+      memory: {
+        role: "controlUpgrader"
+      }
+    },
+    {
+      body: scoutBody,
+      name: "Builder",
+      memory: {
+        role: "builder"
+      }
+    },
+    {
       body: remotetruckBody,
       name: "Redistributor",
       memory: {
@@ -233,23 +252,9 @@ module.exports = function (spawn) {
     },
     {
       body: scoutBody,
-      name: "ControlUpgrader",
-      memory: {
-        role: "controlUpgrader"
-      }
-    },
-    {
-      body: scoutBody,
       name: "Fortifier",
       memory: {
         role: "fortifier"
-      }
-    },
-    {
-      body: scoutBody,
-      name: "Builder",
-      memory: {
-        role: "builder"
       }
     }
   ];

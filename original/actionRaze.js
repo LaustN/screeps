@@ -3,6 +3,7 @@ module.exports = function(creep){
     var razeFlag = Game.flags[creep.memory.razeTarget];
     if(razeFlag != null){
       if(creep.pos.roomName != razeFlag.pos.roomName ){
+        creep.say("RNH")
         return false; //cannot raze without being in the room
       }
       var razeRange = 0;
@@ -22,6 +23,8 @@ module.exports = function(creep){
         return false;
       }});
       if(razeTarget){
+        creep.say("Razing");
+
         creep.moveTo(razeTarget);
         creep.dismantle(razeTarget);
         creep.attack(razeTarget);
