@@ -229,18 +229,18 @@ module.exports = function (spawn) {
 
   var creepsToMaintain = [
     {
+      body: scoutBody,
+      name: "ControlUpgrader",
+      memory: {
+        role: "controlUpgrader"
+      }
+    },
+    {
       body: remotetruckBody,
       name: "Redistributor",
       memory: {
         role: "redistributor",
         scavengeRange: 50
-      }
-    },
-    {
-      body: scoutBody,
-      name: "ControlUpgrader",
-      memory: {
-        role: "controlUpgrader"
       }
     },
     {
