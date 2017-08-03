@@ -236,6 +236,13 @@ module.exports = function (spawn) {
       }
     },
     {
+      body: scoutBody,
+      name: "Builder",
+      memory: {
+        role: "builder"
+      }
+    },
+    {
       body: remotetruckBody,
       name: "Redistributor",
       memory: {
@@ -248,13 +255,6 @@ module.exports = function (spawn) {
       name: "Fortifier",
       memory: {
         role: "fortifier"
-      }
-    },
-    {
-      body: scoutBody,
-      name: "Builder",
-      memory: {
-        role: "builder"
       }
     }
   ];
