@@ -168,11 +168,12 @@ module.exports = function (spawn) {
     if( fnCreateCreep(roomName + "TinyRedistributor", [CARRY,CARRY,MOVE,MOVE], {role: "redistributor", scavengeRange: 3})){
       return;
     }
-
+  }
+  if(spawn.room.controller.level > 3 ){
     if(spawn.room.storage && fnCreateCreep(roomName + "Refiller", [CARRY,CARRY,MOVE,MOVE], {role: "refiller", scavengeRange: 3 })){
       return;
     }
-  }
+  }  
 
   if(spawn.pos.findClosestByRange(FIND_HOSTILE_CREEPS)){
     console.log(spawn.name + " is spawning defenders");
