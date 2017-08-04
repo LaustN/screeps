@@ -389,6 +389,7 @@ module.exports = function (spawn) {
         }
 
         if(!scoutTarget.reserve){
+          console.log("not reserving at scouttarget " + scoutTarget.flagName );
           continue;
         }
 
