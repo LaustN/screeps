@@ -29,14 +29,14 @@ module.exports = function(creep){
     }});
 
     if(nearestContainer!=null){
-      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) != OK){
+      if(creep.withdraw (nearestContainer,RESOURCE_ENERGY) != OK){
         creep.moveTo(nearestContainer);
       }
       return true;
     }
 
     if (creep.room.terminal && creep.room.terminal.store[RESOURCE_ENERGY] > 0) {
-      if(creep.room.terminal.transfer(creep,RESOURCE_ENERGY) != OK){
+      if(creep.withdraw(creep.room.terminal,RESOURCE_ENERGY) != OK){
         creep.moveTo(creep.room.terminal);
       }
       return true;
@@ -44,7 +44,7 @@ module.exports = function(creep){
     }
 
     if(!ignoreRoomStorage && creep.room.storage){
-      if(creep.room.storage.transfer(creep,RESOURCE_ENERGY) != OK){
+      if(creep.withdraw(creep.room.storage,RESOURCE_ENERGY) != OK){
         creep.moveTo(creep.room.storage);
       }
       return true;
