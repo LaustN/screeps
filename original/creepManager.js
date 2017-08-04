@@ -411,8 +411,8 @@ module.exports = function (spawn) {
 
 	
 
-        if (scoutTargetFlag.room.energyCapacityAvailable < 700) {
-          console.log("this room only has " + scoutTargetFlag.room.energyCapacityAvailable  );
+        if (spawn.room.energyCapacityAvailable < 700) {
+          console.log("this room only has " + spawn.room.energyCapacityAvailable  );
           //do not reserve untill a body of price 700 may be build
           continue;
         }
