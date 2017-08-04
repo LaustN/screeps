@@ -13,10 +13,10 @@ module.exports = function(creep){
     if(home.memory.state != "SaveEnergy") {
       var nearestEnergyCarrier = creep.pos.findClosestByRange(FIND_MY_CREEPS,{
         filter: function(harvestCreep){
-          if (harvestCreep.memory.role == "harvestTruck" && harvestCreep.carry.energy > 0 ) {
+          if (harvestCreep.memory.role == "harvestTruck" && (harvestCreep.carry.energy / harvestCreep.carryCapacity > 0.25) ) {
             return true;
           };
-          if (harvestCreep.memory.role == "harvester" && harvestCreep.carry.energy > 0 ) {
+          if (harvestCreep.memory.role == "harvester" && (harvestCreep.carry.energy / harvestCreep.carryCapacity > 0.25) ) {
             return true;
           };
         }
