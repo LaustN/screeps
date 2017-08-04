@@ -51,7 +51,7 @@ module.exports = function(creep){
       }
 
       if(collectionSource){
-        if (collectionSource.transfer(creep,RESOURCE_ENERGY) != OK) {
+        if (creep.withdraw(collectionSource,RESOURCE_ENERGY) != OK) {
           creep.moveTo(collectionSource);
         }
         return true;
