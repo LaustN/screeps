@@ -12,4 +12,7 @@ module.exports = function(creep){
     }
 
     creep.moveTo(destination);
+    if(creep.pos.getRangeTo(destination)<3){
+        creep.drop(RESOURCE_ENERGY);
+    }
 }
