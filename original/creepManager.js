@@ -393,9 +393,11 @@ module.exports = function (spawn) {
         }
 
         if (!scoutTargetFlag.room) {
+          console.log("Scouted room is invisible");
           continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
         }
         if (!scoutTargetFlag.room.controller) {
+          console.log("Scouted room has no controller");
           continue; //skip ahead when we cannot see a controller in the flagged room. Might be caused by not having any other creep in the room
         }
 
