@@ -406,6 +406,13 @@ module.exports = function (spawn) {
           }
         }
 
+	
+
+        if (scoutTargetFlag.room.energyCapacityAvailable < 700) {
+          //do not reserve untill a body of price 700 may be build
+          continue;
+        }
+
         if (scoutTargetFlag.room.controller.reservation && scoutTargetFlag.room.controller.reservation.ticksToEnd > 1000 ) {
           continue;
         }
