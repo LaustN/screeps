@@ -109,7 +109,7 @@ module.exports = function (spawn) {
   var defenderBody = fnBodyBuild([MOVE,RANGED_ATTACK]);
 
   var workerCountBasedOnWorkerParts = Math.floor( sourcesCount * 5 / workerPartsPerWorker);
-  var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts);
+  var maxWorkerCount = Math.min(harvestPoints, workerCountBasedOnWorkerParts) + 1;
   maxWorkerCount = Math.max(maxWorkerCount, sourcesCount); //at least 1 team per source
 
   var maxReserveLayers = Math.floor(capacity/700);
