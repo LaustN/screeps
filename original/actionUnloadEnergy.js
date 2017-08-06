@@ -62,6 +62,10 @@ module.exports = function(creep){
       if(dropOffResult ==ERR_NOT_IN_RANGE) {
         creep.moveTo(dropOff);
       }
+      if(dropOffResult == OK){
+        creep.memory.dropOffId = null;
+      }
+
       return true;
     }
     else {
