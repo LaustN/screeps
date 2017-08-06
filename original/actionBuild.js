@@ -15,7 +15,7 @@ module.exports = function (creep) {
     if(constructionSites.length>0){
       
       var bestSite = constructionSites[0];
-      var bestSiteProgressPart = constructionSites[constructionSiteIndex].progress / constructionSites[constructionSiteIndex].progressTotal;
+      var bestSiteProgressPart = constructionSites[0].progress / constructionSites[0].progressTotal;
       for(var constructionSiteIndex in constructionSites){
         var siteProgressPart = constructionSites[constructionSiteIndex].progress / constructionSites[constructionSiteIndex].progress 
         if(siteProgressPart > bestSiteProgressPart ){
