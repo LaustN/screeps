@@ -10,6 +10,19 @@ module.exports = function (creep) {
       filter:function(constructionSite){
         return constructionSite.structureType != STRUCTURE_ROAD
       }});
+
+    var constructionSites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+    if(constructionSites.length>0){
+      
+      var bestSite = constructionSites[0];
+      for(var constructionSiteIndex in constructionSites){
+        if(constructionSites[constructionSiteIndex].progress > bestSite.progress){
+          bestSite = constructionSites[constructionSiteIndex];
+        }
+      }
+      target = bestSite;
+    }
+
     if(target == null){
       target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
     }
