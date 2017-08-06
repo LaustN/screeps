@@ -29,15 +29,13 @@ module.exports = function(creep){
         return false;
       }});
 
-      var collectionSource = null;
-
       if(nearestEnergyCarrier && localEnergyStorage){
         var rangestorage = localEnergyStorage.pos.getRangeTo(creep);
         var rangeCarrier = nearestEnergyCarrier.pos.getRangeTo(creep);
 
         if(rangeCarrier > rangestorage) {
-          if (creep.withdraw(collectionSource,RESOURCE_ENERGY) != OK) {
-            creep.moveTo(collectionSource);
+          if (creep.withdraw(localEnergyStorage,RESOURCE_ENERGY) != OK) {
+            creep.moveTo(localEnergyStorage);
           }
           return true;
         }
@@ -55,8 +53,8 @@ module.exports = function(creep){
           return true;
       }
       else {
-        if (creep.withdraw(collectionSource,RESOURCE_ENERGY) != OK) {
-          creep.moveTo(collectionSource);
+        if (creep.withdraw(localEnergyStorage,RESOURCE_ENERGY) != OK) {
+          creep.moveTo(localEnergyStorage);
         }
         return true;
       }
