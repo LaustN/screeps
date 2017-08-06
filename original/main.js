@@ -93,13 +93,13 @@ module.exports.loop = function () {
   }
 
   var roleActions = {
-    "harvester": ["actionFlee", "actionScavenge", "actionUnloadEnergy", "actionHarvest"],
-    "harvestTruck": ["actionFlee", "actionScavenge", "actionHarvestCollection", "actionUnloadEnergy"],
+    "harvester": ["actionFlee", "actionUnloadEnergy", "actionHarvest"],
+    "harvestTruck": ["actionFlee", "actionHarvestCollection", "actionUnloadEnergy"],
     "defender": ["actionDefend","actionRecycle"],
     "healer": ["actionHealCreeps","actionHealerMove"],
-    "builder": ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionBuild", "actionFortify", "actionUpgradeControl"],
-    "fortifier": ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionFortify", "actionBuild", "actionUpgradeControl"],
-    "controlUpgrader" : ["actionFlee", "actionScavenge", "actionCollectEnergy", "actionUpgradeControl"],
+    "builder": ["actionFlee", "actionCollectEnergy", "actionScavenge", "actionBuild", "actionFortify", "actionUpgradeControl"],
+    "fortifier": ["actionFlee", "actionCollectEnergy", "actionScavenge", "actionFortify", "actionBuild", "actionUpgradeControl"],
+    "controlUpgrader" : ["actionFlee", "actionCollectEnergy", "actionScavenge", "actionUpgradeControl"],
     "redistributor" : ["actionFlee", "actionScavenge", "actionRedistribute", "actionRedistributeFillStorage"],
     "scout" : ["actionFlee", "actionScout" , "actionRaze", "actionBuild", "actionFortify",  "actionScavenge", "actionHarvest", "actionUpgradeControl", "actionUnloadEnergy", "actionResetScout"],
     "assault" : ["actionAssaultDestroyFlaggedLocation", "actionAssaultCreeps", "actionAssaultStructures", "actionAssaultMove"],
