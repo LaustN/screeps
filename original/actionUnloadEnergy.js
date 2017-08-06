@@ -55,7 +55,11 @@ module.exports = function(creep){
     }
 
     if(dropOff) {
-      if(creep.transfer(dropOff, RESOURCE_ENERGY) != OK) {
+      var dropOffResult = creep.transfer(dropOff, RESOURCE_ENERGY);
+      if(dropOffResult == ERR_FULL){
+        creep.drop(RESOURCE_ENERGY);
+      }
+      if(dropOffResult ==ERR_NOT_IN_RANGE) {
         creep.moveTo(dropOff);
       }
       return true;
