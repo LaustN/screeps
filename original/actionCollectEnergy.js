@@ -35,22 +35,26 @@ module.exports = function(creep){
         var rangestorage = localEnergyStorage.pos.getRangeTo(creep);
         var rangeCarrier = nearestEnergyCarrier.pos.getRangeTo(creep);
 
-        if(rangeCarrier > rangestorage)
-        {
-          collectionSource = localEnergyStorage;
+        if(rangeCarrier > rangestorage) {
+          if (creep.withdraw(collectionSource,RESOURCE_ENERGY) != OK) {
+            creep.moveTo(collectionSource);
+          }
+          return true;
         }
         else {
-          collectionSource = nearestEnergyCarrier;
+          if (nearestEnergyCarrier.transfer(creep,RESOURCE_ENERGY) != OK) {
+            creep.moveTo(nearestEnergyCarrier);
+          }
+          return true;
         }
       }
       else if(nearestEnergyCarrier){
-        collectionSource = nearestEnergyCarrier;
+          if (nearestEnergyCarrier.transfer(creep,RESOURCE_ENERGY) != OK) {
+            creep.moveTo(nearestEnergyCarrier);
+          }
+          return true;
       }
       else {
-        collectionSource = localEnergyStorage;
-      }
-
-      if(collectionSource){
         if (creep.withdraw(collectionSource,RESOURCE_ENERGY) != OK) {
           creep.moveTo(collectionSource);
         }
