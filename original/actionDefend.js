@@ -13,9 +13,7 @@ module.exports = function(creep){
         creep.moveTo(targetFlag);
         return true;
       }
-      else if(targetFlag.pos.roomName == creep.pos.roomName) {
-        target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-      }
+      target = targetFlag.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     }
   }
   else {
