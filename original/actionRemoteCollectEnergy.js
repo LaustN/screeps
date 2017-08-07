@@ -35,7 +35,7 @@ module.exports = function(creep){
 
       if(localEnergyStorage){
         creep.moveTo(localEnergyStorage);
-        localEnergyStorage.transfer(creep,RESOURCE_ENERGY);
+        creep.withdraw(localEnergyStorage,RESOURCE_ENERGY);
         return true;
       }
 

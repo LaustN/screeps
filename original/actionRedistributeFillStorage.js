@@ -37,7 +37,7 @@ module.exports = function(creep){
       return true;
     }
     if (nearestContainer) {
-      if(nearestContainer.transfer(creep,RESOURCE_ENERGY) ==  ERR_NOT_IN_RANGE){
+      if(creep.withdraw(nearestContainer,RESOURCE_ENERGY) ==  ERR_NOT_IN_RANGE){
         creep.moveTo(nearestContainer);
       }
       return true;
