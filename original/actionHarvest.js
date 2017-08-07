@@ -1,5 +1,6 @@
 module.exports = function(creep){
 
+  
   if(creep.carry[RESOURCE_ENERGY] == 0){
     creep.memory.harvest = true;
   }
