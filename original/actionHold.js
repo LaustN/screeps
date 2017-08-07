@@ -20,6 +20,7 @@ module.exports = function(creep){
     }
   }
   else {
+      console.log("no longer holding");
     return false;
   }
 }
