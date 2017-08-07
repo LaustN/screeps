@@ -4,6 +4,7 @@ module.exports = function(creep){
 
     if (typeof(creep.memory.lastHoldTick) == "undefined"){
       creep.memory.lastHoldTick = Game.time;
+      creep.say("initial hold time");
     }
 
     if(creep.memory.lastHoldTick >= Game.time-1){
