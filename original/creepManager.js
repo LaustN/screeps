@@ -263,7 +263,7 @@ module.exports = function (spawn) {
     spawn.memory.workerLayers = 1;
   }
 
-  var maxMiscCount = Math.ceil(storedValue / 1000) + 1;
+  var maxMiscCount = Math.ceil(storedValue / 5000) + 1;
 
   var spawnCount = 0;
 
