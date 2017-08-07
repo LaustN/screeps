@@ -71,6 +71,7 @@ module.exports.loop = function () {
     "actionHarvestCollection",
     "actionHealCreeps",
     "actionHealerMove",
+    "actionHold",
     "actionHomeUnloadEnergy",
     "actionProximityHealer",
     "actionRaze",
@@ -95,7 +96,7 @@ module.exports.loop = function () {
   var roleActions = {
     "harvester": ["actionFlee", "actionUnloadEnergy", "actionHarvest"],
     "harvestTruck": ["actionFlee", "actionHarvestCollection", "actionUnloadEnergy"],
-    "defender": ["actionDefend","actionRecycle"],
+    "defender": ["actionDefend","actionHold","actionRecycle"],
     "healer": ["actionHealCreeps","actionHealerMove"],
     "builder": ["actionFlee", "actionCollectEnergy", "actionScavenge", "actionBuild", "actionFortify", "actionUpgradeControl"],
     "fortifier": ["actionFlee", "actionCollectEnergy", "actionScavenge", "actionFortify", "actionBuild", "actionUpgradeControl"],
