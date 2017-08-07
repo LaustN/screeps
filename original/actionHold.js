@@ -1,6 +1,6 @@
 module.exports = function(creep){
   console.log("cosider holding");
-  if (typeof(creep.memory.holdDuration) == "undefined" || (creep.memory.holdDuration<500)) {
+  if (typeof(creep.memory.holdDuration) == "undefined" || (creep.memory.holdDuration<200)) {
 
     if (typeof(creep.memory.lastHoldTick) == "undefined"){
       creep.memory.lastHoldTick = Game.time;
@@ -14,9 +14,12 @@ module.exports = function(creep){
       return true;
     }
     else{
-      console.log("no longer holding");
+      console.log("reset holding");
       creep.memory.holdDuration = 0;
-      return false;
+      return true;
     }
+  }
+  else {
+    return false;
   }
 }
