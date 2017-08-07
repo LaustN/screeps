@@ -29,7 +29,7 @@ module.exports = function(creep){
     }
 
     if (nearestLink) {
-      var transferMessage = nearestLink.transferEnergy(creep);
+      var transferMessage = creep.withdraw(nearestLink,RESOURCE_ENERGY);
       if(transferMessage ==  ERR_NOT_IN_RANGE){
         creep.moveTo(nearestLink);
       }

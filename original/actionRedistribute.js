@@ -17,7 +17,7 @@ module.exports = function(creep){
         creep.moveTo(homeLink);
       }
       else {
-        homeLink.transferEnergy(creep);
+        creep.withdraw(homeLink, RESOURCE_ENERGY);
       }
       return true;
     }
