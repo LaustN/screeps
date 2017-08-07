@@ -326,7 +326,7 @@ module.exports = function (spawn) {
   }
 
   if(!spawn.memory.scoutTargets){
-    spawn.memory.scoutTargets = [{flagName:"[FlagName]",razeRange:-1, scoutCount:0,remoteTruckCount:0, reserve: false}];
+    spawn.memory.scoutTargets = [{flagName:"[FlagName]",razeRange:-1,razeTarget:"[FlagName]", scoutCount:0,remoteTruckCount:0, reserve: false}];
   }
 
   if(spawn.memory.scoutTargets){
