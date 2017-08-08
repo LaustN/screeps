@@ -1,15 +1,4 @@
-var harvester = require("harvester");
-var harvestTruck = require("harvestTruck");
-var guard = require("guard");
-var healer = require("healer");
-var builder = require("builder");
-var fortifier = require("fortifier");
-var controlUpgrader = require("controlUpgrader");
-var redistributor = require("redistributor");
-var scout = require("scout");
-var assault = require("assault");
-var claimer = require("claimer");
-var remoteTruck = require("remoteTruck");
+var spawnStrategy = require("spawnStrategy");
 
 var creepManager = require("creepManager");
 var ensureHome = require("actionEnsureHome");
@@ -32,6 +21,7 @@ module.exports.loop = function () {
 
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
+    spawnStrategy(Game.spawns[spawnName]);
   }
   profilingData["bCreepManagers"] = Game.cpu.getUsed() - lastTick;
   lastTick = Game.cpu.getUsed();
