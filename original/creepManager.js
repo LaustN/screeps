@@ -273,6 +273,7 @@ module.exports = function (spawn) {
 
   if(nonFullContainers.length == 0){
     //this denotes that no containers are available and we are overflowing
+    console.log(spawn.name +": Resource overflow, spamming workers!")
     maxMiscCount = 500;
   }
 
