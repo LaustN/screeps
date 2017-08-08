@@ -1,4 +1,4 @@
-var spawnStrategy = require("spawnStrategy");
+var spawnStrategy = require("spawn/spawnStrategy");
 
 var creepManager = require("creepManager");
 var ensureHome = require("actionEnsureHome");
