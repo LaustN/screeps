@@ -264,7 +264,14 @@ module.exports = function (spawn) {
   }
 
   var maxMiscCount = Math.ceil(storedValue / 5000) + 1;
-  if(storedValue == spawn.room.energyCapacityAvailable){
+
+  var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
+    if((structure.type == STRUCTURE_CONTAINER || structure.type == STRUCTURE_STORAGE)&& _.sum(structure.store) < structure.storeCapacity)
+      return true;
+    return false;
+  }});
+
+  if(nonFullContainers.length == 0){
     //this denotes that no containers are available and we are overflowing
     maxMiscCount = 500;
   }
