@@ -1,4 +1,4 @@
-var spawnStrategy = require("spawn\spawnStrategy");
+//var spawnStrategy = require("spawn\spawnStrategy");
 
 var creepManager = require("creepManager");
 var ensureHome = require("actionEnsureHome");
@@ -21,7 +21,7 @@ module.exports.loop = function () {
 
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
-    spawnStrategy(Game.spawns[spawnName]);
+    //spawnStrategy(Game.spawns[spawnName]);
   }
   profilingData["bCreepManagers"] = Game.cpu.getUsed() - lastTick;
   lastTick = Game.cpu.getUsed();
