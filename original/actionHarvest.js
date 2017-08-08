@@ -18,8 +18,6 @@ module.exports = function(creep){
       harvestTarget = creep.pos.findClosestByRange(FIND_SOURCES);
     }
 
-    creep.say("H" + harvestTarget.pos.x + "," + harvestTarget.pos.y);
-
     var findOtherSource = function(){
       var nonFocusSources = creep.room.find(FIND_SOURCES, { filter: function(source){ return source.id != creep.memory.focus && source.energy != 0}});
       var nearbyCreepCount = 10;

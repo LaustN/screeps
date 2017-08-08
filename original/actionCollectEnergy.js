@@ -61,8 +61,6 @@ module.exports = function(creep){
       return false;
     }
     else{
-      creep.say("not collecting right now");
-
       rally(creep);
       return true;
     }
