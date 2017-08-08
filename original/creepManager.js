@@ -264,6 +264,10 @@ module.exports = function (spawn) {
   }
 
   var maxMiscCount = Math.ceil(storedValue / 5000) + 1;
+  if(storedValue == spawn.room.energyCapacityAvailable){
+    //this denotes that no containers are available and we are overflowing
+    maxMiscCount = 500;
+  }
 
   var spawnCount = 0;
 
