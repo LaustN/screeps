@@ -271,7 +271,7 @@ module.exports = function (spawn) {
     return false;
   }});
 
-  if(nonFullContainers.length == 0 && spawn.room.energyCapacityAvailable == spawn.room.energyAvailable){
+  if((nonFullContainers.length == 0) && (spawn.room.energyCapacityAvailable == spawn.room.energyAvailable)){
     //this denotes that no containers are available and we are overflowing
     console.log(spawn.name +": Resource overflow, spamming workers!")
     maxMiscCount = 500;
