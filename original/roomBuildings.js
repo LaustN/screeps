@@ -23,7 +23,29 @@ module.exports = function (room) {
     var containers  = room.find(FIND_MY_STRUCTURES, {filter:{ structureType: STRUCTURE_CONTAINER}});
     var storage  = room.storage;
 
-    var positions = getRoomPositionsAtRange(spawns[0].pos,6);
+    var positions = getRoomPositionsAtRange(spawns[0].pos,6, {
+            filter:function(position){
+                var directions = [];
+                directions.push(new RoomPosition(position.x, position.y-1, position.roomName));
+                directions.push(new RoomPosition(position.x, position.y+1, position.roomName));
+                directions.push(new RoomPosition(position.x-1, position.y, position.roomName));
+                directions.push(new RoomPosition(position.x+1, position.y, position.roomName));
+
+                var positionIsOk = true;
+                directions.forEach(function(neighbour){
+                    var neighbourIsOk = true;
+                    neighbour.look.forEach(function(lookObject){
+                        if(lookObject.type == "structure"){ //also try with "terrain"
+                            neighbourIsOk = false;
+                        }
+                    });
+                    if(!neighbourIsOk){
+                        positionIsOk = false;
+                    }
+                });
+                return positionIsOk;
+            }
+        });
     for(var positionIndex in positions){
         var position = positions[positionIndex];
         room.visual.text(positionIndex,position);
