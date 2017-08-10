@@ -31,11 +31,37 @@ module.exports = function (room) {
                 directions.push(new RoomPosition(position.x+1, position.y, position.roomName));
                 console.log(JSON.stringify(directions));
 
+                var myThings = position.look();
+                for(var thingIndex in myThings){
+                    var myThing = myThings[thingIndex];
+                    if(myThing 
+                        && (
+                            myThing.type == LOOK_STRUCTURES || 
+                            myThing.type == LOOK_CONSTRUCTION_SITES ||
+                            (myThing.type == LOOK_TERRAIN && myThing.terrain == 'wall')
+                        )
+                    ){
+                        return false; // this space is blocked
+                    }
+                }
+
+
                 var positionIsOk = true;
                 directions.forEach(function(neighbour){
                     var neighbourIsOk = true;
                     var neighbourThings = neighbour.look();
-                    console.log(JSON.stringify(neighbourThings));
+                    for(var thingIndex in neighbourThings){
+                        var neighbourThing = neighbourThings[thingIndex];
+                        if(neighbourThing 
+                            && (
+                                neighbourThing.type == LOOK_STRUCTURES || 
+                                neighbourThing.type == LOOK_CONSTRUCTION_SITES                            
+                            )
+
+                        ){
+                            neighbourIsOk = false
+                        }
+                    }
 
                     if(!neighbourIsOk){
                         positionIsOk = false;
