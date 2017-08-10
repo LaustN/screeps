@@ -7,9 +7,6 @@ module.exports = function (room) {
     }});
     for(var spawnkey in spawns) {
         var spawn  = spawns[spawnkey];
-        room.visual.text(spawn.name, spawn.pos);
+        room.visual.text(spawn.name + " obviously", spawn.pos);
     }
-
-
-
 }
