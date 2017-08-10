@@ -10,8 +10,9 @@ module.exports = function (room) {
             result.push(new RoomPosition(roomPosition.y-i,roomPosition.x+range,roomPosition.roomName));
             result.push(new RoomPosition(roomPosition.y+i,roomPosition.x-range,roomPosition.roomName));
         }
-        if(filter)
+        if(typeof(filter) != "undefined") {
             return _.filter(result,filter);
+        }
         return result;
         //Line
         //left + right
