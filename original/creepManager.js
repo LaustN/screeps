@@ -263,7 +263,7 @@ module.exports = function (spawn) {
     spawn.memory.workerLayers = 1;
   }
 
-  var maxMiscCount = Math.ceil(storedValue / 5000) + 1;
+  var maxMiscCount = Math.ceil(storedValue / 2000) + 1;
 
   var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
     if((structure.type == STRUCTURE_CONTAINER || structure.type == STRUCTURE_STORAGE)&& _.sum(structure.store) < structure.storeCapacity)
@@ -279,7 +279,7 @@ module.exports = function (spawn) {
 
   var spawnCount = 0;
 
-  for (var workerLayersIterator = 1; workerLayersIterator <= spawn.memory.workerLayers; workerLayersIterator++) {
+  for (var workerLayersIterator = 1; workerLayersIterator <= 100 /*spawn.memory.workerLayers*/; workerLayersIterator++) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
       var newCreepName = roomName +  creepDefinition.name + workerLayersIterator;
