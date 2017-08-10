@@ -20,7 +20,7 @@ module.exports = function (room) {
     var containers  = room.find(FIND_MY_STRUCTURES, {filter:{ structureType: STRUCTURE_CONTAINER}});
     var storage  = room.storage;
 
-    console.log(JSON.stringify(getRoomPositionsAtRange(room.pos,1)));
+    console.log(JSON.stringify(getRoomPositionsAtRange(spawns[0].pos,1)));
 
     if(!storage && (containers.length == 0)){
 
