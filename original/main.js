@@ -5,6 +5,8 @@ var ensureHome = require("actionEnsureHome");
 var runTowers = require("runTowers");
 var runLinks = require("runLinks");
 
+var roomBuildings = require("roomBuildings")
+
 module.exports.loop = function () {
   Memory.workingLinks = {};
   console.log("============= " + Game.time + " ==============");
@@ -19,9 +21,12 @@ module.exports.loop = function () {
     }
   }
 
+  for(var roomName in Game.rooms){
+    roomBuildings(Game.rooms[roomName]);
+  }
+
   for(var spawnName in Game.spawns){
     creepManager(Game.spawns[spawnName]);
-  //  spawnStrategy(Game.spawns[spawnName]);
   }
   profilingData["bCreepManagers"] = Game.cpu.getUsed() - lastTick;
   lastTick = Game.cpu.getUsed();
