@@ -6,10 +6,10 @@ module.exports = function (room) {
             result.push(new RoomPosition(roomPosition.y-range,roomPosition.x+i,roomPosition.roomName));
             result.push(new RoomPosition(roomPosition.y+range,roomPosition.x+i,roomPosition.roomName));
         }
-        for(var i= -(range-1); i<=(range-1);i++){
-            result.push(new RoomPosition(roomPosition.y-i,roomPosition.x+range,roomPosition.roomName));
-            result.push(new RoomPosition(roomPosition.y+i,roomPosition.x-range,roomPosition.roomName));
-        }
+        // for(var i= -(range-1); i<=(range-1);i++){
+        //     result.push(new RoomPosition(roomPosition.y-i,roomPosition.x+range,roomPosition.roomName));
+        //     result.push(new RoomPosition(roomPosition.y+i,roomPosition.x-range,roomPosition.roomName));
+        // }
         if(typeof(filter) != "undefined") {
             return _.filter(result,filter);
         }
