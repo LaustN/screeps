@@ -29,6 +29,7 @@ module.exports = function (room) {
                 directions.push(new RoomPosition(position.x, position.y+1, position.roomName));
                 directions.push(new RoomPosition(position.x-1, position.y, position.roomName));
                 directions.push(new RoomPosition(position.x+1, position.y, position.roomName));
+                console.log(JSON.stringify(directions));
 
                 var positionIsOk = true;
                 directions.forEach(function(neighbour){
