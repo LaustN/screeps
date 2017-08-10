@@ -20,7 +20,7 @@ module.exports = function (room) {
     var containers  = room.find(FIND_MY_STRUCTURES, {filter:{ structureType: STRUCTURE_CONTAINER}});
     var storage  = room.storage;
 
-    var positions = getRoomPositionsAtRange(spawns[0].pos,1);
+    var positions = getRoomPositionsAtRange(spawns[0].pos,3);
     for(var positionIndex in positions){
         var position = positions[positionIndex];
         room.visual.text(positionIndex,position);
