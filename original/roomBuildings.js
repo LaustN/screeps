@@ -34,13 +34,9 @@ module.exports = function (room) {
                 var positionIsOk = true;
                 directions.forEach(function(neighbour){
                     var neighbourIsOk = true;
-                    console.log(neighbour.look());
-                    // neighbour.look().forEach(function(lookObject){
-                    //     if(lookObject.type == "structure"){ //also try with "terrain"
-                    //     console.log("failing because of " + JSON.stringify(lookObject));
-                    //         neighbourIsOk = false;
-                    //     }
-                    // });
+                    var neighbourThings = neighbour.look();
+                    console.log(JSON.stringify(neighbourThings));
+
                     if(!neighbourIsOk){
                         positionIsOk = false;
                     }
