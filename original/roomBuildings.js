@@ -1,6 +1,6 @@
 module.exports = function (room) {
 
-    var getRoomPositionsAtRange = function(roomPosition, range){
+    var getRoomPositionsAtRange = function(roomPosition, range, filter){
         var result = [];
         for(var i= -range; i<=range;i++){
             result.push(new RoomPosition(roomPosition.y-range,roomPosition.x+i,roomPosition.roomName));
@@ -10,6 +10,8 @@ module.exports = function (room) {
             result.push(new RoomPosition(roomPosition.y-i,roomPosition.x+range,roomPosition.roomName));
             result.push(new RoomPosition(roomPosition.y+i,roomPosition.x-range,roomPosition.roomName));
         }
+        if(filter)
+            return _.filter(result,filter);
         return result;
         //Line
         //left + right
@@ -23,7 +25,7 @@ module.exports = function (room) {
     var positions = getRoomPositionsAtRange(spawns[0].pos,3);
     for(var positionIndex in positions){
         var position = positions[positionIndex];
-        room.visual.text(positionIndex,position);
+
     }
 
     if(!storage && (containers.length == 0)){
