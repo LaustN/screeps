@@ -3,7 +3,7 @@ module.exports = function (room) {
     room.visual.clear();
     var spawns  = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
         console.log("the structure is " + JSON.stringify(structure));
-        if(structure.type == STRUCTURE_SPAWN)
+        if(structure.structureType == STRUCTURE_SPAWN)
             return true;
         return false;
     }});
