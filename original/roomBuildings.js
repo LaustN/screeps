@@ -34,7 +34,7 @@ module.exports = function (room) {
                 var positionIsOk = true;
                 directions.forEach(function(neighbour){
                     var neighbourIsOk = true;
-                    neighbour.look.forEach(function(lookObject){
+                    neighbour.look().forEach(function(lookObject){
                         if(lookObject.type == "structure"){ //also try with "terrain"
                         console.log("failing because of " + JSON.stringify(lookObject));
                             neighbourIsOk = false;
