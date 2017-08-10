@@ -3,13 +3,13 @@ module.exports = function (room) {
     var getRoomPositionsAtRange = function(roomPosition, range, filter){
         var result = [];
         for(var i= -range; i<=range;i++){
-            result.push(new RoomPosition(roomPosition.y-range+1,roomPosition.x+i,roomPosition.roomName));
-            result.push(new RoomPosition(roomPosition.y+range+1,roomPosition.x+i,roomPosition.roomName));
+            result.push(new RoomPosition(roomPosition.x-range,roomPosition.y+i,roomPosition.roomName));
+            result.push(new RoomPosition(roomPosition.x+range,roomPosition.y+i,roomPosition.roomName));
         }
-        // for(var i= -(range-1); i<=(range-1);i++){
-        //     result.push(new RoomPosition(roomPosition.y-i,roomPosition.x+range,roomPosition.roomName));
-        //     result.push(new RoomPosition(roomPosition.y+i,roomPosition.x-range,roomPosition.roomName));
-        // }
+        for(var i= -(range-1); i<=(range-1);i++){
+            result.push(new RoomPosition(roomPosition.x-i,roomPosition.y+range,roomPosition.roomName));
+            result.push(new RoomPosition(roomPosition.x+i,roomPosition.y-range,roomPosition.roomName));
+        }
         if(typeof(filter) != "undefined") {
             return _.filter(result,filter);
         }
