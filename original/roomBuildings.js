@@ -2,6 +2,7 @@ module.exports = function (room) {
     console.log("spam!")
     room.visual.clear();
     var spawns  = room.find(FIND_MY_STRUCTURES, {filter: function(structure){
+        console.log("the structure is " + JSON.stringify(structure));
         if(structure.type == STRUCTURE_SPAWN)
             return true;
         return false;
