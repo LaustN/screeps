@@ -76,6 +76,7 @@ module.exports = function (room) {
     }
 
     if(!storage && (containers.length == 0)){
+        console.log("No containers in " + room.name );
         var containerPositions = getRoomPositionsAtRange(spawns[0].pos,2, spacyFilter );
         if(containerPositions.length>0){
             containerPositions[0].createConstructionSite(STRUCTURE_CONTAINER);
