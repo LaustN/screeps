@@ -82,8 +82,29 @@ module.exports = function (room) {
     if(room.find(FIND_MY_CONSTRUCTION_SITES).length>0)
         return; //do not autobuild when projects are in scope
 
-    if(spawns.length == 0) //no spawns == do not autobuild here
+    if(spawns.length == 0) { //no spawns == do not autobuild here
+        var hostiles = room.find(FIND_HOSTILE_CREEPS);
+        if(hostiles.length>0)
+            return;
+        var flags = room.find(FIND_FLAGS);
+        if(flags.length == 0)
+            return;
+        
+        if(containers.length == 0) {
+            var containerPositions = getRoomPositionsAtRange(flags[0].pos,2, spacyFilter );
+            if(containerPositions.length>0){
+                containerPositions[0].createConstructionSite(STRUCTURE_CONTAINER);
+                return;
+            }
+        }
+
+        if(typeof(room.controller) != "undefined" && room.controller.my ){
+            flags[0].pos.createConstructionSite(STRUCTURE_CONTAINER);
+            return;
+        }
+
         return;
+    }
 
     if(typeof(storage) == "undefined" && (containers.length == 0)){
         console.log("No containers in " + room.name );
