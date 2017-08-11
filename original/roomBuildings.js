@@ -82,7 +82,7 @@ module.exports = function (room) {
     if(room.find(FIND_MY_CONSTRUCTION_SITES).length>0)
         return; //do not autobuild when projects are in scope
 
-    if(spawns.length == 0) { //no spawns == do not autobuild here
+    if(spawns.length == 0) { //no spawns == build 1 container then spawn
         var hostiles = room.find(FIND_HOSTILE_CREEPS);
         if(hostiles.length>0)
             return;
