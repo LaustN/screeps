@@ -260,6 +260,7 @@ module.exports = function (spawn) {
   ];
 
   var maxMiscCount = Math.ceil(storedValue / 2000) + 1;
+  var maxDistributorCount = Math.ceil(storedValue / 2000);
 
   var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
     if((structure.type == STRUCTURE_CONTAINER || structure.type == STRUCTURE_STORAGE)&& _.sum(structure.store) < structure.storeCapacity)
@@ -288,6 +289,14 @@ module.exports = function (spawn) {
       }
       spawnCount++;
     }
+  }
+
+  for (var redistributorNumber = 1; redistributorNumber <= maxDistributorCount ; redistributorNumber++) {
+    var newCreepName = roomName +  "Redist" + redistributorNumber;
+    if(fnCreateCreep(newCreepName,remotetruckBody,{ role: "redistributor", scavengeRange: 50 })){
+      return;
+    }
+    spawnCount++;
   }
 
   if(!spawn.memory.assaultOrders){
