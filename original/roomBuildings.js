@@ -21,51 +21,57 @@ module.exports = function (room) {
     }
 
     var spacyFilter = function(position){
-        if((position.x<2) || (position.y<2) || (position.x>48) || (position.y>48))
-            return false;
-        var directions = [];
-        directions.push(new RoomPosition(position.x, position.y-1, position.roomName));
-        directions.push(new RoomPosition(position.x, position.y+1, position.roomName));
-        directions.push(new RoomPosition(position.x-1, position.y, position.roomName));
-        directions.push(new RoomPosition(position.x+1, position.y, position.roomName));
+        try{
+            if((position.x<2) || (position.y<2) || (position.x>48) || (position.y>48))
+                return false;
+            var directions = [];
+            directions.push(new RoomPosition(position.x, position.y-1, position.roomName));
+            directions.push(new RoomPosition(position.x, position.y+1, position.roomName));
+            directions.push(new RoomPosition(position.x-1, position.y, position.roomName));
+            directions.push(new RoomPosition(position.x+1, position.y, position.roomName));
 
-        var myThings = position.look();
-        for(var thingIndex in myThings){
-            var myThing = myThings[thingIndex];
-            if(myThing 
-                && (
-                    myThing.type == LOOK_STRUCTURES || 
-                    myThing.type == LOOK_CONSTRUCTION_SITES ||
-                    (myThing.type == LOOK_TERRAIN && myThing.terrain == 'wall')
-                )
-            ){
-                return false; // this space is blocked
-            }
-        }
-
-
-        var positionIsOk = true;
-        directions.forEach(function(neighbour){
-            var neighbourIsOk = true;
-            var neighbourThings = neighbour.look();
-            for(var thingIndex in neighbourThings){
-                var neighbourThing = neighbourThings[thingIndex];
-                if(neighbourThing 
+            var myThings = position.look();
+            for(var thingIndex in myThings){
+                var myThing = myThings[thingIndex];
+                if(myThing 
                     && (
-                        neighbourThing.type == LOOK_STRUCTURES || 
-                        neighbourThing.type == LOOK_CONSTRUCTION_SITES                            
+                        myThing.type == LOOK_STRUCTURES || 
+                        myThing.type == LOOK_CONSTRUCTION_SITES ||
+                        (myThing.type == LOOK_TERRAIN && myThing.terrain == 'wall')
                     )
-
                 ){
-                    neighbourIsOk = false
+                    return false; // this space is blocked
                 }
             }
 
-            if(!neighbourIsOk){
-                positionIsOk = false;
-            }
-        });
-        return positionIsOk;
+
+            var positionIsOk = true;
+            directions.forEach(function(neighbour){
+                var neighbourIsOk = true;
+                var neighbourThings = neighbour.look();
+                for(var thingIndex in neighbourThings){
+                    var neighbourThing = neighbourThings[thingIndex];
+                    if(neighbourThing 
+                        && (
+                            neighbourThing.type == LOOK_STRUCTURES || 
+                            neighbourThing.type == LOOK_CONSTRUCTION_SITES                            
+                        )
+
+                    ){
+                        neighbourIsOk = false
+                    }
+                }
+
+                if(!neighbourIsOk){
+                    positionIsOk = false;
+                }
+            });
+            return positionIsOk;
+        }
+        catch(exception){
+            console.log(exception);
+            return false;
+        }
     };
 
     room.visual.clear();
