@@ -242,14 +242,14 @@ module.exports = function (spawn) {
         role: "builder"
       }
     },
-    {
-      body: remotetruckBody,
-      name: "Redistributor",
-      memory: {
-        role: "redistributor",
-        scavengeRange: 50
-      }
-    },
+    // {
+    //   body: remotetruckBody,
+    //   name: "Redistributor",
+    //   memory: {
+    //     role: "redistributor",
+    //     scavengeRange: 50
+    //   }
+    // },
     {
       body: scoutBody,
       name: "Fortifier",
