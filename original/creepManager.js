@@ -263,7 +263,7 @@ module.exports = function (spawn) {
   var maxDistributorCount = Math.min(Math.ceil(storedValue / 2000),3);
 
   var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
-    if((structure.type == STRUCTURE_CONTAINER || structure.type == STRUCTURE_STORAGE)&& _.sum(structure.store) < structure.storeCapacity)
+    if((structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE)&& _.sum(structure.store) < structure.storeCapacity)
       return true;
     return false;
   }});
@@ -290,6 +290,7 @@ module.exports = function (spawn) {
       spawnCount++;
     }
   }
+  console.log("spawncount ended at " + spawnCount);
 
   for (var redistributorNumber = 1; redistributorNumber <= maxDistributorCount ; redistributorNumber++) {
     var newCreepName = roomName +  "Redist" + redistributorNumber;
