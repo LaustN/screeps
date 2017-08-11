@@ -99,7 +99,7 @@ module.exports = function (room) {
         }
 
         if(typeof(room.controller) != "undefined" && room.controller.my ){
-            flags[0].pos.createConstructionSite(STRUCTURE_CONTAINER);
+            flags[0].pos.createConstructionSite(STRUCTURE_SPAWN);
             return;
         }
 
