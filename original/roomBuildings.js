@@ -5,7 +5,7 @@ module.exports = function (room) {
         for(var i= -range; i<=range;i++){
             result.push(new RoomPosition(roomPosition.x-range,roomPosition.y+i,roomPosition.roomName));
         }
-        for(var i= -(range-1); i <= (range-1);i++){
+        for(var i= (range-1); i >= -(range-1);i--){
             result.push(new RoomPosition(roomPosition.x-i,roomPosition.y+range,roomPosition.roomName));
         }
         for(var i= range; i >= -range;i--){
