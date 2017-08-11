@@ -75,6 +75,8 @@ module.exports = function (room) {
         room.visual.text(positionIndex,position);
     }
 
+    console.log("storage" + JSON.stringify(storage));
+    console.log("containers" + JSON.stringify(containers));
     if(typeof(storage) == "undefined" && (containers.length == 0)){
         console.log("No containers in " + room.name );
         var containerPositions = getRoomPositionsAtRange(spawns[0].pos,2, spacyFilter );
