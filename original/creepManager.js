@@ -277,6 +277,7 @@ module.exports = function (spawn) {
     maxMiscCount = 500;
   }
 
+  console.log("MaxMischConunt for " + spawn.room.name + " resolved to " + maxMiscCount );
   var spawnCount = 0;
 
   for (var workerLayersIterator = 1; workerLayersIterator <= 100 /*spawn.memory.workerLayers*/; workerLayersIterator++) {
