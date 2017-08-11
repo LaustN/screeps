@@ -259,10 +259,6 @@ module.exports = function (spawn) {
     }
   ];
 
-  if(!spawn.memory.workerLayers){
-    spawn.memory.workerLayers = 1;
-  }
-
   var maxMiscCount = Math.ceil(storedValue / 2000) + 1;
 
   var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
@@ -280,10 +276,10 @@ module.exports = function (spawn) {
   console.log("MaxMiscCount for " + spawn.room.name + " resolved to " + maxMiscCount );
   var spawnCount = 0;
 
-  for (var workerLayersIterator = 1; workerLayersIterator <= 100 /*spawn.memory.workerLayers*/; workerLayersIterator++) {
+  for (var workerSetNumber = 1; workerSetNumber <= 100 ; workerSetNumber++) {
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
-      var newCreepName = roomName +  creepDefinition.name + workerLayersIterator;
+      var newCreepName = roomName +  creepDefinition.name + workerSetNumber;
       if(spawnCount > maxMiscCount){
         break;
       }
