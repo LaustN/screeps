@@ -230,16 +230,16 @@ module.exports = function (spawn) {
   var creepsToMaintain = [
     {
       body: scoutBody,
-      name: "ControlUpgrader",
+      name: "Builder",
       memory: {
-        role: "controlUpgrader"
+        role: "builder"
       }
     },
     {
       body: scoutBody,
-      name: "Builder",
+      name: "ControlUpgrader",
       memory: {
-        role: "builder"
+        role: "controlUpgrader"
       }
     },
     // {
