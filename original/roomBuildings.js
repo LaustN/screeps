@@ -66,7 +66,7 @@ module.exports = function (room) {
 
     room.visual.clear();
     var spawns  = room.find(FIND_MY_STRUCTURES, {filter:{ structureType: STRUCTURE_SPAWN}});
-    var containers  = room.find(FIND_MY_STRUCTURES, {filter: 
+    var containers  = room.find(FIND_STRUCTURES, {filter: 
         function(structure){
             if(structure.structureType == STRUCTURE_CONTAINER)
                 return true;
