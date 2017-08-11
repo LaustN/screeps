@@ -123,4 +123,14 @@ module.exports = function (room) {
                 return;
         }
     }
+
+    var innerCircle = getRoomPositionsAtRange(spawns[0].pos, 1, spacyFilter );
+    var innerCircleQueue = [STRUCTURE_STORAGE,STRUCTURE_TOWER];
+    for(var innerCircleQueueIndex in innerCircleQueue){
+        for(var innerCircleIndex in innerCircle){
+            var innerCircleResult = innerCircle[innerCircleIndex].createConstructionSite(innerCircleQueue[innerCircleIndex]);
+            if(buildExtensionResult == OK)
+                return;
+        }
+    }
 }
