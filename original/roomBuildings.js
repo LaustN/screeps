@@ -71,11 +71,13 @@ module.exports = function (room) {
     var containers  = room.find(FIND_STRUCTURES, {filter:{ structureType: STRUCTURE_CONTAINER}});
     var storage  = room.storage;
 
-    var positions = getRoomPositionsAtRange(spawns[0].pos,6, spacyFilter );
-    for(var positionIndex in positions){
-        var position = positions[positionIndex];
-        room.visual.text(positionIndex,position);
-    }
+    //// this commented sections prints the numers of found locations. Might be needed for further debugging later, not right now
+    //
+    // var positions = getRoomPositionsAtRange(spawns[0].pos,6, spacyFilter );
+    // for(var positionIndex in positions){
+    //     var position = positions[positionIndex];
+    //     room.visual.text(positionIndex,position);
+    // }
 
     if(room.find(FIND_MY_CONSTRUCTION_SITES).length>0)
         return; //do not autobuild when projects are in scope
