@@ -1,15 +1,17 @@
 module.exports = function (room) {
-    if(room.find(FIND_MY_CONSTRUCTION_SITES).length>0)
-        return; //do not autobuild when projects are in scope
 
     var getRoomPositionsAtRange = function(roomPosition, range, filter){
         var result = [];
         for(var i= -range; i<=range;i++){
             result.push(new RoomPosition(roomPosition.x-range,roomPosition.y+i,roomPosition.roomName));
+        }
+        for(var i= -(range-1); i <= (range-1);i++){
+            result.push(new RoomPosition(roomPosition.x-i,roomPosition.y+range,roomPosition.roomName));
+        }
+        for(var i= range; i >= -range;i--){
             result.push(new RoomPosition(roomPosition.x+range,roomPosition.y+i,roomPosition.roomName));
         }
-        for(var i= -(range-1); i<=(range-1);i++){
-            result.push(new RoomPosition(roomPosition.x-i,roomPosition.y+range,roomPosition.roomName));
+        for(var i= (range-1); i>= -(range-1);i--){
             result.push(new RoomPosition(roomPosition.x+i,roomPosition.y-range,roomPosition.roomName));
         }
         if(typeof(filter) != "undefined") {
@@ -74,6 +76,9 @@ module.exports = function (room) {
         var position = positions[positionIndex];
         room.visual.text(positionIndex,position);
     }
+
+    if(room.find(FIND_MY_CONSTRUCTION_SITES).length>0)
+        return; //do not autobuild when projects are in scope
 
     if(typeof(storage) == "undefined" && (containers.length == 0)){
         console.log("No containers in " + room.name );
