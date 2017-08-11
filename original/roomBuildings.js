@@ -21,6 +21,8 @@ module.exports = function (room) {
     }
 
     var spacyFilter = function(position){
+        if(position.x<1 || position.y<1 || position.x>49 || position.y>49)
+            return false;
         var directions = [];
         directions.push(new RoomPosition(position.x, position.y-1, position.roomName));
         directions.push(new RoomPosition(position.x, position.y+1, position.roomName));
