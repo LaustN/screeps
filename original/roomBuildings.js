@@ -66,13 +66,7 @@ module.exports = function (room) {
 
     room.visual.clear();
     var spawns  = room.find(FIND_MY_STRUCTURES, {filter:{ structureType: STRUCTURE_SPAWN}});
-    var containers  = room.find(FIND_STRUCTURES, {filter: 
-        function(structure){
-            if(structure.structureType == STRUCTURE_CONTAINER)
-                return true;
-            return false;
-        } 
-        });
+    var containers  = room.find(FIND_STRUCTURES, {filter:{ structureType: STRUCTURE_CONTAINER}});
     var storage  = room.storage;
 
     var positions = getRoomPositionsAtRange(spawns[0].pos,6, spacyFilter );
@@ -81,18 +75,13 @@ module.exports = function (room) {
         room.visual.text(positionIndex,position);
     }
 
-    console.log("storage" + JSON.stringify(storage));
-    console.log("containers" + JSON.stringify(containers));
-    if((typeof(storage) == "undefined") && (containers.length == 0)){
+    if(typeof(storage) == "undefined" && (containers.length == 0)){
         console.log("No containers in " + room.name );
         var containerPositions = getRoomPositionsAtRange(spawns[0].pos,2, spacyFilter );
         if(containerPositions.length>0){
             containerPositions[0].createConstructionSite(STRUCTURE_CONTAINER);
             return;
         }
-    }
-    else{
-        console.log("Containers OK in " + room.name );
     }
 
     for(var rangeIterator = 3; rangeIterator < 10; rangeIterator++){
