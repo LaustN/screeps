@@ -9,9 +9,14 @@ module.exports = function(creep){
     if(creep.attackController(creep.room.controller)!= OK){
       creep.moveTo(creep.room.controller);
     }
+    return true;
   }
 
-  if(creep.reserveController(creep.room.controller)!= OK){
+  var claimResult = creep.claimController(creep.room.controller)
+  if(claimResult != OK){
     creep.moveTo(creep.room.controller);
+  }
+  if(claimResult == ERR_GCL_NOT_ENOUGH){ //claim what you may, reserve the rest
+    creep.reserveController(creep.room.controller);
   }
 }
