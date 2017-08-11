@@ -1,5 +1,5 @@
 module.exports = function(creep){
-  console.log("cosider holding");
+  console.log(creep.name + " cosiders holding");
   if (typeof(creep.memory.holdDuration) == "undefined" || (creep.memory.holdDuration<200)) {
 
     if (typeof(creep.memory.lastHoldTick) == "undefined"){
