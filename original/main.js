@@ -21,6 +21,13 @@ module.exports.loop = function () {
     }
   }
 
+  for(var name in Memory.spawns) {
+    if(!Game.spawns[name]) {
+        delete Memory.spawns[name];
+        console.log('Clearing memory:', name);
+    }
+  }
+
   for(var roomName in Game.rooms){
     roomBuildings(Game.rooms[roomName]);
   }
