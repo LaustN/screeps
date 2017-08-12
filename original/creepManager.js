@@ -259,7 +259,7 @@ module.exports = function (spawn) {
     }
   ];
 
-  var maxMiscCount = Math.ceil(storedValue / 2000) + 1;
+  var maxMiscCount = Math.ceil(storedValue / 5000);
   var maxDistributorCount = Math.min(Math.ceil(storedValue / 2000),3);
 
   var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
