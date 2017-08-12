@@ -278,6 +278,9 @@ module.exports = function (spawn) {
   var spawnCount = 0;
 
   for (var workerSetNumber = 1; workerSetNumber <= 100 ; workerSetNumber++) {
+    if(spawnCount > maxMiscCount){
+      break;
+    }
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
       var newCreepName = roomName +  creepDefinition.name + workerSetNumber;
