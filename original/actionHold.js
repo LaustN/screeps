@@ -16,6 +16,7 @@ module.exports = function(creep){
     else{
       console.log("reset holding");
       creep.memory.holdDuration = 0;
+      creep.memory.lastHoldTick = Game.time;
       return true;
     }
   }
