@@ -274,7 +274,6 @@ module.exports = function (spawn) {
     maxMiscCount = 500;
   }
 
-  console.log("MaxMiscCount for " + spawn.room.name + " resolved to " + maxMiscCount );
   var spawnCount = 0;
 
   for (var workerSetNumber = 1; workerSetNumber <= 100 ; workerSetNumber++) {
@@ -293,7 +292,6 @@ module.exports = function (spawn) {
       spawnCount++;
     }
   }
-  console.log("spawncount ended at " + spawnCount);
 
   for (var redistributorNumber = 1; redistributorNumber <= maxDistributorCount ; redistributorNumber++) {
     var newCreepName = roomName +  "Redist" + redistributorNumber;
