@@ -50,9 +50,8 @@ module.exports = function(creep){
 
 
   if(!harvestingCreep){
-    var actionRedistribute=require("actionRedistribute");
-    creep.say("R!");
-    return actionRedistribute(creep);
+    creep.say("C?");
+    creep.moveTo(getFocusObject(creep));
   }
 
   if (harvestingCreep) {
