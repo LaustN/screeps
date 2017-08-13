@@ -184,7 +184,7 @@ module.exports.loop = function () {
     }
   }
   profilingData["fCreeps"] = Game.cpu.getUsed() - lastTick;
-  console.log("most expensive creep was " + largestSpenderName +" @ cost " + largestCost + " executing " + );
+  console.log("most expensive creep was " + largestSpenderName +" @ cost " + largestCost + " executing " + largestSpenderAction);
  
   lastTick = Game.cpu.getUsed();
 
