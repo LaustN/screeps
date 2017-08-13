@@ -45,16 +45,6 @@ module.exports.loop = function () {
   profilingData["dLinks"] = Game.cpu.getUsed() - lastTick;
   lastTick = Game.cpu.getUsed();
 
-  var rolenames = [
-    "harvester","harvestTruck","guard","defender","healer","builder","fortifier",
-    "controlUpgrader","redistributor","scout","assault","assaultRanger","claimer",
-    "remoteTruck", "reserver","refiller"];
-  var roles = {};
-
-  for (var i = 0; i < rolenames.length; i++) {
-    roles[rolenames[i]] = require(rolenames[i]);
-  }
-
   var actionsNames = [
     "actionAssaultCreeps",
     "actionAssaultDestroyFlaggedLocation",
