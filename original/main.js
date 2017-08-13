@@ -146,7 +146,7 @@ module.exports.loop = function () {
           actionProfile.totalCost += callCost;
           actionProfile.maxCost = Math.max(callCost, actionProfile.maxCost);
           if(actionResult){
-            lastActionTaken = actionName;
+            lastActionTaken = actionsToTake[actionName];
             break actionLoop;
           }
         }
