@@ -45,16 +45,6 @@ module.exports.loop = function () {
   profilingData["dLinks"] = Game.cpu.getUsed() - lastTick;
   lastTick = Game.cpu.getUsed();
 
-  var rolenames = [
-    "harvester","harvestTruck","guard","defender","healer","builder","fortifier",
-    "controlUpgrader","redistributor","scout","assault","assaultRanger","claimer",
-    "remoteTruck", "reserver","refiller"];
-  var roles = {};
-
-  for (var i = 0; i < rolenames.length; i++) {
-    roles[rolenames[i]] = require(rolenames[i]);
-  }
-
   var actionsNames = [
     "actionAssaultCreeps",
     "actionAssaultDestroyFlaggedLocation",
@@ -121,6 +111,7 @@ module.exports.loop = function () {
   var usedCpu = Game.cpu.getUsed();
   var largestSpenderName = "";
   var largestSpenderRole = "";
+  var largestSpenderAction = "";
   var largestCost = 0;
 
   creepLoop:
@@ -128,8 +119,10 @@ module.exports.loop = function () {
     var creep = Game.creeps[creepName];
     ensureHome(creep);
 
+    var lastActionTaken = "";
     var actionsToTake = roleActions[creep.memory.role];
     if (actionsToTake) {
+      actionLoop:
       for (var actionName in actionsToTake) {
         var action = actions[actionsToTake[actionName]];
         if (action) {
@@ -143,7 +136,8 @@ module.exports.loop = function () {
           actionProfile.totalCost += callCost;
           actionProfile.maxCost = Math.max(callCost, actionProfile.maxCost);
           if(actionResult){
-            continue creepLoop;
+            lastActionTaken = actionsToTake[actionName];
+            break actionLoop;
           }
         }
         else {
@@ -168,7 +162,7 @@ module.exports.loop = function () {
     var afterCreepUsedCpu = Game.cpu.getUsed();
     var deltaCPU = afterCreepUsedCpu - usedCpu;
     usedCpu = afterCreepUsedCpu;
-    if(usedCpu > Game.cpu.tickLimit-2){
+    if(usedCpu > (Game.cpu.tickLimit*0.95)){
       console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.tickLimit);
       break;
     }
@@ -176,9 +170,12 @@ module.exports.loop = function () {
       largestSpenderName = creep.name;
       largestCost = deltaCPU;
       largestSpenderRole = creep.memory.role;
+      largestSpenderAction = lastActionTaken;
     }
   }
   profilingData["fCreeps"] = Game.cpu.getUsed() - lastTick;
+  console.log("most expensive creep was " + largestSpenderName +" @ cost " + largestCost + " executing " + largestSpenderAction);
+ 
   lastTick = Game.cpu.getUsed();
 
   //console.log( "profiling data:" + JSON.stringify(profilingData));

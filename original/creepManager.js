@@ -230,16 +230,16 @@ module.exports = function (spawn) {
   var creepsToMaintain = [
     {
       body: scoutBody,
-      name: "ControlUpgrader",
+      name: "Builder",
       memory: {
-        role: "controlUpgrader"
+        role: "builder"
       }
     },
     {
       body: scoutBody,
-      name: "Builder",
+      name: "ControlUpgrader",
       memory: {
-        role: "builder"
+        role: "controlUpgrader"
       }
     },
     // {
@@ -259,7 +259,7 @@ module.exports = function (spawn) {
     }
   ];
 
-  var maxMiscCount = Math.ceil(storedValue / 2000) + 1;
+  var maxMiscCount = Math.ceil(storedValue / 5000);
   var maxDistributorCount = Math.min(Math.ceil(storedValue / 2000),3);
 
   var nonFullContainers = spawn.room.find(FIND_STRUCTURES,{filter: function(structure){
@@ -274,10 +274,12 @@ module.exports = function (spawn) {
     maxMiscCount = 500;
   }
 
-  console.log("MaxMiscCount for " + spawn.room.name + " resolved to " + maxMiscCount );
   var spawnCount = 0;
 
   for (var workerSetNumber = 1; workerSetNumber <= 100 ; workerSetNumber++) {
+    if(spawnCount > maxMiscCount){
+      break;
+    }
     for(var creepNumber in creepsToMaintain){
       var creepDefinition = creepsToMaintain[creepNumber];
       var newCreepName = roomName +  creepDefinition.name + workerSetNumber;
@@ -290,7 +292,6 @@ module.exports = function (spawn) {
       spawnCount++;
     }
   }
-  console.log("spawncount ended at " + spawnCount);
 
   for (var redistributorNumber = 1; redistributorNumber <= maxDistributorCount ; redistributorNumber++) {
     var newCreepName = roomName +  "Redist" + redistributorNumber;
