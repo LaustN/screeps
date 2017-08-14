@@ -162,7 +162,7 @@ module.exports.loop = function () {
     var afterCreepUsedCpu = Game.cpu.getUsed();
     var deltaCPU = afterCreepUsedCpu - usedCpu;
     usedCpu = afterCreepUsedCpu;
-    if(usedCpu > (Game.cpu.tickLimit*0.95)){
+    if(usedCpu > (Game.cpu.tickLimit*0.90)){
       console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.tickLimit);
       break;
     }
