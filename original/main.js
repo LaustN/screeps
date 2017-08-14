@@ -121,6 +121,8 @@ module.exports.loop = function () {
 
     var lastActionTaken = "";
     var actionsToTake = roleActions[creep.memory.role];
+    var preCreepTick = Game.cpu.getUsed();
+
     if (actionsToTake) {
       actionLoop:
       for (var actionName in actionsToTake) {
@@ -149,20 +151,11 @@ module.exports.loop = function () {
       console.log("no actions found for " + role);
     }
 
-    /*
-    var role = roles[creep.memory.role];
-    if(role){
-      role(creep);
-    }
-    else {
-      console.log("No role called \"" + creep.memory.role + "\" found for " + creep.name);
-    }
-    */
 
     var afterCreepUsedCpu = Game.cpu.getUsed();
-    var deltaCPU = afterCreepUsedCpu - usedCpu;
+    var deltaCPU = afterCreepUsedCpu - preCreepTick;
     usedCpu = afterCreepUsedCpu;
-    if(usedCpu > (Game.cpu.tickLimit*0.95)){
+    if(usedCpu > (Game.cpu.tickLimit*0.90)){
       console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.tickLimit);
       break;
     }
