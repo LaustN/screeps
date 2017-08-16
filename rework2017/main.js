@@ -103,10 +103,10 @@ module.exports.loop = function () {
 
 
   var roleActions = {
-    "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump"],
-    "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild"],
-    "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController"],
-    "fortifier": ["actionSetWantsEnergy","actionResolveFortifyTarget","actionFortify"],
+    "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump","actionMoveToFocus"],
+    "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild","actionMoveToFocus"],
+    "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController","actionMoveToFocus"],
+    "fortifier": ["actionSetWantsEnergy","actionFortify","actionResolveFortifyTarget","actionMoveToFocus"],
 
     "harvestTruck": ["actionUnload","actionHarvestCollection"],
     "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
@@ -115,7 +115,7 @@ module.exports.loop = function () {
     "scavenger" :["actionMigrate","actionFetchRemote", "actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
     "looter" :["actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
 
-    "scout":["actionMigrate","actionHarvest","actionBuild","actionRepair","actionFortify","actionUnload"],
+    "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
 
     "reserver":["actionReserve","actionSign"],
 
