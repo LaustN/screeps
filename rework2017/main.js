@@ -4,6 +4,13 @@ var runTowers = require("runTowers");
 var runLinks = require("runLinks");
 var roomBuildings = require("roomBuildings")
 
+/**
+ * remember to refactor according to http://support.screeps.com/hc/en-us/articles/204825672-New-main-loop-architecture
+ * 
+ * This means moving most require statements outside the main loop.
+ */
+
+
 module.exports.loop = function () {
   Memory.workingLinks = {};
   console.log("============= " + Game.time + " ==============");
