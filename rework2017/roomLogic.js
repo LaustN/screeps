@@ -42,6 +42,10 @@ module.exports = function () {
 			}
 		});
 
+		for(var creepType in creepsByType){
+			creepsByType[creepType] = _.sort(creepsByType[creepType],[function(sortCreep){return sortCreep.name;}]);
+		}
+
 		var workCount = creepsByType["work"].length;
 		var moveCount = creepsByType["move"].length;
 
@@ -65,39 +69,69 @@ module.exports = function () {
 
 			//mix types are wanted as long as we have no containers
 			if (containers.length > 0) {
-				//worker types and mover types
-
+				//worker types and mover types				
 
 				for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
 					var workerName = room.name + "Work" + workerLayerNumber;
 					var worker = Game.creeps[workerName];
 					if (typeof (worker) == "undefined") {
-						//respawn this creep!
-
 						room.memory.spawnQueue.push({ body: [WORK, WORK, CARRY, MOVE], type: "work", name: workerName });
 					}
 
 					var moverName = room.name + "Move" + workerLayerNumber;
 					var mover = Game.creeps[moverName];
 					if (typeof (mover) == "undefined") {
-						//respawn this creep!
-						room.memory.spawnQueue.push({ body: [CARRY, CARRY, MOVE, MOVE], type: "move", name: moverName });
+						room.memory.spawnQueue.push({ body: [CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], type: "move", name: moverName });
 					}
 				}
 
+				workerPairsWanted = 2; //still keep 2 mix types around, since this is still a frontier
 
 			}
-			else {
-				//mix types
-				for (var mixNumber = 1; mixNumber < workerPairsWanted; mixNumber++){
-					var mixName = room.name + "Mix" + mixNumber;
-					var mix = Game.creeps[mixName];
-					if (typeof (mix) == "undefined") {
-						//respawn this creep!
-						room.memory.spawnQueue.push({ body: [CARRY, CARRY, MOVE, MOVE], type: "move", name: mixName });
-					}
+
+			//mix types
+			for (var mixNumber = 1; mixNumber < workerPairsWanted; mixNumber++){
+				var mixName = room.name + "Mix" + mixNumber;
+				var mix = Game.creeps[mixName];
+				if (typeof (mix) == "undefined") {
+					//respawn this creep!
 					
+					room.memory.spawnQueue.push({ body: [CARRY, WORK, MOVE, MOVE], type: "mix", name: mixName });
 				}
+				
+			}
+
+			var workAssignmentCount = 0;
+			var moveAssignmentCount = 0;
+			var mixAssignmentCount = 0;
+			for(var sourceIndex in sources){
+				var harvester = null;
+				if(creepsByType["work"].length>sourceIndex){
+					harvester = creepsByType["work"][sourceIndex];
+					workAssignmentCount++;
+				} else if((creepsByType["work"].length + creepsByType["mix"].length)>sourceIndex){
+					harvester=creepsByType["mix"][sourceIndex-creepsByType["Work"].length];
+					mixAssignmentCount++;
+				}
+				if(harvester!=null){
+					harvester.memory.role = "harvester";
+					harvester.memory.focus = sources[sourceIndex].id;
+				}
+
+				var harvestTruck = null;
+				if(creepsByType["move"].length>sourceIndex){
+					harvestTruck = creepsByType["move"][sourceIndex];
+					moveAssignmentCount++;
+				} else if((creepsByType["move"].length + creepsByType["mix"].length)>sourceIndex){
+					harvestTruck=creepsByType["mix"][sourceIndex-creepsByType["move"].length];
+					mixAssignmentCount++;
+				}
+				if(harvestTruck!=null){
+					harvestTruck.memory.role = "harvestTruck";
+					harvestTruck.memory.focus = sources[sourceIndex].id;
+				}
+
+				//check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles
 
 			}
 			
