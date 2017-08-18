@@ -10,8 +10,109 @@ module.exports = function () {
 
 
 	for (var roomName in Game.rooms) {
-			var room = Game.rooms[roomName];
-			roomBuildings(room);
+		var room = Game.rooms[roomName];
+		roomBuildings(room);
+
+		var creeps = room.find(FIND_MY_CREEPS);
+
+		var creepsByType = {
+			"work": [],
+			"move": [],
+			"mix": []
+		};
+		var creepsByRole = {};
+		for (var roleName in roleActions) {
+			console.log("adding array to creepsByRole for " + roleName);
+			creepsByRole[roleName] = [];
+		}
+
+		creeps.forEach(function (creep) {
+			if (typeof (creepsByType[creep.memory.type]) != "undefined") {
+				if (typeof (creepsByType[creep.memory.type]) == "undefined") {
+					creepsByType[creep.memory.type] = [];
+				}
+				creepsByType[creep.memory.type].push(creep);
+			}
+
+			if (typeof (creepsByRole[creep.memory.role]) != "undefined") {
+				if (typeof (creepsByRole[creep.memory.role]) == "undefined") {
+					creepsByRole[creep.memory.role] = [];
+				}
+				creepsByRole[creep.memory.role].push(creep);
+			}
+		});
+
+		var workCount = creepsByType["work"].length;
+		var moveCount = creepsByType["move"].length;
+
+		room.memory.spawnQueue = [];
+		var containers = room.find(FIND_STRUCTURES, { structureType: STRUCTURE_CONTAINER });
+		//we want 1 harvester pair per source + 1 worker/mover pair per full container
+		var fullContainers = _.filter(containers, {
+			filter: function (container) {
+				if (_.sum(container.store) == container.storeCapacity)
+					return true;
+				return false;
+			}
+		});
+
+		var sources = room.find(FIND_SOURCES);
+
+		var workerPairsWanted = fullContainers.length + sources.length + 1;
+
+		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
+			//processing starts for frontier
+
+			//mix types are wanted as long as we have no containers
+			if (containers.length > 0) {
+				//worker types and mover types
+
+
+				for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
+					var workerName = room.name + "Work" + workerLayerNumber;
+					var worker = Game.creeps[workerName];
+					if (typeof (worker) == "undefined") {
+						//respawn this creep!
+
+						room.memory.spawnQueue.push({ body: [WORK, WORK, CARRY, MOVE], type: "work", name: workerName });
+					}
+
+					var moverName = room.name + "Move" + workerLayerNumber;
+					var mover = Game.creeps[moverName];
+					if (typeof (mover) == "undefined") {
+						//respawn this creep!
+						room.memory.spawnQueue.push({ body: [CARRY, CARRY, MOVE, MOVE], type: "move", name: moverName });
+					}
+				}
+
+
+			}
+			else {
+				//mix types
+				for (var mixNumber = 1; mixNumber < workerPairsWanted; mixNumber++){
+					var mixName = room.name + "Mix" + mixNumber;
+					var mix = Game.creeps[mixName];
+					if (typeof (mix) == "undefined") {
+						//respawn this creep!
+						room.memory.spawnQueue.push({ body: [CARRY, CARRY, MOVE, MOVE], type: "move", name: mixName });
+					}
+					
+				}
+
+			}
+			
+			continue; //processing done for frontier, next room!
+		}
+
+		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
+		if (enemiesHere.length > 0) {
+			//processing starts for defending room
+
+			console.log(room.name + " is under attack, but defensive creeps have not been implemented yet");
+			//continue; //processing ends for defending room
+		}
+
+
 
 		/**
 		 * a room is a frontier if

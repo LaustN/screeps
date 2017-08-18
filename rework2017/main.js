@@ -1,14 +1,97 @@
-var creepManager = require("creepManager");
-var ensureHome = require("actionEnsureHome");
+var spawnLogic = require("spawnLogic");
+var actionEnsureHome = require("actionEnsureHome");
 var runTowers = require("runTowers");
 var runLinks = require("runLinks");
 var roomBuildings = require("roomBuildings")
 
-/**
- * remember to refactor according to http://support.screeps.com/hc/en-us/articles/204825672-New-main-loop-architecture
- * 
- * This means moving most require statements outside the main loop.
- */
+
+var actionsNames = [
+  "actionAssaultCreeps",
+  "actionAssaultDestroyFlaggedLocation",
+  "actionAssaultMove",
+  "actionAssaultRanged",
+  "actionAssaultStructures",
+  "actionAttackRanged",
+  "actionBuild",
+  "actionClaim",
+  "actionCollectEnergy",
+  "actionDefend",
+  "actionFlee",
+  "actionFortify",
+  "actionHarvest",
+  "actionHarvestCollection",
+  "actionHealCreeps",
+  "actionHealerMove",
+  "actionHold",
+  "actionHomeUnloadEnergy",
+  "actionProximityHealer",
+  "actionRaze",
+  "actionRecycle",
+  "actionRedistribute",
+  "actionRedistributeFillStorage",
+  "actionRemoteCollectEnergy",
+  "actionRenew",
+  "actionReserve",
+  "actionResetScout",
+  "actionScavenge",
+  "actionScout",
+  "actionUnloadEnergy",
+  "actionUpgradeControl"];
+
+var actions={};
+for (var i = 0; i < actionsNames.length; i++) {
+  actions[actionsNames[i]] = require(actionsNames[i]);
+}
+
+var roleActions = {
+  "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump","actionMoveToFocus"],
+  "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild","actionMoveToFocus"],
+  "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController","actionMoveToFocus"],
+  "fortifier": ["actionSetWantsEnergy","actionFortify","actionResolveFortifyTarget","actionMoveToFocus"],
+
+  "harvestTruck": ["actionUnload","actionHarvestCollection"],
+  "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
+  "stockpile":["actionCollectRemote","actionFillStorage"],
+  "resupplyWorkers":["actionFetchFromStorage","actionDistributeToWorkers"],
+  "scavenger" :["actionMigrate","actionFetchRemote", "actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
+  "looter" :["actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
+
+  "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
+
+  "reserver":["actionReserve","actionSign"],
+
+  "defender": ["actionDefend","actionHold","actionRecycle"],
+
+  "healer": ["actionHealCreeps","actionHealerMove"],
+  "recycler": ["actionRecycle"]
+}
+
+
+var roomStates = [
+  "Frontier", //many buildings still needed, ControllerLevel likely too low
+  "Flush", //Ready to help neighbours
+  "Defending", //this room is being attacked or has been attacked recently
+  "Attacking" //this room participates in aggressivley spawning assault creeps
+];
+
+var bodyTypes = [
+  "work", 
+  //has very little storage. 
+  //Will determine job, move to location, do the job, take any energy that happens to be around. 
+  //Storage is only minimal buffer to permit move some latency 
+  "move",
+  //collects from harvesters, provides energy to workers, distributes from storage to energy spending buildings
+  "mix",
+  //will perform nearly any role, likely inefficiently, but not relying on any but itself
+  "claim",
+  //only used when expanding. Has the claim body part. If the room decides to be an owned room, will claim it - otherwise reserved.
+  "heal",
+  //has HEAL
+  "bite",
+  //has ATTACK
+  "shoot"
+  //has ATTACK_RANGED
+];
 
 
 module.exports.loop = function () {
@@ -37,105 +120,16 @@ module.exports.loop = function () {
   }
 
   for(var spawnName in Game.spawns){
-    creepManager(Game.spawns[spawnName]);
+    spawnLogic(Game.spawns[spawnName]);
   }
 
   runTowers();
   runLinks();
 
-  var actionsNames = [
-    "actionAssaultCreeps",
-    "actionAssaultDestroyFlaggedLocation",
-    "actionAssaultMove",
-    "actionAssaultRanged",
-    "actionAssaultStructures",
-    "actionAttackRanged",
-    "actionBuild",
-    "actionClaim",
-    "actionCollectEnergy",
-    "actionDefend",
-    "actionEnsureHome",
-    "actionFlee",
-    "actionFortify",
-    "actionHarvest",
-    "actionHarvestCollection",
-    "actionHealCreeps",
-    "actionHealerMove",
-    "actionHold",
-    "actionHomeUnloadEnergy",
-    "actionProximityHealer",
-    "actionRaze",
-    "actionRecycle",
-    "actionRedistribute",
-    "actionRedistributeFillStorage",
-    "actionRemoteCollectEnergy",
-    "actionRenew",
-    "actionReserve",
-    "actionResetScout",
-    "actionScavenge",
-    "actionScout",
-    "actionUnloadEnergy",
-    "actionUpgradeControl"];
-
-  var actions={};
-  for (var i = 0; i < actionsNames.length; i++) {
-    actions[actionsNames[i]] = require(actionsNames[i]);
-  }
-
-  var roomStates = [
-    "Frontier", //many buildings still needed, ControllerLevel likely too low
-    "Flush", //Ready to help neighbours
-    "Defending", //this room is being attacked or has been attacked recently
-    "Attacking" //this room participates in aggressivley spawning assault creeps
-  ];
-
-  var bodyTypes = [
-    "work", 
-    //has very little storage. 
-    //Will determine job, move to location, do the job, take any energy that happens to be around. 
-    //Storage is only minimal buffer to permit move some latency 
-    "move",
-    //collects from harvesters, provides energy to workers, distributes from storage to energy spending buildings
-    "mix",
-    //will perform nearly any role, likely inefficiently, but not relying on any but itself
-    "claim",
-    //only used when expanding. Has the claim body part. If the room decides to be an owned room, will claim it - otherwise reserved.
-    "heal",
-    //has HEAL
-    "bite",
-    //has ATTACK
-    "shoot"
-    //has ATTACK_RANGED
-  ];
-
-
-  var roleActions = {
-    "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump","actionMoveToFocus"],
-    "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild","actionMoveToFocus"],
-    "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController","actionMoveToFocus"],
-    "fortifier": ["actionSetWantsEnergy","actionFortify","actionResolveFortifyTarget","actionMoveToFocus"],
-
-    "harvestTruck": ["actionUnload","actionHarvestCollection"],
-    "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
-    "stockpile":["actionCollectRemote","actionFillStorage"],
-    "resupplyWorkers":["actionFetchFromStorage","actionDistributeToWorkers"],
-    "scavenger" :["actionMigrate","actionFetchRemote", "actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
-    "looter" :["actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
-
-    "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
-
-    "reserver":["actionReserve","actionSign"],
-
-    "defender": ["actionDefend","actionHold","actionRecycle"],
-
-    "healer": ["actionHealCreeps","actionHealerMove"],
-    "recycler": ["actionRecycle"]
-  }
-
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
-    ensureHome(creep);
+    actionEnsureHome(creep);
 
     var actionsToTake = roleActions[creep.memory.role];
     if (actionsToTake) {
