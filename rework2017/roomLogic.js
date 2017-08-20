@@ -42,10 +42,6 @@ module.exports = function () {
 			}
 		});
 
-		for(var creepType in creepsByType){
-			creepsByType[creepType] = _.sort(creepsByType[creepType],[function(sortCreep){return sortCreep.name;}]);
-		}
-
 		var workCount = creepsByType["work"].length;
 		var moveCount = creepsByType["move"].length;
 
@@ -93,9 +89,7 @@ module.exports = function () {
 			for (var mixNumber = 1; mixNumber < workerPairsWanted; mixNumber++){
 				var mixName = room.name + "Mix" + mixNumber;
 				var mix = Game.creeps[mixName];
-				if (typeof (mix) == "undefined") {
-					//respawn this creep!
-					
+				if (typeof (mix) == "undefined") {					
 					room.memory.spawnQueue.push({ body: [CARRY, WORK, MOVE, MOVE], type: "mix", name: mixName });
 				}
 				
@@ -104,31 +98,104 @@ module.exports = function () {
 			var workAssignmentCount = 0;
 			var moveAssignmentCount = 0;
 			var mixAssignmentCount = 0;
+			//does every source have a work and a move?
+
 			for(var sourceIndex in sources){
-				var harvester = null;
-				if(creepsByType["work"].length>sourceIndex){
-					harvester = creepsByType["work"][sourceIndex];
-					workAssignmentCount++;
-				} else if((creepsByType["work"].length + creepsByType["mix"].length)>sourceIndex){
-					harvester=creepsByType["mix"][sourceIndex-creepsByType["Work"].length];
-					mixAssignmentCount++;
-				}
-				if(harvester!=null){
-					harvester.memory.role = "harvester";
-					harvester.memory.focus = sources[sourceIndex].id;
+				var existingHarvester  = _.find(creepsByType["work"],function(worker){
+					return (worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester"); 
+				});
+				if(typeof(existingHarvester) == "undefined"){
+					var existingNonHarvester = _.find(creepsByType["work"],function(worker){
+						return (worker.memory.role != "harvester"); 
+					}); 
+					if(typeof(existingNonHarvester) != "undefined"){
+						existingNonHarvester.memory.role = "harvester";
+						existingNonHarvester.memory.focus = sources[sourceIndex].id;
+					}
 				}
 
-				var harvestTruck = null;
-				if(creepsByType["move"].length>sourceIndex){
-					harvestTruck = creepsByType["move"][sourceIndex];
-					moveAssignmentCount++;
-				} else if((creepsByType["move"].length + creepsByType["mix"].length)>sourceIndex){
-					harvestTruck=creepsByType["mix"][sourceIndex-creepsByType["move"].length];
-					mixAssignmentCount++;
+				var existingHarvestTruck  = _.find(creepsByType["move"],function(worker){
+					return (worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvestTruck"); 
+				});
+				if(typeof(existingHarvestTruck) == "undefined"){
+					var existingNonHarvestTruck = _.find(creepsByType["move"],function(worker){
+						return (worker.memory.role != "harvestTruck"); 
+					}); 
+					if(typeof(existingNonHarvestTruck) != "undefined"){
+						existingNonHarvestTruck.memory.role = "harvestTruck";
+						existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
+					}
 				}
-				if(harvestTruck!=null){
-					harvestTruck.memory.role = "harvestTruck";
-					harvestTruck.memory.focus = sources[sourceIndex].id;
+
+				var remainingWorkers = _.filter(creepsByType["work"],function(worker){
+					if(worker.memory.role != "harvester")
+						return true;
+					return false;
+				});
+
+				var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
+				var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES,function(structure){
+					if(structure.hits == structure.hitsMax)
+						return false;
+					if(
+						structure.structureType == STRUCTURE_WALL
+						|| structure.structureType == STRUCTURE_RAMPART)
+						return false;
+					return true;
+				});
+
+				while(remainingWorkers.length){
+					//assign extra workers
+
+					if(room.controller && room.controller.my && (room.controller.ticksToDowngrade < 1000)){
+						remainingWorkers[0].memory.role = "controlUpgrader";
+						remainingWorkers = _.drop(remainingWorkers, 1);
+					}
+
+					if(remainingWorkers.length == 0)
+						break;
+
+					if(constructionSites.length >0){
+						remainingWorkers[0].memory.role = "builder";
+						remainingWorkers = _.drop(remainingWorkers, 1);
+					}
+					if(remainingWorkers.length == 0)
+						break;
+
+					if(buildingsThatNeedsRepairs.length >0){
+						remainingWorkers[0].memory.role = "repairer";
+						remainingWorkers = _.drop(remainingWorkers, 1);
+					}
+					if(remainingWorkers.length == 0)
+						break;
+
+					remainingWorkers[0].memory.role = "fortifier";
+					remainingWorkers = _.drop(remainingWorkers, 1);
+					if(remainingWorkers.length == 0)
+						break;
+
+					remainingWorkers[0].memory.role = "controlUpgrader";
+					remainingWorkers = _.drop(remainingWorkers, 1);
+					if(remainingWorkers.length == 0)
+						break;
+				}
+
+				var remainingMovers = _.filter(creepsByType["move"],function(mover){
+					if(mover.memory.role == "harvestTruck")
+						return false;
+					return true;
+				});
+
+				while(remainingMovers.length>0){
+					//TODO: make the movers balance resupplying workers, refill spawn and 
+
+
+					"resupplyBuildings"
+					"stockpile"
+					"resupplyWorkers"
+					"looter" 
+					"scavenger" 
+				
 				}
 
 				//check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles

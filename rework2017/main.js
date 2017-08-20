@@ -48,13 +48,14 @@ var roleActions = {
   "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild","actionMoveToFocus"],
   "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController","actionMoveToFocus"],
   "fortifier": ["actionSetWantsEnergy","actionFortify","actionResolveFortifyTarget","actionMoveToFocus"],
-
+  "repairer": ["actionSetWantsEnergy","actionRepair","actionResolveRepairTarget","actionMoveToFocus"],
+  
   "harvestTruck": ["actionUnload","actionHarvestCollection"],
   "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
   "stockpile":["actionCollectRemote","actionFillStorage"],
   "resupplyWorkers":["actionFetchFromStorage","actionDistributeToWorkers"],
-  "scavenger" :["actionMigrate","actionFetchRemote", "actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
-  "looter" :["actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
+  "looter" :["actionMigrate","actionFetchRemote", "actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
+  "scavenger" :["actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
 
   "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
 
