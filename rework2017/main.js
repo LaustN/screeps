@@ -5,44 +5,6 @@ var runLinks = require("runLinks");
 var roomBuildings = require("roomBuildings")
 
 
-var actionsNames = [
-  "actionAssaultCreeps",
-  "actionAssaultDestroyFlaggedLocation",
-  "actionAssaultMove",
-  "actionAssaultRanged",
-  "actionAssaultStructures",
-  "actionAttackRanged",
-  "actionBuild",
-  "actionClaim",
-  "actionCollectEnergy",
-  "actionDefend",
-  "actionFlee",
-  "actionFortify",
-  "actionHarvest",
-  "actionHarvestCollection",
-  "actionHealCreeps",
-  "actionHealerMove",
-  "actionHold",
-  "actionHomeUnloadEnergy",
-  "actionProximityHealer",
-  "actionRaze",
-  "actionRecycle",
-  "actionRedistribute",
-  "actionRedistributeFillStorage",
-  "actionRemoteCollectEnergy",
-  "actionRenew",
-  "actionReserve",
-  "actionResetScout",
-  "actionScavenge",
-  "actionScout",
-  "actionUnloadEnergy",
-  "actionUpgradeControl"];
-
-var actions={};
-for (var i = 0; i < actionsNames.length; i++) {
-  actions[actionsNames[i]] = require(actionsNames[i]);
-}
-
 var roleActions = {
   "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump","actionMoveToFocus"],
   "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild","actionMoveToFocus"],
@@ -67,6 +29,16 @@ var roleActions = {
   "recycler": ["actionRecycle"]
 }
 
+var actions={};
+for (var roleName in  roleActions) {
+  var role = roleActions[roleName];
+  for (var i = 0; i < role.length; i++) {
+    var actionName = role[i];
+    if(typeof(actions[actionName])=="undefined") {
+      actions[actionName] = require(actionName);
+    }
+  }
+}
 
 var roomStates = [
   "Frontier", //many buildings still needed, ControllerLevel likely too low
