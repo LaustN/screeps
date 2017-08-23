@@ -1,5 +1,6 @@
 var roomBuildings = require("roomBuildings");
 var roomWorkerAssignment = require("roomWorkerAssignment");
+var buildCreepBody = require("buildCreepBody");
 
 module.exports = function () {
 
@@ -14,6 +15,7 @@ module.exports = function () {
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
 		roomBuildings(room);
+		roomWorkerAssignment(room);
 
 		var creeps  = room.find(FIND_MY_CREEPS);
 
@@ -72,14 +74,44 @@ module.exports = function () {
 			}
 
 			continue; //processing done for frontier, next room!
+		} else {
+			//processing starts for decent quality room
+
+			var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
+
+			var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
+			var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
+
+			for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
+				var workerName = room.name + "Work" + workerLayerNumber;
+				var worker = Game.creeps[workerName];
+				if (typeof (worker) == "undefined") {
+					room.memory.spawnQueue.push({ body: workerBody, type: "work", name: workerName });
+				}
+
+				var moverName = room.name + "Move" + workerLayerNumber;
+				var mover = Game.creeps[moverName];
+				if (typeof (mover) == "undefined") {
+					room.memory.spawnQueue.push({ body: moverBody, type: "move", name: moverName });
+				}
+			}
+
 		}
 
 		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
 		if (enemiesHere.length > 0) {
+			var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 			//processing starts for defending room
+			for(var defenderIndex = 1; defenderIndex <=10; defenderIndex++){
+				var defenderName = room.name + "Defender" + defenderIndex;
+				var defender = Game.creeps[defenderName];
+				if (typeof (defender) == "undefined") {
+					room.memory.spawnQueue.push({ body: workerBody, type: "shoot", role:"defender", name: defenderName });
+				}
 
-			console.log(room.name + " is under attack, but defensive creeps have not been implemented yet");
-			//continue; //processing ends for defending room
+			}
+			console.log(room.name + " is under attack");
+			continue; //processing ends for defending room
 		}
 
 

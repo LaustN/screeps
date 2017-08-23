@@ -35,6 +35,8 @@ module.exports = function () {
   var mixAssignmentCount = 0;
   //does every source have a work and a move?
 
+  var sources = room.find(FIND_SOURCES);
+
   for (var sourceIndex in sources) {
     var existingHarvester = _.find(creepsByType["work"], function (worker) {
       return (worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester");
@@ -121,15 +123,47 @@ module.exports = function () {
       return true;
     });
 
+    var scavengerAssigned = false;
     while (remainingMovers.length > 0) {
+      //
       //TODO: make the movers balance resupplying workers, refill spawn and 
 
+      var hungryBuildings = room.find(FIND_MY_STRUCTURES,{filter:function(structure){
+        if(structure.structureType == STRUCTURE_LINK)
+          return false; //links do not get resupplied
+        if(structure.energyCapacity && structure.energyCapacity > structure.energy)
+          return true;
+        return false;
+      }});
+      if (hungryBuildings.length > 0) {
+        remainingMovers[0].memory.role = "resupplyBuildings";
+        remainingMovers = _.drop(remainingMovers, 1);
+      }
+      if (remainingMovers.length == 0)
+        break;
 
-      "resupplyBuildings"
-      "stockpile"
-      "resupplyWorkers"
-      "looter"
-      "scavenger"
+      if(room.storage && (room.find(FIND_STRUCTURES,{filter: function(structure){ return (structure.structureType == STRUCTURE_CONTAINER);}}).length > 0)){
+        remainingMovers[0].memory.role = "stockpile";
+        remainingMovers = _.drop(remainingMovers, 1);
+      }
+      if (remainingMovers.length == 0)
+        break;
+
+      if(!scavengerAssigned){
+        var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
+        if(droppedEnergies.length > 0 ){
+          remainingMovers[0].memory.role = "scavenger";
+          remainingMovers = _.drop(remainingMovers, 1);
+          scavengerAssigned = true;
+        }
+        if (remainingMovers.length == 0)
+          break;
+      }
+
+      remainingMovers[0].memory.role = "resupplyWorkers";
+      remainingMovers = _.drop(remainingMovers, 1);
+
+      //still need to figure out "looter" role assignment
 
     }
 
