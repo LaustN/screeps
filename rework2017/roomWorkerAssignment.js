@@ -33,6 +33,8 @@ module.exports = function (room) {
 
   var sources = room.find(FIND_SOURCES);
 
+  var remainingMixers = creepsByType["mix"];
+
   for (var sourceIndex in sources) {
     var existingHarvester = _.find(creepsByType["work"], function (worker) {
       return (worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester");
@@ -44,7 +46,15 @@ module.exports = function (room) {
       if (typeof (existingNonHarvester) != "undefined") {
         existingNonHarvester.memory.role = "harvester";
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
+      } else {
+        if(remainingMixers.length){
+          var mixToAssign = remainingMixers[0];
+          remainingMixers = _.drop(remainingMixers,1);
+          mixToAssign.memory.role = "harvester";
+          mixToAssign.memory.focus = sources[sourceIndex].id;
+        }
       }
+
     }
 
     var existingHarvestTruck = _.find(creepsByType["move"], function (worker) {
@@ -57,7 +67,13 @@ module.exports = function (room) {
       if (typeof (existingNonHarvestTruck) != "undefined") {
         existingNonHarvestTruck.memory.role = "harvestTruck";
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
-      }
+      } else {
+        if(remainingMixers.length){
+          var mixToAssign = remainingMixers[0];
+          remainingMixers = _.drop(remainingMixers,1);
+          mixToAssign.memory.role = "harvestTruck";
+          mixToAssign.memory.focus = sources[sourceIndex].id;
+        }
     }
 
     var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
