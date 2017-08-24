@@ -125,6 +125,7 @@ module.exports = function () {
 			console.log(room.name + " is under attack");
 		}
 
+		console.log("call roomspawns, room.memory.spawnQueue is " + JSON.stringify(room.memory.spawnQueue));
 		roomSpawns(room);
 
 		/**
