@@ -8,10 +8,6 @@ module.exports = function (room) {
     "mix": []
   };
   var creepsByRole = {};
-  for (var roleName in roleActions) {
-    console.log("adding array to creepsByRole for " + roleName);
-    creepsByRole[roleName] = [];
-  }
 
   creeps.forEach(function (creep) {
     if (typeof (creepsByType[creep.memory.type]) != "undefined") {
