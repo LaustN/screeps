@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = function (room) {
 
   var creeps = room.find(FIND_MY_CREEPS);
 
