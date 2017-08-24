@@ -14,10 +14,10 @@ var roleActions = {
   
   "harvestTruck": ["actionUnload","actionHarvestCollection"],
   "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
-  "stockpile":["actionCollectRemote","actionFillStorage"],
-  "resupplyWorkers":["actionFetchFromStorage","actionDistributeToWorkers"],
-  "looter" :["actionMigrate","actionFetchRemote", "actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
-  "scavenger" :["actionFindDroppedEnergy", "actionFetchDroppedEnergy", "actionUnload"],
+  "stockpile":["actionSetGivesEnergy","actionCollectRemote","actionFillStorage"],
+  "resupplyWorkers":["actionSetGivesEnergy","actionFetchFromStorage","actionDistributeToWorkers"],
+  "looter" :["actionMigrate","actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
+  "scavenger" :["actionFetchDroppedEnergy", "actionUnload"],
 
   "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
 

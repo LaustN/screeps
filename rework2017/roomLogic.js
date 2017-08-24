@@ -24,7 +24,7 @@ module.exports = function () {
 		var moveCount = _.filter(creeps,function(creep){ if(creep.memory.type == "move") return true; return false;}).length;
 
 		room.memory.spawnQueue = [];
-		var containers = room.find(FIND_STRUCTURES, { structureType: STRUCTURE_CONTAINER });
+		var containers = room.find(FIND_STRUCTURES, { filter: {structureType: STRUCTURE_CONTAINER} });
 		//we want 1 harvester pair per source + 1 worker/mover pair per full container
 		var fullContainers = _.filter(containers, {
 			filter: function (container) {
@@ -99,6 +99,18 @@ module.exports = function () {
 		}
 
 		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
+		room.memory.enemiesHere = [];
+		for(var enemyIndex in enemiesHere){
+			var enemy = enemiesHere[enemyIndex];
+
+			if(enemy.getActiveBodyparts(HEAL) > 0){
+				room.memory.enemiesHere.unshift(enemy.id);
+			} else {
+				room.memory.enemiesHere.push(enemy.id);
+			}
+
+
+		}
 		if (enemiesHere.length > 0) {
 			var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 			//processing starts for defending room
