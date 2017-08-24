@@ -47,9 +47,9 @@ module.exports = function (room) {
         existingNonHarvester.memory.role = "harvester";
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       } else {
-        if(remainingMixers.length){
+        if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
-          remainingMixers = _.drop(remainingMixers,1);
+          remainingMixers = _.drop(remainingMixers, 1);
           mixToAssign.memory.role = "harvester";
           mixToAssign.memory.focus = sources[sourceIndex].id;
         }
@@ -68,119 +68,131 @@ module.exports = function (room) {
         existingNonHarvestTruck.memory.role = "harvestTruck";
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
       } else {
-        if(remainingMixers.length){
+        if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
-          remainingMixers = _.drop(remainingMixers,1);
+          remainingMixers = _.drop(remainingMixers, 1);
           mixToAssign.memory.role = "harvestTruck";
           mixToAssign.memory.focus = sources[sourceIndex].id;
         }
-    }
-
-    var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
-      if (worker.memory.role != "harvester")
-        return true;
-      return false;
-    });
-
-    var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
-    var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, function (structure) {
-      if (structure.hits == structure.hitsMax)
-        return false;
-      if (
-        structure.structureType == STRUCTURE_WALL
-        || structure.structureType == STRUCTURE_RAMPART)
-        return false;
-      return true;
-    });
-
-    while (remainingWorkers.length) {
-      //assign extra workers
-
-      if (room.controller && room.controller.my && (room.controller.ticksToDowngrade < 1000)) {
-        remainingWorkers[0].memory.role = "controlUpgrader";
-        remainingWorkers = _.drop(remainingWorkers, 1);
       }
 
-      if (remainingWorkers.length == 0)
-        break;
-
-      if (constructionSites.length > 0) {
-        remainingWorkers[0].memory.role = "builder";
-        remainingWorkers = _.drop(remainingWorkers, 1);
-      }
-      if (remainingWorkers.length == 0)
-        break;
-
-      if (buildingsThatNeedsRepairs.length > 0) {
-        remainingWorkers[0].memory.role = "repairer";
-        remainingWorkers = _.drop(remainingWorkers, 1);
-      }
-      if (remainingWorkers.length == 0)
-        break;
-
-      remainingWorkers[0].memory.role = "fortifier";
-      remainingWorkers = _.drop(remainingWorkers, 1);
-      if (remainingWorkers.length == 0)
-        break;
-
-      remainingWorkers[0].memory.role = "controlUpgrader";
-      remainingWorkers = _.drop(remainingWorkers, 1);
-      if (remainingWorkers.length == 0)
-        break;
-    }
-
-    var remainingMovers = _.filter(creepsByType["move"], function (mover) {
-      if (mover.memory.role == "harvestTruck")
-        return false;
-      return true;
-    });
-
-    var scavengerAssigned = false;
-    while (remainingMovers.length > 0) {
-      //
-      //TODO: make the movers balance resupplying workers, refill spawn and 
-
-      var hungryBuildings = room.find(FIND_MY_STRUCTURES,{filter:function(structure){
-        if(structure.structureType == STRUCTURE_LINK)
-          return false; //links do not get resupplied
-        if(structure.energyCapacity && structure.energyCapacity > structure.energy)
+      var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
+        if (worker.memory.role != "harvester")
           return true;
         return false;
-      }});
-      if (hungryBuildings.length > 0) {
-        remainingMovers[0].memory.role = "resupplyBuildings";
-        remainingMovers = _.drop(remainingMovers, 1);
-      }
-      if (remainingMovers.length == 0)
-        break;
+      });
 
-      if(room.storage && (room.find(FIND_STRUCTURES,{filter: function(structure){ return (structure.structureType == STRUCTURE_CONTAINER);}}).length > 0)){
-        remainingMovers[0].memory.role = "stockpile";
-        remainingMovers = _.drop(remainingMovers, 1);
-      }
-      if (remainingMovers.length == 0)
-        break;
+      var remainingMovers = _.filter(creepsByType["move"], function (mover) {
+        if (mover.memory.role == "harvestTruck")
+          return false;
+        return true;
+      });
 
-      if(!scavengerAssigned){
-        var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
-        if(droppedEnergies.length > 0 ){
-          remainingMovers[0].memory.role = "scavenger";
-          remainingMovers = _.drop(remainingMovers, 1);
-          scavengerAssigned = true;
+      while (remainingMixers.length) {
+        remainingWorkers = remainingWorkers.concat([remainingMixers[0]]);
+        remainingMixers = _.drop(remainingMixers, 1);
+        if (remainingMixers.length) {
+          remainingMovers = remainingMovers.concat([remainingMixers[0]]);
+          remainingMixers = _.drop(remainingMixers, 1);
         }
-        if (remainingMovers.length == 0)
+      }
+
+
+      var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
+      var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, function (structure) {
+        if (structure.hits == structure.hitsMax)
+          return false;
+        if (
+          structure.structureType == STRUCTURE_WALL
+          || structure.structureType == STRUCTURE_RAMPART)
+          return false;
+        return true;
+      });
+
+      while (remainingWorkers.length) {
+        //assign extra workers
+
+        if (room.controller && room.controller.my && (room.controller.ticksToDowngrade < 1000)) {
+          remainingWorkers[0].memory.role = "controlUpgrader";
+          remainingWorkers = _.drop(remainingWorkers, 1);
+        }
+
+        if (remainingWorkers.length == 0)
+          break;
+
+        if (constructionSites.length > 0) {
+          remainingWorkers[0].memory.role = "builder";
+          remainingWorkers = _.drop(remainingWorkers, 1);
+        }
+        if (remainingWorkers.length == 0)
+          break;
+
+        if (buildingsThatNeedsRepairs.length > 0) {
+          remainingWorkers[0].memory.role = "repairer";
+          remainingWorkers = _.drop(remainingWorkers, 1);
+        }
+        if (remainingWorkers.length == 0)
+          break;
+
+        remainingWorkers[0].memory.role = "fortifier";
+        remainingWorkers = _.drop(remainingWorkers, 1);
+        if (remainingWorkers.length == 0)
+          break;
+
+        remainingWorkers[0].memory.role = "controlUpgrader";
+        remainingWorkers = _.drop(remainingWorkers, 1);
+        if (remainingWorkers.length == 0)
           break;
       }
 
-      remainingMovers[0].memory.role = "resupplyWorkers";
-      remainingMovers = _.drop(remainingMovers, 1);
+      var scavengerAssigned = false;
+      while (remainingMovers.length > 0) {
+        //
+        //TODO: make the movers balance resupplying workers, refill spawn and 
 
-      //still need to figure out "looter" role assignment
+        var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
+          filter: function (structure) {
+            if (structure.structureType == STRUCTURE_LINK)
+              return false; //links do not get resupplied
+            if (structure.energyCapacity && structure.energyCapacity > structure.energy)
+              return true;
+            return false;
+          }
+        });
+        if (hungryBuildings.length > 0) {
+          remainingMovers[0].memory.role = "resupplyBuildings";
+          remainingMovers = _.drop(remainingMovers, 1);
+        }
+        if (remainingMovers.length == 0)
+          break;
+
+        if (room.storage && (room.find(FIND_STRUCTURES, { filter: function (structure) { return (structure.structureType == STRUCTURE_CONTAINER); } }).length > 0)) {
+          remainingMovers[0].memory.role = "stockpile";
+          remainingMovers = _.drop(remainingMovers, 1);
+        }
+        if (remainingMovers.length == 0)
+          break;
+
+        if (!scavengerAssigned) {
+          var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
+          if (droppedEnergies.length > 0) {
+            remainingMovers[0].memory.role = "scavenger";
+            remainingMovers = _.drop(remainingMovers, 1);
+            scavengerAssigned = true;
+          }
+          if (remainingMovers.length == 0)
+            break;
+        }
+
+        remainingMovers[0].memory.role = "resupplyWorkers";
+        remainingMovers = _.drop(remainingMovers, 1);
+
+        //still need to figure out "looter" role assignment
+
+      }
+
+      //check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles
 
     }
 
-    //check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles
-
   }
-
-}
