@@ -1,8 +1,7 @@
-var spawnLogic = require("spawnLogic");
 var actionEnsureHome = require("actionEnsureHome");
 var runTowers = require("runTowers");
 var runLinks = require("runLinks");
-var roomBuildings = require("roomBuildings")
+var roomLogic = require("roomLogic")
 
 
 var roleActions = {
@@ -74,6 +73,7 @@ module.exports.loop = function () {
   var lastTick = Game.cpu.getUsed();
   profilingData["aStart"] = lastTick;
 
+  
   for(var name in Memory.creeps) {
     if(!Game.creeps[name]) {
         delete Memory.creeps[name];
@@ -88,14 +88,7 @@ module.exports.loop = function () {
     }
   }
 
-  for(var roomName in Game.rooms){
-    roomBuildings(Game.rooms[roomName]);
-  }
-
-  for(var spawnName in Game.spawns){
-    spawnLogic(Game.spawns[spawnName]);
-  }
-
+  roomLogic();
   runTowers();
   runLinks();
 
