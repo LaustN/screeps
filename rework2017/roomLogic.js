@@ -1,6 +1,7 @@
 var roomBuildings = require("roomBuildings");
 var roomWorkerAssignment = require("roomWorkerAssignment");
 var buildCreepBody = require("buildCreepBody");
+var roomSpawns = require("roomSpawns");
 
 module.exports = function () {
 
@@ -73,7 +74,6 @@ module.exports = function () {
 				
 			}
 
-			continue; //processing done for frontier, next room!
 		} else {
 			//processing starts for decent quality room
 
@@ -123,10 +123,9 @@ module.exports = function () {
 
 			}
 			console.log(room.name + " is under attack");
-			continue; //processing ends for defending room
 		}
 
-
+		roomSpawns(room);
 
 		/**
 		 * a room is a frontier if
