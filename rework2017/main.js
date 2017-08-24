@@ -6,11 +6,11 @@ var roomBuildings = require("roomBuildings")
 
 
 var roleActions = {
-  "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump","actionMoveToFocus"],
-  "builder": ["actionSetWantsEnergy","actionResolveBuildTarget","actionBuild","actionMoveToFocus"],
-  "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController","actionMoveToFocus"],
-  "fortifier": ["actionSetWantsEnergy","actionFortify","actionResolveFortifyTarget","actionMoveToFocus"],
-  "repairer": ["actionSetWantsEnergy","actionRepair","actionResolveRepairTarget","actionMoveToFocus"],
+  "harvester": ["actionSetGivesEnergy","actionHarvest","actionDump"],
+  "builder": ["actionSetWantsEnergy","actionBuild"],
+  "controlUpgrader": ["actionSetWantsEnergy","actionUpgradeController"],
+  "fortifier": ["actionSetWantsEnergy","actionFortify"],
+  "repairer": ["actionSetWantsEnergy","actionRepair"],
   
   "harvestTruck": ["actionUnload","actionHarvestCollection"],
   "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
