@@ -60,12 +60,12 @@ module.exports = function () {
 					}
 				}
 
-				workerPairsWanted = 2; //still keep 2 mix types around, since this is still a frontier
+				workerPairsWanted = 1; //still keep 2 mix types around, since this is still a frontier
 
 			}
 
 			//mix types
-			for (var mixNumber = 1; mixNumber < workerPairsWanted; mixNumber++){
+			for (var mixNumber = 1; mixNumber <= (workerPairsWanted * 2); mixNumber++){
 				var mixName = room.name + "Mix" + mixNumber;
 				var mix = Game.creeps[mixName];
 				if (typeof (mix) == "undefined") {					
