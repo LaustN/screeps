@@ -77,6 +77,27 @@ module.exports = function (room) {
       }
     }
   }
+
+  var fullHarvesters = room.find(FIND_MY_CREEPS,{filter: function(harvester){
+    if(harvester.memory.role = "harvester" && _.sum(harvester.carry) == harvester.carryCapacity)
+      return true;
+    return false;
+  }});
+  
+  for(var harvesterIndex in fullHarvesters){
+    var harvester = fullHarvesters[harvesterIndex];
+    
+    var matchingHarvetTrucks = room.find(FIND_MY_CREEPS,{filter:function(matchingTruck){
+      if( (matchingTruck.memory.focus == harvester.memory.focus) && matchingTruck.memory.role == "harvestTruck" )
+        return true;
+      return false;
+    }});
+
+    if(matchingHarvetTrucks.length == 0){
+      harvester.role = "harvestTruck";
+    }
+  }
+
   var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
     if (worker.memory.role != "harvester")
       return true;
