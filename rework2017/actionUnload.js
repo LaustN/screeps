@@ -39,8 +39,12 @@ module.exports = function (creep) {
     }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
-      if (transferMessage == ERR_NOT_IN_RANGE)
+      if (transferMessage == ERR_NOT_IN_RANGE){
         creep.moveTo(target);
+      }
+      else{
+        creep.drop(RESOURCE_ENERGY);
+      }
       return true;
     }
   }
