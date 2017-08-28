@@ -41,6 +41,7 @@ module.exports = function () {
 
 		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
 			//processing starts for frontier
+			workerPairsWanted ++; //we need a few extra workers initially
 
 			//mix types are wanted as long as we have no containers
 			if (containers.length > 0) {
