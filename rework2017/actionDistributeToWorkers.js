@@ -1,8 +1,8 @@
 module.exports = function (creep) {
   if (creep.carry[RESOURCE_ENERGY] > 0) {
     var target = Game.getObjectById(creep.memory.focus);
-    if (!target || (!target.memory) || (typeof(target.memory.energyWanted) == "undefined") || !(target.memory.energyWanted > 0) ) {
-      target == null;
+    if (!target || (!target.memory) || !(target.memory.energyWanted > 0)) {
+      target = null;
     }
 
     if (!target) {
