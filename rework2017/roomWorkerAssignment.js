@@ -78,23 +78,27 @@ module.exports = function (room) {
     }
   }
 
-  var fullHarvesters = room.find(FIND_MY_CREEPS,{filter: function(harvester){
-    if( (harvester.memory.role == "harvester") && (_.sum(harvester.carry) == harvester.carryCapacity ))
-      return true;
-    return false;
-  }});
-  
-  for(var harvesterIndex in fullHarvesters){
-    var harvester = fullHarvesters[harvesterIndex];
-    console.log("A full harvester found: " + harvester.name);
-    
-    var matchingHarvetTrucks = room.find(FIND_MY_CREEPS,{filter:function(matchingTruck){
-      if( (matchingTruck.memory.focus == harvester.memory.focus) && matchingTruck.memory.role == "harvestTruck" )
+  var fullHarvesters = room.find(FIND_MY_CREEPS, {
+    filter: function (harvester) {
+      if ((harvester.memory.role == "harvester") && (_.sum(harvester.carry) == harvester.carryCapacity))
         return true;
       return false;
-    }});
+    }
+  });
 
-    if(matchingHarvetTrucks.length == 0){
+  for (var harvesterIndex in fullHarvesters) {
+    var harvester = fullHarvesters[harvesterIndex];
+    console.log("A full harvester found: " + harvester.name);
+
+    var matchingHarvetTrucks = room.find(FIND_MY_CREEPS, {
+      filter: function (matchingTruck) {
+        if ((matchingTruck.memory.focus == harvester.memory.focus) && matchingTruck.memory.role == "harvestTruck")
+          return true;
+        return false;
+      }
+    });
+
+    if (matchingHarvetTrucks.length == 0) {
       harvester.role = "harvestTruck";
     }
   }
@@ -196,6 +200,11 @@ module.exports = function (room) {
     if (remainingMovers.length == 0)
       break;
 
+    remainingMovers[0].memory.role = "resupplyWorkers";
+    remainingMovers = _.drop(remainingMovers, 1);
+    if (remainingMovers.length == 0)
+      break;
+
     if (!scavengerAssigned) {
       var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
       if (droppedEnergies.length > 0) {
@@ -206,9 +215,6 @@ module.exports = function (room) {
       if (remainingMovers.length == 0)
         break;
     }
-
-    remainingMovers[0].memory.role = "resupplyWorkers";
-    remainingMovers = _.drop(remainingMovers, 1);
 
     //still need to figure out "looter" role assignment
 
