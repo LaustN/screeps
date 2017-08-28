@@ -1,15 +1,15 @@
 module.exports = function (creep) {
   //creep.memory.focus is id of a source
   var source = Game.getObjectById(creep.memory.focus);
-  if (creep.pos.getRangeTo(source) > 2) {
+  if (creep.pos.getRangeTo(source) > 5) {
     creep.moveTo(source);
     return true;
   }
 
-  var droppedEnergy = source.pos.findInRange(FIND_DROPPED_ENERGY, 1);
+  var droppedEnergy = source.pos.findInRange(FIND_DROPPED_RESOURCES, 1, {filter: {resourceType: RESOURCE_ENERGY}});
   if (droppedEnergy && droppedEnergy.length) {
-    creep.moveTo(droppedEnergy[0]);
-    creep.pickup(droppedEnergy[0]);
+    if(creep.pickup(droppedEnergy[0]) == ERR_NOT_IN_RANGE)
+      creep.moveTo(droppedEnergy[0]);
     return true;
   }
 
