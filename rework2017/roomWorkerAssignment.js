@@ -86,6 +86,7 @@ module.exports = function (room) {
   
   for(var harvesterIndex in fullHarvesters){
     var harvester = fullHarvesters[harvesterIndex];
+    console.log("A full harvester found: " + harvester.name);
     
     var matchingHarvetTrucks = room.find(FIND_MY_CREEPS,{filter:function(matchingTruck){
       if( (matchingTruck.memory.focus == harvester.memory.focus) && matchingTruck.memory.role == "harvestTruck" )
