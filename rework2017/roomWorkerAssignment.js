@@ -79,7 +79,7 @@ module.exports = function (room) {
   }
 
   var fullHarvesters = room.find(FIND_MY_CREEPS,{filter: function(harvester){
-    if(harvester.memory.role = "harvester" && _.sum(harvester.carry) == harvester.carryCapacity)
+    if(harvester.memory.role == "harvester" && _.sum(harvester.carry) == harvester.carryCapacity)
       return true;
     return false;
   }});
