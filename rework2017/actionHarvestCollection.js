@@ -6,11 +6,13 @@ module.exports = function (creep) {
     return true;
   }
 
-  var droppedEnergy = source.pos.findInRange(FIND_DROPPED_RESOURCES, 1, {filter: {resourceType: RESOURCE_ENERGY}});
+  var droppedEnergy = source.pos.findInRange(FIND_DROPPED_RESOURCES, 1, { filter: { resourceType: RESOURCE_ENERGY } });
   if (droppedEnergy && droppedEnergy.length) {
-    if(creep.pickup(droppedEnergy[0]) == ERR_NOT_IN_RANGE)
+    if (creep.pickup(droppedEnergy[0]) == ERR_NOT_IN_RANGE) {
+      //only return from scavenging if movement was needed
       creep.moveTo(droppedEnergy[0]);
-    return true;
+      return true;
+    }
   }
 
   var structuresWithStorage = source.pos.findInRange(FIND_STRUCTURES, 1, {
