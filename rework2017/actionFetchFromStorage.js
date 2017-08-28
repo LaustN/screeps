@@ -25,5 +25,10 @@ module.exports = function (creep) {
     return true;
   }
 
+  var energyProvidingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: function(energyProvidingCreep){
+    if( (energyProvidingCreep.memory.energyWanted == -1) && _.sum(energyProvidingCreep.carry) == energyProvidingCreep.carryCapacity )
+      return true;
+  }});
+
   return false;
 }

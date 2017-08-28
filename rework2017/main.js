@@ -14,7 +14,7 @@ var roleActions = {
   "harvestTruck": ["actionUnload","actionHarvestCollection"],
   "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
   "stockpile":["actionSetGivesEnergy","actionCollectRemote","actionFillStorage"],
-  "resupplyWorkers":["actionSetGivesEnergy","actionFetchFromStorage","actionDistributeToWorkers"],
+  "resupplyWorkers":["actionSetMovesEnergy","actionFetchFromStorage","actionDistributeToWorkers"],
   "looter" :["actionMigrate","actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
   "scavenger" :["actionFetchDroppedEnergy", "actionUnload"],
 
