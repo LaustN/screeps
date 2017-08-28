@@ -6,7 +6,7 @@ module.exports = function (creep) {
     }
 
     if (!target) {
-      var hungryCreep = creep.findClosestByRange(FIND_MY_CREEPS, {
+      var hungryCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
         filter: function (filterCreep) {
           return (filterCreep.memory.energyWanted > 0) && ((filterCreep.carry[RESOURCE_ENERGY] / filterCreep.carryCapacity) < 0.5);
         }
@@ -16,7 +16,7 @@ module.exports = function (creep) {
         target = hungryCreep;
       }
       else {
-        var spendingCreep = creep.findClosestByRange(FIND_MY_CREEPS, {
+        var spendingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
           filter: function (filterCreep) {
             return (filterCreep.memory.energyWanted > 0);
           }
