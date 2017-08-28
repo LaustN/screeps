@@ -30,5 +30,11 @@ module.exports = function (creep) {
       return true;
   }});
 
+  if(energyProvidingCreep){
+    var transferResult = energyProvidingCreep.transfer(creep, RESOURCE_ENERGY)
+    if(transferResult == ERR_NOT_IN_RANGE)
+      creep.moveTo(energyProvidingCreep);
+  }
+
   return false;
 }
