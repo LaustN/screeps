@@ -100,6 +100,8 @@ module.exports = function (room) {
 
     if (matchingHarvetTrucks.length == 0) {
       harvester.role = "harvestTruck";
+      console.log("reassigning harvester as harvestTruck, since noone will be picking up any time soon");
+    
     }
   }
 
