@@ -1,4 +1,5 @@
 module.exports = function (creep) {
+  console.log("repair was called for " + creep.name);
   if (creep.carry[RESOURCE_ENERGY] > 0) {
     var target = null;
     if (creep.memory.focus) {
