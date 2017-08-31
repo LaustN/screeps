@@ -5,6 +5,7 @@ module.exports = function (creep) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
       if (existingTarget && (existingTarget.hits < existingTarget.hitsMax)) {
         target = existingTarget;
+        console.log("reusing repair target");
       }
     }
     if (!target) {
@@ -15,8 +16,10 @@ module.exports = function (creep) {
             && (structure.structureType != STRUCTURE_RAMPART)
             && (structure.hits < structure.hitsMax)
           ) {
+            console.log( "structure at " + structure.pos + " is an ok repair target" );
             return true;
           }
+          console.log( "structure at " + structure.pos + " is not an ok repair target" );
           return false;
         }
       });
