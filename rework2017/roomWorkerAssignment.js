@@ -129,6 +129,9 @@ module.exports = function (room) {
 
   var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
   var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, function (structure) {
+    if(!structure.hits)
+      return false;
+
     if (structure.hits == structure.hitsMax)
       return false;
     if (
