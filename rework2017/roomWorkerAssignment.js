@@ -157,6 +157,7 @@ module.exports = function (room) {
       break;
 
     if (buildingsThatNeedsRepairs.length > 0) {
+      console.log("someone here needs repairs" + JSON.stringify(buildingsThatNeedsRepairs));
       remainingWorkers[0].memory.role = "repairer";
       remainingWorkers = _.drop(remainingWorkers, 1);
     }
