@@ -92,7 +92,7 @@ module.exports = function (room) {
 
     var matchingHarvetTrucks = room.find(FIND_MY_CREEPS, {
       filter: function (matchingTruck) {
-        if ((matchingTruck.memory.focus == harvester.memory.focus) && (matchingTruck.memory.role == "harvestTruck" ))
+        if ((matchingTruck.memory.focus == harvester.memory.focus) && (matchingTruck.memory.role == "harvestTruck"))
           return true;
         return false;
       }
@@ -101,7 +101,7 @@ module.exports = function (room) {
     if (matchingHarvetTrucks.length == 0) {
       harvester.role = "harvestTruck";
       console.log("reassigning harvester as harvestTruck, since noone will be picking up any time soon");
-    
+
     }
   }
 
@@ -132,8 +132,8 @@ module.exports = function (room) {
     if (structure.hits == structure.hitsMax)
       return false;
     if (
-      structure.structureType == STRUCTURE_WALL
-      || structure.structureType == STRUCTURE_RAMPART)
+      (structure.structureType == STRUCTURE_WALL)
+      || (structure.structureType == STRUCTURE_RAMPART))
       return false;
     return true;
   });
