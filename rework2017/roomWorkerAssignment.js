@@ -92,7 +92,7 @@ module.exports = function (room) {
 
     var matchingHarvetTrucks = room.find(FIND_MY_CREEPS, {
       filter: function (matchingTruck) {
-        if ((matchingTruck.memory.focus == harvester.memory.focus) && matchingTruck.memory.role == "harvestTruck")
+        if ((matchingTruck.memory.focus == harvester.memory.focus) && (matchingTruck.memory.role == "harvestTruck" ))
           return true;
         return false;
       }
