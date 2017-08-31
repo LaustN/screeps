@@ -35,18 +35,34 @@ module.exports = function (creep) {
       }
     }
     if (!target) {
-      target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_SPAWN } });
+      target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: function(structure) { 
+        if(structure.structureType== STRUCTURE_SPAWN  && (structure.energyCapacity > structure.energy))
+          return true;
+        return false;
+      } });
     }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
       if (transferMessage == ERR_NOT_IN_RANGE){
         creep.moveTo(target);
       }
-      else{
-        creep.drop(RESOURCE_ENERGY);
+      return true;
+    }
+    if(!target){
+      target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: function(hungrycreep){
+        if((creep.memory.energyWanted > 0) && _.sum(creep.carry) < creep.carryCapacity)
+          return true;
+        return false;
+      }});
+    }
+    if (target) {
+      var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
+      if (transferMessage == ERR_NOT_IN_RANGE){
+        creep.moveTo(target);
       }
       return true;
     }
+
   }
   return false;
 }
