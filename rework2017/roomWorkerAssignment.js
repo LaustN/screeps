@@ -3,7 +3,7 @@ module.exports = function (room) {
   var assignRole = function(creep, role){
     if(creep && role){
       if(creep.memory.role != role){
-        creep.say(creep.memory.role + "->" + role);
+        creep.say(role);
       }
       creep.memory.role = role;
     }
@@ -239,7 +239,6 @@ module.exports = function (room) {
       var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
       if (droppedEnergies.length > 0) {
         scavenger = remainingMovers[0];
-        scavenger.memory.role = "scavenger";
 
         if(_.sum(scavenger.carry) > 0){
           if(hungryBuildings.length>0){
