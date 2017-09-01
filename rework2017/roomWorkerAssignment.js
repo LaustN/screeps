@@ -46,7 +46,7 @@ module.exports = function (room) {
 
       if (existingNonHarvester) {
 
-        assignRole(existingHarvester, "harvester");
+        assignRole(existingNonHarvester, "harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       } else {
         if (remainingMixers.length) {
