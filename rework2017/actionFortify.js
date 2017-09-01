@@ -17,6 +17,7 @@ module.exports = function (creep) {
   }
 
   if (!target) {
+    console.log("fortify target reused" );
     target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
       filter: function (structure) {
         if (structure.structureType != STRUCTURE_RAMPART)
@@ -39,16 +40,14 @@ module.exports = function (creep) {
     });
   }
   if (target) {
+    console.log("I have a fortification target");
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
     if (repairMessage == ERR_NOT_IN_RANGE) {
       creep.moveTo(target);
     }
+    return true;
   }
-
-
-  //find a rampart that needs strengthening
-  // else find wall that needs strengthening
-  console.log("actionFortify not implemented yet");
+  console.log("no fortification target found");
   return false;
 }
