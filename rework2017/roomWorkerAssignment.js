@@ -153,7 +153,7 @@ module.exports = function (room) {
   while (remainingWorkers.length) {
     //assign extra workers
 
-    if (room.controller && room.controller.my && (room.controller.ticksToDowngrade < 1000)) {
+    if (room.controller && room.controller.my && (room.controller.ticksToDowngrade < 4000)) {
       assignRole(remainingWorkers[0],"controlUpgrader");
       remainingWorkers = _.drop(remainingWorkers, 1);
     }
