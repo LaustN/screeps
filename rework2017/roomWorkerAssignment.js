@@ -72,6 +72,7 @@ module.exports = function (room) {
       console.log("e");
       var existingNonHarvestTruck = _.find(creepsByType["move"], function (mover) {
         var isATruck = (mover.memory.role == "harvestTruck")
+        console.log(mover.name + " isATruck=" + isATruck);
         return !isATruck;
       });
       console.log("f");
