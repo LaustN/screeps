@@ -1,6 +1,7 @@
 module.exports = function (room) {
 
   var assignRole = function (creep, role) {
+    console.log("Assigning " + role + " to " + creep.name);
     if (creep.memory.role != role) {
       creep.say(role);
     }
