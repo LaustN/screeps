@@ -150,8 +150,8 @@ module.exports = function (room) {
     }
   });
 
-  var desiredHitsPerWall = creep.room.controller.level * 500;
-  if (creep.room.controller.level > 7) {
+  var desiredHitsPerWall = room.controller.level * 500;
+  if (room.controller.level > 7) {
     desiredHitsPerWall = 300000000;
   }
 
