@@ -16,15 +16,17 @@ module.exports = function (creep) {
     if (!target) {
       var hungryCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
         filter: function (filterCreep) {
-          return (filterCreep.memory.energyWanted > 0) && ((filterCreep.carry[RESOURCE_ENERGY] / filterCreep.carryCapacity) < 0.5);
+          var hunger = (filterCreep.memory.energyWanted > 0) && ((filterCreep.carry[RESOURCE_ENERGY] / filterCreep.carryCapacity) < 0.5);
+          return hunger;
         }
       });
 
       if (hungryCreep) {
         target = hungryCreep;
+        console.log("target is a hungry creep");
       }
       else {
-        var spendingCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+        target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
           filter: function (filterCreep) {
             return (filterCreep.memory.energyWanted > 0);
           }
