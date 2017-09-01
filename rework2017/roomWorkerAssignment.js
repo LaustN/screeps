@@ -58,6 +58,7 @@ module.exports = function (room) {
         console.log(worker.name + " is already a harvester =  " + isAHarvester);
         return !isAHarvester;
       });
+      console.log("existingNonHarvester: " + JSON.stringify( existingNonHarvester));
       if (existingNonHarvester) {
         console.log("existingNonHarvester: " + JSON.stringify(existingNonHarvester));
         assignRole(existingHarvester,"harvester");
