@@ -215,18 +215,27 @@ module.exports = function (room) {
     if (!scavenger) {
       var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
       if (droppedEnergies.length > 0) {
-        remainingMovers[0].memory.role = "scavenger";
         scavenger = remainingMovers[0];
+        scavenger.memory.role = "scavenger";
+
+        if(_.sum(scavenger.carry) > 0){
+          if(hungryBuildings.length>0){
+            scavenger.memory.role = "resupplyBuildings";
+          }
+          else{
+            scavenger.memory.role = "resupplyWorkers";
+          }
+        }
+        
         remainingMovers = _.drop(remainingMovers, 1);
       }
+
+
       if (remainingMovers.length == 0)
         break;
     }
     //still need to figure out "looter" role assignment
   }
-
-  if(scavenger && (_.sum(scavenger.carry) > 0))
-    scavenger.memory.role = "resupplyWorkers";
 
   //check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles
 
