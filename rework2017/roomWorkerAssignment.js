@@ -24,10 +24,6 @@ module.exports = function (room) {
     }
   });
 
-  console.log("workers: " + JSON.stringify(creepsByType["work"]));
-  console.log("movers: " + JSON.stringify(creepsByType["move"]));
-
-
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
   var mixAssignmentCount = 0;
@@ -47,7 +43,6 @@ module.exports = function (room) {
 
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
         var isAHarvester = (worker.memory.role == "harvester")
-
         return !isAHarvester;
       });
 
@@ -63,7 +58,6 @@ module.exports = function (room) {
           mixToAssign.memory.focus = sources[sourceIndex].id;
         }
       }
-
     }
 
     var existingHarvestTruck = _.find(creepsByType["move"], function (worker) {
@@ -117,8 +111,6 @@ module.exports = function (room) {
 
   var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
     var isHarvester = (worker.memory.role == "harvester");
-
-
     return !isHarvester;
   });
 
@@ -126,6 +118,9 @@ module.exports = function (room) {
     var isHarvestTruck = (mover.memory.role == "harvestTruck");
     return !isHarvestTruck;
   });
+
+  remainingWorkers = [];
+  remainingMovers = [];
 
   while (remainingMixers.length) {
     remainingWorkers = remainingWorkers.concat([remainingMixers[0]]);
