@@ -150,6 +150,19 @@ module.exports = function (room) {
     }
   });
 
+  var desiredHitsPerWall = creep.room.controller.level * 500;
+  if (creep.room.controller.level > 7) {
+    desiredHitsPerWall = 300000000;
+  }
+
+  var wornWalls = room.find(FIND_STRUCTURES,{filter: function(structure){
+    if(structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART  )
+      return false;
+    if(structure.hits < desiredHitsPerWall)
+      return true;
+    return false;
+  }});
+
   while (remainingWorkers.length) {
     //assign extra workers
 
@@ -176,7 +189,7 @@ module.exports = function (room) {
     if (remainingWorkers.length == 0)
       break;
 
-    if (room.controller.level >= 2) {
+    if (room.controller.level >= 2 && (wornWalls.length > 0)) {
       assignRole(remainingWorkers[0],"fortifier");
       remainingWorkers = _.drop(remainingWorkers, 1);
       if (remainingWorkers.length == 0)
