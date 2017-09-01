@@ -170,6 +170,8 @@ module.exports = function (room) {
     return false;
   }});
 
+  console.log("remaining workers: "+ JSON.stringify(remainingWorkers));
+
   while (remainingWorkers.length) {
     //assign extra workers
 
