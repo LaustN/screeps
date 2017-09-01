@@ -1,5 +1,15 @@
 module.exports = function (room) {
 
+  var assignRole = function(creep, role){
+    if(creep && role){
+      if(creep.memory.role != role){
+        creep.say(creep.memory.role + "->" + role);
+      }
+      creep.memory.role = role;
+    }
+  };
+
+
   var creeps = room.find(FIND_MY_CREEPS);
 
   var creepsByType = {
@@ -44,13 +54,13 @@ module.exports = function (room) {
         return (worker.memory.role != "harvester");
       });
       if (typeof (existingNonHarvester) != "undefined") {
-        existingNonHarvester.memory.role = "harvester";
+        assignRole(existingHarvester,"harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       } else {
         if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
           remainingMixers = _.drop(remainingMixers, 1);
-          mixToAssign.memory.role = "harvester";
+          assignRole(mixToAssign,"harvester");
           mixToAssign.memory.focus = sources[sourceIndex].id;
         }
       }
@@ -65,13 +75,13 @@ module.exports = function (room) {
         return (worker.memory.role != "harvestTruck");
       });
       if (typeof (existingNonHarvestTruck) != "undefined") {
-        existingNonHarvestTruck.memory.role = "harvestTruck";
+        assignRole(existingNonHarvester,"harvestTruck");
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
       } else {
         if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
           remainingMixers = _.drop(remainingMixers, 1);
-          mixToAssign.memory.role = "harvestTruck";
+          assignRole(mixToAssign,"harvestTruck");
           mixToAssign.memory.focus = sources[sourceIndex].id;
         }
       }
@@ -144,7 +154,7 @@ module.exports = function (room) {
     //assign extra workers
 
     if (room.controller && room.controller.my && (room.controller.ticksToDowngrade < 1000)) {
-      remainingWorkers[0].memory.role = "controlUpgrader";
+      assignRole(remainingWorkers[0],"controlUpgrader");
       remainingWorkers = _.drop(remainingWorkers, 1);
     }
 
@@ -152,7 +162,7 @@ module.exports = function (room) {
       break;
 
     if (constructionSites.length > 0) {
-      remainingWorkers[0].memory.role = "builder";
+      assignRole(remainingWorkers[0],"builder");
       remainingWorkers = _.drop(remainingWorkers, 1);
     }
     if (remainingWorkers.length == 0)
@@ -160,20 +170,20 @@ module.exports = function (room) {
 
     if (buildingsThatNeedsRepairs.length > 0) {
       console.log("someone here needs repairs" + JSON.stringify(buildingsThatNeedsRepairs));
-      remainingWorkers[0].memory.role = "repairer";
+      assignRole(remainingWorkers[0],"repairer");
       remainingWorkers = _.drop(remainingWorkers, 1);
     }
     if (remainingWorkers.length == 0)
       break;
 
     if (room.controller.level >= 2) {
-      remainingWorkers[0].memory.role = "fortifier";
+      assignRole(remainingWorkers[0],"fortifier");
       remainingWorkers = _.drop(remainingWorkers, 1);
       if (remainingWorkers.length == 0)
         break;
     }
 
-    remainingWorkers[0].memory.role = "controlUpgrader";
+    assignRole(remainingWorkers[0],"controlUpgrader");
     remainingWorkers = _.drop(remainingWorkers, 1);
     if (remainingWorkers.length == 0)
       break;
@@ -194,20 +204,20 @@ module.exports = function (room) {
       }
     });
     if (hungryBuildings.length > 0) {
-      remainingMovers[0].memory.role = "resupplyBuildings";
+      assignRole(remainingMovers[0],"resupplyBuildings");
       remainingMovers = _.drop(remainingMovers, 1);
     }
     if (remainingMovers.length == 0)
       break;
 
     if (room.storage && (room.find(FIND_STRUCTURES, { filter: function (structure) { return (structure.structureType == STRUCTURE_CONTAINER); } }).length > 0)) {
-      remainingMovers[0].memory.role = "stockpile";
+      assignRole(remainingMovers[0],"stockpile");
       remainingMovers = _.drop(remainingMovers, 1);
     }
     if (remainingMovers.length == 0)
       break;
 
-    remainingMovers[0].memory.role = "resupplyWorkers";
+    assignRole(remainingMovers[0],"resupplyWorkers");
     remainingMovers = _.drop(remainingMovers, 1);
     if (remainingMovers.length == 0)
       break;
@@ -220,13 +230,16 @@ module.exports = function (room) {
 
         if(_.sum(scavenger.carry) > 0){
           if(hungryBuildings.length>0){
-            scavenger.memory.role = "resupplyBuildings";
+            assignRole(scavenger,"resupplyBuildings")
           }
           else{
-            scavenger.memory.role = "resupplyWorkers";
+            assignRole(scavenger,"resupplyWorkers")
           }
         }
-        
+        else{
+          assignRole(scavenger,"scavenger")
+        }
+
         remainingMovers = _.drop(remainingMovers, 1);
       }
 
