@@ -121,11 +121,11 @@ module.exports = function (room) {
 
   var remainingMovers = [];
   for (var moverIndex in creepsByType["move"]) {
-    var Mover = creepsByType["move"][moverIndex];
+    var mover = creepsByType["move"][moverIndex];
     if (mover.memory.role == "harvestTruck")
       console.log(mover.name + " is not a candidate because it is a " + mover.memory.role);
     else
-      remainingMovers.push(Mover);
+      remainingMovers.push(mover);
 
   }
 
