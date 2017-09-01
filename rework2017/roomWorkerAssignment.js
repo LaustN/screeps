@@ -1,12 +1,10 @@
 module.exports = function (room) {
 
   var assignRole = function (creep, role) {
-    if (creep && role) {
-      if (creep.memory.role != role) {
-        creep.say(role);
-      }
-      creep.memory.role = role;
+    if (creep.memory.role != role) {
+      creep.say(role);
     }
+    creep.memory.role = role;
   };
 
 
