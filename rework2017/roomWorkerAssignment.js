@@ -17,23 +17,15 @@ module.exports = function (room) {
     "move": [],
     "mix": []
   };
-  var creepsByRole = {};
 
   creeps.forEach(function (creep) {
     if (typeof (creepsByType[creep.memory.type]) != "undefined") {
-      if (typeof (creepsByType[creep.memory.type]) == "undefined") {
-        creepsByType[creep.memory.type] = [];
-      }
       creepsByType[creep.memory.type].push(creep);
     }
-
-    if (typeof (creepsByRole[creep.memory.role]) != "undefined") {
-      if (typeof (creepsByRole[creep.memory.role]) == "undefined") {
-        creepsByRole[creep.memory.role] = [];
-      }
-      creepsByRole[creep.memory.role].push(creep);
-    }
   });
+
+  console.log("workers: " + JSON.stringify(creepsByType["work"]));
+  console.log("movers: " + JSON.stringify(creepsByType["move"]));
 
 
   var workAssignmentCount = 0;
@@ -48,19 +40,19 @@ module.exports = function (room) {
   for (var sourceIndex in sources) {
     var existingHarvester = _.find(creepsByType["work"], function (worker) {
       var isMyHarvester = ((worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester"));
-      console.log(worker.name + " is harvester for " + sources[sourceIndex].id + " = " + isMyHarvester);
+
       return isMyHarvester;
     });
     if (!existingHarvester) {
-      console.log("finding another harvester");
+
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
         var isAHarvester = (worker.memory.role == "harvester")
-        console.log(worker.name + " is already a harvester =  " + isAHarvester);
+
         return !isAHarvester;
       });
-      console.log("existingNonHarvester: " + JSON.stringify(existingNonHarvester));
+
       if (existingNonHarvester) {
-        console.log("existingNonHarvester: " + JSON.stringify(existingNonHarvester));
+
         assignRole(existingHarvester, "harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       } else {
@@ -106,7 +98,7 @@ module.exports = function (room) {
 
   for (var harvesterIndex in fullHarvesters) {
     var harvester = fullHarvesters[harvesterIndex];
-    console.log("A full harvester found: " + harvester.name);
+
 
     var matchingHarvetTrucks = room.find(FIND_MY_CREEPS, {
       filter: function (matchingTruck) {
@@ -118,7 +110,7 @@ module.exports = function (room) {
 
     if (matchingHarvetTrucks.length == 0) {
       harvester.role = "harvestTruck";
-      console.log("reassigning harvester as harvestTruck, since noone will be picking up any time soon");
+
 
     }
   }
@@ -126,7 +118,7 @@ module.exports = function (room) {
   var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
     var isHarvester = (worker.memory.role == "harvester");
 
-    console.log(worker.name + ": " + JSON.stringify(worker.memory) + " isHarvester="+ isHarvester);
+
     return !isHarvester;
   });
 
@@ -173,7 +165,7 @@ module.exports = function (room) {
     }
   });
 
-  console.log("remaining workers: " + JSON.stringify(remainingWorkers));
+
 
   while (remainingWorkers.length) {
     //assign extra workers
@@ -194,7 +186,7 @@ module.exports = function (room) {
       break;
 
     if (buildingsThatNeedsRepairs.length > 0) {
-      console.log("someone here needs repairs" + JSON.stringify(buildingsThatNeedsRepairs));
+
       assignRole(remainingWorkers[0], "repairer");
       remainingWorkers = _.drop(remainingWorkers, 1);
     }
