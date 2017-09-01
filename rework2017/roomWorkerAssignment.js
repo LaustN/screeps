@@ -59,6 +59,7 @@ module.exports = function (room) {
         return !isAHarvester;
       });
       if (existingNonHarvester) {
+        console.log("existingNonHarvester: " + JSON.stringify(existingNonHarvester));
         assignRole(existingHarvester,"harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       } else {
