@@ -108,8 +108,7 @@ module.exports = function (room) {
   var remainingWorkers = [];
   for (var workerIndex in creepsByType["work"]) {
     var worker = creepsByType["work"][workerIndex];
-    if (worker.memory.role == "harvester")
-    else
+    if (worker.memory.role != "harvester")
       remainingWorkers.push(worker);
 
   }
@@ -117,8 +116,7 @@ module.exports = function (room) {
   var remainingMovers = [];
   for (var moverIndex in creepsByType["move"]) {
     var mover = creepsByType["move"][moverIndex];
-    if (mover.memory.role == "harvestTruck")
-    else
+    if (mover.memory.role != "harvestTruck")
       remainingMovers.push(mover);
 
   }
