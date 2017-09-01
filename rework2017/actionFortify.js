@@ -10,6 +10,10 @@ module.exports = function (creep) {
       if ((target.structureType != STRUCTURE_RAMPART) && (target.structureType != STRUCTURE_RAMPART)) {
         target = null;
       }
+      if(target.hits >=desiredHitsPerWall){
+        target = null;
+      }
+
     }
     else {
       target = null;
