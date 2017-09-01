@@ -172,14 +172,14 @@ module.exports = function (room) {
       if (remainingWorkers.length == 0)
         break;
     }
-    
+
     remainingWorkers[0].memory.role = "controlUpgrader";
     remainingWorkers = _.drop(remainingWorkers, 1);
     if (remainingWorkers.length == 0)
       break;
   }
 
-  var scavengerAssigned = false;
+  var scavenger = null;
   while (remainingMovers.length > 0) {
     //
     //TODO: make the movers balance resupplying workers, refill spawn and 
@@ -212,20 +212,21 @@ module.exports = function (room) {
     if (remainingMovers.length == 0)
       break;
 
-    if (!scavengerAssigned) {
+    if (!scavenger) {
       var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
       if (droppedEnergies.length > 0) {
         remainingMovers[0].memory.role = "scavenger";
+        scavenger = remainingMovers[0];
         remainingMovers = _.drop(remainingMovers, 1);
-        scavengerAssigned = true;
       }
       if (remainingMovers.length == 0)
         break;
     }
-
     //still need to figure out "looter" role assignment
-
   }
+
+  if(scavenger && (_.sum(scavenger.carry) > 0))
+    scavenger.memory.role = "resupplyWorkers";
 
   //check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles
 
