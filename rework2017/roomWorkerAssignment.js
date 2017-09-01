@@ -47,7 +47,9 @@ module.exports = function (room) {
 
   for (var sourceIndex in sources) {
     var existingHarvester = _.find(creepsByType["work"], function (worker) {
-      return ((worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester"));
+      var isMyHarvester = ((worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester"));
+      console.log(worker.name + " is harvester for " + sources[sourceIndex].id + " = " + isMyHarvester);
+      return isMyHarvester; 
     });
     if (typeof (existingHarvester) == "undefined") {
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
