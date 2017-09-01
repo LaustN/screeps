@@ -77,7 +77,7 @@ module.exports = function (room) {
     });
     if (!existingHarvestTruck) {
       var existingNonHarvestTruck = _.find(creepsByType["move"], function (worker) {
-        var isATruck = (worker.memory.role != "harvestTruck") 
+        var isATruck = (worker.memory.role == "harvestTruck") 
         return !isATruck;
       });
       if (existingNonHarvestTruck) {
