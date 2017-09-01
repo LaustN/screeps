@@ -55,7 +55,7 @@ module.exports = function (room) {
       console.log("finding another harvester");
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
         var isAHarvester = (worker.memory.role == "harvester") 
-        console.log(worker.name + " is already a harvester =  " + isMyHarvester);
+        console.log(worker.name + " is already a harvester =  " + isAHarvester);
         return !isAHarvester;
       });
       if (existingNonHarvester) {
