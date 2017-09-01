@@ -166,11 +166,13 @@ module.exports = function (room) {
     if (remainingWorkers.length == 0)
       break;
 
-    remainingWorkers[0].memory.role = "fortifier";
-    remainingWorkers = _.drop(remainingWorkers, 1);
-    if (remainingWorkers.length == 0)
-      break;
-
+    if (room.controller.level >= 2) {
+      remainingWorkers[0].memory.role = "fortifier";
+      remainingWorkers = _.drop(remainingWorkers, 1);
+      if (remainingWorkers.length == 0)
+        break;
+    }
+    
     remainingWorkers[0].memory.role = "controlUpgrader";
     remainingWorkers = _.drop(remainingWorkers, 1);
     if (remainingWorkers.length == 0)
