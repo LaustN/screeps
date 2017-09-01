@@ -2,8 +2,12 @@ module.exports = function (creep) {
   if (creep.carry[RESOURCE_ENERGY] > 0) {
     var target = Game.getObjectById(creep.memory.focus);
     if (target) {
-      if ((typeof(target.memory.energyWanted) == "undefined") || (target.memory.energyWanted < 0)) {
+
+      if ((typeof(target.memory) == "undefined") ||(typeof(target.memory.energyWanted) == "undefined") || (target.memory.energyWanted < 0)) {
         target = null;
+      }
+      else{
+        console.log(target.name + " is a hungry worker!");
       }
     }
 
