@@ -48,6 +48,7 @@ module.exports = function (room) {
 
         assignRole(existingNonHarvester, "harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
+        console.log("harvester created here: "+ JSON.stringify(existingNonHarvester));
       } else {
         if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
