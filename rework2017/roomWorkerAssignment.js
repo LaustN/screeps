@@ -1,7 +1,6 @@
 module.exports = function (room) {
 
   var assignRole = function (creep, role) {
-    console.log("Assigning " + role + " to " + creep.name);
     if (creep.memory.role != role) {
       creep.say(role);
     }
@@ -24,7 +23,6 @@ module.exports = function (room) {
     creepsByType[creep.memory.type].push(creep);
   }
 
-  console.log("creepsByType: "+JSON.stringify(creepsByType));
 
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
@@ -40,9 +38,7 @@ module.exports = function (room) {
       var isMyHarvester = ((worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvester"));
       return isMyHarvester;
     });
-    console.log("a");
     if (!existingHarvester) {
-      console.log("b");
       
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
         var isAHarvester = (worker.memory.role == "harvester")
@@ -50,11 +46,8 @@ module.exports = function (room) {
       });
 
       if (existingNonHarvester) {
-        console.log("c");
         assignRole(existingNonHarvester, "harvester");
-        console.log("d");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
-        console.log("harvester created here: " + JSON.stringify(existingNonHarvester));
       } else {
         if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
@@ -69,19 +62,13 @@ module.exports = function (room) {
       return (mover.memory.focus == sources[sourceIndex].id) && (mover.memory.role == "harvestTruck");
     });
     if (!existingHarvestTruck) {
-      console.log("e");
       var existingNonHarvestTruck = _.find(creepsByType["move"], function (mover) {
         var isATruck = (mover.memory.role == "harvestTruck")
-        console.log(mover.name + " isATruck=" + isATruck);
         return !isATruck;
       });
-      console.log("f");
       if (existingNonHarvestTruck) {
-        console.log("g");
-        assignRole(existingNonHarvester, "harvestTruck");
-        console.log("h");
+        assignRole(existingNonHarvestTruck, "harvestTruck");
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
-        console.log("i");
       } else {
         if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
@@ -122,7 +109,6 @@ module.exports = function (room) {
   for (var workerIndex in creepsByType["work"]) {
     var worker = creepsByType["work"][workerIndex];
     if (worker.memory.role == "harvester")
-      console.log(worker.name + " is not a candidate because it is a " + worker.memory.role);
     else
       remainingWorkers.push(worker);
 
@@ -132,7 +118,6 @@ module.exports = function (room) {
   for (var moverIndex in creepsByType["move"]) {
     var mover = creepsByType["move"][moverIndex];
     if (mover.memory.role == "harvestTruck")
-      console.log(mover.name + " is not a candidate because it is a " + mover.memory.role);
     else
       remainingMovers.push(mover);
 
