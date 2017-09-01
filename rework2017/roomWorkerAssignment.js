@@ -52,8 +52,11 @@ module.exports = function (room) {
       return isMyHarvester; 
     });
     if (!existingHarvester) {
+      console.log("finding another harvester");
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
-        return (worker.memory.role != "harvester");
+        var isAHarvester = (worker.memory.role == "harvester") 
+        console.log(worker.name + " is already a harvester =  " + isMyHarvester);
+        return !isAHarvester;
       });
       if (existingNonHarvester) {
         assignRole(existingHarvester,"harvester");
@@ -72,11 +75,12 @@ module.exports = function (room) {
     var existingHarvestTruck = _.find(creepsByType["move"], function (worker) {
       return (worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvestTruck");
     });
-    if (typeof (existingHarvestTruck) == "undefined") {
+    if (!existingHarvestTruck) {
       var existingNonHarvestTruck = _.find(creepsByType["move"], function (worker) {
-        return (worker.memory.role != "harvestTruck");
+        var isATruck = (worker.memory.role != "harvestTruck") 
+        return !isATruck;
       });
-      if (typeof (existingNonHarvestTruck) != "undefined") {
+      if (existingNonHarvestTruck) {
         assignRole(existingNonHarvester,"harvestTruck");
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
       } else {
