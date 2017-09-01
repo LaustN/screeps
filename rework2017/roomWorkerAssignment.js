@@ -63,12 +63,12 @@ module.exports = function (room) {
       }
     }
 
-    var existingHarvestTruck = _.find(creepsByType["move"], function (worker) {
-      return (worker.memory.focus == sources[sourceIndex].id) && (worker.memory.role == "harvestTruck");
+    var existingHarvestTruck = _.find(creepsByType["move"], function (mover) {
+      return (mover.memory.focus == sources[sourceIndex].id) && (mover.memory.role == "harvestTruck");
     });
     if (!existingHarvestTruck) {
-      var existingNonHarvestTruck = _.find(creepsByType["move"], function (worker) {
-        var isATruck = (worker.memory.role == "harvestTruck")
+      var existingNonHarvestTruck = _.find(creepsByType["move"], function (mover) {
+        var isATruck = (mover.memory.role == "harvestTruck")
         return !isATruck;
       });
       if (existingNonHarvestTruck) {
