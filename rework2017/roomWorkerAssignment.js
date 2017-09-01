@@ -24,6 +24,8 @@ module.exports = function (room) {
     creepsByType[creep.memory.type].push(creep);
   }
 
+  console.log("creepsByType: "+JSON.stringify(creepsByType));
+
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
   var mixAssignmentCount = 0;
