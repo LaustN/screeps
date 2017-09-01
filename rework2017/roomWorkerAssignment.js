@@ -125,6 +125,8 @@ module.exports = function (room) {
 
   var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
     var isHarvester = (worker.memory.role == "harvester");
+
+    console.log(worker.name + ": " + JSON.stringify(worker.memory) + " isHarvester="+ isHarvester);
     return !isHarvester;
   });
 
