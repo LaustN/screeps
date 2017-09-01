@@ -51,11 +51,11 @@ module.exports = function (room) {
       console.log(worker.name + " is harvester for " + sources[sourceIndex].id + " = " + isMyHarvester);
       return isMyHarvester; 
     });
-    if (typeof (existingHarvester) == "undefined") {
+    if (!existingHarvester) {
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
         return (worker.memory.role != "harvester");
       });
-      if (typeof (existingNonHarvester) != "undefined") {
+      if (existingNonHarvester) {
         assignRole(existingHarvester,"harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       } else {
