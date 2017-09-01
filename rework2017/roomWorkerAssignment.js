@@ -17,11 +17,12 @@ module.exports = function (room) {
     "mix": []
   };
 
-  creeps.forEach(function (creep) {
-    if (typeof (creepsByType[creep.memory.type]) != "undefined") {
-      creepsByType[creep.memory.type].push(creep);
-    }
-  });
+  for (var creepIndex in creeps) {
+    var creep = creeps[creepIndex];
+    if(!creepsByType[creep.memory.type])
+      creepsByType[creep.memory.type] = [];
+    creepsByType[creep.memory.type].push(creep);
+  }
 
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
@@ -49,7 +50,7 @@ module.exports = function (room) {
 
         assignRole(existingNonHarvester, "harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
-        console.log("harvester created here: "+ JSON.stringify(existingNonHarvester));
+        console.log("harvester created here: " + JSON.stringify(existingNonHarvester));
       } else {
         if (remainingMixers.length) {
           var mixToAssign = remainingMixers[0];
