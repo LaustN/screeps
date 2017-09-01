@@ -109,18 +109,25 @@ module.exports = function (room) {
     }
   }
 
-  var remainingWorkers = _.filter(creepsByType["work"], function (worker) {
-    var isHarvester = (worker.memory.role == "harvester");
-    return !isHarvester;
-  });
+  var remainingWorkers = [];
+  for (var workerIndex in creepsByType["work"]) {
+    var worker = creepsByType["work"][workerIndex];
+    if (worker.memory.role == "harvester")
+      console.log(worker.name + " is not a candidate because it is a " + worker.memory.role);
+    else
+      remainingWorkers.push(worker);
 
-  var remainingMovers = _.filter(creepsByType["move"], function (mover) {
-    var isHarvestTruck = (mover.memory.role == "harvestTruck");
-    return !isHarvestTruck;
-  });
+  }
 
-  remainingWorkers = [];
-  remainingMovers = [];
+  var remainingMovers = [];
+  for (var moverIndex in creepsByType["move"]) {
+    var Mover = creepsByType["move"][moverIndex];
+    if (mover.memory.role == "harvestTruck")
+      console.log(mover.name + " is not a candidate because it is a " + mover.memory.role);
+    else
+      remainingMovers.push(Mover);
+
+  }
 
   while (remainingMixers.length) {
     remainingWorkers = remainingWorkers.concat([remainingMixers[0]]);
