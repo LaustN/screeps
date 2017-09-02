@@ -6,12 +6,14 @@ module.exports = function (creep) {
     return true;
   }
 
+  var isMoving = false;
+
   var droppedEnergy = source.pos.findInRange(FIND_DROPPED_RESOURCES, 1, { filter: { resourceType: RESOURCE_ENERGY } });
   if (droppedEnergy && droppedEnergy.length) {
     if (creep.pickup(droppedEnergy[0]) == ERR_NOT_IN_RANGE) {
       //only return from scavenging if movement was needed
       creep.moveTo(droppedEnergy[0]);
-      return true;
+      isMoving = true;
     }
   }
 
@@ -23,7 +25,7 @@ module.exports = function (creep) {
     }
   });
   if (structuresWithStorage.length > 0) {
-    if (creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE)
+    if (creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE && !isMoving)
       creep.moveTo(structuresWithStorage[0]);
     return true;
   }
@@ -35,7 +37,9 @@ module.exports = function (creep) {
     }
   });
   if (providingCreeps && providingCreeps.length) {
-    creep.moveTo(providingCreeps[0]);
-    providingCreeps[0].transfer(creep, RESOURCE_ENERGY);
+    var transferMessage = providingCreeps[0].transfer(creep, RESOURCE_ENERGY);
+    if(transferMessage == ERR_NOT_IN_RANGE && !isMoving){
+      creep.moveTo(providingCreeps[0]);
+    }
   }
 }
