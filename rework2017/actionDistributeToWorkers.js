@@ -4,11 +4,14 @@ module.exports = function (creep) {
     if (target) {
 
       console.log("resample hungry target");
-      if ((typeof(target.memory) == "undefined") ||(typeof(target.memory.energyWanted) == "undefined") || (target.memory.energyWanted < 0)) {
+      if ((typeof (target.memory) == "undefined")
+        || (typeof (target.memory.energyWanted) == "undefined")
+        || (target.memory.energyWanted < 0)
+      ) {
         console.log(target.name + " wants no energy!");
         target = null;
       }
-      else{
+      else {
         console.log(target.name + " is a hungry worker!");
       }
     }
