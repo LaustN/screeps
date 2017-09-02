@@ -18,7 +18,7 @@ module.exports = function (room) {
 
   for (var creepIndex in creeps) {
     var creep = creeps[creepIndex];
-    if(!creepsByType[creep.memory.type])
+    if (!creepsByType[creep.memory.type])
       creepsByType[creep.memory.type] = [];
     creepsByType[creep.memory.type].push(creep);
   }
@@ -39,7 +39,7 @@ module.exports = function (room) {
       return isMyHarvester;
     });
     if (!existingHarvester) {
-      
+
       var existingNonHarvester = _.find(creepsByType["work"], function (worker) {
         var isAHarvester = (worker.memory.role == "harvester")
         return !isAHarvester;
@@ -199,9 +199,19 @@ module.exports = function (room) {
     if (remainingWorkers.length == 0)
       break;
   }
+  
+  var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
+    filter: function (structure) {
+      if (structure.structureType == STRUCTURE_LINK)
+        return false; //links do not get resupplied
+      if (structure.energyCapacity && structure.energyCapacity > structure.energy)
+        return true;
+      return false;
+    }
+  });
 
-  if(remainingMovers.length == 0 && hungryBuildings.length>0){
-    assignRole(creepsByType[0],'resupplyBuildings'); //when buildings are hungry, having a harvesttruck just standing around is senseless 
+  if (remainingMovers.length == 0 && hungryBuildings.length > 0) {
+    assignRole(creepsByType[0], 'resupplyBuildings'); //when buildings are hungry, having a harvesttruck just standing around is senseless 
   }
 
   var scavenger = null;
@@ -209,15 +219,6 @@ module.exports = function (room) {
     //
     //TODO: make the movers balance resupplying workers, refill spawn and 
 
-    var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
-      filter: function (structure) {
-        if (structure.structureType == STRUCTURE_LINK)
-          return false; //links do not get resupplied
-        if (structure.energyCapacity && structure.energyCapacity > structure.energy)
-          return true;
-        return false;
-      }
-    });
     if (hungryBuildings.length > 0) {
       assignRole(remainingMovers[0], "resupplyBuildings");
       remainingMovers = _.drop(remainingMovers, 1);
