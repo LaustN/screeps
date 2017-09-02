@@ -199,7 +199,7 @@ module.exports = function (room) {
     if (remainingWorkers.length == 0)
       break;
   }
-  
+
   var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
     filter: function (structure) {
       if (structure.structureType == STRUCTURE_LINK)
@@ -211,7 +211,7 @@ module.exports = function (room) {
   });
 
   if (remainingMovers.length == 0 && hungryBuildings.length > 0) {
-    assignRole(creepsByType[0], 'resupplyBuildings'); //when buildings are hungry, having a harvesttruck just standing around is senseless 
+    assignRole(creepsByType["move"][0], 'resupplyBuildings'); //when buildings are hungry, having a harvesttruck just standing around is senseless 
   }
 
   var scavenger = null;
