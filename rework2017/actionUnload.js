@@ -41,6 +41,13 @@ module.exports = function (creep) {
         return false;
       } });
     }
+    if (!target) {
+      target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure) { 
+        if(structure.structureType== STRUCTURE_CONTAINER  && (_.sum(structure.store) < structure.storeCapacity))
+          return true;
+        return false;
+      } });
+    }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
       if (transferMessage == ERR_NOT_IN_RANGE){
