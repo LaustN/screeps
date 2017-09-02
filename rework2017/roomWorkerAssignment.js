@@ -200,6 +200,10 @@ module.exports = function (room) {
       break;
   }
 
+  if(remainingMovers.length == 0 && hungryBuildings.length>0){
+    assignRole(creepsByType[0],'resupplyBuildings'); //when buildings are hungry, having a harvesttruck just standing around is senseless 
+  }
+
   var scavenger = null;
   while (remainingMovers.length > 0) {
     //
