@@ -50,7 +50,7 @@ module.exports = function (creep) {
     }
     if(!target){
       target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: function(hungrycreep){
-        if((creep.memory.energyWanted > 0) && _.sum(creep.carry) < creep.carryCapacity)
+        if((hungrycreep.memory.energyWanted > 0) && _.sum(hungrycreep.carry) < hungrycreep.carryCapacity)
           return true;
         return false;
       }});
