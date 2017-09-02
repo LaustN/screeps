@@ -11,9 +11,9 @@ module.exports = function(bodyParts, maxPrice){
         return resultingBody;
       }
       var nextPart =  bodyParts[assaultPartsIterator];
-      if (priceMap[nextPart] <= remainingCapacity) {
+      if (BODYPART_COST[nextPart] <= remainingCapacity) {
         resultingBody.unshift(nextPart)
-        remainingCapacity-=priceMap[nextPart];
+        remainingCapacity-=BODYPART_COST[nextPart];
       }
     }
   }
