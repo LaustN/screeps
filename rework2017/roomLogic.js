@@ -44,11 +44,18 @@ module.exports = function () {
 			return collector + structure.store[RESOURCE_ENERGY];
 		},0 );
 		
+		var allContainersAreFull  = _.reduce(storingStructures, function(collector, structure){
+			return collector &&( structure.store[RESOURCE_ENERGY] == structure.storeCapacity);
+		},true );
+		
 		var sources = room.find(FIND_SOURCES);
 
 		var workersByEnergyStored = storedEnergy/1000;
 		if(storedEnergy > 10000){
 			workersByEnergyStored = 7 + Math.log10(storedEnergy);
+		}
+		if(allContainersAreFull){
+			workersByEnergyStored = 10;
 		}
 
 		var workerPairsWanted = workersByEnergyStored + sources.length + 2;
