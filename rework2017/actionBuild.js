@@ -8,7 +8,9 @@ module.exports = function (creep) {
       }
     }
     if (!target) {
-      target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
+      target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES,{filter: function(constructionsite){
+        return(( constructionsite.structureType != STRUCTURE_WALL) && (constructionsite.structureType != STRUCTURE_RAMPART));
+      }});
     }
     if (target && target.progressTotal) {
       creep.memory.focus = target.id;
