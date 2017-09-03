@@ -133,16 +133,21 @@ module.exports = function (room) {
 
   var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
     filter: function (structure) {
-      if (structure.structureType != STRUCTURE_WALL)
+      if (structure.structureType == STRUCTURE_WALL)
         return false;
-      if (structure.hits < desiredHitsPerWall)
-        return true;
-      return false;
+      if (structure.structureType == STRUCTURE_RAMPART)
+        return false;
+      return true;
     }
   });
   var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
       if (!structure.hits)
+        return false;
+
+      if(structure.structureType == STRUCTURE_WALL)
+        return false;
+      if(structure.structureType == STRUCTURE_RAMPART)
         return false;
 
       if (structure.hits < structure.hitsMax) {
