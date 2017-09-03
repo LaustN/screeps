@@ -119,7 +119,7 @@ module.exports.loop = function () {
 
     if(creep.memory.focus){
       var focusObject = Game.getObjectById(creep.memory.focus);
-      i(focusObject)
+      if(focusObject)
         creep.room.visual.drawLine(creep.pos, focusObject.pos);
     }
 
