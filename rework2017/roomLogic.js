@@ -43,12 +43,15 @@ module.exports = function () {
 		var storedEnergy  = _.reduce(storingStructures, function(collector, structure){
 			return collector + structure.store[RESOURCE_ENERGY];
 		},0 );
-		console.log("storing structures: "+ JSON.stringify(storingStructures));
-		console.log("stored  energy: "+ storedEnergy);
 		
 		var sources = room.find(FIND_SOURCES);
 
-		var workerPairsWanted = fullContainers.length * 2 + sources.length + 2;
+		var workersByEnergyStored = storedEnergy/1000;
+		if(storedEnergy > 10000){
+			workersByEnergyStored = 7 + Math.log10(storedEnergy);
+		}
+
+		var workerPairsWanted = workersByEnergyStored + sources.length + 2;
 
 		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
 			//processing starts for frontier
