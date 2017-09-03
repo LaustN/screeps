@@ -43,7 +43,7 @@ module.exports = function (creep) {
     });
   }
   if (!target) {
-    var constructionSiteForNewFortification = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
+    var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
       filter: function (constructionsite) {
         if (constructionsite.structureType == STRUCTURE_RAMPART)
           return true;
@@ -52,9 +52,7 @@ module.exports = function (creep) {
         return false;
       }
     });
-
   }
-
 
   if (target) {
     console.log("I have a fortification target");
