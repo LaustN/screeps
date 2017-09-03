@@ -20,6 +20,7 @@ module.exports = function (creep) {
       });
 
       if (feeders.length > 0) {
+        creep.say("too much noise here!");
         target = null;
       }
     }
