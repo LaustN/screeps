@@ -35,6 +35,13 @@ module.exports = function () {
 			}
 		});
 
+		var storingStructures = room.find(FIND_STRUCTURES, {filter: function(structure){
+			if(structure.storeCapacity)
+				return true;
+			return false;
+		}});
+		console.log("storing structures: "+ JSON.stringify(storingStructures));
+
 		var sources = room.find(FIND_SOURCES);
 
 		var workerPairsWanted = fullContainers.length * 2 + sources.length + 2;
