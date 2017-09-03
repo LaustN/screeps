@@ -117,6 +117,12 @@ module.exports.loop = function () {
       console.log("no actions found for " + role);
     }
 
+    if(creep.memory.focus){
+      var focusObject = Game.getOjectById(creep.memory.focus);
+      i(focusObject)
+        creep.room.visual.drawLine(creep.pos, focusObject.pos);
+    }
+
     var usedCpu = Game.cpu.getUsed();
     if(usedCpu > (Game.cpu.limit)){
       console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.limit);
