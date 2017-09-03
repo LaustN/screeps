@@ -140,7 +140,7 @@ module.exports = function () {
 				var defenderName = room.name + "Defender" + defenderIndex;
 				var defender = Game.creeps[defenderName];
 				if (typeof (defender) == "undefined") {
-					room.memory.spawnQueue.push({ body: workerBody, type: "shoot", role:"defender", name: defenderName });
+					room.memory.spawnQueue.push({ body: defenderBody, type: "shoot", role:"defender", name: defenderName });
 				}
 
 			}
