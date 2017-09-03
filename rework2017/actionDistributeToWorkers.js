@@ -2,31 +2,24 @@ module.exports = function (creep) {
   if (creep.carry[RESOURCE_ENERGY] > 0) {
     var target = Game.getObjectById(creep.memory.focus);
     if (target) {
-
-      console.log("resample hungry target");
       if ((typeof (target.memory) == "undefined")
         || (typeof (target.memory.energyWanted) == "undefined")
         || (target.memory.energyWanted < 0)
       ) {
-        console.log(target.name + " wants no energy!");
         target = null;
-      }
-      else {
-        console.log(target.name + " is a hungry worker!");
       }
     }
 
     if (!target) {
       var hungryCreep = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
         filter: function (filterCreep) {
-          var hunger = (filterCreep.memory.energyWanted > 0) && ((filterCreep.carry[RESOURCE_ENERGY] / filterCreep.carryCapacity) < 0.5);
+          var hunger = (filterCreep.memory.energyWanted > 0) && ((filterCreep.carry[RESOURCE_ENERGY] / filterCreep.carryCapacity) < 0.2);
           return hunger;
         }
       });
 
       if (hungryCreep) {
         target = hungryCreep;
-        console.log("target is a hungry creep");
       }
       else {
         target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
@@ -35,7 +28,18 @@ module.exports = function (creep) {
           }
         });
       }
+    }
 
+    if(target && (target.carry[RESOURCE_ENERGY] /target.carryCapacity) > 0.5 ){
+      //target is more than half full, consider secondary targets
+      var secondaries = target.pos.findInRange(FIND_MY_CREEPS, 2, {filter: function(secondary){
+        return (secondary.memory.energyWanted > 0)
+        && ((secondary.carry[RESOURCE_ENERGY] / secondary.carryCapacity) < 0.5)
+      }});
+
+      if(secondaries.length){
+        target = secondaries[0];
+      }
     }
 
     if (target) {
