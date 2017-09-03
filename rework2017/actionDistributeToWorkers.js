@@ -23,6 +23,9 @@ module.exports = function (creep) {
         creep.say("too much noise here!");
         target = null;
       }
+      else{
+        creep.say("->" + target.name);
+      }
     }
 
     if (!target) {
