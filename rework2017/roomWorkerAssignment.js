@@ -131,7 +131,15 @@ module.exports = function (room) {
   }
 
 
-  var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
+  var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
+    filter: function (structure) {
+      if (structure.structureType != STRUCTURE_WALL)
+        return false;
+      if (structure.hits < desiredHitsPerWall)
+        return true;
+      return false;
+    }
+  });
   var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
       if (!structure.hits)
@@ -158,6 +166,15 @@ module.exports = function (room) {
       return false;
     }
   });
+  var plannedFortifications = room.find(FIND_MY_CONSTRUCTION_SITES, {
+    filter: function (structure) {
+      if (structure.structureType == STRUCTURE_WALL)
+        return true;
+      if (structure.structureType == STRUCTURE_RAMPART)
+        return true;
+      return false;
+    }
+  })
 
 
 
@@ -187,7 +204,7 @@ module.exports = function (room) {
     if (remainingWorkers.length == 0)
       break;
 
-    if (room.controller.level >= 2 && (wornWalls.length > 0)) {
+    if (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0)){
       assignRole(remainingWorkers[0], "fortifier");
       remainingWorkers = _.drop(remainingWorkers, 1);
       if (remainingWorkers.length == 0)
