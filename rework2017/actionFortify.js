@@ -45,9 +45,9 @@ module.exports = function (creep) {
   if (!target) {
     var constructionSiteForNewFortification = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
       filter: function (constructionsite) {
-        if (constructionsite.structureType = STRUCTURE_RAMPART)
+        if (constructionsite.structureType == STRUCTURE_RAMPART)
           return true;
-        if (constructionsite.structureType = STRUCTURE_WALL)
+        if (constructionsite.structureType == STRUCTURE_WALL)
           return true;
         return false;
       }
