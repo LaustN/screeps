@@ -37,7 +37,7 @@ module.exports = function () {
 
 		var sources = room.find(FIND_SOURCES);
 
-		var workerPairsWanted = fullContainers.length + sources.length + 2;
+		var workerPairsWanted = fullContainers.length * 2 + sources.length + 2;
 
 		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
 			//processing starts for frontier
