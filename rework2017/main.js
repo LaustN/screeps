@@ -120,7 +120,7 @@ module.exports.loop = function () {
     if(creep.memory.focus){
       var focusObject = Game.getObjectById(creep.memory.focus);
       if(focusObject)
-        creep.room.visual.drawLine(creep.pos, focusObject.pos);
+        creep.room.visual.line(creep.pos, focusObject.pos);
     }
 
     var usedCpu = Game.cpu.getUsed();
