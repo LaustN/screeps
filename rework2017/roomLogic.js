@@ -40,8 +40,12 @@ module.exports = function () {
 				return true;
 			return false;
 		}});
+		var storedEnergy  = _.reduce(storingStructures, function(collector, structure){
+			return collector + structure.store[RESOURCE_ENERGY];
+		},0 );
 		console.log("storing structures: "+ JSON.stringify(storingStructures));
-
+		console.log("stored  energy: "+ storedEnergy);
+		
 		var sources = room.find(FIND_SOURCES);
 
 		var workerPairsWanted = fullContainers.length * 2 + sources.length + 2;
