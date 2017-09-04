@@ -28,10 +28,11 @@ module.exports = function (creep) {
   });
   if (structuresWithStorage.length > 0) {
     if (creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE && !isMoving)
-      creep.moveTo(structuresWithStorage[0]);
+    {
+        creep.moveTo(structuresWithStorage[0]);
+        isMoving = true;
+    }
     console.log(creep.name + " collecting from structure");
-    
-    return true;
   }
 
   var providingCreeps = source.pos.findInRange(FIND_MY_CREEPS, 1, {
