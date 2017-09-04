@@ -35,7 +35,7 @@ module.exports = function (room) {
                 var myThing = myThings[thingIndex];
                 if(myThing 
                     && (
-                        myThing.type == LOOK_STRUCTURES || 
+                        (myThing.type == LOOK_STRUCTURES && (myThing[LOOK_STRUCTURES].structureType != STRUCTURE_ROAD)) || 
                         myThing.type == LOOK_CONSTRUCTION_SITES ||
                         (myThing.type == LOOK_TERRAIN && myThing.terrain == 'wall')
                     )
