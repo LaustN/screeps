@@ -7,6 +7,11 @@ module.exports = function (room) {
     creep.memory.role = role;
   };
 
+  var creepsCollectedOnName = _.filter(Game.creeps,function(creep){
+    return creep.name.startsWith(room.name);
+  });
+
+  console.log(JSON.stringify(creepsCollectedOnName));
 
   var creeps = room.find(FIND_MY_CREEPS);
 
@@ -180,7 +185,7 @@ module.exports = function (room) {
       return false;
     }
   })
-  
+
   var storingStructures = room.find(FIND_STRUCTURES, {filter: function(structure){
     if(structure.storeCapacity)
       return true;
