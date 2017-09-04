@@ -33,7 +33,8 @@ module.exports = function (creep) {
   var providingCreeps = source.pos.findInRange(FIND_MY_CREEPS, 1, {
     filter: function (energyProvidingCreep) {
       if (energyProvidingCreep.memory.energyWanted == -1)
-        return false;
+        return true;
+      return false;
     }
   });
   if (providingCreeps && providingCreeps.length) {
