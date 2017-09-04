@@ -6,14 +6,10 @@ module.exports = function (room) {
     }
     creep.memory.role = role;
   };
-
-  var creepsCollectedOnName = _.filter(Game.creeps,function(creep){
+  
+  var creeps = _.filter(Game.creeps,function(creep){
     return creep.name.startsWith(room.name);
   });
-
-  console.log(JSON.stringify(creepsCollectedOnName));
-
-  var creeps = room.find(FIND_MY_CREEPS);
 
   var creepsByType = {
     "work": [],
