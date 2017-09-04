@@ -180,7 +180,12 @@ module.exports = function (room) {
       return false;
     }
   })
-
+  
+  var storingStructures = room.find(FIND_STRUCTURES, {filter: function(structure){
+    if(structure.storeCapacity)
+      return true;
+    return false;
+  }});
   var storedEnergy = _.reduce(storingStructures, function (collector, structure) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
