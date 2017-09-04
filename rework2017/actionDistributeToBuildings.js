@@ -9,7 +9,7 @@ module.exports = function(creep){
 
     if(!destination){
       var unfilledExtension = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{filter: function(structure){
-        if(structure.structureType != STRUCTURE_EXTENSION)
+        if(!(structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN))
           return false;
         if(structure.energyCapacity == structure.energy)
           return false;
