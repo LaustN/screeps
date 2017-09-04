@@ -145,9 +145,9 @@ module.exports = function (room) {
       if (!structure.hits)
         return false;
 
-      if(structure.structureType == STRUCTURE_WALL)
+      if (structure.structureType == STRUCTURE_WALL)
         return false;
-      if(structure.structureType == STRUCTURE_RAMPART)
+      if (structure.structureType == STRUCTURE_RAMPART)
         return false;
 
       if (structure.hits < structure.hitsMax) {
@@ -181,6 +181,9 @@ module.exports = function (room) {
     }
   })
 
+  var storedEnergy = _.reduce(storingStructures, function (collector, structure) {
+    return collector + structure.store[RESOURCE_ENERGY];
+  }, 0);
 
 
   while (remainingWorkers.length) {
@@ -209,17 +212,19 @@ module.exports = function (room) {
     if (remainingWorkers.length == 0)
       break;
 
-    if (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0)){
+    if (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0)) {
       assignRole(remainingWorkers[0], "fortifier");
       remainingWorkers = _.drop(remainingWorkers, 1);
       if (remainingWorkers.length == 0)
         break;
     }
 
-    assignRole(remainingWorkers[0], "controlUpgrader");
-    remainingWorkers = _.drop(remainingWorkers, 1);
-    if (remainingWorkers.length == 0)
-      break;
+    if (storedEnergy > 5000) {
+      assignRole(remainingWorkers[0], "controlUpgrader");
+      remainingWorkers = _.drop(remainingWorkers, 1);
+      if (remainingWorkers.length == 0)
+        break;
+    }
   }
 
   var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
