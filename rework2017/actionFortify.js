@@ -1,6 +1,6 @@
 module.exports = function (creep) {
   //figure out how high walls need to be
-  var desiredHitsPerWall = creep.room.controller.level * 100000;
+  var desiredHitsPerWall = creep.room.controller.level * 10000;
   if (creep.room.controller.level > 7) {
     desiredHitsPerWall = 300000000;
   }

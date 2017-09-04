@@ -158,7 +158,7 @@ module.exports = function (room) {
     }
   });
 
-  var desiredHitsPerWall = room.controller.level * 100000;
+  var desiredHitsPerWall = room.controller.level * 10000;
   if (room.controller.level > 7) {
     desiredHitsPerWall = 300000000;
   }
