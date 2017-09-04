@@ -25,7 +25,10 @@ var roleActions = {
   "defender": ["actionDefend","actionHold","actionRecycle"],
 
   "healer": ["actionHealCreeps","actionHealerMove"],
-  "recycler": ["actionRecycle"]
+  "recycler": ["actionRecycle"],
+  "scout": ["actionTravel"],
+  "remoteHarvester":["actionSetGivesEnergy","actionEnsureDropPoint","actionHarvest","actionDump"],
+  "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"]
 }
 
 var actions={};
