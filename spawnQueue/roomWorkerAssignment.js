@@ -300,6 +300,7 @@ module.exports = function (room) {
   }
 
   if (assignableMoverCount > 0) {
+    console.log("assignableMoverCount=" + assignableMoverCount);
     adjustMoverRoleCount("resupplyWorkers", assignableMoverCount);
   }
   console.log("m");
