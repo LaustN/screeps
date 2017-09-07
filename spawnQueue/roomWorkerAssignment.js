@@ -31,6 +31,13 @@ module.exports = function (room) {
       if (!creepsByType[creep.memory.type])
         creepsByType[creep.memory.type] = [];
       creepsByType[creep.memory.type].push(creep);
+      if(!(creep.memory.role)){
+        if(creep.memory.type == "work" )
+          creep.memory.role = "pausedWorker";
+        if(creep.memory.type == "move" )
+          creep.memory.role = "pausedMover";
+      }
+        
     }
   };
 
