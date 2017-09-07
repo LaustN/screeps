@@ -108,6 +108,7 @@ module.exports = function (room) {
         var repurposedWorker = getLowPrioWorker();
         if(repurposedWorker)
           assignRole(repurposedWorker, role);
+        else return;
       }
     }
     else {
@@ -126,6 +127,7 @@ module.exports = function (room) {
         var repurposedWorker = getLowPrioMover();
         if(repurposedWorker)
           assignRole(repurposedWorker, role);
+        else return;
       }
     }
     else {
@@ -229,7 +231,7 @@ module.exports = function (room) {
 
   console.log("i");
   
-  var repairerWanted = buildingsThatNeedsRepairs.length > 0 ;
+  var repairerWanted = (buildingsThatNeedsRepairs.length > 0);
   if (repairerWanted) {
     adjustWorkerRoleCount("repairer", 1);
   }
