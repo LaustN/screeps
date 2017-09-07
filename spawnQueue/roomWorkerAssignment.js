@@ -105,7 +105,7 @@ module.exports = function (room) {
 
   var adjustMoverRoleCount = function (role, count) {
     if (!creepsByRole[role]) {
-      creepsByRole = [];
+      creepsByRole[role] = [];
     }
     if (creepsByRole.length < count) {
       while (creepsByRole[role].length < count) {
