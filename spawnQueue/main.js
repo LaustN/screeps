@@ -29,8 +29,8 @@ var roleActions = {
   "scout": ["actionTravel"],
   "remoteHarvester":["actionSetGivesEnergy","actionEnsureDropPoint","actionHarvest","actionDump"],
   "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"],
-  "pausedWorker":[],
-  "pausedMover":[]
+  "pausedWorker":["actionSetGivesEnergy"],
+  "pausedMover":["actionSetGivesEnergy"]
 }
 
 var actions={};
