@@ -147,7 +147,7 @@ module.exports = function (room) {
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       }
     }
-    
+
     var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
       return mover.memory.focus == sources[sourceIndex].id;
     });
@@ -159,7 +159,7 @@ module.exports = function (room) {
       }
     }
   }
-  
+
   var fullHarvesters = room.find(FIND_MY_CREEPS, {
     filter: function (harvester) {
       if ((harvester.memory.role == "harvester") && (_.sum(harvester.carry) == harvester.carryCapacity))
@@ -183,7 +183,7 @@ module.exports = function (room) {
     }
   }
 
-  
+
 
   var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
     filter: function (structure) {
@@ -194,7 +194,7 @@ module.exports = function (room) {
       return true;
     }
   });
-  
+
   var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
       if (!structure.hits)
@@ -211,7 +211,7 @@ module.exports = function (room) {
       return false;
     }
   });
-  
+
   var desiredHitsPerWall = room.controller.level * 10000;
   if (room.controller.level > 7) {
     desiredHitsPerWall = 300000000;
@@ -282,7 +282,7 @@ module.exports = function (room) {
   else {
     adjustWorkerRoleCount("fortifier", 0);
   }
-  
+
   if ((storedEnergy > 10000) && creepsByRole["pausedWorker"] && creepsByRole["pausedWorker"].length) {
     adjustWorkerRoleCount("controlUpgrader", creepsByRole["pausedWorker"].length + (upgraderWanted ? 1 : 0));
   }
@@ -312,25 +312,26 @@ module.exports = function (room) {
 
 
   var assignableMoverCount = (creepsByType["move"] || []).length - (creepsByRole["harvestTruck"] || []).length;
-  
+
   if ((assignableMoverCount > 0) && scavengerWanted) {
     adjustMoverRoleCount("scavenger", 1);
     assignableMoverCount--;
   }
-  
+
   if ((assignableMoverCount > 0) && stockpilerWanted) {
     adjustMoverRoleCount("stockpile", 1);
     assignableMoverCount--;
   }
 
-  
+
   if (hungryBuildings.length > 0) {
     var resupplyBuildingsCount = Math.floor(assignableMoverCount / 2) + 1;
     adjustMoverRoleCount("resupplyBuildings", resupplyBuildingsCount);
     assignableMoverCount -= resupplyBuildingsCount;
   }
 
-  adjustMoverRoleCount("resupplyWorkers", assignableMoverCount);
-
+  if (assignableMoverCount > 0) {
+    adjustMoverRoleCount("resupplyWorkers", assignableMoverCount);
+  }
 }
 
