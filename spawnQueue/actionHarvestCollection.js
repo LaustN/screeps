@@ -19,6 +19,21 @@ module.exports = function (creep) {
     }
   }
 
+  var structuresWithStorage = source.pos.findInRange(FIND_STRUCTURES, 1, {
+    filter: function (structure) {
+      if ((structure.storeCapacity > 0) && (structure.store[RESOURCE_ENERGY] > 0))
+        return true;
+      return false;
+    }
+  });
+  if (structuresWithStorage.length > 0) {
+    if ((creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE) && !isMoving) {
+        creep.moveTo(structuresWithStorage[0]);
+        isMoving = true;
+    }
+    console.log(creep.name + " collecting from structure");
+    return true;
+  }
 
   var providingCreeps = source.pos.findInRange(FIND_MY_CREEPS, 1, {
     filter: function (energyProvidingCreep) {
@@ -34,20 +49,7 @@ module.exports = function (creep) {
     if(transferMessage == ERR_NOT_IN_RANGE && !isMoving){
       creep.moveTo(providingCreeps[0]);
     }
+    return true;
   }
 
-  var structuresWithStorage = source.pos.findInRange(FIND_STRUCTURES, 1, {
-    filter: function (structure) {
-      if ((structure.storeCapacity > 0) && (structure.store[RESOURCE_ENERGY] > 0))
-        return true;
-      return false;
-    }
-  });
-  if (structuresWithStorage.length > 0) {
-    if ((creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE) && !isMoving) {
-        creep.moveTo(structuresWithStorage[0]);
-        isMoving = true;
-    }
-    console.log(creep.name + " collecting from structure");
-  }
 }
