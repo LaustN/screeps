@@ -20,9 +20,6 @@ var roleActions = {
 
   "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
 
-  "pausedWorker":[],
-  "pausedMover":[],
-  
   "reserver":["actionReserve","actionSign"],
 
   "defender": ["actionDefend","actionHold","actionRecycle"],
@@ -31,7 +28,9 @@ var roleActions = {
   "recycler": ["actionRecycle"],
   "scout": ["actionTravel"],
   "remoteHarvester":["actionSetGivesEnergy","actionEnsureDropPoint","actionHarvest","actionDump"],
-  "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"]
+  "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"],
+  "pausedWorker":[],
+  "pausedMover":[]
 }
 
 var actions={};

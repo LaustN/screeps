@@ -274,7 +274,7 @@ module.exports = function (room) {
     adjustWorkerRoleCount("fortifier",0);
   }
 
-  if (storedEnergy > 500000 && creepsByRole["pausedWorker"] && creepsByRole["pausedWorker"].length) {
+  if (storedEnergy > 10000 && creepsByRole["pausedWorker"] && creepsByRole["pausedWorker"].length) {
     adjustWorkerRoleCount("controlUpgrader",creepsByRole["pausedWorker"].length + (upgraderWanted?1:0));
   }
 
