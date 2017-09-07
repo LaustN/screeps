@@ -27,8 +27,7 @@ module.exports = function (creep) {
     }
   });
   if (structuresWithStorage.length > 0) {
-    if (creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE && !isMoving)
-    {
+    if ((creep.withdraw(structuresWithStorage[0]) == ERR_NOT_IN_RANGE) && !isMoving) {
         creep.moveTo(structuresWithStorage[0]);
         isMoving = true;
     }
