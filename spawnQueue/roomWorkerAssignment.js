@@ -259,6 +259,8 @@ module.exports = function (room) {
       return false;
     }
   });
+
+  console.log("hungryBuildings:" + JSON.stringify(hungryBuildings));
   var stockpilerWanted = (
     room.storage
     && (
