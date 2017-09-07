@@ -90,7 +90,7 @@ module.exports = function (room) {
     if (!creepsByRole[role]) {
       creepsByRole[role] = [];
     }
-    if (creepsByRole.length < count) {
+    if (creepsByRole[role].length < count) {
       while (creepsByRole[role].length < count) {
         var repurposedWorker = getLowPrioWorker()
         assignRole(repurposedWorker, role);
@@ -107,7 +107,7 @@ module.exports = function (room) {
     if (!creepsByRole[role]) {
       creepsByRole[role] = [];
     }
-    if (creepsByRole.length < count) {
+    if (creepsByRole[role].length < count) {
       while (creepsByRole[role].length < count) {
         var repurposedWorker = getLowPrioMover()
         assignRole(repurposedWorker, role);
