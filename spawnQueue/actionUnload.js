@@ -30,11 +30,6 @@ module.exports = function (creep) {
       }
     }
     if (!target) {
-      if (creep.room.storage) {
-        target = creep.room.storage;
-      }
-    }
-    if (!target) {
       target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: function(structure) { 
         if(
           (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION)  
@@ -49,6 +44,11 @@ module.exports = function (creep) {
           return true;
         return false;
       } });
+    }
+    if (!target) {
+      if (creep.room.storage) {
+        target = creep.room.storage;
+      }
     }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
