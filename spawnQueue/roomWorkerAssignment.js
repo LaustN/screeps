@@ -1,5 +1,5 @@
 module.exports = function (room) {
-  var creeps = _.filter(Game.creeps,function(creep){
+  var creeps = _.filter(Game.creeps, function (creep) {
     return creep.name.startsWith(room.name);
   });
 
@@ -11,7 +11,7 @@ module.exports = function (room) {
 
   var creepsByRole = {};
 
-  var sortByRole = function(){
+  var sortByRole = function () {
     creepsByRole = {};
     for (var creepIndex in creeps) {
       var creep = creeps[creepIndex];
@@ -21,7 +21,7 @@ module.exports = function (room) {
     }
   };
 
-  var sortByType = function(){
+  var sortByType = function () {
     creepsByType = {
       "work": [],
       "move": []
@@ -37,38 +37,41 @@ module.exports = function (room) {
   sortByRole();
   sortByType();
 
-  var getLowPrioWorker = function(){
-    var workerRolesAscendingPriority=
-    [
-      "controlUpgrader",
-      "fortifier",
-      "repairer",
-      "remoteHarvester",
-      "builder",
-      "harvester"
-    ];
-    for(var roleIndex in workerRolesAscendingPriority){
+  var getLowPrioWorker = function () {
+    var workerRolesAscendingPriority =
+      [
+        "pausedWorker",
+        "controlUpgrader",
+        "fortifier",
+        "repairer",
+        "remoteHarvester",
+        "builder",
+        "harvestTruck",
+        "harvester"
+      ];
+    for (var roleIndex in workerRolesAscendingPriority) {
       var roleName = workerRolesAscendingPriority[roleIndex];
-      if(creepsByRole[roleName] && creepsByRole[roleName].length>0){
+      if (creepsByRole[roleName] && creepsByRole[roleName].length > 0) {
         return creepsByRole[roleName][0];
       }
     }
     return null;
   }
-  var getLowPrioMover = function(){
-    var moverRolesAscendingPriority=
-    [
-      "resupplyWorkers",
-      "stockpile",
-      "looter",
-      "scavenger",
-      "remoteHarvestCollector",
-      "resupplyBuildings",
-      "harvestTruck"
-    ];
-    for(var roleIndex in moverRolesAscendingPriority){
+  var getLowPrioMover = function () {
+    var moverRolesAscendingPriority =
+      [
+        "pausedMover",
+        "resupplyWorkers",
+        "stockpile",
+        "looter",
+        "scavenger",
+        "remoteHarvestCollector",
+        "resupplyBuildings",
+        "harvestTruck"
+      ];
+    for (var roleIndex in moverRolesAscendingPriority) {
       var roleName = moverRolesAscendingPriority[roleIndex];
-      if(creepsByRole[roleName] && creepsByRole[roleName].length>0){
+      if (creepsByRole[roleName] && creepsByRole[roleName].length > 0) {
         return creepsByRole[roleName][0];
       }
     }
@@ -82,8 +85,40 @@ module.exports = function (room) {
     creep.memory.role = role;
     sortByRole();
   };
-  
 
+  var adjustWorkerRoleCount = function (role, count) {
+    if (!creepsByRole[role]) {
+      creepsByRole = [];
+    }
+    if (creepsByRole.length < count) {
+      while (creepsByRole[role].length < count) {
+        var repurposedWorker = getLowPrioWorker()
+        assignRole(repurposedWorker, role);
+      }
+    }
+    else {
+      while (creepsByRole[role] && creepsByRole[role].length > count) {
+        assignRole(creepsByRole[role][0], "pausedWorker");
+      }
+    }
+  }
+
+  var adjustMoverRoleCount = function (role, count) {
+    if (!creepsByRole[role]) {
+      creepsByRole = [];
+    }
+    if (creepsByRole.length < count) {
+      while (creepsByRole[role].length < count) {
+        var repurposedWorker = getLowPrioMover()
+        assignRole(repurposedWorker, role);
+      }
+    }
+    else {
+      while (creepsByRole[role] && creepsByRole[role].length > count) {
+        assignRole(creepsByRole[role][0], "pausedMover");
+      }
+    }
+  }
 
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
@@ -95,14 +130,14 @@ module.exports = function (room) {
       var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
       return isMyHarvester;
     });
-    
+
     if (!existingHarvester) {
 
       var existingNonHarvester = getLowPrioWorker();
       if (existingNonHarvester) {
         assignRole(existingNonHarvester, "harvester");
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
-      } 
+      }
     }
 
     var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
@@ -113,7 +148,7 @@ module.exports = function (room) {
       if (existingNonHarvestTruck) {
         assignRole(existingNonHarvestTruck, "harvestTruck");
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
-      } 
+      }
     }
   }
 
@@ -140,13 +175,7 @@ module.exports = function (room) {
     }
   }
 
-  var canBuildAsNeeded = 
-    creepsByRole["harvester"] &&
-    creepsByRole["harvester"].length &&
-    creepsByRole["harvestTruck"] &&
-    creepsByRole["harvestTruck"].length;
 
-    
 
   var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
     filter: function (structure) {
@@ -198,55 +227,55 @@ module.exports = function (room) {
     }
   })
 
-  var storingStructures = room.find(FIND_STRUCTURES, {filter: function(structure){
-    if(structure.storeCapacity)
-      return true;
-    return false;
-  }});
+  var storingStructures = room.find(FIND_STRUCTURES, {
+    filter: function (structure) {
+      if (structure.storeCapacity)
+        return true;
+      return false;
+    }
+  });
   var storedEnergy = _.reduce(storingStructures, function (collector, structure) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
 
 
-  while (remainingWorkers.length) {
-    //assign extra workers
+  var upgraderWanted = (room.controller && room.controller.my) && ((room.controller.ticksToDowngrade < 4000) || storedEnergy > 100000);
+  if(upgraderWanted){
+    adjustWorkerRoleCount("controlUpgrader",1);
+  }
+  else{
+    adjustWorkerRoleCount("controlUpgrader",0);
+  }
 
-    if (room.controller && room.controller.my && (room.controller.ticksToDowngrade < 4000)) {
-      assignRole(remainingWorkers[0], "controlUpgrader");
-      remainingWorkers = _.drop(remainingWorkers, 1);
-    }
 
-    if (remainingWorkers.length == 0)
-      break;
+  var builderWanted = (constructionSites.length > 0);
+  if(builderWanted){
+    adjustWorkerRoleCount("builder",1);
+  }
+  else{
+    adjustWorkerRoleCount("builder",0);
+  }
 
-    if (constructionSites.length > 0) {
-      assignRole(remainingWorkers[0], "builder");
-      remainingWorkers = _.drop(remainingWorkers, 1);
-    }
-    if (remainingWorkers.length == 0)
-      break;
 
-    if (buildingsThatNeedsRepairs.length > 0) {
+  var repairerWanted = buildingsThatNeedsRepairs.length > 0;
+  if(repairerWanted){
+    adjustWorkerRoleCount("repairer",1);
+  }
+  else{
+    adjustWorkerRoleCount("repairer",0);
+  }
 
-      assignRole(remainingWorkers[0], "repairer");
-      remainingWorkers = _.drop(remainingWorkers, 1);
-    }
-    if (remainingWorkers.length == 0)
-      break;
 
-    if (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0)) {
-      assignRole(remainingWorkers[0], "fortifier");
-      remainingWorkers = _.drop(remainingWorkers, 1);
-      if (remainingWorkers.length == 0)
-        break;
-    }
+  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0));
+  if(repairerWanted){
+    adjustWorkerRoleCount("fortifier",1);
+  }
+  else{
+    adjustWorkerRoleCount("fortifier",0);
+  }
 
-    if (storedEnergy > 5000) {
-      assignRole(remainingWorkers[0], "controlUpgrader");
-      remainingWorkers = _.drop(remainingWorkers, 1);
-      if (remainingWorkers.length == 0)
-        break;
-    }
+  if (storedEnergy > 500000 && creepsByRole["pausedWorker"] && creepsByRole["pausedWorker"].length) {
+    adjustWorkerRoleCount("controlUpgrader",creepsByRole["pausedWorker"].length + (upgraderWanted?1:0));
   }
 
   var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
@@ -258,63 +287,40 @@ module.exports = function (room) {
       return false;
     }
   });
+  var stockpilerWanted = (
+    room.storage 
+    && (
+      room.find(FIND_STRUCTURES, { filter: function (structure) { 
+        return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_LINK ); 
+      } }).length > 0)
 
-  if (remainingMovers.length == 0 && hungryBuildings.length > 0) {
-    assignRole(creepsByType["move"][0], 'resupplyBuildings'); //when buildings are hungry, having a harvesttruck just standing around is senseless 
+  );
+
+  var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
+  var scavengerWanted = droppedEnergies.length > 0;
+  
+  
+  var assignableMoverCount =  (creepsByType["move"]||[]).length - (creepsByRole["harvestTruck"]||[]).length;
+
+  if((assignableMoverCount > 0) && scavengerWanted){
+    adjustMoverRoleCount("scavenger",1);
+    assignableMoverCount --;
   }
 
-  var scavenger = null;
-  while (remainingMovers.length > 0) {
-    //
-    //TODO: make the movers balance resupplying workers, refill spawn and 
-
-    if (hungryBuildings.length > 0) {
-      assignRole(remainingMovers[0], "resupplyBuildings");
-      remainingMovers = _.drop(remainingMovers, 1);
-    }
-    if (remainingMovers.length == 0)
-      break;
-
-    if (room.storage && (room.find(FIND_STRUCTURES, { filter: function (structure) { return (structure.structureType == STRUCTURE_CONTAINER); } }).length > 0)) {
-      assignRole(remainingMovers[0], "stockpile");
-      remainingMovers = _.drop(remainingMovers, 1);
-    }
-    if (remainingMovers.length == 0)
-      break;
-
-    assignRole(remainingMovers[0], "resupplyWorkers");
-    remainingMovers = _.drop(remainingMovers, 1);
-    if (remainingMovers.length == 0)
-      break;
-
-    if (!scavenger) {
-      var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
-      if (droppedEnergies.length > 0) {
-        scavenger = remainingMovers[0];
-
-        if (_.sum(scavenger.carry) > 0) {
-          if (hungryBuildings.length > 0) {
-            assignRole(scavenger, "resupplyBuildings")
-          }
-          else {
-            assignRole(scavenger, "resupplyWorkers")
-          }
-        }
-        else {
-          assignRole(scavenger, "scavenger")
-        }
-
-        remainingMovers = _.drop(remainingMovers, 1);
-      }
-
-
-      if (remainingMovers.length == 0)
-        break;
-    }
-    //still need to figure out "looter" role assignment
+  if((assignableMoverCount > 0) && stockpilerWanted){
+    adjustMoverRoleCount("stockpile",1);
+    assignableMoverCount --;
   }
 
-  //check xxxAssignmentCount against creepsByType[all3Types], possibly assign roles
+
+
+  if (hungryBuildings.length > 0) {
+    var resupplyBuildingsCount =  Math.ceil(assignableMoverCount/2);
+    adjustMoverRoleCount("resupplyBuildings",resupplyBuildingsCount);
+    assignableMoverCount -= resupplyBuildingsCount;
+  }
+
+  adjustMoverRoleCount("resupplyWorkers",assignableMoverCount);
 
 }
 

@@ -20,6 +20,9 @@ var roleActions = {
 
   "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
 
+  "pausedWorker":[],
+  "pausedMover":[],
+  
   "reserver":["actionReserve","actionSign"],
 
   "defender": ["actionDefend","actionHold","actionRecycle"],

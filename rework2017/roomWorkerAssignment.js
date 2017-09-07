@@ -1,4 +1,27 @@
 module.exports = function (room) {
+  var creepsByType = {
+    "work": [],
+    "move": [],
+    "mix": []
+  };
+
+  var creepsByRole = {
+    "harvester": [],
+    "builder": [],
+    "controlUpgrader": [],
+    "fortifier": [],
+    "repairer": [],
+    
+    "harvestTruck": [],
+    "resupplyBuildings":[],
+    "stockpile":[],
+    "resupplyWorkers":[],
+    "looter" :[],
+    "scavenger" :[],
+  
+    "remoteHarvester":[],
+    "remoteCollector":[]
+    };
 
   var assignRole = function (creep, role) {
     if (creep.memory.role != role) {
@@ -11,10 +34,8 @@ module.exports = function (room) {
     return creep.name.startsWith(room.name);
   });
 
-  var creepsByType = {
-    "work": [],
-    "move": [],
-    "mix": []
+  var sortByRole = function(){
+
   };
 
   for (var creepIndex in creeps) {
