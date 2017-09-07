@@ -133,56 +133,6 @@ module.exports = function (room) {
   //does every source have a work and a move?
 
   var sources = room.find(FIND_SOURCES);
-  for (var sourceIndex in sources) {
-    var existingHarvester = _.find(creepsByRole["harvester"], function (harvester) {
-      var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
-      return isMyHarvester;
-    });
-
-    if (!existingHarvester) {
-
-      var existingNonHarvester = getLowPrioWorker();
-      if (existingNonHarvester) {
-        assignRole(existingNonHarvester, "harvester");
-        existingNonHarvester.memory.focus = sources[sourceIndex].id;
-      }
-    }
-
-    var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
-      return mover.memory.focus == sources[sourceIndex].id;
-    });
-    if (!existingHarvestTruck) {
-      var existingNonHarvestTruck = getLowPrioMover();
-      if (existingNonHarvestTruck) {
-        assignRole(existingNonHarvestTruck, "harvestTruck");
-        existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
-      }
-    }
-  }
-
-  var fullHarvesters = room.find(FIND_MY_CREEPS, {
-    filter: function (harvester) {
-      if ((harvester.memory.role == "harvester") && (_.sum(harvester.carry) == harvester.carryCapacity))
-        return true;
-      return false;
-    }
-  });
-
-  for (var harvesterIndex in fullHarvesters) {
-    var harvester = fullHarvesters[harvesterIndex];
-    var matchingHarvetTrucks = room.find(FIND_MY_CREEPS, {
-      filter: function (matchingTruck) {
-        if ((matchingTruck.memory.focus == harvester.memory.focus) && (matchingTruck.memory.role == "harvestTruck"))
-          return true;
-        return false;
-      }
-    });
-
-    if (matchingHarvetTrucks.length == 0) {
-      harvester.role = "harvestTruck";
-    }
-  }
-
 
 
   var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
@@ -266,7 +216,7 @@ module.exports = function (room) {
   }
 
 
-  var repairerWanted = buildingsThatNeedsRepairs.length > 0;
+  var repairerWanted = buildingsThatNeedsRepairs.length > 0 ;
   if (repairerWanted) {
     adjustWorkerRoleCount("repairer", 1);
   }
@@ -333,5 +283,56 @@ module.exports = function (room) {
   if (assignableMoverCount > 0) {
     adjustMoverRoleCount("resupplyWorkers", assignableMoverCount);
   }
+
+  for (var sourceIndex in sources) {
+    var existingHarvester = _.find(creepsByRole["harvester"], function (harvester) {
+      var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
+      return isMyHarvester;
+    });
+
+    if (!existingHarvester) {
+
+      var existingNonHarvester = getLowPrioWorker();
+      if (existingNonHarvester) {
+        assignRole(existingNonHarvester, "harvester");
+        existingNonHarvester.memory.focus = sources[sourceIndex].id;
+      }
+    }
+
+    var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
+      return mover.memory.focus == sources[sourceIndex].id;
+    });
+    if (!existingHarvestTruck) {
+      var existingNonHarvestTruck = getLowPrioMover();
+      if (existingNonHarvestTruck) {
+        assignRole(existingNonHarvestTruck, "harvestTruck");
+        existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
+      }
+    }
+  }
+
+  var fullHarvesters = room.find(FIND_MY_CREEPS, {
+    filter: function (harvester) {
+      if ((harvester.memory.role == "harvester") && (_.sum(harvester.carry) == harvester.carryCapacity))
+        return true;
+      return false;
+    }
+  });
+
+  for (var harvesterIndex in fullHarvesters) {
+    var harvester = fullHarvesters[harvesterIndex];
+    var matchingHarvetTrucks = room.find(FIND_MY_CREEPS, {
+      filter: function (matchingTruck) {
+        if ((matchingTruck.memory.focus == harvester.memory.focus) && (matchingTruck.memory.role == "harvestTruck"))
+          return true;
+        return false;
+      }
+    });
+
+    if (matchingHarvetTrucks.length == 0) {
+      assignRole(harvester,"harvestWithReturn");
+    }
+  }
+
 }
 
