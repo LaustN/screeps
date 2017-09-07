@@ -92,7 +92,7 @@ module.exports = function () {
 		} else {
 			//processing starts for decent quality room
 
-			var maxPrice = Math.min(room.energyCapacityAvailable, 300); //TODO: figure out if  a price cap here is irrelevant?
+			var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
 
 			var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
 			var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);

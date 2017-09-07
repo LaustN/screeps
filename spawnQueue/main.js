@@ -111,7 +111,6 @@ module.exports.loop = function () {
 
     var actionsToTake = roleActions[creep.memory.role];
     if (actionsToTake) {
-      console.log("Execution " + creep.memory.role + " for " + creep.name);
       actionLoop:
       for (var actionName in actionsToTake) {
         var action = actions[actionsToTake[actionName]];
