@@ -93,6 +93,12 @@ module.exports.loop = function () {
         console.log('Clearing memory:', name);
     }
   }
+  for(var name in Memory.rooms) {
+    if(!Game.rooms[name]) {
+        delete Memory.rooms[name];
+        console.log('Clearing memory:', name);
+    }
+  }
 
   roomLogic();
   runTowers();

@@ -4,7 +4,7 @@ var buildCreepBody = require("buildCreepBody");
 var roomSpawns = require("roomSpawns");
 
 module.exports = function () {
-
+console.log("a");
 	var roomStates = [
 		"Frontier", //many buildings still needed, ControllerLevel likely too low
 		"Flush", //Ready to help neighbours
@@ -15,9 +15,12 @@ module.exports = function () {
 
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
+		console.log("b");
 		roomBuildings(room);
+		console.log("c");
 		roomWorkerAssignment(room);
-
+		console.log("ds");
+		
 		var creeps = room.find(FIND_MY_CREEPS);
 
 
