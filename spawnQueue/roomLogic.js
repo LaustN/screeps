@@ -53,10 +53,10 @@ module.exports = function () {
 
 		var workersByEnergyStored = storedEnergy / 1000;
 		if (storedEnergy > 10000) {
-			workersByEnergyStored = 7 + Math.log10(storedEnergy);
+			workersByEnergyStored = 2 + Math.log10(storedEnergy);
 		}
 		if (allContainersAreFull) {
-			workersByEnergyStored = 10;
+			workersByEnergyStored = 5;
 		}
 
 		var workerPairsWanted = workersByEnergyStored + sources.length + 2;
