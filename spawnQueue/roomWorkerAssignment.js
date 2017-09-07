@@ -238,6 +238,7 @@ module.exports = function (room) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
 
+  console.log("Stored energy in " + room.name + ": " + storedEnergy);
 
   var upgraderWanted = (room.controller && room.controller.my) && ((room.controller.ticksToDowngrade < 4000) || storedEnergy > 100000);
   if(upgraderWanted){
