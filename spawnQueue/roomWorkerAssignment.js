@@ -294,6 +294,9 @@ module.exports = function (room) {
     adjustMoverRoleCount("resupplyBuildings", resupplyBuildingsCount);
     assignableMoverCount -= resupplyBuildingsCount;
   }
+  else{
+    adjustMoverRoleCount("resupplyBuildings", 0);
+  }
 
   if (assignableMoverCount > 0) {
     adjustMoverRoleCount("resupplyWorkers", assignableMoverCount);

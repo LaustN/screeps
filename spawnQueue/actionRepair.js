@@ -16,10 +16,8 @@ module.exports = function (creep) {
           && (structure.structureType != STRUCTURE_RAMPART)
           && (structure.hits < structure.hitsMax)
         ) {
-          console.log("structure at " + structure.pos + " is an ok repair target");
           return true;
         }
-        console.log("structure at " + structure.pos + " is not an ok repair target");
         return false;
       }
     });
