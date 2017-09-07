@@ -275,8 +275,8 @@ module.exports = function (room) {
   }
 
 
-  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0));
-  if (repairerWanted) {
+  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0) && creepsByRole["resupplyWorkers"] && creepsByRole["resupplyWorkers"].length>2);
+  if (fortifierWanted) {
     adjustWorkerRoleCount("fortifier", 1);
   }
   else {
