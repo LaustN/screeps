@@ -254,7 +254,7 @@ module.exports = function (room) {
     filter: function (structure) {
       if (structure.structureType == STRUCTURE_LINK)
         return false; //links do not get resupplied
-      if (structure.energyCapacity && structure.energyCapacity > structure.energy)
+      if (structure.energyCapacity && (structure.energyCapacity > structure.energy))
         return true;
       return false;
     }
