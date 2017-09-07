@@ -1,5 +1,6 @@
 module.exports = function(bodyParts, maxPrice){
   var remainingCapacity = 300;
+  console.log("passed maxPrice is " + maxPrice);
   if(maxPrice){
     remainingCapacity = maxPrice;
   }
