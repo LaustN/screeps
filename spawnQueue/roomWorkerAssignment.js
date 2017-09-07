@@ -53,7 +53,7 @@ module.exports = function (room) {
         "repairer",
         "remoteHarvester",
         "builder",
-        "harvestTruck",
+        "harvestWithReturn",
         "harvester"
       ];
     for (var roleIndex in workerRolesAscendingPriority) {
