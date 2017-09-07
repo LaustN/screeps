@@ -264,7 +264,7 @@ module.exports = function (room) {
     && (
       room.find(FIND_STRUCTURES, {
         filter: function (structure) {
-          return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_LINK);
+          return ((structure.structureType == STRUCTURE_CONTAINER) || (structure.structureType == STRUCTURE_LINK));
         }
       }).length > 0)
 
