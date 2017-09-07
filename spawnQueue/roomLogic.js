@@ -63,6 +63,8 @@ module.exports = function () {
 
 		console.log("workCount=" + workCount);
 		console.log("moveCount=" + moveCount);
+		console.log("energyCapacityAvailable=" + room.energyCapacityAvailable);
+
 		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
 			//processing starts for frontier
 			workerPairsWanted += 2; //we need a few extra workers initially
