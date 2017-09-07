@@ -90,16 +90,6 @@ module.exports = function () {
 
 			}
 
-			//mix types
-			for (var mixNumber = 1; mixNumber <= (workerPairsWanted * 2); mixNumber++) {
-				var mixName = room.name + "Mix" + mixNumber;
-				var mix = Game.creeps[mixName];
-				if (typeof (mix) == "undefined") {
-					room.memory.spawnQueue.push({ body: [CARRY, WORK, MOVE, MOVE], type: "mix", name: mixName });
-				}
-
-			}
-
 		} else {
 			//processing starts for decent quality room
 
