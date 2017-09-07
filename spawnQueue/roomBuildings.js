@@ -123,7 +123,7 @@ module.exports = function (room) {
         }
     }
 
-    for(var rangeIterator = 2; rangeIterator < 10; rangeIterator++){
+    for(var rangeIterator = 3; rangeIterator < 10; rangeIterator++){
         var extensionPositions = getRoomPositionsAtRange(spawns[0].pos, rangeIterator, spacyFilter );
         for (var extensionPositionIndex in extensionPositions){
             var buildExtensionResult = extensionPositions[extensionPositionIndex].createConstructionSite(STRUCTURE_EXTENSION);
