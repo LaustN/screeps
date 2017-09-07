@@ -1,5 +1,4 @@
 module.exports = function (room) {
-  console.log("a");
   var creeps = _.filter(Game.creeps, function (creep) {
     return creep.name.startsWith(room.name);
   });
@@ -13,7 +12,6 @@ module.exports = function (room) {
   var creepsByRole = {};
 
   var sortByRole = function () {
-    console.log("b");
     creepsByRole = {};
     for (var creepIndex in creeps) {
       var creep = creeps[creepIndex];
@@ -24,7 +22,6 @@ module.exports = function (room) {
   };
 
   var sortByType = function () {
-    console.log("c");
     creepsByType = {
       "work": [],
       "move": []
@@ -44,13 +41,10 @@ module.exports = function (room) {
     }
   };
 
-  console.log("d");
   sortByRole();
-  console.log("e");
   sortByType();
 
   var getLowPrioWorker = function () {
-    console.log("f");
     var workerRolesAscendingPriority =
       [
         "pausedWorker",
@@ -71,7 +65,6 @@ module.exports = function (room) {
     return null;
   }
   var getLowPrioMover = function () {
-    console.log("g");
     var moverRolesAscendingPriority =
       [
         "pausedMover",
@@ -93,7 +86,7 @@ module.exports = function (room) {
   }
 
   var assignRole = function (creep, role) {
-    console.log("h");
+    console.log("Assigning " + role + " to " + creep.name);
     if (creep.memory.role != role) {
       creep.say(role);
     }
@@ -102,7 +95,6 @@ module.exports = function (room) {
   };
 
   var adjustWorkerRoleCount = function (role, count) {
-    console.log("i");
     if (!creepsByRole[role]) {
       creepsByRole[role] = [];
     }
@@ -120,7 +112,6 @@ module.exports = function (room) {
   }
 
   var adjustMoverRoleCount = function (role, count) {
-    console.log("j");
     if (!creepsByRole[role]) {
       creepsByRole[role] = [];
     }
@@ -143,7 +134,6 @@ module.exports = function (room) {
 
   var sources = room.find(FIND_SOURCES);
   for (var sourceIndex in sources) {
-    console.log("k");
     var existingHarvester = _.find(creepsByRole["harvester"], function (harvester) {
       var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
       return isMyHarvester;
@@ -157,7 +147,6 @@ module.exports = function (room) {
         existingNonHarvester.memory.focus = sources[sourceIndex].id;
       }
     }
-    console.log("l");
     
     var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
       return mover.memory.focus == sources[sourceIndex].id;
@@ -170,7 +159,6 @@ module.exports = function (room) {
       }
     }
   }
-  console.log("m");
   
   var fullHarvesters = room.find(FIND_MY_CREEPS, {
     filter: function (harvester) {
@@ -195,7 +183,6 @@ module.exports = function (room) {
     }
   }
 
-  console.log("n");
   
 
   var constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
@@ -207,7 +194,6 @@ module.exports = function (room) {
       return true;
     }
   });
-  console.log("o");
   
   var buildingsThatNeedsRepairs = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
@@ -225,7 +211,6 @@ module.exports = function (room) {
       return false;
     }
   });
-  console.log("p");
   
   var desiredHitsPerWall = room.controller.level * 10000;
   if (room.controller.level > 7) {
@@ -262,7 +247,6 @@ module.exports = function (room) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
 
-  console.log("Stored energy in " + room.name + ": " + storedEnergy);
 
   var upgraderWanted = (room.controller && room.controller.my) && ((room.controller.ticksToDowngrade < 4000) || storedEnergy > 100000);
   if (upgraderWanted) {
@@ -298,7 +282,6 @@ module.exports = function (room) {
   else {
     adjustWorkerRoleCount("fortifier", 0);
   }
-  console.log("q");
   
   if ((storedEnergy > 10000) && creepsByRole["pausedWorker"] && creepsByRole["pausedWorker"].length) {
     adjustWorkerRoleCount("controlUpgrader", creepsByRole["pausedWorker"].length + (upgraderWanted ? 1 : 0));
@@ -329,21 +312,17 @@ module.exports = function (room) {
 
 
   var assignableMoverCount = (creepsByType["move"] || []).length - (creepsByRole["harvestTruck"] || []).length;
-  console.log("r");
   
   if ((assignableMoverCount > 0) && scavengerWanted) {
     adjustMoverRoleCount("scavenger", 1);
     assignableMoverCount--;
   }
-  console.log("s");
   
   if ((assignableMoverCount > 0) && stockpilerWanted) {
     adjustMoverRoleCount("stockpile", 1);
     assignableMoverCount--;
   }
 
-  console.log("hungryBuildings.length: " + hungryBuildings.length);
-  console.log("hungryBuildings: " +  JSON.stringify(hungryBuildings));
   
   if (hungryBuildings.length > 0) {
     var resupplyBuildingsCount = Math.floor(assignableMoverCount / 2) + 1;
