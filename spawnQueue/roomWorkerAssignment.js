@@ -232,10 +232,12 @@ module.exports = function (room) {
   }
 
   if ((storedEnergy > 10000)
-    && creepsByRole["pausedWorker"] && creepsByRole["pausedWorker"].length
-    && creepsByRole["controlUpgrader"] && creepsByRole["controlUpgrader"].length
   ) {
-    adjustWorkerRoleCount("controlUpgrader", creepsByRole["pausedWorker"].length, creepsByRole["controlUpgrader"].length);
+    maxUpgraderCount = 
+     (creepsByRole["pausedWorker"]||[]).length 
+     + (creepsByRole["controlUpgrader"]||[]).length;
+
+    adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
   }
   else {
     var upgraderWanted = (room.controller && room.controller.my) && ((room.controller.ticksToDowngrade < 4000));
