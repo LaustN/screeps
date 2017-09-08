@@ -51,10 +51,7 @@ module.exports = function () {
 
 		var sources = room.find(FIND_SOURCES);
 
-		var workersByEnergyStored = storedEnergy / 1000;
-		if (storedEnergy > 10000) {
-			workersByEnergyStored = 2 + Math.log10(storedEnergy);
-		}
+		var workersByEnergyStored = 1 + Math.floor(Math.log10(storedEnergy));
 		if (allContainersAreFull) {
 			workersByEnergyStored = 5;
 		}
