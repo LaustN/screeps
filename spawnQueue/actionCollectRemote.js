@@ -30,7 +30,6 @@ module.exports = function(creep){
       }
     }
   }
-  console.log(creep.name + " tried collectiong remote, but is too full");
   return false;
 }
   
