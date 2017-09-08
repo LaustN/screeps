@@ -32,7 +32,7 @@ var roleActions = {
   "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"],
   "pausedWorker":["actionSetGivesEnergy"],
   "pausedMover":["actionSetGivesEnergy"]
-}
+};
 
 var actions={};
 for (var roleName in  roleActions) {
@@ -126,7 +126,7 @@ module.exports.loop = function () {
       }
     }
     else {
-      console.log("no actions found for " + role);
+      console.log("no actions found for " + creep.name + " in role " + creep.memory.role);
     }
 
     if(creep.memory.focus){
