@@ -56,7 +56,7 @@ module.exports = function () {
 			workersByEnergyStored = 5;
 		}
 
-		var workerPairsWanted = workersByEnergyStored + sources.length + 2;
+		var workerPairsWanted = workersByEnergyStored + sources.length;
 
 		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
 			//processing starts for frontier
