@@ -240,7 +240,7 @@ module.exports = function (room) {
     adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
   }
   else {
-    var upgraderWanted = (room.controller && room.controller.my) && ((room.controller.ticksToDowngrade < 4000));
+    var upgraderWanted = (room.controller && room.controller.my);
     if (upgraderWanted) {
       adjustWorkerRoleCount("controlUpgrader", 1);
     }
