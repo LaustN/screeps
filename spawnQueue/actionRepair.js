@@ -1,11 +1,9 @@
 module.exports = function (creep) {
-  console.log("repair was called for " + creep.name);
   var target = null;
   if (creep.memory.focus) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
     if (existingTarget && (existingTarget.hits < existingTarget.hitsMax)) {
       target = existingTarget;
-      console.log("reusing repair target");
     }
   }
   if (!target) {

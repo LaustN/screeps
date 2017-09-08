@@ -260,7 +260,6 @@ module.exports = function (room) {
     }
   });
 
-  console.log("hungryBuildings:" + JSON.stringify(hungryBuildings));
   var stockpilerWanted = (
     room.storage
     && (
@@ -272,7 +271,7 @@ module.exports = function (room) {
 
   );
 
-  var droppedEnergies = room.find(FIND_DROPPED_ENERGY);
+  var droppedEnergies = room.find(FIND_DROPPED_RESOURCES, {filter:{resourceType: RESOURCE_ENERGY}});
   var scavengerWanted = droppedEnergies.length > 0;
 
 

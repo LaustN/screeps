@@ -12,7 +12,6 @@ module.exports = function (creep) {
         creep.moveTo(focusObject);
         break;
       default:
-        console.log("unexpected harvest message from " + creep.name + " at " + JSON.stringify(creep.pos) + ": " + harvestMessage);
         break;
     }
     return true;

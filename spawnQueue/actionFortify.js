@@ -20,7 +20,6 @@ module.exports = function (creep) {
   }
 
   if (!target) {
-    console.log("fortify target reused");
     target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
       filter: function (structure) {
         if (structure.structureType != STRUCTURE_RAMPART)
@@ -55,7 +54,6 @@ module.exports = function (creep) {
   }
 
   if (target) {
-    console.log("I have a fortification target");
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
     if(repairMessage == ERR_INVALID_TARGET){
@@ -66,7 +64,5 @@ module.exports = function (creep) {
     }
     return true;
   }
-
-  console.log("no fortification target found");
   return false;
 }
