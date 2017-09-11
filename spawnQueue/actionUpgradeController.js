@@ -1,5 +1,6 @@
 module.exports = function(creep){
   if(creep.room.controller && creep.room.controller.my){
+    delete creep.memory.focus;
     var upgradeMessage = creep.upgradeController(creep.room.controller);
     if(upgradeMessage == OK)
       return true;
