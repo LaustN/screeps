@@ -13,7 +13,7 @@ module.exports = function (creep) {
       }
     }
 
-    var droppedResourcesHere = creep.pos.look(LOOK_RESOURCE);
+    var droppedResourcesHere = creep.pos.look(LOOK_RESOURCES);
     if(droppedResourcesHere.length > 0 && droppedResourcesHere[0].resourceType == RESOURCE_ENERGY)
       creep.pickup(droppedResourcesHere[0]);
     return true;
