@@ -14,6 +14,7 @@ module.exports = function (creep) {
     }
 
     var droppedResourcesHere = creep.pos.look(LOOK_RESOURCES);
+    console.log(JSON.stringify(droppedResourcesHere));
     if(droppedResourcesHere.length > 0 && droppedResourcesHere[0].resourceType == RESOURCE_ENERGY)
       creep.pickup(droppedResourcesHere[0]);
     return true;
