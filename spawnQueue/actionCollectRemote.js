@@ -12,13 +12,13 @@ module.exports = function (creep) {
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
-      if (existingTarget && containerFilter(target)) {
+      if (existingTarget &&( (existingTarget.store && existingTarget.store[RESOURCE_ENERGY] > 0)|| (target.energy > 0 )) ){
         target = existingTarget;
       } else {
         target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: containerFilter });
       }
 
-      if (target && containerFilter(target)) {
+      if (target && ((target.store && target.store[RESOURCE_ENERGY] > 0) || target.energy > 0)){
         creep.memory.focus = target.id;
 
         if (target.pos.getRangeTo(creep) <= 1) {
