@@ -9,8 +9,13 @@ module.exports = function (creep) {
     if (harvestMessage != OK) {
       if (!creep.pos.isNearTo(focusObject)) {
         creep.moveTo(focusObject);
+        return true;
       }
     }
+
+    var droppedResourcesHere = creep.pos.look(LOOK_RESOURCE);
+    if(droppedResourcesHere.length > 0 && droppedResourcesHere[0].resourceType == RESOURCE_ENERGY)
+      creep.pickup(droppedResourcesHere[0]);
     return true;
   }
   return false;
