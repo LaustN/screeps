@@ -125,11 +125,13 @@ module.exports = function () {
 				continue;
 			}
 
-			if(flagData.scout){
+			if(flag && flagData.scout){
 				var scoutName = room.name + "Scout" + flagData.name;
 				var scout  = Game.creeps[scoutName];
 				if(!scout){
-					room.memory.spawnQueue.push({ body: [MOVE], type: "scout", role: "scout", name:scoutName, focus: flag.id });
+					console.log("adding scout to queue");
+					var scoutOrder = { body: [MOVE], type: "scout", role: "scout", name:scoutName, focus: flag.id };
+					room.memory.spawnQueue.push(scoutOrder);
 				}
 			}
 		}
