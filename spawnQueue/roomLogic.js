@@ -130,7 +130,7 @@ module.exports = function () {
 				var scout  = Game.creeps[scoutName];
 				if(!scout){
 					console.log("adding scout to queue");
-					var scoutOrder = { body: [MOVE], type: "scout", role: "scout", name:scoutName, flag: flag.name };
+					var scoutOrder = { body: [MOVE], type: "scout", role: "scout", name:scoutName, flag: flagData.name };
 					room.memory.spawnQueue.push(scoutOrder);
 				}
 			}
