@@ -6,9 +6,6 @@ module.exports = function(creep){
       return true;
     }
   }
-  else{
-    console.log("failed to find flag")
-  }
   return false;
 }
   
