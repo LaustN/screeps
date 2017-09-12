@@ -58,54 +58,23 @@ module.exports = function () {
 
 		var workerPairsWanted = workersByEnergyStored + sources.length;
 
-		if ((room.energyCapacityAvailable < 550) || (workCount < 1) || (moveCount < 1)) {
-			//processing starts for frontier
-			workerPairsWanted += 2; //we need a few extra workers initially
+		var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
 
-			//mix types are wanted as long as we have no containers
-			if (containers.length > 0) {
-				//worker types and mover types				
+		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
+		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
 
-				for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
-					var workerName = room.name + "Work" + workerLayerNumber;
-					var worker = Game.creeps[workerName];
-					if (typeof (worker) == "undefined") {
-						room.memory.spawnQueue.push({ body: [WORK, WORK, CARRY, MOVE], type: "work", name: workerName });
-					}
-
-					var moverName = room.name + "Move" + workerLayerNumber;
-					var mover = Game.creeps[moverName];
-					if (typeof (mover) == "undefined") {
-						room.memory.spawnQueue.push({ body: [CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], type: "move", name: moverName });
-					}
-				}
-
-				workerPairsWanted = 1; //still keep 2 mix types around, since this is still a frontier
-
+		for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
+			var workerName = room.name + "Work" + workerLayerNumber;
+			var worker = Game.creeps[workerName];
+			if (typeof (worker) == "undefined") {
+				room.memory.spawnQueue.push({ body: workerBody, type: "work", name: workerName });
 			}
 
-		} else {
-			//processing starts for decent quality room
-
-			var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
-
-			var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
-			var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
-
-			for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
-				var workerName = room.name + "Work" + workerLayerNumber;
-				var worker = Game.creeps[workerName];
-				if (typeof (worker) == "undefined") {
-					room.memory.spawnQueue.push({ body: workerBody, type: "work", name: workerName });
-				}
-
-				var moverName = room.name + "Move" + workerLayerNumber;
-				var mover = Game.creeps[moverName];
-				if (typeof (mover) == "undefined") {
-					room.memory.spawnQueue.push({ body: moverBody, type: "move", name: moverName });
-				}
+			var moverName = room.name + "Move" + workerLayerNumber;
+			var mover = Game.creeps[moverName];
+			if (typeof (mover) == "undefined") {
+				room.memory.spawnQueue.push({ body: moverBody, type: "move", name: moverName });
 			}
-
 		}
 
 		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
@@ -137,25 +106,33 @@ module.exports = function () {
 
 		room.memory.flags = room.memory.flags || [{
 			name: "[flagName]",
-			builders: 0,
-			harvesters: 0,
-			collectors: 0,
-			scouts: 0,
-			reservers: 0,
-			claimers: 0,
+			workers: 0,
+			movers: 0,
+			scout: false,
+			reserve: false,
+			claim: false,
 			healers: 0,
 			assaulters: 0
 		}];
 
-		var scoutsWanted = false;
-		if (scoutsWanted) {
-			//look at rooms in expanding circle
-			//closest by walk distance, 
-			var scoutName = room.name + "Scout" + 1
-			room.memory.spawnQueue.push({ body: moverBody, type: "scout", name: scoutName });
+		for(var flagIndex in room.memory.flags){
+			var flagData = room.memory.flags[flagIndex];
+			var flag = Game.flags[flagData.name];
+			if(!flag){
+				if(flagData.name != "[flagName]"){
+					console.log("Not a flag name: " + room.name + "->" + flagData.name);
+				}
+				continue;
+			}
+
+			if(flagData.scout){
+				var scoutName = room.name + "Scout" + flagData.name;
+				var scout  = Game.creeps[scoutName];
+				if(!scout){
+					room.memory.spawnQueue.push({ body: [MOVE], type: "scout", role: "scout", name:scoutName, focus: flag.id });
+				}
+			}
 		}
-
-
 		roomSpawns(room);
 
 

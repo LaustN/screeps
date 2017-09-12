@@ -19,8 +19,8 @@ var roleActions = {
   "looter" :["actionMigrate","actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
   "scavenger" :["actionFetchDroppedEnergy", "actionUnload"],
 
-  "scout":["actionMigrate"], //needs a lot of brains for switching roles on the fly between work and move roles
-
+  "scout":["actionMigrate"],
+  
   "reserver":["actionReserve","actionSign"],
 
   "defender": ["actionDefend","actionHold","actionRecycle"],
