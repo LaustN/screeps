@@ -1,13 +1,13 @@
 module.exports = function(creep){
-  var focusObject = Game.getObjectById(creep.memory.focus)
-  if(focusObject){
-    if(creep.pos.room != focusObject.room){
-      creep.moveTo(focusObject);
+  var flag = Game.flags[creep.memory.flag];
+  if(flag){
+    if(creep.pos.room != flag.room){
+      creep.moveTo(flag);
       return true;
     }
   }
   else{
-    console.log("failed to find focus")
+    console.log("failed to find flag")
   }
   return false;
 }
