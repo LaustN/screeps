@@ -67,13 +67,13 @@ module.exports = function () {
 			var workerName = room.name + "Work" + workerLayerNumber;
 			var worker = Game.creeps[workerName];
 			if (typeof (worker) == "undefined") {
-				room.memory.spawnQueue.push({ body: workerBody, type: "work", name: workerName });
+				room.memory.spawnQueue.push({ body: workerBody, memory: {type: "work"}, name: workerName });
 			}
 
 			var moverName = room.name + "Move" + workerLayerNumber;
 			var mover = Game.creeps[moverName];
 			if (typeof (mover) == "undefined") {
-				room.memory.spawnQueue.push({ body: moverBody, type: "move", name: moverName });
+				room.memory.spawnQueue.push({ body: moverBody, memory: {type: "move"}, name: moverName });
 			}
 		}
 
@@ -97,7 +97,7 @@ module.exports = function () {
 				var defenderName = room.name + "Defender" + defenderIndex;
 				var defender = Game.creeps[defenderName];
 				if (typeof (defender) == "undefined") {
-					room.memory.spawnQueue.push({ body: defenderBody, type: "shoot", role: "defender", name: defenderName });
+					room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender" }, name: defenderName });
 				}
 
 			}
@@ -130,7 +130,7 @@ module.exports = function () {
 				var scout  = Game.creeps[scoutName];
 				if(!scout){
 					console.log("adding scout to queue");
-					var scoutOrder = { body: [MOVE], type: "scout", role: "scout", name:scoutName, flag: flagData.name };
+					var scoutOrder = { body: [MOVE], memory:{type: "scout", role: "scout", flag: flagData.name}, name:scoutName };
 					room.memory.spawnQueue.push(scoutOrder);
 				}
 			}
