@@ -20,14 +20,13 @@ var roleActions = {
   "scavenger" :["actionFetchDroppedEnergy", "actionUnload"],
 
   "scout":["actionMigrate"],
-  
+
   "reserver":["actionReserve","actionSign"],
 
   "defender": ["actionDefend","actionHold","actionRecycle"],
 
   "healer": ["actionHealCreeps","actionHealerMove"],
   "recycler": ["actionRecycle"],
-  "scout": ["actionTravel"],
   "remoteHarvester":["actionSetGivesEnergy","actionEnsureDropPoint","actionHarvest","actionDump"],
   "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"],
   "pausedWorker":["actionSetGivesEnergy"],
