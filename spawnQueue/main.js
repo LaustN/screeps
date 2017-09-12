@@ -12,12 +12,12 @@ var roleActions = {
   "fortifier": ["actionSetWantsEnergy","actionFortify"],
   "repairer": ["actionSetWantsEnergy","actionRepair"],
   
-  "harvestTruck": ["actionUnload","actionHarvestCollection"],
-  "resupplyBuildings":["actionDistributeToBuildings","actionFetchFromStorage"],
-  "stockpile":["actionSetGivesEnergy","actionCollectRemote","actionFillStorage"],
+  "harvestTruck": ["actionSetGivesEnergy","actionUnload","actionHarvestCollection"],
+  "resupplyBuildings":["actionSetMovesEnergy","actionDistributeToBuildings","actionFetchFromStorage"],
+  "stockpile":["actionSetMovesEnergy","actionCollectRemote","actionFillStorage"],
   "resupplyWorkers":["actionSetMovesEnergy","actionDistributeToWorkers","actionFetchFromStorage"],
-  "looter" :["actionMigrate","actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
-  "scavenger" :["actionFetchDroppedEnergy", "actionUnload"],
+  "looter" :["actionSetGivesEnergy","actionMigrate","actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
+  "scavenger" :["actionSetGivesEnergy","actionFetchDroppedEnergy", "actionUnload"],
 
   "scout":["actionMigrate"],
 
