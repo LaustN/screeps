@@ -22,13 +22,18 @@ var roleActions = {
   "scout":["actionMigrate","actionSign"],
 
   "reserver":["actionMigrate","actionReserve","actionSign"],
-
+  "claimer":["actionMigrate","actionClaim","actionSign"],
+  
   "defender": ["actionDefend","actionHold","actionRecycle"],
 
   "healer": ["actionHealCreeps","actionHealerMove"],
   "recycler": ["actionRecycle"],
-  "remoteHarvester":["actionSetGivesEnergy","actionEnsureDropPoint","actionHarvest","actionDump"],
-  "remoteCollector":["actionReturnOnFull","actionRoamOnEmpty","actionUnload","actionHarvestCollection"],
+
+  "remoteResupplyWorkers":["actionSetMovesEnergy","actionMigrate","actionDistributeToWorkers","actionFetchFromStorage"],
+  "remoteBuilder":["actionSetGivesEnergy","actionMigrate","actionBuild"],
+  "remoteHarvester":["actionSetGivesEnergy","actionMigrate","actionResolveRemoteSourceFocus","actionEnsureDropPoint","actionHarvest","actionDump"],
+  "remoteCollector":["actionSetGivesEnergy","actionReturnOnFull","actionUnload","actionMigrate","actionResolveRemoteSourceFocus","actionHarvestCollection"],
+  
   "pausedWorker":["actionSetGivesEnergy"],
   "pausedMover":["actionSetGivesEnergy"]
 };

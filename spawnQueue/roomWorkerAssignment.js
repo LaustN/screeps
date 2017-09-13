@@ -135,6 +135,9 @@ module.exports = function (room) {
     }
   }
 
+  room.memory.moversWanted = 0;
+  room.memory.workersWanted = 0;
+  
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
   //does every source have a work and a move?
@@ -208,6 +211,8 @@ module.exports = function (room) {
   var builderWanted = (constructionSites.length > 0);
   if (builderWanted) {
     adjustWorkerRoleCount("builder", 1);
+    room.memory.workersWanted ++;
+    room.memory.moversWanted ++;
   }
   else {
     adjustWorkerRoleCount("builder", 0);
@@ -217,6 +222,8 @@ module.exports = function (room) {
   var repairerWanted = (buildingsThatNeedsRepairs.length > 0);
   if (repairerWanted) {
     adjustWorkerRoleCount("repairer", 1);
+    room.memory.workersWanted ++;
+    room.memory.moversWanted ++;
   }
   else {
     adjustWorkerRoleCount("repairer", 0);
@@ -226,6 +233,8 @@ module.exports = function (room) {
   var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0) && creepsByRole["resupplyWorkers"] && creepsByRole["resupplyWorkers"].length > 2);
   if (fortifierWanted) {
     adjustWorkerRoleCount("fortifier", 1);
+    room.memory.workersWanted ++;
+    room.memory.moversWanted ++;
   }
   else {
     adjustWorkerRoleCount("fortifier", 0);
@@ -238,12 +247,16 @@ module.exports = function (room) {
       + (creepsByRole["controlUpgrader"] || []).length;
 
     adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-  }
+    room.memory.workersWanted +=2;
+    room.memory.moversWanted +=2;
+}
   else {
     var upgraderWanted = (room.controller && room.controller.my);
     if (upgraderWanted) {
       adjustWorkerRoleCount("controlUpgrader", 1);
-    }
+      room.memory.workersWanted ++;
+      room.memory.moversWanted ++;
+      }
     else {
       adjustWorkerRoleCount("controlUpgrader", 0);
     }
@@ -306,6 +319,7 @@ module.exports = function (room) {
       var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
       return isMyHarvester;
     });
+    room.memory.workersWanted ++;
 
     if (!existingHarvester) {
 
@@ -321,6 +335,9 @@ module.exports = function (room) {
     });
 
     var hasLink = (sources[sourceIndex].pos.findInRange(FIND_MY_STRUCTURES, 2, { filter: { structureType: STRUCTURE_LINK } }).length > 0);
+    if(!hasLink){
+      room.memory.moversWanted ++;
+    }
 
     if (!(existingHarvestTruck || hasLink)) {
       var existingNonHarvestTruck = getLowPrioMover();

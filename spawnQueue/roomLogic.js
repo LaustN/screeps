@@ -67,13 +67,13 @@ module.exports = function () {
 			var workerName = room.name + "Work" + workerLayerNumber;
 			var worker = Game.creeps[workerName];
 			if (typeof (worker) == "undefined") {
-				room.memory.spawnQueue.push({ body: workerBody, memory: {type: "work"}, name: workerName });
+				room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
 			}
 
 			var moverName = room.name + "Move" + workerLayerNumber;
 			var mover = Game.creeps[moverName];
 			if (typeof (mover) == "undefined") {
-				room.memory.spawnQueue.push({ body: moverBody, memory: {type: "move"}, name: moverName });
+				room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
 			}
 		}
 
@@ -115,24 +115,44 @@ module.exports = function () {
 			assaulters: 0
 		}];
 
-		for(var flagIndex in room.memory.flags){
+		for (var flagIndex in room.memory.flags) {
 			var flagData = room.memory.flags[flagIndex];
 			var flag = Game.flags[flagData.name];
-			if(!flag){
-				if(flagData.name != "[flagName]"){
+			if (!flag) {
+				if (flagData.name != "[flagName]") {
 					console.log("Not a flag name: " + room.name + "->" + flagData.name);
 				}
 				continue;
 			}
 
-			if(flag && flagData.scout){
-				var scoutName = room.name + "Scout" + flagData.name;
-				var scout  = Game.creeps[scoutName];
-				if(!scout){
-					console.log("adding scout to queue");
-					var scoutOrder = { body: [MOVE], memory:{type: "scout", role: "scout", flag: flagData.name}, name:scoutName };
-					room.memory.spawnQueue.push(scoutOrder);
+			if (flag) {
+				if (flagData.scout) {
+					var scoutName = room.name + "Scout" + flagData.name;
+					var scout = Game.creeps[scoutName];
+					if (!scout) {
+						console.log("adding scout to queue");
+						var scoutOrder = { body: [MOVE], memory: { type: "scout", role: "scout", flag: flagData.name }, name: scoutName };
+						room.memory.spawnQueue.push(scoutOrder);
+					}
 				}
+
+				if (flagData.reserve) {
+					var reserverName = room.name + "Reserver" + flagData.name;
+					var reserver = Game.creeps[reserverName];
+					var reserverBody = buildCreepBody([CLAIM, MOVE], room.energyCapacityAvailable);
+					if (!reserver) {
+						console.log("adding reserver to queue");
+						var reserverOrder = { body: [MOVE], memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
+						room.memory.spawnQueue.push(reserverOrder);
+					}
+					if(reserver){
+						if(flagData.claim){
+							reserver.memory.role = "claimer";
+						}
+					}
+				}
+
+				
 			}
 		}
 		roomSpawns(room);
