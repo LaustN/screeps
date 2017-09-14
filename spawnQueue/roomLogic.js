@@ -63,13 +63,15 @@ module.exports = function () {
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
 
-		for (var workerLayerNumber = 1; workerLayerNumber <= workerPairsWanted; workerLayerNumber++) {
+		for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.workersWanted; workerLayerNumber++) {
 			var workerName = room.name + "Work" + workerLayerNumber;
 			var worker = Game.creeps[workerName];
 			if (typeof (worker) == "undefined") {
 				room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
 			}
-
+		}		
+		for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.moversWanted; workerLayerNumber++) {
+			
 			var moverName = room.name + "Move" + workerLayerNumber;
 			var mover = Game.creeps[moverName];
 			if (typeof (mover) == "undefined") {
