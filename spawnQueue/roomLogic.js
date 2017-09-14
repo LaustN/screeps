@@ -119,11 +119,21 @@ module.exports = function () {
 
 
 		for (var flagIndex in room.memory.flags) {
+			if(flagIndex> room.memory.flags.length)
+				break;
 			var flagData = room.memory.flags[flagIndex];
+			if((!flagData) || !flagData.name){
+				flagData.splice(flagIndex,1);
+				break;					
+			}
+				
 			var flag = Game.flags[flagData.name];
 			if (!flag) {
 				if (flagData.name != "[flagName]") {
-					console.log("Not a flag name: " + room.name + "->" + flagData.name);
+					flagData.splice(flagIndex,1);
+										
+						console.log("Not a flag name: " + room.name + "->" + flagData.name);
+						break;
 				}
 				continue;
 			}
