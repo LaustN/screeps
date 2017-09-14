@@ -53,6 +53,7 @@ module.exports = function () {
 		var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
 
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
+		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 		
