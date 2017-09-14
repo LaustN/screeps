@@ -54,6 +54,8 @@ module.exports = function () {
 
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
+		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
+		
 
 		if (workCount < room.memory.workersWanted) {
 			for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.workersWanted; workerLayerNumber++) {
@@ -89,7 +91,6 @@ module.exports = function () {
 
 		}
 		if (enemiesHere.length > 0) {
-			var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 			//processing starts for defending room
 			for (var defenderIndex = 1; defenderIndex <= 10; defenderIndex++) {
 				var defenderName = room.name + "Defender" + defenderIndex;
@@ -181,6 +182,41 @@ module.exports = function () {
 							}
 						}
 					}
+
+
+
+
+					var enemiesHere = flagRoom.find(FIND_HOSTILE_CREEPS)
+					flagRoom.memory.enemiesHere = [];
+					for (var enemyIndex in enemiesHere) {
+						var enemy = enemiesHere[enemyIndex];
+			
+						if (enemy.getActiveBodyparts(HEAL) > 0) {
+							flagRoom.memory.enemiesHere.unshift(enemy.id);
+						} else {
+							flagRoom.memory.enemiesHere.push(enemy.id);
+						}
+			
+			
+					}
+					if (enemiesHere.length > 0) {
+						//processing starts for defending room
+						for (var defenderIndex = 1; defenderIndex <= 10; defenderIndex++) {
+							var defenderName = room.name + "Defender" + defenderIndex + flagData.name;
+							var defender = Game.creeps[defenderName];
+							if (typeof (defender) == "undefined") {
+								room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender" }, name: defenderName });
+							}
+			
+						}
+						console.log(room.name + " is under attack");
+					}
+			
+
+					/**
+					 * implement defenders
+					 */
+
 
 					var constructionSites = flagRoom.find(FIND_CONSTRUCTION_SITES);
 					var anyNonDefaultedConstructionSites = _.filter(constructionSites,function(constructionSite){
