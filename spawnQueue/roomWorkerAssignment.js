@@ -137,7 +137,7 @@ module.exports = function (room) {
 
   room.memory.moversWanted = 0;
   room.memory.workersWanted = 0;
-  
+
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
   //does every source have a work and a move?
@@ -211,8 +211,8 @@ module.exports = function (room) {
   var builderWanted = (constructionSites.length > 0);
   if (builderWanted) {
     adjustWorkerRoleCount("builder", 1);
-    room.memory.workersWanted ++;
-    room.memory.moversWanted ++;
+    room.memory.workersWanted++;
+    room.memory.moversWanted++;
   }
   else {
     adjustWorkerRoleCount("builder", 0);
@@ -222,42 +222,47 @@ module.exports = function (room) {
   var repairerWanted = (buildingsThatNeedsRepairs.length > 0);
   if (repairerWanted) {
     adjustWorkerRoleCount("repairer", 1);
-    room.memory.workersWanted ++;
-    room.memory.moversWanted ++;
+    room.memory.workersWanted++;
+    room.memory.moversWanted++;
   }
   else {
     adjustWorkerRoleCount("repairer", 0);
   }
 
 
-  if ((storedEnergy > 10000)
-  ) {
+  if ((storedEnergy > 500000)) {
     maxUpgraderCount =
       (creepsByRole["pausedWorker"] || []).length
       + (creepsByRole["controlUpgrader"] || []).length;
 
     adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-    room.memory.workersWanted +=2;
-    room.memory.moversWanted +=2;
-}
+    room.memory.workersWanted += 2;
+    room.memory.moversWanted += 2;
+  }
   else {
-    var upgraderWanted = (room.controller && room.controller.my);
+    var upgraderWanted = 
+    (room.controller 
+      && room.controller.my 
+      && (
+        (storedEnergy > 10000) 
+        || (room.controller.ticksToDowngrade < 1000))
+    );
     if (upgraderWanted) {
       adjustWorkerRoleCount("controlUpgrader", 1);
-      room.memory.workersWanted ++;
-      room.memory.moversWanted ++;
-      }
+      room.memory.workersWanted++;
+      room.memory.moversWanted++;
+    }
     else {
       adjustWorkerRoleCount("controlUpgrader", 0);
     }
   }
 
-  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0) );
+  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0));
   console.log("fortifierWanted: " + fortifierWanted);
   if (fortifierWanted) {
     adjustWorkerRoleCount("fortifier", 1);
-    room.memory.workersWanted ++;
-    room.memory.moversWanted ++;
+    room.memory.workersWanted++;
+    room.memory.moversWanted++;
   }
   else {
     adjustWorkerRoleCount("fortifier", 0);
@@ -294,16 +299,16 @@ module.exports = function (room) {
     adjustMoverRoleCount("scavenger", 1);
     assignableMoverCount--;
   }
-  if(scavengerWanted){
-    room.memory.moversWanted ++;
+  if (scavengerWanted) {
+    room.memory.moversWanted++;
   }
 
   if ((assignableMoverCount > 0) && stockpilerWanted) {
     adjustMoverRoleCount("stockpile", 1);
     assignableMoverCount--;
   }
-  if(stockpilerWanted){
-    room.memory.moversWanted ++;
+  if (stockpilerWanted) {
+    room.memory.moversWanted++;
   }
 
 
@@ -311,7 +316,7 @@ module.exports = function (room) {
     var resupplyBuildingsCount = Math.floor(assignableMoverCount / 1.5) + 1;
     adjustMoverRoleCount("resupplyBuildings", resupplyBuildingsCount);
     assignableMoverCount -= resupplyBuildingsCount;
-    room.memory.moversWanted ++;
+    room.memory.moversWanted++;
   }
   else {
     adjustMoverRoleCount("resupplyBuildings", 0);
@@ -327,7 +332,7 @@ module.exports = function (room) {
       var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
       return isMyHarvester;
     });
-    room.memory.workersWanted ++;
+    room.memory.workersWanted++;
 
     if (!existingHarvester) {
 
@@ -343,8 +348,8 @@ module.exports = function (room) {
     });
 
     var hasLink = (sources[sourceIndex].pos.findInRange(FIND_MY_STRUCTURES, 2, { filter: { structureType: STRUCTURE_LINK } }).length > 0);
-    if(!hasLink){
-      room.memory.moversWanted ++;
+    if (!hasLink) {
+      room.memory.moversWanted++;
     }
 
     if (!(existingHarvestTruck || hasLink)) {
@@ -354,7 +359,7 @@ module.exports = function (room) {
         existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
       }
       else {
-        if (existingHarvester &&(_.sum(existingHarvester.carry) == existingHarvester.carryCapacity)) {
+        if (existingHarvester && (_.sum(existingHarvester.carry) == existingHarvester.carryCapacity)) {
           assignRole(existingHarvester, "harvestWithReturn");
         }
       }
