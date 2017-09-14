@@ -165,7 +165,7 @@ module.exports = function () {
 					var flagSources = flagRoom.find(FIND_SOURCES);
 					for (var sourceIndex in flagSources) {
 						var flagSource = flagSources[sourceIndex];
-						var remoteHarvesterName = room.name + "remoteHarvester" + sourceIndex + flagData.name;
+						var remoteHarvesterName = room.name + "RH" + sourceIndex + flagData.name;
 						var remoteHarvester = Game.creeps[remoteHarvesterName];
 						if (!remoteHarvester) {
 							console.log("adding remoteHarvester to queue");
@@ -177,7 +177,7 @@ module.exports = function () {
 						}
 
 						if (flagData.collect) {
-							var remoteCollectorName = room.name + "remoteCollector" + sourceIndex + flagData.name;
+							var remoteCollectorName = room.name + "RC" + sourceIndex + flagData.name;
 							var remoteCollector = Game.creeps[remoteCollectorName];
 							if (!remoteCollector) {
 								console.log("adding remoteCollector to queue");
