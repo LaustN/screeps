@@ -57,23 +57,25 @@ module.exports = function () {
 		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 
+		var maxCount = Math.max(room.memory.workersWanted, room.memory.moversWanted);
 
-		if (workCount < room.memory.workersWanted) {
-			for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.workersWanted; workerLayerNumber++) {
-				var workerName = room.name + "Work" + workerLayerNumber;
-				var worker = Game.creeps[workerName];
-				if (typeof (worker) == "undefined") {
-					room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
+		if ((workCount < room.memory.workersWanted) || (moveCount < room.memory.moversWanted)) {
+			for (var workerLayerNumber = 1; workerLayerNumber <= maxCount; workerLayerNumber++) {
+
+				if (workerLayerNumber <= workersWanted) {
+					var workerName = room.name + "Work" + workerLayerNumber;
+					var worker = Game.creeps[workerName];
+					if (typeof (worker) == "undefined") {
+						room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
+					}
 				}
-			}
-		}
 
-		if (moveCount < room.memory.moversWanted) {
-			for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.moversWanted; workerLayerNumber++) {
-				var moverName = room.name + "Move" + workerLayerNumber;
-				var mover = Game.creeps[moverName];
-				if (typeof (mover) == "undefined") {
-					room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
+				if (workerLayerNumber <= moversWanted) {
+					var moverName = room.name + "Move" + workerLayerNumber;
+					var mover = Game.creeps[moverName];
+					if (typeof (mover) == "undefined") {
+						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
+					}
 				}
 			}
 		}
