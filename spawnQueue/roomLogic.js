@@ -245,7 +245,7 @@ module.exports = function () {
 						return constructionSite.pos.lookFor(LOOK_CREEPS).length == 0;
 					}).length > 0;
 					if (anyNonDefaultedConstructionSites) {
-						for (var builderIndex = 1; builderIndex <= fullcontainersNearFlag.length; builderIndex++) {
+						for (var builderIndex = 0; builderIndex <= fullcontainersNearFlag.length; builderIndex++) {
 							var remoteBuilderName = room.name + "RB" + builderIndex + flagData.name;
 							var remoteBuilder = Game.creeps[remoteBuilderName];
 							if (!remoteBuilder) {
