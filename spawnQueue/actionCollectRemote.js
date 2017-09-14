@@ -13,6 +13,8 @@ module.exports = function (creep) {
       homeLink = creep.room.store.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_LINK } });
     }
 
+    onsole.log("found homelink:" + homeLink);
+
 
     var target = null;
     if (creep.memory.focus) {
@@ -20,8 +22,10 @@ module.exports = function (creep) {
       if (existingTarget && ((existingTarget.store && existingTarget.store[RESOURCE_ENERGY] > 0) || (existingTarget.energy > 0))) {
         target = existingTarget;
       } else {
-        if (homeLink && homeLink.energy > 0)
+        if (homeLink && (homeLink.energy > 0)){
           target = homeLink;
+          console.log("setting target for " + creep.name + " to homeLink");
+        }
         else
           target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: containerFilter });
       }
