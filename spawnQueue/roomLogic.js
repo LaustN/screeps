@@ -234,16 +234,17 @@ module.exports = function () {
 							room.memory.spawnQueue.push(remoteBuilderOrder);
 						}
 
-						var remoteResupplyWorkersName = room.name + "remoteResupplyWorkers" + flagData.name;
-						var remoteResupplyWorkers = Game.creeps[remoteResupplyWorkersName];
-						if (!remoteResupplyWorkers) {
-							console.log("adding remoteResupplyWorkers to queue");
-							var remoteResupplyWorkersOrder = { 
-								body: moverBody, 
-								memory: { type: "remoteResupplyWorkers", role: "remoteResupplyWorkers", flag: flagData.name }, 
-								name: remoteResupplyWorkersName };
-							room.memory.spawnQueue.push(remoteResupplyWorkersOrder);
-						}
+						//this seems inefficient, as we cannot easily reassign orders, making it better that builders service themselves
+						// var remoteResupplyWorkersName = room.name + "remoteResupplyWorkers" + flagData.name;
+						// var remoteResupplyWorkers = Game.creeps[remoteResupplyWorkersName];
+						// if (!remoteResupplyWorkers) {
+						// 	console.log("adding remoteResupplyWorkers to queue");
+						// 	var remoteResupplyWorkersOrder = { 
+						// 		body: moverBody, 
+						// 		memory: { type: "remoteResupplyWorkers", role: "remoteResupplyWorkers", flag: flagData.name }, 
+						// 		name: remoteResupplyWorkersName };
+						// 	room.memory.spawnQueue.push(remoteResupplyWorkersOrder);
+						// }
 
 					}
 
