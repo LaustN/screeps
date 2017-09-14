@@ -65,6 +65,9 @@ module.exports = function (creep) {
       }
       return true;
     }
+    else{
+      creep.memory.focus = null;
+    }
   }
   return false;
 }
