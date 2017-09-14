@@ -1,4 +1,6 @@
 module.exports = function (creep) {
+  if(!creep.carry[RESOURCE_ENERGY])
+    return false;
   var target = null;
   if (creep.memory.focus) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
