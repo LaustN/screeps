@@ -5,9 +5,9 @@ module.exports = function (creep) {
     creep.move(RIGHT);
 
   if (creep.pos.y == 49)
-    creep.move(UP);
+    creep.move(TOP);
   if (creep.pos.y == 0)
-    creep.move(DOWN);
+    creep.move(BOTTOM);
 
   return false;
 }
