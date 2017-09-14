@@ -1,4 +1,5 @@
 module.exports = function (creep) {
+ console.log("actionBuild");
   if(creep.carry[RESOURCE_ENERGY] < 1){
     return false;
   }
