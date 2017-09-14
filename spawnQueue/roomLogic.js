@@ -205,11 +205,11 @@ module.exports = function () {
 							var defenderName = room.name + "Defender" + defenderIndex + flagData.name;
 							var defender = Game.creeps[defenderName];
 							if (typeof (defender) == "undefined") {
-								room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender" }, name: defenderName });
+								room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender", flag: flagData.name }, name: defenderName });
 							}
 			
 						}
-						console.log(room.name + " is under attack");
+						console.log(flagRoom.name + " is under attack");
 					}
 			
 
