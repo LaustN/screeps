@@ -9,8 +9,8 @@ module.exports = function (creep) {
   if (creep.carry[RESOURCE_ENERGY] == 0) {
 
     var homeLink = null;
-    if (creep.room.store) {
-      homeLink = creep.room.store.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_LINK } });
+    if (creep.room.storage) {
+      homeLink = creep.room.storage.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_LINK } });
     }
 
     console.log("found homelink:" + homeLink);
