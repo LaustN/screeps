@@ -20,6 +20,7 @@ module.exports = function (creep) {
   });
 
   if (containerWithEnergy) {
+    console.log(creep.name + " trying to fetch energy from " + containerWithEnergy.pos);
     if (creep.withdraw(containerWithEnergy, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
       creep.moveTo(containerWithEnergy);
     }
