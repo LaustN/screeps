@@ -104,8 +104,7 @@ module.exports = function () {
 
 		room.memory.flags = room.memory.flags || [{
 			name: "[flagName]",
-			workers: 0,
-			movers: 0,
+			harvest: false,
 			scout: false,
 			reserve: false,
 			claim: false,
@@ -149,6 +148,8 @@ module.exports = function () {
 						}
 					}
 				}
+
+
 
 /*
 				"remoteBuilder",
