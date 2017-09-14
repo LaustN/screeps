@@ -9,7 +9,7 @@ module.exports = function(creep){
   }
   creep.memory.lastHold = now;
 
-  if(holdDuration<50){
+  if(creep.memory.holdDuration<50){
     creep.say("holding");
     return true;
   }
