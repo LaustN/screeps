@@ -1,4 +1,5 @@
 module.exports = function (creep) {
+  console.log("actionfetchfromstorage");
   creep.memory.focus = null;
   if (creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY]) {
     if (creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
