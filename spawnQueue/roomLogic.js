@@ -124,7 +124,6 @@ module.exports = function () {
 			if (!flag) {
 				if (flagData.name != "[flagName]") {
 					console.log("Not a flag name: " + room.name + "->" + flagData.name);
-					delete room.memory.flags[flagIndex];				
 				}
 				continue;
 			}
