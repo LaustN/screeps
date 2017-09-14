@@ -8,21 +8,25 @@ module.exports = function (creep) {
 
   if (creep.carry[RESOURCE_ENERGY] == 0) {
 
-    if(creep.room.store){
-      var homeLink  = creep.room.store.pos.findClosestByRange()
+    var homeLink = null;
+    if (creep.room.store) {
+      homeLink = creep.room.store.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_LINK } });
     }
 
 
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
-      if (existingTarget &&( (existingTarget.store && existingTarget.store[RESOURCE_ENERGY] > 0)|| (existingTarget.energy > 0 )) ){
+      if (existingTarget && ((existingTarget.store && existingTarget.store[RESOURCE_ENERGY] > 0) || (existingTarget.energy > 0))) {
         target = existingTarget;
       } else {
-        target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: containerFilter });
+        if (homeLink && homeLink.energy > 0)
+          target = homeLink;
+        else
+          target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: containerFilter });
       }
 
-      if (target && ((target.store && target.store[RESOURCE_ENERGY] > 0) || target.energy > 0)){
+      if (target && ((target.store && target.store[RESOURCE_ENERGY] > 0) || target.energy > 0)) {
         creep.memory.focus = target.id;
 
         if (target.pos.getRangeTo(creep) <= 1) {
