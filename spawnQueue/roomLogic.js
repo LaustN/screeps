@@ -74,7 +74,7 @@ module.exports = function () {
 				}
 			}
 		}
-		
+
 		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
 		room.memory.enemiesHere = [];
 		for (var enemyIndex in enemiesHere) {
@@ -105,12 +105,14 @@ module.exports = function () {
 		room.memory.flags = room.memory.flags || [{
 			name: "[flagName]",
 			harvest: false,
+			collect: false,
 			scout: false,
 			reserve: false,
 			claim: false,
 			healers: 0,
 			assaulters: 0
 		}];
+
 
 		for (var flagIndex in room.memory.flags) {
 			var flagData = room.memory.flags[flagIndex];
@@ -150,17 +152,73 @@ module.exports = function () {
 						}
 					}
 				}
+
 				if (flagData.harvest && flag && flag.room) {
-					console.log("trying to harvest " + flag.room.name);
-				}					
+					var flagRoom = flag.room;
+
+					var flagSources = flagRoom.find(FIND_SOURCES);
+					for (var sourceIndex in flagSources) {
+						var flagSource = flagSources[sourceIndex];
+						var remoteHarvesterName = room.name + "remoteHarvester" + sourceIndex + flagData.name;
+						var remoteHarvester = Game.creeps[remoteHarvesterName];
+						if (!remoteHarvester) {
+							console.log("adding remoteHarvester to queue");
+							var remoteHarvesterOrder = { 
+								body: workerBody,
+								memory: { type: "remoteHarvester", role: "remoteHarvester", flag: flagData.name, focus: flagSource.id }, 
+								name: remoteHarvesterName };
+							room.memory.spawnQueue.push(remoteHarvesterOrder);
+						}
+
+						if (flagData.collect) {
+							var remoteCollectorName = room.name + "remoteCollector" + sourceIndex + flagData.name;
+							var remoteCollector = Game.creeps[remoteCollectorName];
+							if (!remoteCollector) {
+								console.log("adding remoteCollector to queue");
+								var remoteCollectorOrder = { 
+									body: moverBody, 
+									memory: { type: "remoteCollector", role: "remoteCollector", flag: flagData.name, focus: flagSource.id }, 
+									name: remoteCollectorName };
+								room.memory.spawnQueue.push(remoteCollectorOrder);
+							}
+						}
+					}
+
+					var constructionSites = room.find(FIND_CONSTRUCTION_SITES);
+					if (constructionSites) {
+						var remoteBuilderName = room.name + "remoteBuilder" + flagData.name;
+						var remoteBuilder = Game.creeps[remoteBuilderName];
+						if (!remoteBuilder) {
+							console.log("adding remoteBuilder to queue");
+							var remoteBuilderOrder = { 
+								body: workerBody, 
+								memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flagData.name }, 
+								name: remoteBuilderName };
+							room.memory.spawnQueue.push(remoteBuilderOrder);
+						}
+
+						var remoteResupplyWorkersName = room.name + "remoteResupplyWorkers" + flagData.name;
+						var remoteResupplyWorkers = Game.creeps[remoteResupplyWorkersName];
+						if (!remoteResupplyWorkers) {
+							console.log("adding remoteResupplyWorkers to queue");
+							var remoteResupplyWorkersOrder = { 
+								body: moverBody, 
+								memory: { type: "remoteResupplyWorkers", role: "remoteResupplyWorkers", flag: flagData.name }, 
+								name: remoteResupplyWorkersName };
+							room.memory.spawnQueue.push(remoteResupplyWorkersOrder);
+						}
+
+					}
+
+				}
 
 
-/*
-				"remoteBuilder",
-				"remoteHarvester",
-				"remoteCollector",
-				"remoteResupplyWorkers",
-*/
+				/*
+								"remoteBuilder",
+								"remoteHarvester",
+								"remoteCollector",
+								"remoteResupplyWorkers",
+				*/
 
 			}
 		}
