@@ -1,5 +1,4 @@
 module.exports = function (creep) {
-  console.log("actionfetchfromstorage");
   creep.memory.focus = null;
   if (creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY]) {
     if (creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -21,7 +20,6 @@ module.exports = function (creep) {
   });
 
   if (containerWithEnergy) {
-    console.log(creep.name + " trying to fetch energy from " + containerWithEnergy.pos);
     if (creep.withdraw(containerWithEnergy, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
       creep.moveTo(containerWithEnergy);
     }
