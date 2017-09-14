@@ -126,7 +126,14 @@ module.exports = function () {
 			}
 
 			if (flag) {
-				if (flagData.scout) {
+				var roomIsOwned = false;
+				if(flag.room){
+					if(flag.room.controller && flag.room.controller.my ){
+						roomIsOwned = true;
+					}
+				}
+			
+				if (flagData.scout && !roomIsOwned) {
 					var scoutName = room.name + "Scout" + flagData.name;
 					var scout = Game.creeps[scoutName];
 					if (!scout) {
@@ -136,7 +143,7 @@ module.exports = function () {
 					}
 				}
 
-				if (flagData.reserve) {
+				if (flagData.reserve && !roomIsOwned) {
 					var reserverName = room.name + "Reserver" + flagData.name;
 					var reserver = Game.creeps[reserverName];
 					var reserverBody = buildCreepBody([CLAIM, MOVE], room.energyCapacityAvailable);
