@@ -148,7 +148,9 @@ module.exports = function () {
 						}
 					}
 				}
-
+				if (flagData.harvest && flag && flag.room) {
+					console.log("trying to harvest " + flag.room.name);
+				}					
 
 
 /*
