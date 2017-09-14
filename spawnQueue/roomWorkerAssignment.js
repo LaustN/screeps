@@ -294,10 +294,16 @@ module.exports = function (room) {
     adjustMoverRoleCount("scavenger", 1);
     assignableMoverCount--;
   }
+  if(scavengerWanted){
+    room.memory.moversWanted ++;
+  }
 
   if ((assignableMoverCount > 0) && stockpilerWanted) {
     adjustMoverRoleCount("stockpile", 1);
     assignableMoverCount--;
+  }
+  if(stockpilerWanted){
+    room.memory.moversWanted ++;
   }
 
 
@@ -313,6 +319,7 @@ module.exports = function (room) {
 
   if (assignableMoverCount > 0) {
     adjustMoverRoleCount("resupplyWorkers", assignableMoverCount);
+    //adjustment of moversWanted here should not be needed, since this is accounted for when workers are allocated
   }
 
   for (var sourceIndex in sources) {
