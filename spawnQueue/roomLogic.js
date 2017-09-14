@@ -114,6 +114,7 @@ module.exports = function () {
 
 		for (var flagIndex in room.memory.flags) {
 			var flagData = room.memory.flags[flagIndex];
+			console.log("flagdata is " + JSON.stringify(flagData));
 			var flag = Game.flags[flagData.name];
 			console.log("flag is " + flag);
 			if (!flag) {
