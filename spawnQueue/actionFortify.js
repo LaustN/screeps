@@ -56,6 +56,7 @@ module.exports = function (creep) {
   if (target) {
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
+    console.log("fortifier repair message:" + repairMessage);
     if(repairMessage == ERR_INVALID_TARGET){
       var repairMessage = creep.build(target);
     }
