@@ -141,7 +141,7 @@ module.exports = function () {
 					var reserverBody = buildCreepBody([CLAIM, MOVE], room.energyCapacityAvailable);
 					if (!reserver) {
 						console.log("adding reserver to queue");
-						var reserverOrder = { body: [MOVE], memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
+						var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
 						room.memory.spawnQueue.push(reserverOrder);
 					}
 					if (reserver) {
