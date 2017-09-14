@@ -2,7 +2,7 @@ module.exports = function (creep) {
   var target = null;
   if (creep.memory.focus) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
-    if (existingTarget 
+    if (existingTarget
       && (existingTarget.structureType != STRUCTURE_WALL)
       && (existingTarget.structureType != STRUCTURE_RAMPART)
       && (existingTarget.hits < existingTarget.hitsMax)) {
@@ -31,6 +31,9 @@ module.exports = function (creep) {
       creep.moveTo(target);
     }
     return true;
+  }
+  else{
+    creep.memory.focus = null;
   }
   return false;
 }
