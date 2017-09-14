@@ -184,8 +184,11 @@ module.exports = function () {
 						}
 					}
 
-					var constructionSites = room.find(FIND_CONSTRUCTION_SITES);
-					if (constructionSites) {
+					var constructionSites = flagRoom.find(FIND_CONSTRUCTION_SITES);
+					var anyNonDefaultedConstructionSites = _.filter(constructionSites,function(constructionSite){
+						return constructionSite.pos.lookFor(LOOK_CREEPS).length == 0;
+					}).length>0;
+					if (anyNonDefaultedConstructionSites) {
 						var remoteBuilderName = room.name + "remoteBuilder" + flagData.name;
 						var remoteBuilder = Game.creeps[remoteBuilderName];
 						if (!remoteBuilder) {
