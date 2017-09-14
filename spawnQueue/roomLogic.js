@@ -56,7 +56,7 @@ module.exports = function () {
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
-		
+
 
 		if (workCount < room.memory.workersWanted) {
 			for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.workersWanted; workerLayerNumber++) {
@@ -128,12 +128,12 @@ module.exports = function () {
 
 			if (flag) {
 				var roomIsOwned = false;
-				if(flag.room){
-					if(flag.room.controller && flag.room.controller.my ){
+				if (flag.room) {
+					if (flag.room.controller && flag.room.controller.my) {
 						roomIsOwned = true;
 					}
 				}
-			
+
 				if (flagData.scout && !roomIsOwned) {
 					var scoutName = room.name + "Scout" + flagData.name;
 					var scout = Game.creeps[scoutName];
@@ -170,10 +170,11 @@ module.exports = function () {
 						var remoteHarvester = Game.creeps[remoteHarvesterName];
 						if (!remoteHarvester) {
 							console.log("adding remoteHarvester to queue");
-							var remoteHarvesterOrder = { 
-								body: workerBody,
-								memory: { type: "remoteHarvester", role: "remoteHarvester", flag: flagData.name, focus: flagSource.id }, 
-								name: remoteHarvesterName };
+							var remoteHarvesterOrder = {
+								body: remoteWorkerBody,
+								memory: { type: "remoteHarvester", role: "remoteHarvester", flag: flagData.name, focus: flagSource.id },
+								name: remoteHarvesterName
+							};
 							room.memory.spawnQueue.push(remoteHarvesterOrder);
 						}
 
@@ -182,10 +183,11 @@ module.exports = function () {
 							var remoteCollector = Game.creeps[remoteCollectorName];
 							if (!remoteCollector) {
 								console.log("adding remoteCollector to queue");
-								var remoteCollectorOrder = { 
-									body: moverBody, 
-									memory: { type: "remoteCollector", role: "remoteCollector", flag: flagData.name, focus: flagSource.id }, 
-									name: remoteCollectorName };
+								var remoteCollectorOrder = {
+									body: moverBody,
+									memory: { type: "remoteCollector", role: "remoteCollector", flag: flagData.name, focus: flagSource.id },
+									name: remoteCollectorName
+								};
 								room.memory.spawnQueue.push(remoteCollectorOrder);
 							}
 						}
@@ -198,14 +200,14 @@ module.exports = function () {
 					flagRoom.memory.enemiesHere = [];
 					for (var enemyIndex in enemiesHere) {
 						var enemy = enemiesHere[enemyIndex];
-			
+
 						if (enemy.getActiveBodyparts(HEAL) > 0) {
 							flagRoom.memory.enemiesHere.unshift(enemy.id);
 						} else {
 							flagRoom.memory.enemiesHere.push(enemy.id);
 						}
-			
-			
+
+
 					}
 					if (enemiesHere.length > 0) {
 						//processing starts for defending room
@@ -215,33 +217,47 @@ module.exports = function () {
 							if (typeof (defender) == "undefined") {
 								room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender", flag: flagData.name }, name: defenderName });
 							}
-			
+
 						}
 						console.log(flagRoom.name + " is under attack");
 					}
-			
+
 
 					/**
 					 * implement defenders
 					 */
 
 
-					var constructionSites = flagRoom.find(FIND_CONSTRUCTION_SITES);
-					var anyNonDefaultedConstructionSites = _.filter(constructionSites,function(constructionSite){
-						return constructionSite.pos.lookFor(LOOK_CREEPS).length == 0;
-					}).length>0;
-					if (anyNonDefaultedConstructionSites) {
-						var remoteBuilderName = room.name + "remoteBuilder" + flagData.name;
-						var remoteBuilder = Game.creeps[remoteBuilderName];
-						if (!remoteBuilder) {
-							console.log("adding remoteBuilder to queue");
-							var remoteBuilderOrder = { 
-								body: workerBody, 
-								memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flagData.name }, 
-								name: remoteBuilderName };
-							room.memory.spawnQueue.push(remoteBuilderOrder);
-						}
+					var fullcontainersNearFlag = flagRoom.find(FIND_STRUCTURES, {
+						filter: function (structure) {
+							if (structure.structureType == STRUCTURE_CONTAINER) {
+								if (_.sum(structure.store) == structure.storeCapacity) {
+									return true;
+								}
 
+							}
+							return false;
+						}
+					});
+
+					var constructionSites = flagRoom.find(FIND_CONSTRUCTION_SITES);
+					var anyNonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
+						return constructionSite.pos.lookFor(LOOK_CREEPS).length == 0;
+					}).length > 0;
+					if (anyNonDefaultedConstructionSites) {
+						for (var builderIndex = 1; builderIndex <= fullcontainersNearFlag.length; builderIndex++) {
+							var remoteBuilderName = room.name + "RB" + builderIndex + flagData.name;
+							var remoteBuilder = Game.creeps[remoteBuilderName];
+							if (!remoteBuilder) {
+								console.log("adding remoteBuilder to queue");
+								var remoteBuilderOrder = {
+									body: remoteWorkerBody,
+									memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flagData.name },
+									name: remoteBuilderName
+								};
+								room.memory.spawnQueue.push(remoteBuilderOrder);
+							}
+						}
 						//this seems inefficient, as we cannot easily reassign orders, making it better that builders service themselves
 						// var remoteResupplyWorkersName = room.name + "remoteResupplyWorkers" + flagData.name;
 						// var remoteResupplyWorkers = Game.creeps[remoteResupplyWorkersName];
