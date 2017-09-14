@@ -13,7 +13,7 @@ module.exports = function (creep) {
       homeLink = creep.room.store.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_LINK } });
     }
 
-    onsole.log("found homelink:" + homeLink);
+    console.log("found homelink:" + homeLink);
 
 
     var target = null;
