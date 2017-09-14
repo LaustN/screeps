@@ -13,21 +13,18 @@ module.exports = function (creep) {
       homeLink = creep.room.storage.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_LINK } });
     }
 
-    console.log("found homelink:" + homeLink);
-
-
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
       if (existingTarget && ((existingTarget.store && existingTarget.store[RESOURCE_ENERGY] > 0) || (existingTarget.energy > 0))) {
         target = existingTarget;
       } else {
-        if (homeLink && (homeLink.energy > 0)){
+        if (homeLink && (homeLink.energy > 0)) {
           target = homeLink;
-          console.log("setting target for " + creep.name + " to homeLink");
         }
-        else
+        else {
           target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: containerFilter });
+        }
       }
 
       if (target && ((target.store && target.store[RESOURCE_ENERGY] > 0) || target.energy > 0)) {
