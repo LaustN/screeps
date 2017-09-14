@@ -230,17 +230,6 @@ module.exports = function (room) {
   }
 
 
-  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0) );
-  console.log("fortifierWanted: " + fortifierWanted);
-  if (fortifierWanted) {
-    adjustWorkerRoleCount("fortifier", 1);
-    room.memory.workersWanted ++;
-    room.memory.moversWanted ++;
-  }
-  else {
-    adjustWorkerRoleCount("fortifier", 0);
-  }
-
   if ((storedEnergy > 10000)
   ) {
     maxUpgraderCount =
@@ -263,6 +252,16 @@ module.exports = function (room) {
     }
   }
 
+  var fortifierWanted = (room.controller.level >= 2 && ((wornWalls.length > 0)) || (plannedFortifications.length > 0) );
+  console.log("fortifierWanted: " + fortifierWanted);
+  if (fortifierWanted) {
+    adjustWorkerRoleCount("fortifier", 1);
+    room.memory.workersWanted ++;
+    room.memory.moversWanted ++;
+  }
+  else {
+    adjustWorkerRoleCount("fortifier", 0);
+  }
 
   var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
     filter: function (structure) {
