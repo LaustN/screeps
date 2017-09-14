@@ -244,7 +244,7 @@ module.exports = function (room) {
     (room.controller 
       && room.controller.my 
       && (
-        (storedEnergy > 10000) 
+        (storedEnergy > 100000) 
         || (room.controller.ticksToDowngrade < 1000))
     );
     if (upgraderWanted) {
