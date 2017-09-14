@@ -17,8 +17,9 @@ module.exports = function () {
 		roomBuildings(room);
 		roomWorkerAssignment(room);
 
-		var creeps = room.find(FIND_MY_CREEPS);
-
+		var creeps = _.filter(Game.creeps, function (creep) {
+			return creep.name.startsWith(room.name);
+		});
 
 		var workCount = _.filter(creeps, function (creep) { if (creep.memory.type == "work") return true; return false; }).length;
 		var moveCount = _.filter(creeps, function (creep) { if (creep.memory.type == "move") return true; return false; }).length;
@@ -49,36 +50,31 @@ module.exports = function () {
 			return collector && (structure.store[RESOURCE_ENERGY] == structure.storeCapacity);
 		}, true);
 
-		var sources = room.find(FIND_SOURCES);
-
-		var workersByEnergyStored = 1 + Math.floor(Math.log10(storedEnergy));
-		if (allContainersAreFull) {
-			workersByEnergyStored = 5;
-		}
-
-		var workerPairsWanted = workersByEnergyStored + sources.length;
-
 		var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
 
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
 
-		for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.workersWanted; workerLayerNumber++) {
-			var workerName = room.name + "Work" + workerLayerNumber;
-			var worker = Game.creeps[workerName];
-			if (typeof (worker) == "undefined") {
-				room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
-			}
-		}		
-		for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.moversWanted; workerLayerNumber++) {
-			
-			var moverName = room.name + "Move" + workerLayerNumber;
-			var mover = Game.creeps[moverName];
-			if (typeof (mover) == "undefined") {
-				room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
+		if (workCount < room.memory.workersWanted) {
+			for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.workersWanted; workerLayerNumber++) {
+				var workerName = room.name + "Work" + workerLayerNumber;
+				var worker = Game.creeps[workerName];
+				if (typeof (worker) == "undefined") {
+					room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
+				}
 			}
 		}
 
+		if (moveCount < room.memory.moversWanted) {
+			for (var workerLayerNumber = 1; workerLayerNumber <= room.memory.moversWanted; workerLayerNumber++) {
+				var moverName = room.name + "Move" + workerLayerNumber;
+				var mover = Game.creeps[moverName];
+				if (typeof (mover) == "undefined") {
+					room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
+				}
+			}
+		}
+		
 		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
 		room.memory.enemiesHere = [];
 		for (var enemyIndex in enemiesHere) {
@@ -147,14 +143,14 @@ module.exports = function () {
 						var reserverOrder = { body: [MOVE], memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
 						room.memory.spawnQueue.push(reserverOrder);
 					}
-					if(reserver){
-						if(flagData.claim){
+					if (reserver) {
+						if (flagData.claim) {
 							reserver.memory.role = "claimer";
 						}
 					}
 				}
 
-				
+
 			}
 		}
 		roomSpawns(room);

@@ -3,12 +3,16 @@ module.exports = function (creep) {
   var containerFilter = function (structure) {
     if ((structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0))
       return true;
-    if ((structure.structureType == STRUCTURE_LINK) && (structure.energy > 0))
-      return true;
     return false;
   };
 
   if (creep.carry[RESOURCE_ENERGY] == 0) {
+
+    if(creep.room.store){
+      var homeLink  = creep.room.store.pos.findClosestByRange()
+    }
+
+
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
