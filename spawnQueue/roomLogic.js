@@ -150,6 +150,12 @@ module.exports = function () {
 					}
 				}
 
+/*
+				"remoteBuilder",
+				"remoteHarvester",
+				"remoteCollector",
+				"remoteResupplyWorkers",
+*/
 
 			}
 		}

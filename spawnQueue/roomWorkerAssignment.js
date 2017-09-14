@@ -51,7 +51,6 @@ module.exports = function (room) {
         "controlUpgrader",
         "fortifier",
         "repairer",
-        "remoteHarvester",
         "builder",
         "harvestWithReturn",
         "harvester"
@@ -65,7 +64,6 @@ module.exports = function (room) {
     return null;
   }
 
-
   var getLowPrioMover = function () {
     var moverRolesAscendingPriority =
       [
@@ -74,7 +72,6 @@ module.exports = function (room) {
         "stockpile",
         "looter",
         "scavenger",
-        "remoteHarvestCollector",
         "resupplyBuildings",
         "harvestTruck"
       ];

@@ -19,7 +19,7 @@ var roleActions = {
   "looter" :["actionSetGivesEnergy","actionMigrate","actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
   "scavenger" :["actionSetGivesEnergy","actionFetchDroppedEnergy", "actionUnload"],
 
-  "scout":["actionMigrate","actionSign"],
+  "scout":["actionMigrate","actionSign", "actionEnsureWatch"],
 
   "reserver":["actionMigrate","actionReserve","actionSign"],
   "claimer":["actionMigrate","actionClaim","actionSign"],
@@ -30,7 +30,7 @@ var roleActions = {
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers":["actionSetMovesEnergy","actionMigrate","actionDistributeToWorkers","actionFetchFromStorage"],
-  "remoteBuilder":["actionSetGivesEnergy","actionMigrate","actionBuild"],
+  "remoteBuilder":["actionSetWantsEnergy","actionMigrate","actionBuild"],
   "remoteHarvester":["actionSetGivesEnergy","actionMigrate","actionResolveRemoteSourceFocus","actionEnsureDropPoint","actionHarvest","actionDump"],
   "remoteCollector":["actionSetGivesEnergy","actionReturnOnFull","actionUnload","actionMigrate","actionResolveRemoteSourceFocus","actionHarvestCollection"],
   
@@ -48,33 +48,6 @@ for (var roleName in  roleActions) {
     }
   }
 }
-
-var roomStates = [
-  "Frontier", //many buildings still needed, ControllerLevel likely too low
-  "Flush", //Ready to help neighbours
-  "Defending", //this room is being attacked or has been attacked recently
-  "Attacking" //this room participates in aggressivley spawning assault creeps
-];
-
-var bodyTypes = [
-  "work", 
-  //has very little storage. 
-  //Will determine job, move to location, do the job, take any energy that happens to be around. 
-  //Storage is only minimal buffer to permit move some latency 
-  "move",
-  //collects from harvesters, provides energy to workers, distributes from storage to energy spending buildings
-  "mix",
-  //will perform nearly any role, likely inefficiently, but not relying on any but itself
-  "claim",
-  //only used when expanding. Has the claim body part. If the room decides to be an owned room, will claim it - otherwise reserved.
-  "heal",
-  //has HEAL
-  "bite",
-  //has ATTACK
-  "shoot"
-  //has ATTACK_RANGED
-];
-
 
 module.exports.loop = function () {
   Memory.workingLinks = {};
