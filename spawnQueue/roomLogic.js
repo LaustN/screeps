@@ -234,6 +234,24 @@ module.exports = function () {
 						console.log(flagRoom.name + " is under attack");
 					}
 
+					for (var assaulterIndex = 1; assaulterIndex <= flagData.assaulters; assaulterIndex++) {
+						var assaulterName = room.name + "assaulter" + assaulterIndex + flagData.name;
+						var assaulter = Game.creeps[assaulterName];
+						if (typeof (assaulter) == "undefined") {
+							room.memory.spawnQueue.push({ body: assaulterBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
+						}
+
+					}
+
+					for (var healerIndex = 1; healerIndex <= flagData.healers; healerIndex++) {
+						var healerName = room.name + "healer" + healerIndex + flagData.name;
+						var healer = Game.creeps[healerName];
+						if (typeof (healer) == "undefined") {
+							room.memory.spawnQueue.push({ body: healerBody, memory: { type: "shoot", role: "healer", flag: flagData.name }, name: healerName });
+						}
+
+					}
+			
 
 					/**
 					 * implement defenders
