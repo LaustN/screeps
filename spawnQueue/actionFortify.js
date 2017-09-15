@@ -62,6 +62,8 @@ module.exports = function (creep) {
   }
 
   if (target) {
+    console.log(creep.name + " found " + JSON.stringify(target));
+    
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
     if (repairMessage == ERR_INVALID_TARGET) {
