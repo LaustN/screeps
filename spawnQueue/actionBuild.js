@@ -18,7 +18,7 @@ module.exports = function (creep) {
       }
     });
   }
-  if (target && (target.progressTotal) > 0){
+  if (target && (target.progressTotal > 0 )){
     creep.memory.focus = target.id;
     if (target.pos.getRangeTo(creep) <= 3) {
       creep.build(target);
