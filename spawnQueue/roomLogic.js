@@ -50,11 +50,11 @@ module.exports = function () {
 			return collector && (structure.store[RESOURCE_ENERGY] == structure.storeCapacity);
 		}, true);
 
-		var maxPrice = Math.min(room.energyCapacityAvailable, 3000); 
+		var maxPrice = Math.min(room.energyCapacityAvailable, 3000);
 
-		var moverPrice = Math.min(room.energyCapacityAvailable, 1000); 
-		var workerPrice = Math.min(room.energyCapacityAvailable, 1500); 
-		
+		var moverPrice = Math.min(room.energyCapacityAvailable, 1000);
+		var workerPrice = Math.min(room.energyCapacityAvailable, 1500);
+
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], workerPrice);
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], moverPrice);
@@ -72,7 +72,7 @@ module.exports = function () {
 						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
 					}
 				}
-				
+
 				if (workerLayerNumber <= room.memory.workersWanted) {
 					var workerName = room.name + "Work" + workerLayerNumber;
 					var worker = Game.creeps[workerName];
@@ -233,31 +233,6 @@ module.exports = function () {
 						console.log(flagRoom.name + " is under attack");
 					}
 
-					for (var assaulterIndex = 1; assaulterIndex <= flagData.assaulters; assaulterIndex++) {
-						var assaulterName = room.name + "assaulter" + assaulterIndex + flagData.name;
-						var assaulter = Game.creeps[assaulterName];
-						if (typeof (assaulter) == "undefined") {
-							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
-							//TODO: define better assaulter body
-						}
-
-					}
-
-					for (var healerIndex = 1; healerIndex <= flagData.healers; healerIndex++) {
-						var healerName = room.name + "healer" + healerIndex + flagData.name;
-						var healer = Game.creeps[healerName];
-						if (typeof (healer) == "undefined") {
-							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "healer", flag: flagData.name }, name: healerName });
-							//TODO: implement healer actions + healer body
-						}
-
-					}
-			
-
-					/**
-					 * implement defenders
-					 */
-
 
 					var fullcontainersNearFlag = flagRoom.find(FIND_STRUCTURES, {
 						filter: function (structure) {
@@ -291,6 +266,27 @@ module.exports = function () {
 					}
 
 				}
+				for (var assaulterIndex = 1; assaulterIndex <= flagData.assaulters; assaulterIndex++) {
+					var assaulterName = room.name + "assaulter" + assaulterIndex + flagData.name;
+					var assaulter = Game.creeps[assaulterName];
+					if (typeof (assaulter) == "undefined") {
+						room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
+						//TODO: define better assaulter body
+					}
+
+				}
+/**
+ * do not enable until healers are plausibly ready
+				for (var healerIndex = 1; healerIndex <= flagData.healers; healerIndex++) {
+					var healerName = room.name + "healer" + healerIndex + flagData.name;
+					var healer = Game.creeps[healerName];
+					if (typeof (healer) == "undefined") {
+						room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "healer", flag: flagData.name }, name: healerName });
+						//TODO: implement healer actions + healer body
+					}
+
+				}
+*/
 			}
 		}
 		roomSpawns(room);
