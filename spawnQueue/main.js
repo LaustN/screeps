@@ -30,7 +30,7 @@ var roleActions = {
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers":["actionSetMovesEnergy","actionMigrate","actionDistributeToWorkers","actionFetchFromStorage"],
-  "remoteBuilder":["actionSetWantsEnergy","actionMigrate","actionBuild","actionFetchFromStorage"],
+  "remoteBuilder":["actionSetWantsEnergy","actionMigrate","actionBuild","actionFortify","actionFetchFromStorage"],
   "remoteHarvester":["actionSetGivesEnergy","actionMigrate","actionResolveRemoteSourceFocus","actionEnsureDropPoint","actionHarvest","actionDump"],
   "remoteCollector":["actionSetGivesEnergy","actionReturnOnFull","actionUnload","actionMigrate","actionResolveRemoteSourceFocus","actionHarvestCollection"],
   
