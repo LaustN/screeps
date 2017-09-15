@@ -7,7 +7,6 @@ module.exports = function (creep) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
     if (existingTarget && existingTarget.progressTotal && !( (existingTarget.structureType == STRUCTURE_WALL) || (existingTarget.structureType == STRUCTURE_RAMPART) )) {
       target = existingTarget;
-      console.log("reusing build target");
     }
   }
   if (!target) {
