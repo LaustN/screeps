@@ -23,7 +23,6 @@ module.exports = function (creep) {
   }
 
   if (!target) {
-    console.log(creep.name + " find rampart");
     target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
       filter: function (structure) {
         if (structure.structureType != STRUCTURE_RAMPART)
@@ -35,7 +34,6 @@ module.exports = function (creep) {
     });
   }
   if (!target) {
-    console.log(creep.name + " find wall");
     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: function (structure) {
         if (structure.structureType != STRUCTURE_WALL)
@@ -47,8 +45,7 @@ module.exports = function (creep) {
     });
   }
   if (!target) {
-    console.log(creep.name + " find construction site");
-    
+   
     var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
       filter: function (constructionsite) {
         if (constructionsite.structureType == STRUCTURE_RAMPART)
@@ -61,14 +58,11 @@ module.exports = function (creep) {
   }
 
   if (target) {
-    console.log(creep.name + " found " + JSON.stringify(target));
     
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
-    console.log(creep.name  + " got this repair message: " + repairMessage);
     if (repairMessage == ERR_INVALID_TARGET) {
       repairMessage = creep.build(target);
-      console.log(creep.name  + " got this build message: " + repairMessage);
     }
     if (repairMessage == ERR_NOT_IN_RANGE) {
       creep.moveTo(target);
