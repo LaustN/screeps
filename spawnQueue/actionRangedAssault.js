@@ -13,6 +13,7 @@ module.exports = function (creep) {
     var sharedTarget = Game.getObjectById(creep.room.assaultTarget);
     if (checkAssaultTarget(sharedTarget, flag)) {
       target = sharedTarget;
+      console.log("shared target is " + JSON.stringify(target));
     }
 
 
