@@ -296,6 +296,10 @@ module.exports = function (room) {
     adjustMoverRoleCount("scavenger", 1);
     assignableMoverCount--;
   }
+  else{
+    adjustMoverRoleCount("scavenger", 0);
+  }
+
   if (scavengerWanted) {
     room.memory.moversWanted++;
   }
@@ -304,6 +308,10 @@ module.exports = function (room) {
     adjustMoverRoleCount("stockpile", 1);
     assignableMoverCount--;
   }
+  else{
+    adjustMoverRoleCount("stockpile", 0);
+  }
+
   if (stockpilerWanted) {
     room.memory.moversWanted++;
   }
