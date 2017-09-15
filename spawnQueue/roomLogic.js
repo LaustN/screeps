@@ -238,7 +238,8 @@ module.exports = function () {
 						var assaulterName = room.name + "assaulter" + assaulterIndex + flagData.name;
 						var assaulter = Game.creeps[assaulterName];
 						if (typeof (assaulter) == "undefined") {
-							room.memory.spawnQueue.push({ body: assaulterBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
+							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
+							//TODO: define better assaulter body
 						}
 
 					}
@@ -247,7 +248,8 @@ module.exports = function () {
 						var healerName = room.name + "healer" + healerIndex + flagData.name;
 						var healer = Game.creeps[healerName];
 						if (typeof (healer) == "undefined") {
-							room.memory.spawnQueue.push({ body: healerBody, memory: { type: "shoot", role: "healer", flag: flagData.name }, name: healerName });
+							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "healer", flag: flagData.name }, name: healerName });
+							//TODO: implement healer actions + healer body
 						}
 
 					}
