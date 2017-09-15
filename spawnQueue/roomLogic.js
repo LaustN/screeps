@@ -50,11 +50,14 @@ module.exports = function () {
 			return collector && (structure.store[RESOURCE_ENERGY] == structure.storeCapacity);
 		}, true);
 
-		var maxPrice = Math.min(room.energyCapacityAvailable, 3000); //TODO: figure out if  a price cap here is irrelevant?
+		var maxPrice = Math.min(room.energyCapacityAvailable, 3000); 
 
-		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], maxPrice);
+		var moverPrice = Math.min(room.energyCapacityAvailable, 1000); 
+		var workerPrice = Math.min(room.energyCapacityAvailable, 1500); 
+		
+		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], workerPrice);
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
-		var moverBody = buildCreepBody([CARRY, MOVE], maxPrice);
+		var moverBody = buildCreepBody([CARRY, MOVE], moverPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 
 		var maxCount = Math.max(room.memory.workersWanted, room.memory.moversWanted);
