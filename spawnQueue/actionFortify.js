@@ -66,8 +66,10 @@ module.exports = function (creep) {
     
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
+    console.log(creep.name  + " got this repair message: " + repairMessage);
     if (repairMessage == ERR_INVALID_TARGET) {
-      var repairMessage = creep.build(target);
+      repairMessage = creep.build(target);
+      console.log(creep.name  + " got this build message: " + repairMessage);
     }
     if (repairMessage == ERR_NOT_IN_RANGE) {
       creep.moveTo(target);
