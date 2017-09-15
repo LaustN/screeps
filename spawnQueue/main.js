@@ -25,9 +25,9 @@ var roleActions = {
   "claimer":["actionMigrate","actionClaim","actionSign"],
   
   "defender": ["actionDefend","actionMigrate","actionHold","actionRecycle"],
-  "assaulter": ["actionDefend","actionMigrate"],
+  "assaulter": ["actionDefend","actionRally"],
   
-  "healer": ["actionHealCreeps","actionMigrate","actionHealerMove"],
+  "healer": ["actionHealCreeps","actionHealerMove","actionRally"],
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers":["actionSetMovesEnergy","actionMigrate","actionDistributeToWorkers","actionFetchFromStorage"],
