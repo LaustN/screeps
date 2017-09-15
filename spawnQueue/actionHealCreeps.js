@@ -6,7 +6,7 @@ module.exports = function(creep){
   });
   if(wounded){
     creep.moveTo(wounded)
-    if(creep.isNearTo(wounded))
+    if(creep.pos.isNearTo(wounded))
       creep.heal(wounded);
     else
       creep.rangedHeal(wounded);
