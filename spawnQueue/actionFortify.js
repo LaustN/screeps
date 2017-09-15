@@ -1,4 +1,7 @@
 module.exports = function (creep) {
+  if(creep.carry[RESOURCE_ENERGY]<1)
+    return false;
+    
   //figure out how high walls need to be
   var desiredHitsPerWall = creep.room.controller.level * 10000;
   if (creep.room.controller.level > 7) {
