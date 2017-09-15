@@ -1,5 +1,4 @@
 module.exports = function (creep) {
-  creep.say("fortify");
   if(creep.carry[RESOURCE_ENERGY]<1)
     return false;
     
