@@ -23,6 +23,7 @@ module.exports = function (creep) {
   }
 
   if (!target) {
+    console.log(creep.name + " find rampart");
     target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
       filter: function (structure) {
         if (structure.structureType != STRUCTURE_RAMPART)
@@ -34,6 +35,7 @@ module.exports = function (creep) {
     });
   }
   if (!target) {
+    console.log(creep.name + " find wall");
     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: function (structure) {
         if (structure.structureType != STRUCTURE_WALL)
@@ -45,6 +47,8 @@ module.exports = function (creep) {
     });
   }
   if (!target) {
+    console.log(creep.name + " find construction site");
+    
     var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
       filter: function (constructionsite) {
         if (constructionsite.structureType == STRUCTURE_RAMPART)

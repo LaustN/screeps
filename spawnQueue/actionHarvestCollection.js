@@ -3,7 +3,6 @@ module.exports = function (creep) {
   var source = Game.getObjectById(creep.memory.focus);
   if (creep.pos.getRangeTo(source) > 5) {
     creep.moveTo(source);
-    console.log(creep.name + " moving to focus");
     return true;
   }
 
@@ -15,7 +14,6 @@ module.exports = function (creep) {
       //only return from scavenging if movement was needed
       creep.moveTo(droppedEnergy[0]);
       isMoving = true;
-      console.log(creep.name + " picking up dropped energy");
     }
   }
 
@@ -31,7 +29,6 @@ module.exports = function (creep) {
         creep.moveTo(structuresWithStorage[0]);
         isMoving = true;
     }
-    console.log(creep.name + " collecting from structure");
     return true;
   }
 
@@ -43,8 +40,6 @@ module.exports = function (creep) {
     }
   });
   if (providingCreeps.length > 0) {
-    console.log(creep.name + " collecting from provider");
-    
     var transferMessage = providingCreeps[0].transfer(creep, RESOURCE_ENERGY);
     if(transferMessage == ERR_NOT_IN_RANGE && !isMoving){
       creep.moveTo(providingCreeps[0]);

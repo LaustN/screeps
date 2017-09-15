@@ -153,7 +153,6 @@ module.exports = function () {
 					var scoutName = room.name + "Scout" + flagData.name;
 					var scout = Game.creeps[scoutName];
 					if (!scout) {
-						console.log("adding scout to queue");
 						var scoutOrder = { body: [MOVE], memory: { type: "scout", role: "scout", flag: flagData.name }, name: scoutName };
 						room.memory.spawnQueue.push(scoutOrder);
 					}
@@ -164,7 +163,6 @@ module.exports = function () {
 					var reserver = Game.creeps[reserverName];
 					var reserverBody = buildCreepBody([CLAIM, MOVE], room.energyCapacityAvailable);
 					if (!reserver) {
-						console.log("adding reserver to queue");
 						var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
 						room.memory.spawnQueue.push(reserverOrder);
 					}
@@ -184,7 +182,6 @@ module.exports = function () {
 						var remoteHarvesterName = room.name + "RH" + sourceIndex + flagData.name;
 						var remoteHarvester = Game.creeps[remoteHarvesterName];
 						if (!remoteHarvester) {
-							console.log("adding remoteHarvester to queue");
 							var remoteHarvesterOrder = {
 								body: remoteWorkerBody,
 								memory: { type: "remoteHarvester", role: "remoteHarvester", flag: flagData.name, focus: flagSource.id },
@@ -197,7 +194,6 @@ module.exports = function () {
 							var remoteCollectorName = room.name + "RC" + sourceIndex + flagData.name;
 							var remoteCollector = Game.creeps[remoteCollectorName];
 							if (!remoteCollector) {
-								console.log("adding remoteCollector to queue");
 								var remoteCollectorOrder = {
 									body: moverBody,
 									memory: { type: "remoteCollector", role: "remoteCollector", flag: flagData.name, focus: flagSource.id },
@@ -284,7 +280,6 @@ module.exports = function () {
 							var remoteBuilderName = room.name + "RB" + builderIndex + flagData.name;
 							var remoteBuilder = Game.creeps[remoteBuilderName];
 							if (!remoteBuilder) {
-								console.log("adding remoteBuilder to queue");
 								var remoteBuilderOrder = {
 									body: remoteWorkerBody,
 									memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flagData.name },
@@ -293,30 +288,9 @@ module.exports = function () {
 								room.memory.spawnQueue.push(remoteBuilderOrder);
 							}
 						}
-						//this seems inefficient, as we cannot easily reassign orders, making it better that builders service themselves
-						// var remoteResupplyWorkersName = room.name + "remoteResupplyWorkers" + flagData.name;
-						// var remoteResupplyWorkers = Game.creeps[remoteResupplyWorkersName];
-						// if (!remoteResupplyWorkers) {
-						// 	console.log("adding remoteResupplyWorkers to queue");
-						// 	var remoteResupplyWorkersOrder = { 
-						// 		body: moverBody, 
-						// 		memory: { type: "remoteResupplyWorkers", role: "remoteResupplyWorkers", flag: flagData.name }, 
-						// 		name: remoteResupplyWorkersName };
-						// 	room.memory.spawnQueue.push(remoteResupplyWorkersOrder);
-						// }
-
 					}
 
 				}
-
-
-				/*
-								"remoteBuilder",
-								"remoteHarvester",
-								"remoteCollector",
-								"remoteResupplyWorkers",
-				*/
-
 			}
 		}
 		roomSpawns(room);
