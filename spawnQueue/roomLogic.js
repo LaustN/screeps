@@ -59,7 +59,8 @@ module.exports = function () {
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], moverPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
-
+		var healerBody = buildCreepBody([MOVE, HEAL], room.energyCapacityAvailable);
+		
 		var maxCount = Math.max(room.memory.workersWanted, room.memory.moversWanted);
 
 		if ((workCount < room.memory.workersWanted) || (moveCount < room.memory.moversWanted)) {
@@ -275,18 +276,15 @@ module.exports = function () {
 					}
 
 				}
-/**
- * do not enable until healers are plausibly ready
 				for (var healerIndex = 1; healerIndex <= flagData.healers; healerIndex++) {
 					var healerName = room.name + "healer" + healerIndex + flagData.name;
 					var healer = Game.creeps[healerName];
 					if (typeof (healer) == "undefined") {
-						room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "healer", flag: flagData.name }, name: healerName });
+						room.memory.spawnQueue.push({ body: healerBody, memory: { type: "healer", role: "healer", flag: flagData.name }, name: healerName });
 						//TODO: implement healer actions + healer body
 					}
 
 				}
-*/
 			}
 		}
 		roomSpawns(room);
