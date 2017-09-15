@@ -5,7 +5,8 @@ module.exports = function(creep){
     return false;
   });
   if(wounded){
-    creep.moveTo(wounded)
+    console.log(creep.name + " healing " + wounded.name);
+    creep.moveTo(wounded);
     if(creep.pos.isNearTo(wounded))
       creep.heal(wounded);
     else
