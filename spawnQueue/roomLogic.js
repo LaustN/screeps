@@ -65,19 +65,19 @@ module.exports = function () {
 		if ((workCount < room.memory.workersWanted) || (moveCount < room.memory.moversWanted)) {
 			for (var workerLayerNumber = 1; workerLayerNumber <= maxCount; workerLayerNumber++) {
 
-				if (workerLayerNumber <= room.memory.workersWanted) {
-					var workerName = room.name + "Work" + workerLayerNumber;
-					var worker = Game.creeps[workerName];
-					if (typeof (worker) == "undefined") {
-						room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
-					}
-				}
-
 				if (workerLayerNumber <= room.memory.moversWanted) {
 					var moverName = room.name + "Move" + workerLayerNumber;
 					var mover = Game.creeps[moverName];
 					if (typeof (mover) == "undefined") {
 						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
+					}
+				}
+				
+				if (workerLayerNumber <= room.memory.workersWanted) {
+					var workerName = room.name + "Work" + workerLayerNumber;
+					var worker = Game.creeps[workerName];
+					if (typeof (worker) == "undefined") {
+						room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
 					}
 				}
 			}
