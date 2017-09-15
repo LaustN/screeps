@@ -8,6 +8,7 @@ module.exports = function (creep) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
     if (existingTarget && existingTarget.progressTotal) {
       target = existingTarget;
+      console.log("reusing build target");
     }
   }
   if (!target) {
@@ -17,7 +18,7 @@ module.exports = function (creep) {
       }
     });
   }
-  if (target && target.progressTotal) {
+  if (target && (target.progressTotal) > 0){
     creep.memory.focus = target.id;
     if (target.pos.getRangeTo(creep) <= 3) {
       creep.build(target);
