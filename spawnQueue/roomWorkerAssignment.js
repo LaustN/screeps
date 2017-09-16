@@ -243,7 +243,7 @@ module.exports = function (room) {
       && room.controller.my 
       && (
         (storedEnergy > (2000 * room.controller.level)) 
-        || (room.controller.ticksToDowngrade < 1000))
+        || (room.controller.ticksToDowngrade < 4000))
     );
     if (upgraderWanted) {
       adjustWorkerRoleCount("controlUpgrader", 1);
