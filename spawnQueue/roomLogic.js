@@ -60,7 +60,7 @@ module.exports = function () {
 		var moverBody = buildCreepBody([CARRY, MOVE], moverPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
 		var healerBody = buildCreepBody([MOVE, HEAL], room.energyCapacityAvailable);
-		
+
 		var maxCount = Math.max(room.memory.workersWanted, room.memory.moversWanted);
 
 		if ((workCount < room.memory.workersWanted) || (moveCount < room.memory.moversWanted)) {
@@ -247,11 +247,23 @@ module.exports = function () {
 						}
 					});
 
+					var anyBuildingsInNeedOfRepairs = flagRoom.find(FIND_STRUCTURES, {
+						filter: function (structure) {
+							if (structure.structureType == STRUCTURE_WALL
+								|| structure.structureType == STRUCTURE_RAMPART)
+								return false;
+							if (structure.hits < structure.hitsMax) {
+								return true;
+							}
+							return false;
+						}
+					}).length>0;
+
 					var constructionSites = flagRoom.find(FIND_CONSTRUCTION_SITES);
 					var anyNonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
 						return constructionSite.pos.lookFor(LOOK_CREEPS).length == 0;
 					}).length > 0;
-					if (anyNonDefaultedConstructionSites) {
+					if (anyNonDefaultedConstructionSites || anyBuildingsInNeedOfRepairs) {
 						for (var builderIndex = 0; builderIndex <= fullcontainersNearFlag.length; builderIndex++) {
 							var remoteBuilderName = room.name + "RB" + builderIndex + flagData.name;
 							var remoteBuilder = Game.creeps[remoteBuilderName];
