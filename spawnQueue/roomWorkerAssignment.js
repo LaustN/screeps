@@ -205,7 +205,7 @@ module.exports = function (room) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
 
-  if (room.controller.ticksToDowngrade < 4000) {
+  if (room.controller.ticksToDowngrade < 3500) {
     adjustWorkerRoleCount("builder", 0);
     adjustWorkerRoleCount("repairer", 0);
     adjustWorkerRoleCount("fortifier", 0);
@@ -249,9 +249,8 @@ module.exports = function (room) {
       var upgraderWanted =
         (room.controller
           && room.controller.my
-          && (
-            (storedEnergy > (2000 * room.controller.level))
-            || (room.controller.ticksToDowngrade < 4000))
+          && (storedEnergy > (2000 * room.controller.level))
+            
         );
       if (upgraderWanted) {
         adjustWorkerRoleCount("controlUpgrader", 1);
