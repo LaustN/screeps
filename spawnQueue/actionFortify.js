@@ -1,7 +1,7 @@
 module.exports = function (creep) {
-  if(creep.carry[RESOURCE_ENERGY]<1)
+  if (creep.carry[RESOURCE_ENERGY] < 1)
     return false;
-    
+
   //figure out how high walls need to be
   var desiredHitsPerWall = creep.room.controller.level * 10000;
   if (creep.room.controller.level > 7) {
@@ -13,7 +13,7 @@ module.exports = function (creep) {
       if ((target.structureType != STRUCTURE_RAMPART) && (target.structureType != STRUCTURE_RAMPART)) {
         target = null;
       }
-      if (target && (target.hits >= desiredHitsPerWall)) {
+      if (target && ((target.hits >= (desiredHitsPerWall + 3000)) || (target.hits == 300000000))) {
         target = null;
       }
     }
@@ -45,7 +45,7 @@ module.exports = function (creep) {
     });
   }
   if (!target) {
-   
+
     var target = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
       filter: function (constructionsite) {
         if (constructionsite.structureType == STRUCTURE_RAMPART)
@@ -58,7 +58,7 @@ module.exports = function (creep) {
   }
 
   if (target) {
-    
+
     creep.memory.focus = target.id;
     var repairMessage = creep.repair(target);
     if (repairMessage == ERR_INVALID_TARGET) {
