@@ -71,7 +71,7 @@ module.exports = function (creep) {
   if (target) {
     var targetRange = creep.pos.getRangeTo(target);
     console.log("target structureType is: " + target.structureType);
-    if ((targetRange > 3) || (target.structureType)) {
+    if ((targetRange > 3) || (typeof(target.structureType) != "undefined") ) {
       creep.moveTo(target);
     }
     if (targetRange < 3) {
