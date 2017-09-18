@@ -5,14 +5,14 @@ module.exports = function (creep) {
   var target = null;
   if (creep.memory.focus) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
-    if (existingTarget && existingTarget.progressTotal && !( (existingTarget.structureType == STRUCTURE_WALL) || (existingTarget.structureType == STRUCTURE_RAMPART) )) {
+    if (existingTarget && existingTarget.my && existingTarget.progressTotal && !( (existingTarget.structureType == STRUCTURE_WALL) || (existingTarget.structureType == STRUCTURE_RAMPART) )) {
       target = existingTarget;
     }
   }
   if (!target) {
     target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
       filter: function (constructionsite) {
-        return ((constructionsite.structureType != STRUCTURE_WALL) && (constructionsite.structureType != STRUCTURE_RAMPART));
+        return ((constructionsite.structureType != STRUCTURE_WALL) && (constructionsite.structureType != STRUCTURE_RAMPART)) && constructionsite.my;
       }
     });
   }
