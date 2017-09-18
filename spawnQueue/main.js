@@ -22,7 +22,7 @@ var roleActions = {
   "scout": ["actionMigrate", "actionSign", "actionEnsureWatch"],
 
   "reserver": ["actionMigrate", "actionReserve", "actionSign"],
-  "claimer": ["actionMigrate", "actionClaim", "actionSign"],
+  "claimer": ["actionMigrate", "actionClaim", "actionSign", "actionRecycle"],
 
   "defender": ["actionDefend", "actionMigrate", "actionHold", "actionRecycle"],
   "assaulter": ["actionRangedAssault", "actionRally"],
