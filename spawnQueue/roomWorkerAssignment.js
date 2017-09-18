@@ -365,7 +365,7 @@ module.exports = function (room) {
     }
     else{
       console.log("found a harvester in " + room.name + ": " + existingHarvester.name);
-      if(nearbyRemoteHarvester){
+      if(nearbyRemoteHarvester.length > 0){
         //seems like the easiest way of moving a step away from the source, then doing nothing
         assignRole(existingHarvester, "pausedWorker");
         room.memory.workersWanted--;
