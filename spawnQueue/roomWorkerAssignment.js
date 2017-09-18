@@ -250,7 +250,7 @@ module.exports = function (room) {
         (room.controller
           && room.controller.my
           && (storedEnergy > (2000 * room.controller.level))
-            
+
         );
       if (upgraderWanted) {
         adjustWorkerRoleCount("controlUpgrader", 1);
@@ -348,12 +348,24 @@ module.exports = function (room) {
     });
     room.memory.workersWanted++;
 
-    if (!existingHarvester) {
+    var nearbyRemoteHarvester = sources[sourceIndex].pos.findInRange(FIND_MY_CREEPS, 2, {
+      filter: function (possiblyRemoteHarvester) {
+        return (possiblyRemoteHarvester.memory.role == "remoteHarvester");
+      }
+    });
 
-      var existingNonHarvester = getLowPrioWorker();
-      if (existingNonHarvester) {
-        assignRole(existingNonHarvester, "harvester");
-        existingNonHarvester.memory.focus = sources[sourceIndex].id;
+    if (!existingHarvester) {
+      if (!nearbyRemoteHarvester) {
+        var existingNonHarvester = getLowPrioWorker();
+        if (existingNonHarvester) {
+          assignRole(existingNonHarvester, "harvester");
+          existingNonHarvester.memory.focus = sources[sourceIndex].id;
+        }
+      }
+    }
+    else{
+      if(nearbyRemoteHarvester){
+        assignRole(existingHarvester, "pausedWorker");
       }
     }
 
