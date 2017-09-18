@@ -87,7 +87,15 @@ module.exports = function (room) {
     //     room.visual.text(positionIndex,position);
     // }
 
-    if (room.find(FIND_MY_CONSTRUCTION_SITES).length > 0)
+    if (room.find(FIND_MY_CONSTRUCTION_SITES, {
+        filter: function (structure) {
+            if (structure.structureType == STRUCTURE_WALL)
+                return false;
+            if (structure.structureType == STRUCTURE_RAMPART)
+                return false;
+            return true;
+        }
+    }).length > 0)
         return; //do not autobuild when projects are in scope
 
     if (spawns.length == 0) { //no spawns == do not autobuild here
