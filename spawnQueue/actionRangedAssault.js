@@ -20,7 +20,7 @@ module.exports = function (creep) {
     if (!target) {
       console.log(creep.name + " finding structures at target");
       var structuresAtTarget = flag.pos.look(LOOK_STRUCTURES);
-      if (structuresAtTarget.length > 0) {
+      if (structuresAtTarget.length > 0 && (!structuresAtTarget[0].my)) {
         console.log("structures at target:" + JSON.stringify(structuresAtTarget))
         target = structuresAtTarget[0];
       }
