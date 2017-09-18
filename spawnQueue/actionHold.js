@@ -1,6 +1,9 @@
 module.exports = function(creep){
   var now = Game.time;
-  var lastTime = creep.memory.lastHold || now;
+  var lastTime = now;
+  if(creep.memory.lastHold){
+    lastTime = creep.memory.lastHold;
+  }
   if(lastTime == (now-1)){
     creep.memory.holdDuration++;
   }

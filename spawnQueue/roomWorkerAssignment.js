@@ -205,64 +205,73 @@ module.exports = function (room) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
 
-
-  var builderWanted = (constructionSites.length > 0);
-  if (builderWanted) {
-    adjustWorkerRoleCount("builder", 1);
-    room.memory.workersWanted++;
-    room.memory.moversWanted++;
-  }
-  else {
+  if (room.controller.ticksToDowngrade < 3500) {
     adjustWorkerRoleCount("builder", 0);
-  }
-
-
-  var repairerWanted = (buildingsThatNeedsRepairs.length > 0);
-  if (repairerWanted) {
-    adjustWorkerRoleCount("repairer", 1);
+    adjustWorkerRoleCount("repairer", 0);
+    adjustWorkerRoleCount("fortifier", 0);
+    adjustWorkerRoleCount("controlUpgrader", 1);
     room.memory.workersWanted++;
     room.memory.moversWanted++;
   }
   else {
-    adjustWorkerRoleCount("repairer", 0);
-  }
-
-
-  if ((storedEnergy > 500000)) {
-    maxUpgraderCount =
-      (creepsByRole["pausedWorker"] || []).length
-      + (creepsByRole["controlUpgrader"] || []).length;
-
-    adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-    room.memory.workersWanted += 2;
-    room.memory.moversWanted += 2;
-  }
-  else {
-    var upgraderWanted = 
-    (room.controller 
-      && room.controller.my 
-      && (
-        (storedEnergy > (2000 * room.controller.level)) 
-        || (room.controller.ticksToDowngrade < 1000))
-    );
-    if (upgraderWanted) {
-      adjustWorkerRoleCount("controlUpgrader", 1);
+    var builderWanted = (constructionSites.length > 0);
+    if (builderWanted) {
+      adjustWorkerRoleCount("builder", 1);
       room.memory.workersWanted++;
       room.memory.moversWanted++;
     }
     else {
-      adjustWorkerRoleCount("controlUpgrader", 0);
+      adjustWorkerRoleCount("builder", 0);
     }
-  }
 
-  var fortifierWanted = ( (room.controller.level >= 2) && ((wornWalls.length > 0)) || (plannedFortifications.length > 0));
-  if (fortifierWanted) {
-    adjustWorkerRoleCount("fortifier", 1);
-    room.memory.workersWanted++;
-    room.memory.moversWanted++;
-  }
-  else {
-    adjustWorkerRoleCount("fortifier", 0);
+
+    var repairerWanted = (buildingsThatNeedsRepairs.length > 0);
+    if (repairerWanted) {
+      adjustWorkerRoleCount("repairer", 1);
+      room.memory.workersWanted++;
+      room.memory.moversWanted++;
+    }
+    else {
+      adjustWorkerRoleCount("repairer", 0);
+    }
+
+
+    if ((storedEnergy > 500000)) {
+      maxUpgraderCount =
+        (creepsByRole["pausedWorker"] || []).length
+        + (creepsByRole["controlUpgrader"] || []).length;
+
+      adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
+      room.memory.workersWanted += 2;
+      room.memory.moversWanted += 2;
+    }
+    else {
+      var upgraderWanted =
+        (room.controller
+          && room.controller.my
+          && (storedEnergy > (2000 * room.controller.level))
+            
+        );
+      if (upgraderWanted) {
+        adjustWorkerRoleCount("controlUpgrader", 1);
+        room.memory.workersWanted++;
+        room.memory.moversWanted++;
+      }
+      else {
+        adjustWorkerRoleCount("controlUpgrader", 0);
+      }
+    }
+
+    var fortifierWanted = ((room.controller.level >= 2) && ((wornWalls.length > 0)) || (plannedFortifications.length > 0));
+    if (fortifierWanted) {
+      adjustWorkerRoleCount("fortifier", 1);
+      room.memory.workersWanted++;
+      room.memory.moversWanted++;
+    }
+    else {
+      adjustWorkerRoleCount("fortifier", 0);
+    }
+
   }
 
   var hungryBuildings = room.find(FIND_MY_STRUCTURES, {
@@ -296,7 +305,7 @@ module.exports = function (room) {
     adjustMoverRoleCount("scavenger", 1);
     assignableMoverCount--;
   }
-  else{
+  else {
     adjustMoverRoleCount("scavenger", 0);
   }
 
@@ -308,7 +317,7 @@ module.exports = function (room) {
     adjustMoverRoleCount("stockpile", 1);
     assignableMoverCount--;
   }
-  else{
+  else {
     adjustMoverRoleCount("stockpile", 0);
   }
 

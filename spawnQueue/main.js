@@ -25,13 +25,13 @@ var roleActions = {
   "claimer":["actionMigrate","actionClaim","actionSign"],
   
   "defender": ["actionDefend","actionMigrate","actionHold","actionRecycle"],
-  "assaulter": ["actionDefend","actionRally"],
+  "assaulter": ["actionRangedAssault","actionRally"],
   
   "healer": ["actionHealCreeps","actionHealerMove","actionRally"],
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers":["actionSetMovesEnergy","actionMigrate","actionDistributeToWorkers","actionFetchFromStorage"],
-  "remoteBuilder":["actionSetWantsEnergy","actionMigrate","actionBuild","actionFortify","actionFetchFromStorage"],
+  "remoteBuilder":["actionSetWantsEnergy","actionMigrate","actionBuild","actionRepair","actionFortify","actionFetchFromStorage"],
   "remoteHarvester":["actionSetGivesEnergy","actionMigrate","actionEnsureDropPoint","actionResolveRemoteSourceFocus","actionHarvest","actionDump"],
   "remoteCollector":["actionSetGivesEnergy","actionReturnOnFull","actionUnload","actionMigrate","actionResolveRemoteSourceFocus","actionHarvestCollection"],
   
