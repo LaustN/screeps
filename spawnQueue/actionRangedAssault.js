@@ -16,25 +16,20 @@ module.exports = function (creep) {
       console.log("shared target is " + JSON.stringify(target));
     }
 
-
     if (!target) {
-      console.log(creep.name + " finding structures at target");
       var structuresAtTarget = flag.pos.lookFor(LOOK_STRUCTURES);
       if (structuresAtTarget.length > 0 && (!structuresAtTarget[0].my)) {
-        console.log("structures at target:" + JSON.stringify(structuresAtTarget))
         target = structuresAtTarget[0];
       }
     }
 
     if (!target) {
-      console.log(creep.name + " finding hostile creeps");
       var creepTarget = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
       if(creepTarget){
         target = creepTarget;
       }
     }
     if (!target) {
-      console.log(creep.name + " finding towers");
       var towerTarget = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter:function(structure){
         if(structure.structureType == STRUCTURE_TOWER)
           return true;
@@ -45,7 +40,6 @@ module.exports = function (creep) {
     }
 
     if (!target) {
-      console.log(creep.name + " finding hostile structures");
       
       var spawnTarget = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES,{filter:function(structure){
         if(structure.structureType == STRUCTURE_SPAWN)
@@ -62,7 +56,6 @@ module.exports = function (creep) {
 
     if (target) {
       creep.room.assaultTarget = target.id;
-      console.log(creep.name + " assaulting " + target);
       if (creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
         var moveResult = creep.moveTo(target);
         if (moveResult == ERR_NO_PATH) {
