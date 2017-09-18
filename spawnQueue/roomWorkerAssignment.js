@@ -367,6 +367,7 @@ module.exports = function (room) {
         //seems like the easiest way of moving a step away from the source, then doing nothing
         assignRole(existingHarvester, "pausedWorker");
         room.memory.workersWanted--;
+        console.log("unassigning " + existingHarvester.name + " from harvesting duty");
       }
     }
 
