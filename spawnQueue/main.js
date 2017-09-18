@@ -80,6 +80,10 @@ module.exports.loop = function () {
   var lastTime = Game.cpu.getUsed();
   console.log("before RoomLogic: " + (lastTime));
   
+  console.log("(Game.time)");
+  console.log((Game.time));
+  console.log((Game.time % 10));
+  console.log((Game.time % 10) == 0);
   if((Game.time % 10) == 0){ //roomLogic is way expensive, so only run it occasionally
     roomLogic();
     var newTime = Game.cpu.getUsed();
