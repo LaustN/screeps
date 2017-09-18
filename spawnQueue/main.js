@@ -53,6 +53,7 @@ for (var roleName in  roleActions) {
 module.exports.loop = function () {
   Memory.workingLinks = {};
   console.log("============= " + Game.time + " ==============");
+  console.log("CPU bucket: " + Game.cpu.bucket);
   var profilingData = {};
   var lastTick = Game.cpu.getUsed();
   profilingData["aStart"] = lastTick;
