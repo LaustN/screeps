@@ -132,9 +132,8 @@ module.exports = function (room) {
     }
   }
 
-  //start these counters at 1 because I'd rather have 1 of each standing around, than be 1 short when needed.
-  room.memory.moversWanted = 1;
-  room.memory.workersWanted = 1;
+  room.memory.moversWanted = 0;
+  room.memory.workersWanted = 0;
 
   var workAssignmentCount = 0;
   var moveAssignmentCount = 0;
