@@ -354,7 +354,8 @@ module.exports = function (room) {
     });
 
     if (!existingHarvester) {
-      if (!nearbyRemoteHarvester) {
+      console.log("no existing harvester found for source in " + room.name);
+      if (nearbyRemoteHarvester.length < 1) {
         var existingNonHarvester = getLowPrioWorker();
         if (existingNonHarvester) {
           assignRole(existingNonHarvester, "harvester");
