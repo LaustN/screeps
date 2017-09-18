@@ -142,9 +142,8 @@ module.exports.loop = function () {
     }
     lastTime = Game.cpu.getUsed();
 
-    var usedCpu = Game.cpu.getUsed();
-    if (usedCpu > (Game.cpu.limit)) {
-      console.log("Quitting creep execution since used cpu time is " + usedCpu + " of " + Game.cpu.limit);
+    if (Game.cpu.bucket < (5 * Game.cpu.limit)) {
+      console.log("Quitting creep execution since cpu bucket is less than 5 times the cpu limit");
       break;
     }
   }
