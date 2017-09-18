@@ -63,7 +63,7 @@ module.exports = function (creep) {
   if (target) {
     creep.room.assaultTarget = target.id;
     var targetRange = creep.pos.getRangeTo(target);
-    if (targetRange > 3) {
+    if ((targetRange > 3) || target.structureType)  {
       creep.moveTo(target);
     }
     if (targetRange < 3) {
