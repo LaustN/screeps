@@ -2,7 +2,7 @@ var checkAssaultTarget = require("checkAssaultTarget");
 
 module.exports = function (creep) {
   var enemiesNearby = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
-  var flag = Game.getObjectById(creep.memory.flag);
+  var flag = Game.flags[creep.memory.flag];
   var target = null;
   if (flag) {
     if (flag.pos.roomName != creep.pos.roomName) {
