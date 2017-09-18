@@ -97,7 +97,7 @@ module.exports.loop = function () {
           var actionResult = action(creep);
           if(actionResult){
             var newTime = Game.cpu.getUsed();
-            console.log(creep.name + ": " + );
+            console.log(creep.name + ": " + actionName + " took " + (newTime - lastTime));
             lastTime = newTime
             break actionLoop;
           }
