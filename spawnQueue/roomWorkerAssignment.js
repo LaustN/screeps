@@ -354,7 +354,6 @@ module.exports = function (room) {
     });
 
     if (!existingHarvester) {
-      console.log("no existing harvester found for source in " + room.name);
       if (nearbyRemoteHarvester.length < 1) {
         var existingNonHarvester = getLowPrioWorker();
         if (existingNonHarvester) {
@@ -364,12 +363,10 @@ module.exports = function (room) {
       }
     }
     else{
-      console.log("found a harvester in " + room.name + ": " + existingHarvester.name);
       if(nearbyRemoteHarvester.length > 0){
         //seems like the easiest way of moving a step away from the source, then doing nothing
         assignRole(existingHarvester, "pausedWorker");
         room.memory.workersWanted--;
-        console.log("unassigning " + existingHarvester.name + " from harvesting duty");
       }
     }
 

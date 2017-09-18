@@ -9,8 +9,6 @@ module.exports = function (room) {
       }
       var spawnOrder = room.memory.spawnQueue[0];
 
-      console.log("SpawnOrder:" + JSON.stringify(spawnOrder));
-
       var spawnMessage = spawn.createCreep(spawnOrder.body, spawnOrder.name, spawnOrder.memory );
       if (spawnMessage == spawnOrder.name) {
         room.memory.spawnQueue = _.drop(room.memory.spawnQueue, 1);
