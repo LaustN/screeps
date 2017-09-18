@@ -366,6 +366,7 @@ module.exports = function (room) {
     else{
       if(nearbyRemoteHarvester){
         assignRole(existingHarvester, "pausedWorker");
+        room.memory.workersWanted--;
       }
     }
 
