@@ -77,12 +77,24 @@ module.exports.loop = function () {
         console.log('Clearing memory:', name);
     }
   }
-
-  roomLogic();
-  runTowers();
-  runLinks();
-
   var lastTime = Game.cpu.getUsed();
+  console.log("before RoomLogic: " + (lastTime));
+  
+  roomLogic();
+  var newTime = Game.cpu.getUsed();
+  console.log("roomlogic: " + (newTime - lastTime));
+  lastTime = newTime
+
+  runTowers();
+  var newTime = Game.cpu.getUsed();
+  console.log("runTowers: " + (newTime - lastTime));
+  lastTime = newTime
+
+  runLinks();
+  var newTime = Game.cpu.getUsed();
+  console.log("runLinks: " + (newTime - lastTime));
+  lastTime = newTime
+
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
