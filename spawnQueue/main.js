@@ -82,6 +82,7 @@ module.exports.loop = function () {
   runTowers();
   runLinks();
 
+  var lastTime = Game.cpu.getUsed();
   creepLoop:
   for(var creepName in Game.creeps){
     var creep = Game.creeps[creepName];
@@ -95,16 +96,21 @@ module.exports.loop = function () {
         if (action) {
           var actionResult = action(creep);
           if(actionResult){
+            var newTime = Game.cpu.getUsed();
+            console.log(creep.name + ": " + );
+            lastTime = newTime
             break actionLoop;
           }
         }
         else {
           console.log("no action called " + actionsToTake[actionName] + " was found for role " + creep.memory.role);
+          lastTime = Game.cpu.getUsed();
         }
       }
     }
     else {
       console.log("no actions found for " + creep.name + " in role " + creep.memory.role);
+      lastTime = Game.cpu.getUsed();
     }
 
     if(creep.memory.focus){
@@ -112,6 +118,7 @@ module.exports.loop = function () {
       if(focusObject)
         creep.room.visual.line(creep.pos, focusObject.pos);
     }
+    lastTime = Game.cpu.getUsed();
 
     var usedCpu = Game.cpu.getUsed();
     if(usedCpu > (Game.cpu.limit)){
