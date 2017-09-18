@@ -62,13 +62,19 @@ module.exports = function (creep) {
 
   if (target) {
     creep.room.assaultTarget = target.id;
-    if (creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
-      var moveResult = creep.moveTo(target);
-      if (moveResult == ERR_NO_PATH) {
-        creep.room.assaultTarget = null; //for the off chance that a target flees out of range inside a room
-      }
-      return true;
+    var targetRange = creep.pos.getRangeTo(target);
+    if (targetRange > 3) {
+      creep.moveTo(target);
     }
+    if (targetRange < 3) {
+      console.log(creep.name + " might move away?");
+    }
+    if (creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3).length > 1) {
+      creep.rangedMassAttack();
+    } else {
+      creep.rangedAttack(target);
+    }
+    return true;
   }
 
   return false;
