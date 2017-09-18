@@ -70,7 +70,7 @@ module.exports = function (creep) {
 
   if (target) {
     var targetRange = creep.pos.getRangeTo(target);
-    if (targetRange > 3) {
+    if ((targetRange > 3) || (target.structureType)) {
       creep.moveTo(target);
     }
     if (targetRange < 3) {
