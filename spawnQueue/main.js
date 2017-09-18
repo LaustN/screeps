@@ -35,8 +35,8 @@ var roleActions = {
   "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy",  "actionEnsureDropPoint", "actionResolveRemoteSourceFocus", "actionHarvest", "actionDump"],
   "remoteCollector": ["actionSetGivesEnergy", "actionReturnOnFull", "actionUnload", "actionMigrate", "actionResolveRemoteSourceFocus", "actionHarvestCollection"],
 
-  "pausedWorker": ["actionSetGivesEnergy"],
-  "pausedMover": ["actionSetGivesEnergy"]
+  "pausedWorker": ["actionSetGivesEnergy", "actionDistributeToBuildings", "actionHold", "actionRecycle"],
+  "pausedMover": ["actionSetGivesEnergy", "actionDistributeToBuildings", "actionHold", "actionRecycle"]
 };
 
 var actions = {};

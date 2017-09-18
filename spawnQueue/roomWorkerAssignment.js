@@ -367,9 +367,6 @@ module.exports = function (room) {
       if(nearbyRemoteHarvester){
         //seems like the easiest way of moving a step away from the source, then doing nothing
         assignRole(existingHarvester, "pausedWorker");
-        existingHarvester.moveTo(Game.getObjectById(existingHarvester.memory.home));
-
-
         room.memory.workersWanted--;
       }
     }
