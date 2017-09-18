@@ -70,7 +70,7 @@ module.exports = function () {
 					var moverName = room.name + "Move" + workerLayerNumber;
 					var mover = Game.creeps[moverName];
 					if (typeof (mover) == "undefined") {
-						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move" }, name: moverName });
+						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move", role:"pausedMover" }, name: moverName });
 					}
 				}
 
@@ -78,7 +78,7 @@ module.exports = function () {
 					var workerName = room.name + "Work" + workerLayerNumber;
 					var worker = Game.creeps[workerName];
 					if (typeof (worker) == "undefined") {
-						room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work" }, name: workerName });
+						room.memory.spawnQueue.push({ body: workerBody, memory: { type: "work", role: "pausedWorker" }, name: workerName });
 					}
 				}
 			}
