@@ -7,7 +7,7 @@ module.exports = function (creep) {
   if (!target) {
     target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
   }
-  
+
   if (target) {
     var targetRange = creep.pos.getRangeTo(target);
     if (targetRange > 3) {
@@ -23,8 +23,6 @@ module.exports = function (creep) {
     }
     return true;
   }
-
-  console.log(creep.name + " did not see enemies in " + creep.room.name);
 
   return false;
 }

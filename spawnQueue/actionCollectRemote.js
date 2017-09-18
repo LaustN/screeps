@@ -16,17 +16,14 @@ module.exports = function (creep) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
       if (existingTarget && ((existingTarget.store && (existingTarget.store[RESOURCE_ENERGY] > 0)) || (existingTarget.energy > 0))) {
         target = existingTarget;
-        console.log(creep.name + " reusing collection target");
       }
     }
     if (!target) {
       if (homeLink && (homeLink.energy > 0)) {
         target = homeLink;
-        console.log(creep.name + " selecting homelink");
       }
       else {
         target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: containerFilter });
-        console.log(creep.name + " finding a container");
       }
     }
 
