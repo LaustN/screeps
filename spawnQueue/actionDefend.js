@@ -2,6 +2,9 @@ module.exports = function(creep){
 
   if(creep.room.memory.enemiesHere && creep.room.memory.enemiesHere.length){
     var target = Game.getObjectById(creep.room.memory.enemiesHere[0]);
+    if(!target){
+      target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    }
     var targetRange = creep.pos.getRangeTo(target);
     if(targetRange>3){
       creep.moveTo(target);
