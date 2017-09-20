@@ -177,6 +177,17 @@ module.exports = function () {
 				if (flagData.harvest && flag && flag.room) {
 					var flagRoom = flag.room;
 
+					var fullcontainersNearFlag = flagRoom.find(FIND_STRUCTURES, {
+						filter: function (structure) {
+							if (structure.structureType == STRUCTURE_CONTAINER) {
+								if (_.sum(structure.store) == structure.storeCapacity) {
+									return true;
+								}
+							}
+							return false;
+						}
+					});
+
 					var flagSources = flagRoom.find(FIND_SOURCES);
 					for (var sourceIndex in flagSources) {
 						var flagSource = flagSources[sourceIndex];
@@ -234,18 +245,6 @@ module.exports = function () {
 						console.log(flagRoom.name + " is under attack");
 					}
 
-
-					var fullcontainersNearFlag = flagRoom.find(FIND_STRUCTURES, {
-						filter: function (structure) {
-							if (structure.structureType == STRUCTURE_CONTAINER) {
-								if (_.sum(structure.store) == structure.storeCapacity) {
-									return true;
-								}
-
-							}
-							return false;
-						}
-					});
 
 					var anyBuildingsInNeedOfRepairs = flagRoom.find(FIND_STRUCTURES, {
 						filter: function (structure) {
