@@ -138,7 +138,7 @@ module.exports.loop = function () {
 
     if (creep.memory.focus) {
       var focusObject = Game.getObjectById(creep.memory.focus);
-      if (focusObject)
+      if (focusObject && (focusObject.pos.roomName == creep.pos.roomName))
         creep.room.visual.line(creep.pos, focusObject.pos);
     }
     lastTime = Game.cpu.getUsed();
