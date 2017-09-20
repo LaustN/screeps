@@ -151,30 +151,6 @@ module.exports = function () {
 					}
 				}
 
-				if (flagData.scout && !roomIsOwned) {
-					var scoutName = room.name + "Scout" + flagData.name;
-					var scout = Game.creeps[scoutName];
-					if (!scout) {
-						var scoutOrder = { body: [MOVE], memory: { type: "scout", role: "scout", flag: flagData.name }, name: scoutName };
-						room.memory.spawnQueue.push(scoutOrder);
-					}
-				}
-
-				if (flagData.reserve && !roomIsOwned) {
-					var reserverName = room.name + "Reserver" + flagData.name;
-					var reserver = Game.creeps[reserverName];
-					var reserverBody = buildCreepBody([CLAIM, MOVE], room.energyCapacityAvailable);
-					if (!reserver) {
-						var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
-						room.memory.spawnQueue.push(reserverOrder);
-					}
-					if (reserver) {
-						if (flagData.claim) {
-							reserver.memory.role = "claimer";
-						}
-					}
-				}
-
 				var largestRaidCounter = Math.max(flagData.assaulters, flagData.healers, flagData.closeAssaulters);
 				for (var assaulterIndex = 1; assaulterIndex <= largestRaidCounter; assaulterIndex++) {
 
@@ -201,6 +177,30 @@ module.exports = function () {
 							room.memory.spawnQueue.push({ body: healerBody, memory: { type: "healer", role: "healer", flag: flagData.name }, name: healerName });
 						}
 
+					}
+				}
+
+				if (flagData.scout && !roomIsOwned) {
+					var scoutName = room.name + "Scout" + flagData.name;
+					var scout = Game.creeps[scoutName];
+					if (!scout) {
+						var scoutOrder = { body: [MOVE], memory: { type: "scout", role: "scout", flag: flagData.name }, name: scoutName };
+						room.memory.spawnQueue.push(scoutOrder);
+					}
+				}
+
+				if (flagData.reserve && !roomIsOwned) {
+					var reserverName = room.name + "Reserver" + flagData.name;
+					var reserver = Game.creeps[reserverName];
+					var reserverBody = buildCreepBody([CLAIM, MOVE], room.energyCapacityAvailable);
+					if (!reserver) {
+						var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flagData.name }, name: reserverName };
+						room.memory.spawnQueue.push(reserverOrder);
+					}
+					if (reserver) {
+						if (flagData.claim) {
+							reserver.memory.role = "claimer";
+						}
 					}
 				}
 
