@@ -175,6 +175,35 @@ module.exports = function () {
 					}
 				}
 
+				var largestRaidCounter = Math.max(flagData.assaulters, flagData.healers, flagData.closeAssaulters);
+				for (var assaulterIndex = 1; assaulterIndex <= largestRaidCounter; assaulterIndex++) {
+
+					if (assaulterIndex <= flagData.closeAssaulters) {
+						var assaulterName = room.name + "CA" + assaulterIndex + flagData.name;
+						var assaulter = Game.creeps[assaulterName];
+						if (typeof (assaulter) == "undefined") {
+							room.memory.spawnQueue.push({ body: closeAssaultBody, memory: { type: "bite", role: "closeAssaulter", flag: flagData.name }, name: assaulterName });
+						}
+
+					}
+					if (assaulterIndex <= flagData.assaulters) {
+						var assaulterName = room.name + "RA" + assaulterIndex + flagData.name;
+						var assaulter = Game.creeps[assaulterName];
+						if (typeof (assaulter) == "undefined") {
+							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
+						}
+
+					}
+					if ( assaulterIndex <= flagData.healers) {
+						var healerName = room.name + "HEAL" + assaulterIndex + flagData.name;
+						var healer = Game.creeps[healerName];
+						if (typeof (healer) == "undefined") {
+							room.memory.spawnQueue.push({ body: healerBody, memory: { type: "healer", role: "healer", flag: flagData.name }, name: healerName });
+						}
+
+					}
+				}
+
 				if (flagData.harvest && flag && flag.room) {
 					var flagRoom = flag.room;
 
@@ -282,35 +311,6 @@ module.exports = function () {
 						}
 					}
 
-				}
-
-				var largestRaidCounter = Math.max(flagData.assaulters, flagData.healers, flagData.closeAssaulters);
-				for (var assaulterIndex = 1; assaulterIndex <= largestRaidCounter; assaulterIndex++) {
-
-					if (assaulterIndex <= flagData.closeAssaulters) {
-						var assaulterName = room.name + "CA" + assaulterIndex + flagData.name;
-						var assaulter = Game.creeps[assaulterName];
-						if (typeof (assaulter) == "undefined") {
-							room.memory.spawnQueue.push({ body: closeAssaultBody, memory: { type: "bite", role: "closeAssaulter", flag: flagData.name }, name: assaulterName });
-						}
-
-					}
-					if (assaulterIndex <= flagData.assaulters) {
-						var assaulterName = room.name + "RA" + assaulterIndex + flagData.name;
-						var assaulter = Game.creeps[assaulterName];
-						if (typeof (assaulter) == "undefined") {
-							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
-						}
-
-					}
-					if ( assaulterIndex <= flagData.healers) {
-						var healerName = room.name + "HEAL" + assaulterIndex + flagData.name;
-						var healer = Game.creeps[healerName];
-						if (typeof (healer) == "undefined") {
-							room.memory.spawnQueue.push({ body: healerBody, memory: { type: "healer", role: "healer", flag: flagData.name }, name: healerName });
-						}
-
-					}
 				}
 			}
 		}
