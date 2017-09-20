@@ -17,7 +17,7 @@ module.exports = function (creep) {
     }
   }
 
-  if (flag) {
+  if (flag && !target) {
     if (flag.pos.roomName != creep.pos.roomName) {
       creep.moveTo(flag);
       return true; //start by moving to the same room as the target flag
