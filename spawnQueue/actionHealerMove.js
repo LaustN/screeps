@@ -6,8 +6,8 @@ module.exports = function (creep) {
         && (myBattleCreep.id != creep.id);
     }
   });
-  console.log("destination creep: " + destinationCreep.name);
   if (destinationCreep) {
+    console.log("destination creep: " + destinationCreep.name);
     creep.moveTo(destinationCreep);
     return true;
   }
