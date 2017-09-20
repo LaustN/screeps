@@ -265,7 +265,7 @@ module.exports = function () {
 					}).length > 0;
 					if (anyNonDefaultedConstructionSites || anyBuildingsInNeedOfRepairs) {
 						var desiredBuilderCount = 1;
-						if(room.controller && room.controller.my){
+						if(flagRoom.controller && flagRoom.controller.my){
 							desiredBuilderCount = fullcontainersNearFlag.length;
 						}
 						for (var builderIndex = 0; builderIndex <= desiredBuilderCount; builderIndex++) {
