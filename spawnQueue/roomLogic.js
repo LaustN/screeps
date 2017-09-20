@@ -59,6 +59,7 @@ module.exports = function () {
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], moverPrice);
 		var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], room.energyCapacityAvailable);
+		var closeAssaultBody = buildCreepBody([MOVE, ATTACK], room.energyCapacityAvailable);
 		var healerBody = buildCreepBody([MOVE, HEAL], room.energyCapacityAvailable);
 
 		var maxCount = Math.max(room.memory.workersWanted, room.memory.moversWanted);
@@ -70,7 +71,7 @@ module.exports = function () {
 					var moverName = room.name + "Move" + workerLayerNumber;
 					var mover = Game.creeps[moverName];
 					if (typeof (mover) == "undefined") {
-						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move", role:"pausedMover" }, name: moverName });
+						room.memory.spawnQueue.push({ body: moverBody, memory: { type: "move", role: "pausedMover" }, name: moverName });
 					}
 				}
 
@@ -256,7 +257,7 @@ module.exports = function () {
 							}
 							return false;
 						}
-					}).length>0;
+					}).length > 0;
 
 					var constructionSites = flagRoom.find(FIND_CONSTRUCTION_SITES);
 					var anyNonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
@@ -264,7 +265,7 @@ module.exports = function () {
 					}).length > 0;
 					if (anyNonDefaultedConstructionSites || anyBuildingsInNeedOfRepairs) {
 						var desiredBuilderCount = 1;
-						if(flagRoom.controller && flagRoom.controller.my){
+						if (flagRoom.controller && flagRoom.controller.my) {
 							desiredBuilderCount = fullcontainersNearFlag.length;
 						}
 						for (var builderIndex = 0; builderIndex <= desiredBuilderCount; builderIndex++) {
@@ -282,23 +283,34 @@ module.exports = function () {
 					}
 
 				}
-				for (var assaulterIndex = 1; assaulterIndex <= flagData.assaulters; assaulterIndex++) {
-					var assaulterName = room.name + "assaulter" + assaulterIndex + flagData.name;
-					var assaulter = Game.creeps[assaulterName];
-					if (typeof (assaulter) == "undefined") {
-						room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
-						//TODO: define better assaulter body
-					}
 
-				}
-				for (var healerIndex = 1; healerIndex <= flagData.healers; healerIndex++) {
-					var healerName = room.name + "healer" + healerIndex + flagData.name;
-					var healer = Game.creeps[healerName];
-					if (typeof (healer) == "undefined") {
-						room.memory.spawnQueue.push({ body: healerBody, memory: { type: "healer", role: "healer", flag: flagData.name }, name: healerName });
-						//TODO: implement healer actions + healer body
-					}
+				var largestRaidCounter = Math.max(flagData.assaulters, flagData.healers, flagData.closeAssaulters);
+				for (var assaulterIndex = 1; assaulterIndex <= largestRaidCounter; assaulterIndex++) {
 
+					if (assaulterIndex <= flagData.closeAssaulters) {
+						var assaulterName = room.name + "CA" + assaulterIndex + flagData.name;
+						var assaulter = Game.creeps[assaulterName];
+						if (typeof (assaulter) == "undefined") {
+							room.memory.spawnQueue.push({ body: closeAssaultBody, memory: { type: "bite", role: "closeAssaulter", flag: flagData.name }, name: assaulterName });
+						}
+
+					}
+					if (assaulterIndex <= flagData.assaulters) {
+						var assaulterName = room.name + "RA" + assaulterIndex + flagData.name;
+						var assaulter = Game.creeps[assaulterName];
+						if (typeof (assaulter) == "undefined") {
+							room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "assaulter", flag: flagData.name }, name: assaulterName });
+						}
+
+					}
+					if ( assaulterIndex <= flagData.healers) {
+						var healerName = room.name + "HEAL" + assaulterIndex + flagData.name;
+						var healer = Game.creeps[healerName];
+						if (typeof (healer) == "undefined") {
+							room.memory.spawnQueue.push({ body: healerBody, memory: { type: "healer", role: "healer", flag: flagData.name }, name: healerName });
+						}
+
+					}
 				}
 			}
 		}

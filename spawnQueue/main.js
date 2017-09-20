@@ -25,8 +25,9 @@ var roleActions = {
   "claimer": ["actionMigrate", "actionClaim", "actionSign", "actionRecycle"],
 
   "defender": ["actionDefend", "actionMigrate", "actionHold", "actionRecycle"],
+  "closeAssaulter": ["actionCloseAssault", "actionRally"],
   "assaulter": ["actionRangedAssault", "actionRally"],
-
+  
   "healer": ["actionHealCreeps", "actionHealerMove", "actionRally"],
   "recycler": ["actionRecycle"],
 
