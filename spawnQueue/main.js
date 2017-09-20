@@ -28,7 +28,7 @@ var roleActions = {
   "closeAssaulter": ["actionCloseAssault", "actionRally"],
   "assaulter": ["actionRangedAssault", "actionRally"],
   
-  "healer": ["actionHealCreeps", "actionHealerMove", "actionRally"],
+  "healer": ["actionHealCreeps","actionMigrate", "actionHealerMove", "actionRally"],
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers": ["actionSetMovesEnergy", "actionMigrate", "actionDistributeToWorkers", "actionFetchFromStorage"],
