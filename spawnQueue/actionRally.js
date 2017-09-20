@@ -3,12 +3,12 @@ module.exports = function(creep){
   if(flag){
     if(creep.pos.roomName != flag.pos.roomName){
       creep.moveTo(flag);
-      return true;
     }
     else{
       if(!creep.pos.inRangeTo(flag,3))
       creep.moveTo(flag);
     }
+    return true;
   }
   return false;
 }
