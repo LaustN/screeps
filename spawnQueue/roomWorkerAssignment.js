@@ -326,7 +326,7 @@ module.exports = function (room) {
 
 
   if (hungryBuildings.length > 0) {
-    var resupplyBuildingsCount = Math.floor(assignableMoverCount / 1.5) + 1;
+    var resupplyBuildingsCount = Math.floor(assignableMoverCount / 3) + 1;
     adjustMoverRoleCount("resupplyBuildings", resupplyBuildingsCount);
     assignableMoverCount -= resupplyBuildingsCount;
     room.memory.moversWanted++;
