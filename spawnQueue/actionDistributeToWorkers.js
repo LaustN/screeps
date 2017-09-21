@@ -73,7 +73,7 @@ module.exports = function (creep) {
           }
         });
         if(otherDistributersHere){
-          creep.transfer(otherDistributersHere[0], RESOURCE_ENERGY)
+          creep.transfer(otherDistributersHere[0], RESOURCE_ENERGY);
         }
       }
       return true;
