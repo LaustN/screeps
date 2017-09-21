@@ -49,8 +49,9 @@ module.exports = function(creep){
             && otherDistributer.id != creep.id; //do not count yourself as an extra feeded
         }
       });
-      if(otherDistributersHere){
+      if(otherDistributersHere.length){
         creep.transfer(otherDistributersHere[0], RESOURCE_ENERGY);
+        creep.say("->" + otherDistributersHere[0].name);
       }
       return true;
     }
