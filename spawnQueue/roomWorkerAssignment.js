@@ -234,8 +234,9 @@ module.exports = function (room) {
       adjustWorkerRoleCount("repairer", 0);
     }
 
-
-    if ((storedEnergy > 500000)) {
+    var overflowApproaching  =  (storedEnergy >( (storingStructures.length - 1) * 2000 )) && !room.storage;
+    
+    if ((storedEnergy > 500000) || overflowApproaching) {
       maxUpgraderCount =
         (creepsByRole["pausedWorker"] || []).length
         + (creepsByRole["controlUpgrader"] || []).length;
@@ -245,12 +246,13 @@ module.exports = function (room) {
       room.memory.moversWanted += 2;
     }
     else {
+
       var upgraderWanted =
         (room.controller
           && room.controller.my
           && (storedEnergy > (2000 * room.controller.level))
 
-        );
+        ) || overflowApproaching;
       if (upgraderWanted) {
         adjustWorkerRoleCount("controlUpgrader", 1);
         room.memory.workersWanted++;
