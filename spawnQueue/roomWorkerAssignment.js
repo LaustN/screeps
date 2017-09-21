@@ -68,10 +68,10 @@ module.exports = function (room) {
     var moverRolesAscendingPriority =
       [
         "pausedMover",
-        "resupplyWorkers",
         "stockpile",
         "looter",
         "scavenger",
+        "resupplyWorkers",
         "resupplyBuildings",
         "harvestTruck"
       ];
