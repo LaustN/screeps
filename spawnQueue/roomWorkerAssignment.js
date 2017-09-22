@@ -1,4 +1,8 @@
 module.exports = function (room) {
+  if(!room.controller){
+    console.log("not trying to assign workers in " + room.name + " because it has no controller");
+  }
+
   var creeps = _.filter(Game.creeps, function (creep) {
     return creep.name.startsWith(room.name);
   });
