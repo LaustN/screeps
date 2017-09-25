@@ -1,5 +1,5 @@
 module.exports = function (room) {
-  if(!room.controller){
+  if(typeof(room.controller) == "undefined"){
     console.log("not trying to assign workers in " + room.name + " because it has no controller");
   }
 
