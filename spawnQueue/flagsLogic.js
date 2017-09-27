@@ -17,7 +17,7 @@ module.exports = function () {
         closeAssaulters: 0
       };
 
-      for (var roomName in flagName.memory.rooms) {
+      for (var roomName in flag.memory.rooms) {
         var sourceRoom = Game.rooms[roomName];
 
         var maxPrice = Math.min(sourceRoom.energyCapacityAvailable, 3000);
