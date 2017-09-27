@@ -29,6 +29,10 @@ module.exports = function () {
 
       for (var roomName in flag.memory.rooms) {
         var sourceRoom = Game.rooms[roomName];
+        if(!sourceRoom){
+          console.log("failed to get a source room for " + roomName + " on flag " + flag.name);
+          continue;
+        }
 
         var maxPrice = Math.min(sourceRoom.energyCapacityAvailable, 3000);
 
