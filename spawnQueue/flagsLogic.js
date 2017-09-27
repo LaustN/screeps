@@ -36,6 +36,7 @@ module.exports = function () {
         var maxPrice = Math.min(sourceRoom.energyCapacityAvailable, 3000);
 
         var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
+        var remoteMoverBody = buildCreepBody([CARRY, MOVE], maxPrice);
         var defenderBody = buildCreepBody([MOVE, RANGED_ATTACK], sourceRoom.energyCapacityAvailable);
         var closeAssaultBody = buildCreepBody([MOVE, ATTACK], sourceRoom.energyCapacityAvailable);
         var healerBody = buildCreepBody([MOVE, HEAL], sourceRoom.energyCapacityAvailable);
@@ -136,7 +137,7 @@ module.exports = function () {
               var remoteCollector = Game.creeps[remoteCollectorName];
               if (!remoteCollector) {
                 var remoteCollectorOrder = {
-                  body: moverBody,
+                  body: remoteMoverBody,
                   memory: { type: "remoteCollector", role: "remoteCollector", flag: flag.name, focus: flagSource.id },
                   name: remoteCollectorName
                 };
