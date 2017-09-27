@@ -1,5 +1,18 @@
 var buildCreepBody = require("buildCreepBody");
 
+var flagDataTemplate = {
+  rooms: ["[roomName]"],
+  harvest: false,
+  collect: false,
+  scout: false,
+  reserve: false,
+  claim: false,
+  healers: 0,
+  assaulters: 0,
+  closeAssaulters: 0
+};;
+
+
 module.exports = function () {
 
   for (var flagName in Game.flags) {
@@ -7,17 +20,12 @@ module.exports = function () {
 
     flag.memory.horse = "yeehaw!";
     if (flag) {
-      flag.memory = flag.memory || {
-        rooms: ["[roomName]"],
-        harvest: false,
-        collect: false,
-        scout: false,
-        reserve: false,
-        claim: false,
-        healers: 0,
-        assaulters: 0,
-        closeAssaulters: 0
-      };
+
+      for(var templateKey in flagDataTemplate){
+        if(!flag.memory[templateKey]){
+          flag.memory[templateKey] = flagDataTemplate[templateKey];
+        }
+      }
 
       for (var roomName in flag.memory.rooms) {
         var sourceRoom = Game.rooms[roomName];
