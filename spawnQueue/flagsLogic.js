@@ -27,7 +27,8 @@ module.exports = function () {
         }
       }
 
-      for (var roomName in flag.memory.rooms) {
+      for (var roomIndex in flag.memory.rooms) {
+        var roomName = flag.memory.rooms[roomIndex];
         var sourceRoom = Game.rooms[roomName];
         if(!sourceRoom){
           console.log("failed to get a source room for " + roomName + " on flag " + flag.name);
