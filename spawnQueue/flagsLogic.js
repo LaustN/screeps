@@ -187,7 +187,7 @@ module.exports = function () {
 
           var constructionSites = flag.room.find(FIND_CONSTRUCTION_SITES);
           var anyNonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
-            return constructionSite.pos.lookFor(LOOK_CREEPS).length == 0;
+            return constructionSite.pos.findInRange(FIND_CREEPS,1).length == 0;
           }).length > 0;
           if (anyNonDefaultedConstructionSites || anyBuildingsInNeedOfRepairs) {
             var desiredBuilderCount = 1;
