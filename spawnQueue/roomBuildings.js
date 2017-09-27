@@ -1,4 +1,8 @@
 module.exports = function (room) {
+    if (!room.controller)
+        return;
+    if (!room.controller.my)
+        return;
 
     var getRoomPositionsAtRange = function (roomPosition, range, filter) {
         var result = [];
