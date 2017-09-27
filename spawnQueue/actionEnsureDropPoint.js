@@ -9,7 +9,6 @@ module.exports = function (creep) {
 
         if (nearbyConstructionSites.length > 0 && creep.carry[RESOURCE_ENERGY] > 0) {
           creep.build(nearbyConstructionSites[0]);
-          return true;
         }
 
         if ((nearbyContainers.length == 0) && (nearbyConstructionSites.length == 0)) {
@@ -18,4 +17,6 @@ module.exports = function (creep) {
       }
     }
   }
+
+  return false;
 }
