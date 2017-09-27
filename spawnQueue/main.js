@@ -90,7 +90,8 @@ module.exports.loop = function () {
   if (logProfilerData)
     console.log("before RoomLogic: " + (lastTime));
 
-  if ((Game.time % 10) == 0) { //roomLogic is way expensive, so only run it occasionally
+  if ((Game.time % 1) == 0) { //roomLogic is way expensive, so only run it occasionally - except run it all the time during respawn + flags implementation
+  
     console.log("Running rooms logic");
     roomLogic();
     var newTime = Game.cpu.getUsed();
