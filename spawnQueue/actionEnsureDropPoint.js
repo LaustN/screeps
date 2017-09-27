@@ -12,7 +12,7 @@ module.exports = function (creep) {
           return true;
         }
 
-        if (nearbyContainers.length == 0) {
+        if ((nearbyContainers.length == 0) && (nearbyConstructionSites.length == 0)) {
           creep.pos.createConstructionSite(STRUCTURE_CONTAINER);
         }
       }
