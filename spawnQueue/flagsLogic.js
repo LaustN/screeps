@@ -17,8 +17,6 @@ module.exports = function () {
 
   for (var flagName in Game.flags) {
     var flag = Game.flags[flagName];
-
-    flag.memory.horse = "yeehaw!";
     if (flag) {
 
       for(var templateKey in flagDataTemplate){
