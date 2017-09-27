@@ -240,6 +240,8 @@ module.exports = function (room) {
     }
 
     var overflowApproaching  =  (storedEnergy >( (storingStructures.length - 1) * 2000 )) && !room.storage;
+
+    console.log("overflowApproaching: " + overflowApproaching + ", storingStructures.length:" + storingStructures.length );
     
     if ((storedEnergy > 500000) || (overflowApproaching && (storingStructures.length>0) )  ){
       maxUpgraderCount =
