@@ -80,6 +80,12 @@ module.exports.loop = function () {
       console.log('Clearing memory:', name);
     }
   }
+  for (var name in Memory.flags) {
+    if (!Game.flags[name]) {
+      delete Memory.flags[name];
+      console.log('Clearing memory:', name);
+    }
+  }
   var lastTime = Game.cpu.getUsed();
   if (logProfilerData)
     console.log("before RoomLogic: " + (lastTime));
