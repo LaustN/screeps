@@ -239,11 +239,11 @@ module.exports = function (room) {
       adjustWorkerRoleCount("repairer", 0);
     }
 
-    var overflowApproaching  =  (storedEnergy >( (storingStructures.length - 1) * 2000 )) && !room.storage;
+    var overflowApproaching  =  (storedEnergy >( (storingStructures.length - 1) * 2000 )) && (storingStructures.length>0) && !room.storage;
 
     console.log("overflowApproaching: " + overflowApproaching + ", storingStructures.length:" + storingStructures.length );
     
-    if ((storedEnergy > 500000) || (overflowApproaching && (storingStructures.length>0) )  ){
+    if ((storedEnergy > 500000) || (overflowApproaching)  ){
       maxUpgraderCount =
         (creepsByRole["pausedWorker"] || []).length
         + (creepsByRole["controlUpgrader"] || []).length;
