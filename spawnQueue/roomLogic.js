@@ -10,7 +10,7 @@ module.exports = function () {
 		room.memory.spawnQueue = [];
 	}
 
-	
+
 
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
@@ -51,9 +51,12 @@ module.exports = function () {
 
 		var maxPrice = Math.min(room.energyCapacityAvailable, 3000);
 
+
 		var moverPrice = Math.min(room.energyCapacityAvailable, 1000);
 		var workerPrice = Math.min(room.energyCapacityAvailable, 1500);
-
+		if (moveCount == 0 || workCount == 0) {
+			maxPrice = moverPrice = workerPrice = 300;
+		}
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], workerPrice);
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
 		var moverBody = buildCreepBody([CARRY, MOVE], moverPrice);
