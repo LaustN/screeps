@@ -208,13 +208,17 @@ module.exports = function (room) {
     return collector + structure.store[RESOURCE_ENERGY];
   }, 0);
 
-  if (room.controller.ticksToDowngrade < 3500) {
+  if (room.controller.ticksToDowngrade < 3500 || room.memory.panic) {
+    room.memory.panic = true;
     adjustWorkerRoleCount("builder", 0);
     adjustWorkerRoleCount("repairer", 0);
     adjustWorkerRoleCount("fortifier", 0);
     adjustWorkerRoleCount("controlUpgrader", 1);
     room.memory.workersWanted++;
     room.memory.moversWanted++;
+    if(room.controller.ticksToDowngrade > 4000){
+      room.memory.panic = false; //continue upgrade untill we have a decent downgrade timer
+    }
   }
   else {
     var builderWanted = (constructionSites.length > 0);
