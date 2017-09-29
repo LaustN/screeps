@@ -63,7 +63,12 @@ module.exports = function (creep) {
   }
 
   if (!target) {
-    target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+    target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+      filter: function (structure) {
+        if (structure.structureType != STRUCTURE_CONTROLLER)
+          return true;
+      }
+    });
   }
 
   if(creep.room.controller &&( !creep.room.controller.my)   ){
