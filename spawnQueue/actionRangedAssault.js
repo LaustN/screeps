@@ -6,11 +6,11 @@ module.exports = function (creep) {
   if (target) {
     creep.room.assaultTarget = target.id;
     var targetRange = creep.pos.getRangeTo(target);
-    if ((targetRange > 3) || target.structureType)  {
+    if ((targetRange > 3))  {
       creep.moveTo(target);
     }
     if (targetRange < 3) {
-      console.log(creep.name + " might move away?");
+      creep.moveTo(Game.getObjectById(creep.memory.home));
     }
     if (creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3).length > 1) {
       creep.rangedMassAttack();
