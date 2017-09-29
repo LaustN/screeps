@@ -10,7 +10,7 @@ module.exports = function (creep) {
     console.log("shared target is " + JSON.stringify(target));
   }
 
-  if (!target) {
+  if ((!target) && (flag.pos.roomName != creep.pos.roomName) ) {
     var creepTarget = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     if (creepTarget) {
       target = creepTarget;
@@ -30,7 +30,14 @@ module.exports = function (creep) {
       }
     }
   }
-  
+
+  if (!target) {
+    var creepTarget = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if (creepTarget) {
+      target = creepTarget;
+    }
+  }
+
   if (!target) {
     var towerTarget = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
       filter: function (structure) {
