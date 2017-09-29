@@ -1,3 +1,5 @@
+var resolveAssaultTarget = require("resolveAssaultTarget");
+
 module.exports = function (creep) {
 
   var target = resolveAssaultTarget(creep);
