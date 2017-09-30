@@ -402,5 +402,12 @@ module.exports = function (room) {
       }
     }
   }
+
+
+  var pausedWorkerCount = (creepsByRole["pausedWorker"]||[]).length;
+  var upgraderCount = (creepsByRole["controlUpgrader"]||[]).length;
+  if(pausedWorkerCount>0){
+    adjustWorkerRoleCount("controlUpgrader",pausedWorkerCount + upgraderCount);
+  }
 }
 
