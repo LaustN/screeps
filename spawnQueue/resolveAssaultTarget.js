@@ -10,7 +10,7 @@ module.exports = function (creep) {
     console.log("shared target is " + JSON.stringify(target));
   }
 
-  if ((!target) && (flag.pos.roomName != creep.pos.roomName) ) {
+  if ((!target) || (flag &&  (flag.pos.roomName != creep.pos.roomName))){
     var creepTarget = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     if (creepTarget) {
       target = creepTarget;
