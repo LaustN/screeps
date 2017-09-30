@@ -194,7 +194,7 @@ module.exports = function () {
             if (flag.room.controller && flag.room.controller.my) {
               desiredBuilderCount = fullcontainersNearFlag.length;
             }
-            for (var builderIndex = 0; builderIndex <= desiredBuilderCount; builderIndex++) {
+            for (var builderIndex = 1; builderIndex <= desiredBuilderCount; builderIndex++) {
               var remoteBuilderName = flag.name + "RB" + builderIndex;
               var remoteBuilder = Game.creeps[remoteBuilderName];
               if (!remoteBuilder) {
