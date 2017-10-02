@@ -1,6 +1,5 @@
 var buildWall = function (room, x, y, isRampart) {
   var lookResult = room.lookForAt(LOOK_TERRAIN, x, y)[0];
-  console.log(room.name + ":" + x + "," + y + "=" + JSON.stringify(lookResult));
   var style = {
   }
   if(isRampart){
