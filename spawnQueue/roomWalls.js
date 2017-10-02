@@ -1,5 +1,12 @@
 var buildWall = function (room, x, y, isRampart) {
-  var lookResult = room.lookForAt(LOOK_TERRAIN, x, y)[0];
+  var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
+  var structureLook = room.lookForAt(LOOK_STRUCTURE, x, y);
+  var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
+
+  if(terrainLook == "wall"){return false;}
+  if(structureLook.length>0){return false;} //TODO: might permit presence of road?
+
+
   var style = {
   }
   if(isRampart){
@@ -57,9 +64,9 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
           middleSectionCount--;
         }
         
-        anythingHasBeenBuild |= buildWall(room, innerX + 2 * scanDirection[0] + wallDirection[0], innerY + 2 * scanDirection[1] + wallDirection[1], false);
-        anythingHasBeenBuild |= buildWall(room, innerX + 2 * scanDirection[0] + 2 * wallDirection[0], innerY + 2 * scanDirection[1] + 2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX + scanDirection[0] + wallDirection[0], innerY + scanDirection[1] + wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX + scanDirection[0] + 2 * wallDirection[0], innerY + scanDirection[1] + 2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX + 2 * wallDirection[0], innerY +  2 * wallDirection[1], false);
       }
 
     } else {
