@@ -39,6 +39,7 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
         console.log("center start");
         while (!((innerX == openingEndX) && (innerY == openingEndY))) {
+          console.log(innerX + ", " +innerY + ", " +openingEndX + ", " +openingEndY)
 
           if ((innerX == middleX) && (innerY == middleY)) {
             middleSectionCount = 2;
@@ -46,7 +47,7 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
           var buildRampart = (middleSectionCount > 0);
 
-          anythingHasBeenBuild |= buildWall(room, innerX, innerY, buildRampart);
+          anythingHasBeenBuild |= buildWall(room, innerX + 2 * wallDirection[0], innerY + 2 * wallDirection[1], buildRampart);
 
 
           innerX += scanDirection[0];
