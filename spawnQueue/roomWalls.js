@@ -42,7 +42,6 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
         var middleY = Math.floor((openingStartY + openingEndY) / 2);
 
         while (!((innerX == openingEndX) && (innerY == openingEndY))) {
-          console.log(innerX + ", " + innerY + ", " + openingEndX + ", " + openingEndY)
 
           if ((innerX == middleX) && (innerY == middleY)) {
             middleSectionCount = 2;
