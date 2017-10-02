@@ -17,9 +17,9 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
   var anythingHasBeenBuild = false;
 
   for (var iterator = 0; iterator < 50; iterator++) {
-    var borderTerrain = room.lookForAt(LOOK_TERRAIN, x, y)
+    var borderTerrain = room.lookForAt(LOOK_TERRAIN, x, y)[0];
     if (openingFound) {
-      if (borderTerrain != "plain" || borderTerrain != "swamp") {
+      if ((borderTerrain != "plain") || (borderTerrain != "swamp")) {
         openingEndX = x;
         openingEndY = y;
         openingFound = false;
@@ -39,7 +39,7 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
         console.log("center start");
         while (!((innerX == openingEndX) && (innerY == openingEndY))) {
-          console.log(innerX + ", " +innerY + ", " +openingEndX + ", " +openingEndY)
+          console.log(innerX + ", " + innerY + ", " + openingEndX + ", " + openingEndY)
 
           if ((innerX == middleX) && (innerY == middleY)) {
             middleSectionCount = 2;
