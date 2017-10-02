@@ -15,6 +15,7 @@ var buildWall = function (room, x, y, isRampart) {
   var position = new RoomPosition(x,y,room.name);
 
   var creationResult = position.createConstructionSite(isRampart?STRUCTURE_RAMPART:STRUCTURE_WALL);
+  console.log(position + " construction result: " + creationResult);
 
   var style = {
   }
