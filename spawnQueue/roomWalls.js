@@ -85,17 +85,17 @@ var scanOrders = [
   },
   {
     scanDirection: [0, 1],
-    scanStart: [50, 0],
+    scanStart: [49, 0],
     wallDirection: [-1, 0]
   },
   {
     scanDirection: [-1, 0],
-    scanStart: [50, 50],
+    scanStart: [49, 49],
     wallDirection: [0, -1]
   },
   {
     scanDirection: [0, -1],
-    scanStart: [0, 50],
+    scanStart: [0, 49],
     wallDirection: [1, 0]
   },
 ];
