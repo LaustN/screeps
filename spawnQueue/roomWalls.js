@@ -24,6 +24,7 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
   for (var iterator = 0; iterator < 50; iterator++) {
     var borderTerrain = room.lookForAt(LOOK_TERRAIN, x, y)[0];
+    room.visual.text(borderTerrain,x,y);
     if (openingFound) {
       if ((borderTerrain != "plain") || (borderTerrain != "swamp")) {
         openingEndX = x;
