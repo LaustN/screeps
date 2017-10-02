@@ -25,7 +25,7 @@ var buildWall = function (room, x, y, isRampart) {
     style.fill = "#FF0000";
   }
   room.visual.circle(x, y, style);
-  return true;
+  return (creationResult == OK);
 };
 
 var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
