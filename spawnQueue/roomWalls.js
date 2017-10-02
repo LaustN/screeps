@@ -31,9 +31,9 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
         //TODO: begin cap by -2scan + wallDirection, -2scan + 2wallDirection, -scan + 2wallDirection
 
-        anythingHasBeenBuild |= buildwall(room, innerX - 2 * scanDirection[0] + wallDirection[0], innerY - 2 * scanDirection[1] + wallDirection[1], false);
-        anythingHasBeenBuild |= buildwall(room, innerX - 2 * scanDirection[0] + 2 * wallDirection[0], innerY - 2 * scanDirection[1] + 2 * wallDirection[1], false);
-        anythingHasBeenBuild |= buildwall(room, innerX - scanDirection[0] + 2 * wallDirection[0], innerY - scanDirection[1] + 2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX - 2 * scanDirection[0] + wallDirection[0], innerY - 2 * scanDirection[1] + wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX - 2 * scanDirection[0] + 2 * wallDirection[0], innerY - 2 * scanDirection[1] + 2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX - scanDirection[0] + 2 * wallDirection[0], innerY - scanDirection[1] + 2 * wallDirection[1], false);
 
         //TODO: center of wall is rampart 
 
@@ -59,9 +59,9 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
         //TODO: plain wall
 
         //TODO: end cap mimics begin cap, just positive scan rather than negative scan
-        anythingHasBeenBuild |= buildwall(room, innerX + 2 * scanDirection[0] + wallDirection[0], innerY + 2 * scanDirection[1] + wallDirection[1], false);
-        anythingHasBeenBuild |= buildwall(room, innerX + 2 * scanDirection[0] + 2 * wallDirection[0], innerY + 2 * scanDirection[1] + 2 * wallDirection[1], false);
-        anythingHasBeenBuild |= buildwall(room, innerX + scanDirection[0] + 2 * wallDirection[0], innerY + scanDirection[1] + 2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX + 2 * scanDirection[0] + wallDirection[0], innerY + 2 * scanDirection[1] + wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX + 2 * scanDirection[0] + 2 * wallDirection[0], innerY + 2 * scanDirection[1] + 2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX + scanDirection[0] + 2 * wallDirection[0], innerY + scanDirection[1] + 2 * wallDirection[1], false);
 
       }
 
