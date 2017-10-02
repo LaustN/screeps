@@ -27,22 +27,18 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
         var innerX = openingStartX;
         var innerY = openingStartY;
 
-
-
-        //TODO: begin cap by -2scan + wallDirection, -2scan + 2wallDirection, -scan + 2wallDirection
-
         console.log("beginCap start");
         anythingHasBeenBuild |= buildWall(room, innerX - 2 * scanDirection[0] + wallDirection[0], innerY - 2 * scanDirection[1] + wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX - 2 * scanDirection[0] + 2 * wallDirection[0], innerY - 2 * scanDirection[1] + 2 * wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX - scanDirection[0] + 2 * wallDirection[0], innerY - scanDirection[1] + 2 * wallDirection[1], false);
         console.log("beginCap end");
 
-        //TODO: center of wall is rampart 
-
         var middleSectionCount = 0;
         var middleX = Math.floor((openingStartX + openingEndX) / 2);
         var middleY = Math.floor((openingStartY + openingEndY) / 2);
-        while ( (innerX != openingEndX) && (innerY != openingEndY)) {
+
+        console.log("center start");
+        while ( !( (innerX == openingEndX) && (innerY == openingEndY))) {
 
           if ( (innerX == middleX) && (innerY == middleY)) {
             middleSectionCount = 2;
@@ -57,14 +53,13 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
           innerY += scanDirection[1];
           middleSectionCount--;
         }
+        console.log("center end");
 
-        //TODO: plain wall
-
-        //TODO: end cap mimics begin cap, just positive scan rather than negative scan
+        console.log("endCap start")
         anythingHasBeenBuild |= buildWall(room, innerX + 2 * scanDirection[0] + wallDirection[0], innerY + 2 * scanDirection[1] + wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX + 2 * scanDirection[0] + 2 * wallDirection[0], innerY + 2 * scanDirection[1] + 2 * wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX + scanDirection[0] + 2 * wallDirection[0], innerY + scanDirection[1] + 2 * wallDirection[1], false);
-
+        console.log("endCap end")
       }
 
     } else {
