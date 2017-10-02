@@ -1,6 +1,6 @@
 var buildWall = function (room, x, y, isRampart) {
-  var lookResult = room.lookForAt(LOOK_TERRAIN);
-  console.log(room.name + ":" + x + "," + y + "="  + JSON.stringify(lookResult));
+  var lookResult = room.lookForAt(LOOK_TERRAIN,x,y);
+  console.log(room.name + ":" + x + "," + y + "=" + JSON.stringify(lookResult));
   return false; //keep this running like crazy, start returning true once constructions sites might be placed WHEN they are placed
 };
 
@@ -31,24 +31,26 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
         //TODO: begin cap by -2scan + wallDirection, -2scan + 2wallDirection, -scan + 2wallDirection
 
+        console.log("beginCap start");
         anythingHasBeenBuild |= buildWall(room, innerX - 2 * scanDirection[0] + wallDirection[0], innerY - 2 * scanDirection[1] + wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX - 2 * scanDirection[0] + 2 * wallDirection[0], innerY - 2 * scanDirection[1] + 2 * wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX - scanDirection[0] + 2 * wallDirection[0], innerY - scanDirection[1] + 2 * wallDirection[1], false);
+        console.log("beginCap end");
 
         //TODO: center of wall is rampart 
 
         var middleSectionCount = 0;
-        var middleX  = Math.floor((openingStartX + openingEndX )/2);
-        var middleY  = Math.floor((openingStartY + openingEndY )/2);
-        while(innerX != openingEndX && innerY != openingEndY) {
+        var middleX = Math.floor((openingStartX + openingEndX) / 2);
+        var middleY = Math.floor((openingStartY + openingEndY) / 2);
+        while ( (innerX != openingEndX) && (innerY != openingEndY)) {
 
-          if(innerX == middleX && innerY == middleY){
+          if ( (innerX == middleX) && (innerY == middleY)) {
             middleSectionCount = 2;
           }
 
-          var buildRampart = (middleSectionCount>0);
+          var buildRampart = (middleSectionCount > 0);
 
-          anythingHasBeenBuild |= buildWall(room,innerX, innerY,buildRampart);
+          anythingHasBeenBuild |= buildWall(room, innerX, innerY, buildRampart);
 
 
           innerX += scanDirection[0];
@@ -107,7 +109,7 @@ module.exports = function (room) {
   if (!room.controller) { return; }
   if (!room.controller.my) { return; }
   if (room.controller.level < 3) { return; }
-  if(_.size(Game.constructionSites) > 50){ return;}
+  if (_.size(Game.constructionSites) > 50) { return; }
 
   for (var scanOrderIndex in scanOrders) {
     var scanOrder = scanOrders[scanOrderIndex];
