@@ -3,17 +3,26 @@ var buildWall = function (room, x, y, isRampart) {
   var structureLook = room.lookForAt(LOOK_STRUCTURES, x, y);
   var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
 
-  if(terrainLook == "wall"){return false;}
-  if(structureLook.length>0){return false;} //TODO: might permit presence of road?
+  if (terrainLook == "wall") { return false; }
+  if (structureLook.length > 0) {
+    if (structureLook.structureType != STRUCTURE_ROAD)
+      return false;
+  }
+  if (constructionLook.length > 0) {
+    return false; //cannot have 2 construction sites on top of each other
+  }
 
+  var position = new RoomPosition(x,y,room.name);
+
+  var creationResult = position.createConstructionSite(isRampart?STRUCTURE_RAMPART:STRUCTURE_WALL);
 
   var style = {
   }
-  if(isRampart){
-    style.fill="#FF0000";
+  if (isRampart) {
+    style.fill = "#FF0000";
   }
-  room.visual.circle(x,y,style);
-  return false; //keep this running like crazy, start returning true once constructions sites might be placed WHEN they are placed
+  room.visual.circle(x, y, style);
+  return true;
 };
 
 var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
@@ -30,7 +39,6 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
 
   for (var iterator = 0; iterator < 50; iterator++) {
     var borderTerrain = room.lookForAt(LOOK_TERRAIN, x, y)[0];
-    room.visual.text(borderTerrain,x,y);
     if (openingFound) {
       if ((borderTerrain == "wall")) {
         openingEndX = x;
@@ -63,10 +71,10 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
           innerY += scanDirection[1];
           middleSectionCount--;
         }
-        
+
         anythingHasBeenBuild |= buildWall(room, innerX + scanDirection[0] + wallDirection[0], innerY + scanDirection[1] + wallDirection[1], false);
         anythingHasBeenBuild |= buildWall(room, innerX + scanDirection[0] + 2 * wallDirection[0], innerY + scanDirection[1] + 2 * wallDirection[1], false);
-        anythingHasBeenBuild |= buildWall(room, innerX + 2 * wallDirection[0], innerY +  2 * wallDirection[1], false);
+        anythingHasBeenBuild |= buildWall(room, innerX + 2 * wallDirection[0], innerY + 2 * wallDirection[1], false);
       }
 
     } else {
@@ -111,7 +119,10 @@ module.exports = function (room) {
   if (!room.controller) { return; }
   if (!room.controller.my) { return; }
   if (room.controller.level < 3) { return; }
-  if (_.size(Game.constructionSites) > 50) { return; }
+  if (_.size(Game.constructionSites) > 50) { 
+    console.log("roomWalls not adding more construction sites just now");
+    return; 
+  }
 
   for (var scanOrderIndex in scanOrders) {
     var scanOrder = scanOrders[scanOrderIndex];
@@ -119,4 +130,5 @@ module.exports = function (room) {
       return true;
     }
   }
+  return false;
 }  
