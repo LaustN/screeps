@@ -1,5 +1,5 @@
 var buildWall = function (room, x, y, isRampart) {
-  var lookResult = room.lookForAt(LOOK_TERRAIN, x, y);
+  var lookResult = room.lookForAt(LOOK_TERRAIN, x, y)[0];
   console.log(room.name + ":" + x + "," + y + "=" + JSON.stringify(lookResult));
   return false; //keep this running like crazy, start returning true once constructions sites might be placed WHEN they are placed
 };
