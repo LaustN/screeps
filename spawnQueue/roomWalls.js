@@ -1,5 +1,5 @@
 var buildWall = function (room, x, y, isRampart) {
-  var lookResult = room.lookForAt(LOOK_TERRAIN,x,y);
+  var lookResult = room.lookForAt(LOOK_TERRAIN, x, y);
   console.log(room.name + ":" + x + "," + y + "=" + JSON.stringify(lookResult));
   return false; //keep this running like crazy, start returning true once constructions sites might be placed WHEN they are placed
 };
@@ -38,9 +38,9 @@ var buildWalls = function (room, scanStart, scanDirection, wallDirection) {
         var middleY = Math.floor((openingStartY + openingEndY) / 2);
 
         console.log("center start");
-        while ( !( (innerX == openingEndX) && (innerY == openingEndY))) {
+        while (!((innerX == openingEndX) && (innerY == openingEndY))) {
 
-          if ( (innerX == middleX) && (innerY == middleY)) {
+          if ((innerX == middleX) && (innerY == middleY)) {
             middleSectionCount = 2;
           }
 
@@ -108,7 +108,7 @@ module.exports = function (room) {
 
   for (var scanOrderIndex in scanOrders) {
     var scanOrder = scanOrders[scanOrderIndex];
-    if (buildWalls(room, scanOrder.scanDirection, scanOrder.scanStart, scanOrder.wallDirection)) {
+    if (buildWalls(room, scanOrder.scanStart, scanOrder.scanDirection, scanOrder.wallDirection)) {
       return true;
     }
   }
