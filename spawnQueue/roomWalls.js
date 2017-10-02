@@ -1,6 +1,6 @@
 var buildWall = function (room, x, y, isRampart) {
   var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
-  var structureLook = room.lookForAt(LOOK_STRUCTURE, x, y);
+  var structureLook = room.lookForAt(LOOK_STRUCTURES, x, y);
   var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
 
   if(terrainLook == "wall"){return false;}
