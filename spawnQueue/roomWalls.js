@@ -5,16 +5,18 @@ var buildWall = function (room, x, y, isRampart) {
 
   if (terrainLook == "wall") { return false; }
   if (structureLook.length > 0) {
-    if (structureLook.structureType != STRUCTURE_ROAD)
-      return false;
+    if (structureLook.structureType != STRUCTURE_ROAD) { return false; }
+    else {
+      isRampart = true;
+    }
   }
   if (constructionLook.length > 0) {
     return false; //cannot have 2 construction sites on top of each other
   }
 
-  var position = new RoomPosition(x,y,room.name);
+  var position = new RoomPosition(x, y, room.name);
 
-  var creationResult = position.createConstructionSite(isRampart?STRUCTURE_RAMPART:STRUCTURE_WALL);
+  var creationResult = position.createConstructionSite(isRampart ? STRUCTURE_RAMPART : STRUCTURE_WALL);
   console.log(position + " construction result: " + creationResult);
 
   var style = {
@@ -120,9 +122,9 @@ module.exports = function (room) {
   if (!room.controller) { return; }
   if (!room.controller.my) { return; }
   if (room.controller.level < 3) { return; }
-  if (_.size(Game.constructionSites) > 50) { 
+  if (_.size(Game.constructionSites) > 50) {
     console.log("roomWalls not adding more construction sites just now");
-    return; 
+    return;
   }
 
   for (var scanOrderIndex in scanOrders) {
