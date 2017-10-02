@@ -1,7 +1,7 @@
 module.exports = function (creep) {
   //creep.memory.focus is id of a source
   var source = Game.getObjectById(creep.memory.focus);
-  if (creep.pos.getRangeTo(source) > 5) {
+  if (creep.pos.getRangeTo(source) > 8) {
     creep.moveTo(source);
     return true;
   }

@@ -2,6 +2,7 @@ var roomBuildings = require("roomBuildings");
 var roomWorkerAssignment = require("roomWorkerAssignment");
 var buildCreepBody = require("buildCreepBody");
 var roomSpawns = require("roomSpawns");
+var roomWalls = require("roomWalls");
 var flagsLogic = require("flagsLogic");
 
 module.exports = function () {
@@ -16,6 +17,7 @@ module.exports = function () {
 		var room = Game.rooms[roomName];
 		roomBuildings(room);
 		roomWorkerAssignment(room);
+		roomWalls(room);
 
 		var creeps = _.filter(Game.creeps, function (creep) {
 			return creep.name.startsWith(room.name);
