@@ -12,9 +12,27 @@ module.exports = function () {
 	}
 
 
+	var moduloBase = 10;
+	var roomIndex = 0;
+
+	var timeModulo = Game.time % moduloBase;
+
 
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
+
+		console.log("roomIndex:" + roomIndex);
+		var roomModulo = roomIndex % moduloBase;
+		roomIndex++;
+		if (roomModulo != timeModulo) { //roomLogic is way expensive, so only run it occasionally 
+			console.log("Skipping roomLogic for " + room.name  + " because it is remainder " + roomModulo + " on a remainder " + timeModulo + " turn");
+			continue;
+		}			
+		else{
+			console.log ("executing room logic for " + room.name);
+		}
+
+
 		roomBuildings(room);
 		roomWorkerAssignment(room);
 		roomWalls(room);

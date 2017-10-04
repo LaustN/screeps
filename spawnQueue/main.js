@@ -27,13 +27,13 @@ var roleActions = {
   "defender": ["actionDefend", "actionRally", "actionHold", "actionRecycle"],
   "closeAssaulter": ["actionCloseAssault", "actionRally", "actionRecycle"],
   "assaulter": ["actionRangedAssault", "actionRally", "actionRecycle"],
-  
-  "healer": ["actionHealCreeps","actionMigrate", "actionHealerMove", "actionRally", "actionRecycle"],
+
+  "healer": ["actionHealCreeps", "actionMigrate", "actionHealerMove", "actionRally", "actionRecycle"],
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers": ["actionSetMovesEnergy", "actionMigrate", "actionDistributeToWorkers", "actionFetchFromStorage"],
   "remoteBuilder": ["actionMigrate", "actionSetWantsEnergy", "actionBuild", "actionRepair", "actionFortify", "actionFetchFromStorage", "actionDistributeToBuildings"],
-  "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy",  "actionEnsureDropPoint", "actionResolveRemoteSourceFocus", "actionHarvest", "actionDump"],
+  "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy", "actionEnsureDropPoint", "actionResolveRemoteSourceFocus", "actionHarvest", "actionDump"],
   "remoteCollector": ["actionSetGivesEnergy", "actionReturnOnFull", "actionUnload", "actionMigrate", "actionResolveRemoteSourceFocus", "actionHarvestCollection"],
 
   "pausedWorker": ["actionSetGivesEnergy", "actionDistributeToBuildings", "actionHold", "actionRecycle"],
@@ -90,15 +90,13 @@ module.exports.loop = function () {
   if (logProfilerData)
     console.log("before RoomLogic: " + (lastTime));
 
-  if ((Game.time % 10) == 0) { //roomLogic is way expensive, so only run it occasionally 
-  
-    console.log("Running rooms logic");
-    roomLogic();
-    var newTime = Game.cpu.getUsed();
-    if (logProfilerData)
-      console.log("roomlogic: " + (newTime - lastTime));
-    lastTime = newTime
-  }
+
+  console.log("Running rooms logic");
+  roomLogic();
+  var newTime = Game.cpu.getUsed();
+  if (logProfilerData)
+    console.log("roomlogic: " + (newTime - lastTime));
+  lastTime = newTime
 
   runTowers();
   var newTime = Game.cpu.getUsed();
