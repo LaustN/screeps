@@ -24,6 +24,8 @@ module.exports = function(creep){
 
     if(!destination){
       var unfilledWithCapacity = creep.pos.findClosestByRange(FIND_MY_STRUCTURES,{filter: function(structure){
+        if(structure.structureType == STRUCTURE_LINK)
+          return false;
         if(!structure.energyCapacity)
           return false;
         if(structure.energyCapacity == structure.energy)
