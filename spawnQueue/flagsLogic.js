@@ -19,8 +19,8 @@ module.exports = function () {
     var flag = Game.flags[flagName];
     if (flag) {
 
-      for(var templateKey in flagDataTemplate){
-        if(!flag.memory[templateKey]){
+      for (var templateKey in flagDataTemplate) {
+        if (!flag.memory[templateKey]) {
           flag.memory[templateKey] = flagDataTemplate[templateKey];
         }
       }
@@ -28,7 +28,7 @@ module.exports = function () {
       for (var roomIndex in flag.memory.rooms) {
         var roomName = flag.memory.rooms[roomIndex];
         var sourceRoom = Game.rooms[roomName];
-        if(!sourceRoom){
+        if (!sourceRoom) {
           console.log("failed to get a source room for " + roomName + " on flag " + flag.name);
           continue;
         }
@@ -131,8 +131,10 @@ module.exports = function () {
               };
               sourceRoom.memory.spawnQueue.push(remoteHarvesterOrder);
             }
+          }
 
-            if (flag.memory.collect) {
+          if (flag.memory.collect) {
+            for (var collectorIndex = 1; collectorIndex <= fullcontainersNearFlag.length; collectorIndex++) {
               var remoteCollectorName = flag.name + "RC" + sourceIndex;
               var remoteCollector = Game.creeps[remoteCollectorName];
               if (!remoteCollector) {
@@ -187,7 +189,7 @@ module.exports = function () {
 
           var constructionSites = flag.room.find(FIND_CONSTRUCTION_SITES);
           var anyNonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
-            return constructionSite.pos.findInRange(FIND_CREEPS,1).length == 0;
+            return constructionSite.pos.findInRange(FIND_CREEPS, 1).length == 0;
           }).length > 0;
           if (anyNonDefaultedConstructionSites || anyBuildingsInNeedOfRepairs) {
             var desiredBuilderCount = 1;
