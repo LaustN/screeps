@@ -250,8 +250,10 @@ module.exports = function (room) {
         + (creepsByRole["controlUpgrader"] || []).length;
 
       adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-      room.memory.workersWanted += 2;
-      room.memory.moversWanted += 2;
+      var upgraderBoostCount =  Math.ceil( (storedEnergy - 500000)/100000);
+      console.log(room.name + " has upgraderBoostCount = " + upgraderBoostCount);
+      room.memory.workersWanted += upgraderBoostCount;
+      room.memory.moversWanted += upgraderBoostCount;
     }
     else {
 
