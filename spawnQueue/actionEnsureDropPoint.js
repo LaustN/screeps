@@ -13,6 +13,13 @@ module.exports = function (creep) {
           creep.pos.createConstructionSite(STRUCTURE_CONTAINER);
         }
       }
+      var containersInNeedOfRepair = _.filter(nearbyContainers, function(container){
+        return (container.hits < container.hitsMax);
+      });
+      if(containersInNeedOfRepair.length > 0){
+        creep.repair(containersInNeedOfRepair[0]);
+        console.log(creep.name + " is reapiring a nearby container at " + containersInNeedOfRepair[0].pos);
+      }
     }
   }
 
