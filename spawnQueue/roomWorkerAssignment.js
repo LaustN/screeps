@@ -1,5 +1,5 @@
 module.exports = function (room) {
-  if(typeof(room.controller) == "undefined" || !room.controller.my){
+  if (typeof (room.controller) == "undefined" || !room.controller.my) {
     return;
   }
 
@@ -216,7 +216,7 @@ module.exports = function (room) {
     adjustWorkerRoleCount("controlUpgrader", 1);
     room.memory.workersWanted++;
     room.memory.moversWanted++;
-    if(room.controller.ticksToDowngrade > 4000){
+    if (room.controller.ticksToDowngrade > 4000) {
       room.memory.panic = false; //continue upgrade untill we have a decent downgrade timer
     }
   }
@@ -242,15 +242,15 @@ module.exports = function (room) {
       adjustWorkerRoleCount("repairer", 0);
     }
 
-    var overflowApproaching  =  (storedEnergy >( (storingStructures.length - 1) * 2000 )) && (storingStructures.length>0) && !room.storage;
+    var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
 
-    if ((storedEnergy > 500000) || (overflowApproaching)  ){
+    if ((storedEnergy > 500000) || (overflowApproaching)) {
       maxUpgraderCount =
         (creepsByRole["pausedWorker"] || []).length
         + (creepsByRole["controlUpgrader"] || []).length;
 
       adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-      var upgraderBoostCount =  Math.ceil( (storedEnergy - 500000)/100000);
+      var upgraderBoostCount = Math.ceil((storedEnergy - 500000) / 100000) + 1;
       console.log(room.name + " has upgraderBoostCount = " + upgraderBoostCount);
       room.memory.workersWanted += upgraderBoostCount;
       room.memory.moversWanted += upgraderBoostCount;
@@ -374,8 +374,8 @@ module.exports = function (room) {
         }
       }
     }
-    else{
-      if(nearbyRemoteHarvester.length > 0){
+    else {
+      if (nearbyRemoteHarvester.length > 0) {
         //seems like the easiest way of moving a step away from the source, then doing nothing
         assignRole(existingHarvester, "pausedWorker");
         room.memory.workersWanted--;
@@ -406,10 +406,10 @@ module.exports = function (room) {
   }
 
 
-  var pausedWorkerCount = (creepsByRole["pausedWorker"]||[]).length;
-  var upgraderCount = (creepsByRole["controlUpgrader"]||[]).length;
-  if(pausedWorkerCount>0){
-    adjustWorkerRoleCount("controlUpgrader",pausedWorkerCount + upgraderCount);
+  var pausedWorkerCount = (creepsByRole["pausedWorker"] || []).length;
+  var upgraderCount = (creepsByRole["controlUpgrader"] || []).length;
+  if (pausedWorkerCount > 0) {
+    adjustWorkerRoleCount("controlUpgrader", pausedWorkerCount + upgraderCount);
   }
 }
 
