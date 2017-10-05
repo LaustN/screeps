@@ -79,33 +79,30 @@ module.exports = function () {
           }
         }
 
-        if (flag.memory.scout && !flagRoomIsOwned) {
-          var scoutName = flag.name + "Scout";
-          var scout = Game.creeps[scoutName];
-          if (!scout) {
-            var scoutOrder = { body: [MOVE], memory: { type: "scout", role: "scout", flag: flag.name }, name: scoutName };
-            sourceRoom.memory.spawnQueue.push(scoutOrder);
-          }
-        }
+        if (flag.room && flag.memory.harvest) {
+          var enemiesHere = flag.room.find(FIND_HOSTILE_CREEPS)
+          flag.room.memory.enemiesHere = [];
+          for (var enemyIndex in enemiesHere) {
+            var enemy = enemiesHere[enemyIndex];
 
-        if (flag.memory.reserve && !flagRoomIsOwned) {
-          var reserverName = flag.name + "Reserver";
-          var reserver = Game.creeps[reserverName];
-          var reserverBody = buildCreepBody([CLAIM, MOVE], sourceRoom.energyCapacityAvailable);
-          if (!reserver) {
-            var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flag.name }, name: reserverName };
-            sourceRoom.memory.spawnQueue.push(reserverOrder);
-          }
-          if (reserver) {
-            if (flag.memory.claim) {
-              reserver.memory.role = "claimer";
+            if (enemy.getActiveBodyparts(HEAL) > 0) {
+              flag.room.memory.enemiesHere.unshift(enemy.id);
+            } else {
+              flag.room.memory.enemiesHere.push(enemy.id);
             }
           }
-        }
+          if (enemiesHere.length > 0) {
+            //processing starts for defending sourceRoom
+            for (var defenderIndex = 1; defenderIndex <= 10; defenderIndex++) {
+              var defenderName = flag.name + "Defender" + defenderIndex;
+              var defender = Game.creeps[defenderName];
+              if (typeof (defender) == "undefined") {
+                sourceRoom.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender", flag: flag.name }, name: defenderName });
+              }
 
-
-
-        if (flag.room && flag.memory.harvest) {
+            }
+            console.log(flag.room.name + " is under attack");
+          }
 
           var fullcontainersNearFlag = flag.room.find(FIND_STRUCTURES, {
             filter: function (structure) {
@@ -148,31 +145,6 @@ module.exports = function () {
             }
           }
 
-          var enemiesHere = flag.room.find(FIND_HOSTILE_CREEPS)
-          flag.room.memory.enemiesHere = [];
-          for (var enemyIndex in enemiesHere) {
-            var enemy = enemiesHere[enemyIndex];
-
-            if (enemy.getActiveBodyparts(HEAL) > 0) {
-              flag.room.memory.enemiesHere.unshift(enemy.id);
-            } else {
-              flag.room.memory.enemiesHere.push(enemy.id);
-            }
-
-
-          }
-          if (enemiesHere.length > 0) {
-            //processing starts for defending sourceRoom
-            for (var defenderIndex = 1; defenderIndex <= 10; defenderIndex++) {
-              var defenderName = flag.name + "Defender" + defenderIndex;
-              var defender = Game.creeps[defenderName];
-              if (typeof (defender) == "undefined") {
-                sourceRoom.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender", flag: flag.name }, name: defenderName });
-              }
-
-            }
-            console.log(flag.room.name + " is under attack");
-          }
 
 
           var anyBuildingsInNeedOfRepairs = flag.room.find(FIND_STRUCTURES, {
@@ -212,6 +184,29 @@ module.exports = function () {
 
         }
 
+        if (flag.memory.scout && !flagRoomIsOwned) {
+          var scoutName = flag.name + "Scout";
+          var scout = Game.creeps[scoutName];
+          if (!scout) {
+            var scoutOrder = { body: [MOVE], memory: { type: "scout", role: "scout", flag: flag.name }, name: scoutName };
+            sourceRoom.memory.spawnQueue.push(scoutOrder);
+          }
+        }
+
+        if (flag.memory.reserve && !flagRoomIsOwned) {
+          var reserverName = flag.name + "Reserver";
+          var reserver = Game.creeps[reserverName];
+          var reserverBody = buildCreepBody([CLAIM, MOVE], sourceRoom.energyCapacityAvailable);
+          if (!reserver) {
+            var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flag.name }, name: reserverName };
+            sourceRoom.memory.spawnQueue.push(reserverOrder);
+          }
+          if (reserver) {
+            if (flag.memory.claim) {
+              reserver.memory.role = "claimer";
+            }
+          }
+        }
 
 
       }
