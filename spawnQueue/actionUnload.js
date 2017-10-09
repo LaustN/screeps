@@ -21,6 +21,10 @@ module.exports = function (creep) {
           if (target.energy == target.energyCapacity)
             target = null;
           break;
+        case STRUCTURE_LINK:
+          if (target.energy == target.energyCapacity)
+            target = null;
+          break;
         case STRUCTURE_STORAGE:
           //do nothing, assume that storage has capacity
           break;
@@ -30,30 +34,49 @@ module.exports = function (creep) {
       }
     }
     if (!target) {
-      target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, { filter: function(structure) { 
-        if(
-          (structure.structureType == STRUCTURE_SPAWN 
-            || structure.structureType == STRUCTURE_EXTENSION
-            || structure.structureType == STRUCTURE_LINK
-          )  
-          && (structure.energyCapacity > structure.energy))
-          return true;
-        return false;
-      } });
+      var homeLinkId = "";
+      var home = Game.getObjectById(creep.memory.home);
+      if(home){
+        var homeLink = home.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+          filter: function (structure) {
+            return structure.structureType == STRUCTURE_SPAWN;
+          }
+        });
+        if(homeLink){
+          homeLinkId = homeLink.id;
+        }
+      }
+
+      target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        filter: function (structure) {
+          if (
+            (structure.structureType == STRUCTURE_SPAWN
+              || structure.structureType == STRUCTURE_EXTENSION
+            )
+            && (structure.energyCapacity > structure.energy)
+            && (structure.id != homeLinkId)            
+          )
+            return true;
+          return false;
+        }
+      });
     }
+    
     if (!target) {
       if (creep.room.storage) {
         target = creep.room.storage;
       }
     }
     if (!target) {
-      target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure) { 
-        if(structure.structureType== STRUCTURE_CONTAINER  && (_.sum(structure.store) < structure.storeCapacity)){
-          if(structure.pos.findInRange(FIND_SOURCES,1).length == 0)
-            return true;
+      target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        filter: function (structure) {
+          if (structure.structureType == STRUCTURE_CONTAINER && (_.sum(structure.store) < structure.storeCapacity)) {
+            if (structure.pos.findInRange(FIND_SOURCES, 1).length == 0)
+              return true;
+          }
+          return false;
         }
-        return false;
-      } });
+      });
     }
     if (!target) {
       if (creep.room.storage) {
@@ -62,21 +85,23 @@ module.exports = function (creep) {
     }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
-      if (transferMessage == ERR_NOT_IN_RANGE){
+      if (transferMessage == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
       }
       return true;
     }
-    if(!target){
-      target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: function(hungrycreep){
-        if((hungrycreep.memory.energyWanted > 0) && _.sum(hungrycreep.carry) < hungrycreep.carryCapacity)
-          return true;
-        return false;
-      }});
+    if (!target) {
+      target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+        filter: function (hungrycreep) {
+          if ((hungrycreep.memory.energyWanted > 0) && _.sum(hungrycreep.carry) < hungrycreep.carryCapacity)
+            return true;
+          return false;
+        }
+      });
     }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
-      if (transferMessage == ERR_NOT_IN_RANGE){
+      if (transferMessage == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
       }
       return true;
