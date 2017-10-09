@@ -14,7 +14,7 @@ module.exports = function (creep) {
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
-      if (existingTarget && ((existingTarget.store && (existingTarget.store[RESOURCE_ENERGY] > 0)) || (existingTarget.energy > 0))) {
+      if (existingTarget && existingTarget.structureType && ((existingTarget.store && (existingTarget.store[RESOURCE_ENERGY] > 0)) || (existingTarget.energy > 0))) {
         target = existingTarget;
       }
     }
