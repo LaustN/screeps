@@ -62,8 +62,6 @@ module.exports = function (creep) {
           return false;
         }
       });
-      creep.say(target + "=unload");
-
     }
 
     if (!target) {
