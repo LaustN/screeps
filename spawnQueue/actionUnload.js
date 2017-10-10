@@ -101,7 +101,6 @@ module.exports = function (creep) {
     }
     if (target) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
-      creep.say(transferMessage + "=trans");
       if (transferMessage == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
       }
