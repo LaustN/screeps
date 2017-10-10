@@ -223,7 +223,7 @@ module.exports = function (room) {
   else {
     var builderWanted = (constructionSites.length > 0);
     if (builderWanted) {
-      var desiredBuilderCount = Math.ceil(1500 / room.energyCapacityAvailable);
+      var desiredBuilderCount = Math.min( Math.ceil(5000 / room.energyCapacityAvailable), constructionSites.length);
       adjustWorkerRoleCount("builder", desiredBuilderCount);
       room.memory.workersWanted += desiredBuilderCount;
       room.memory.moversWanted += desiredBuilderCount;
