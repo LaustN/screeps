@@ -10,8 +10,8 @@ module.exports = function (creep) {
   }
 
   if (creep.memory.unloading) {
-    creep.say("unloading");
-    var target = Game.getObjectById(creep.memory.focus);
+    creep.memory.unloadfocus
+    var target = Game.getObjectById(creep.memory.unloadfocus);
     if (target) {
       switch (target.structureType) {
         case STRUCTURE_EXTENSION:
@@ -86,6 +86,7 @@ module.exports = function (creep) {
       }
     }
     if (target) {
+      creep.memory.unloadfocus = target.id;
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
       if (transferMessage == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
