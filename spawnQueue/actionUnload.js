@@ -74,7 +74,7 @@ module.exports = function (creep) {
     if (!target) {
       target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (structure) {
-          if (structure.structureType == STRUCTURE_CONTAINER && (_.sum(structure.store) < structure.storeCapacity)) {
+          if ( (structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)) {
             if (structure.pos.findInRange(FIND_SOURCES, 1).length == 0)
               return true;
           }
