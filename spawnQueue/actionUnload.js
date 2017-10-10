@@ -35,15 +35,15 @@ module.exports = function (creep) {
       }
     }
     if (!target) {
-      var homeLinkId = "";
+      var homeLinkId = null;
       var home = Game.getObjectById(creep.memory.home);
-      if(home){
+      if (home) {
         var homeLink = home.pos.findClosestByRange(FIND_MY_STRUCTURES, {
           filter: function (structure) {
-            return structure.structureType == STRUCTURE_SPAWN;
+            return structure.structureType == STRUCTURE_LINK;
           }
         });
-        if(homeLink){
+        if (homeLink) {
           homeLinkId = homeLink.id;
         }
       }
@@ -56,14 +56,14 @@ module.exports = function (creep) {
               || (structure.structureType == STRUCTURE_EXTENSION)
             )
             && (structure.energyCapacity > structure.energy)
-            && (structure.id != homeLinkId)            
+            && (structure.id != homeLinkId)
           )
             return true;
           return false;
         }
       });
       creep.say(target + "=unload");
-      
+
     }
 
     if (!target) {
@@ -74,7 +74,7 @@ module.exports = function (creep) {
     if (!target) {
       target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (structure) {
-          if ( (structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)) {
+          if ((structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)) {
             if (structure.pos.findInRange(FIND_SOURCES, 1).length == 0)
               return true;
           }
