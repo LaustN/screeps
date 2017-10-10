@@ -10,6 +10,7 @@ module.exports = function (creep) {
   }
 
   if (creep.memory.unloading) {
+    creep.say("unloading");
     var target = Game.getObjectById(creep.memory.focus);
     if (target) {
       switch (target.structureType) {
@@ -60,6 +61,8 @@ module.exports = function (creep) {
           return false;
         }
       });
+      creep.say(target + "=unload");
+      
     }
 
     if (!target) {
