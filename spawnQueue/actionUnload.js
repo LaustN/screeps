@@ -51,8 +51,9 @@ module.exports = function (creep) {
       target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
         filter: function (structure) {
           if (
-            (structure.structureType == STRUCTURE_SPAWN
-              || structure.structureType == STRUCTURE_EXTENSION
+            (
+              (structure.structureType == STRUCTURE_SPAWN)
+              || (structure.structureType == STRUCTURE_EXTENSION)
             )
             && (structure.energyCapacity > structure.energy)
             && (structure.id != homeLinkId)            
