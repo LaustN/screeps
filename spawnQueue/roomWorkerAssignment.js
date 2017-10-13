@@ -252,12 +252,12 @@ module.exports = function (room) {
     }
 
     if ((storedEnergy > 500000) || (overflowApproaching)) {
-      maxUpgraderCount =
+      var maxUpgraderCount =
         (creepsByRole["pausedWorker"] || []).length
         + (creepsByRole["controlUpgrader"] || []).length;
 
       adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-      var upgraderBoostCount = Math.ceil((storedEnergy - 500000) / 100000) + 1;
+      var upgraderBoostCount = Math.max( Math.ceil((storedEnergy - 500000) / 100000) + 1, storingStructures.length);
       console.log(room.name + " has upgraderBoostCount = " + upgraderBoostCount);
       room.memory.workersWanted += upgraderBoostCount;
       room.memory.moversWanted += upgraderBoostCount;
