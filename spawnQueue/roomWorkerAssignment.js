@@ -245,6 +245,12 @@ module.exports = function (room) {
 
     var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
 
+    if(room.name == "W19S56"){
+      console.log("overflowApproaching=" + overflowApproaching);
+      console.log("storedEnergy=" + storedEnergy);
+      console.log("storingStructures=" + JSON.stringify(storingStructures));      
+    }
+
     if ((storedEnergy > 500000) || (overflowApproaching)) {
       maxUpgraderCount =
         (creepsByRole["pausedWorker"] || []).length
