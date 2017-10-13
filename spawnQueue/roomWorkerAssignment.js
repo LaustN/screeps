@@ -245,11 +245,6 @@ module.exports = function (room) {
 
     var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
 
-    if(room.name == "W19S56"){
-      console.log("overflowApproaching=" + overflowApproaching);
-      console.log("storedEnergy=" + storedEnergy);
-      console.log("storingStructures=" + JSON.stringify(storingStructures));      
-    }
 
     if ((storedEnergy > 500000) || (overflowApproaching)) {
       var maxUpgraderCount =
@@ -258,7 +253,6 @@ module.exports = function (room) {
 
       adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
       var upgraderBoostCount = Math.max( Math.ceil((storedEnergy - 500000) / 100000) + 1, storingStructures.length);
-      console.log(room.name + " has upgraderBoostCount = " + upgraderBoostCount);
       room.memory.workersWanted += upgraderBoostCount;
       room.memory.moversWanted += upgraderBoostCount;
     }
