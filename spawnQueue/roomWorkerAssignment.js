@@ -406,6 +406,12 @@ module.exports = function (room) {
     }
   }
 
+  if(creepsByType["move"].length<= sources.length && storedEnergy >= 2000){
+    //all movers are likely assigned to harvest, and we really need to get the economy up again, so assign 1 to resupplyBuildings
+    //this is an emergency measure, that overrides the logic of "harvest always has priority"
+    adjustMoverRoleCount("resupplyBuildings", 1);    
+  }
+
 
   var pausedWorkerCount = (creepsByRole["pausedWorker"] || []).length;
   var upgraderCount = (creepsByRole["controlUpgrader"] || []).length;
