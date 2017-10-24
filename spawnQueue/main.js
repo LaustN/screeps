@@ -5,19 +5,19 @@ var roomLogic = require("roomLogic")
 
 
 var roleActions = {
-  "harvester": ["actionSetGivesEnergy", "actionHarvest", "actionDump"],
-  "harvestWithReturn": ["actionSetGivesEnergy", "actionHarvest", "actionUnload"],
-  "builder": ["actionSetWantsEnergy", "actionBuild"],
-  "controlUpgrader": ["actionSetWantsEnergy", "actionUpgradeController"],
-  "fortifier": ["actionSetWantsEnergy", "actionFortify"],
-  "repairer": ["actionSetWantsEnergy", "actionRepair"],
+  "harvester": ["actionSetGivesEnergy", "actionHarvest", "actionGoHome", "actionDump"],
+  "harvestWithReturn": ["actionSetGivesEnergy", "actionHarvest", "actionGoHome", "actionUnload"],
+  "builder": ["actionSetWantsEnergy", "actionGoHome", "actionBuild"],
+  "controlUpgrader": ["actionSetWantsEnergy", "actionGoHome", "actionUpgradeController"],
+  "fortifier": ["actionSetWantsEnergy", "actionGoHome", "actionFortify"],
+  "repairer": ["actionSetWantsEnergy", "actionRepair", "actionGoHome"],
 
-  "harvestTruck": ["actionSetGivesEnergy", "actionUnload", "actionHarvestCollection"],
-  "resupplyBuildings": ["actionSetMovesEnergy", "actionDistributeToBuildings", "actionFetchFromStorage"],
-  "stockpile": ["actionSetMovesEnergy", "actionCollectRemote", "actionFillStorage"],
-  "resupplyWorkers": ["actionSetMovesEnergy", "actionDistributeToWorkers", "actionFetchFromStorage"],
+  "harvestTruck": ["actionSetGivesEnergy", "actionUnload", "actionGoHome", "actionHarvestCollection"],
+  "resupplyBuildings": ["actionSetMovesEnergy", "actionDistributeToBuildings", "actionGoHome", "actionFetchFromStorage"],
+  "stockpile": ["actionSetMovesEnergy", "actionCollectRemote", "actionGoHome", "actionFillStorage"],
+  "resupplyWorkers": ["actionSetMovesEnergy", "actionDistributeToWorkers", "actionGoHome", "actionFetchFromStorage"],
   "looter": ["actionSetGivesEnergy", "actionMigrate", "actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
-  "scavenger": ["actionSetGivesEnergy", "actionFetchDroppedEnergy", "actionUnload"],
+  "scavenger": ["actionSetGivesEnergy", "actionFetchDroppedEnergy", "actionGoHome", "actionUnload"],
 
   "scout": ["actionMigrate", "actionSign", "actionEnsureWatch"],
 
@@ -36,8 +36,8 @@ var roleActions = {
   "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy", "actionEnsureDropPoint", "actionResolveRemoteSourceFocus", "actionHarvest", "actionDump"],
   "remoteCollector": ["actionSetGivesEnergy", "actionReturnOnFull", "actionUnload", "actionClearUnloadFocus", "actionMigrate", "actionResolveRemoteSourceFocus", "actionHarvestCollection"],
 
-  "pausedWorker": ["actionSetGivesEnergy", "actionDistributeToBuildings", "actionHold", "actionRecycle"],
-  "pausedMover": ["actionSetGivesEnergy", "actionDistributeToBuildings", "actionHold", "actionRecycle"]
+  "pausedWorker": ["actionSetGivesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionHold", "actionRecycle"],
+  "pausedMover": ["actionSetGivesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionHold", "actionRecycle"]
 };
 
 var actions = {};
