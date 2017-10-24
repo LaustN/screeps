@@ -4,4 +4,5 @@ module.exports = function (creep) {
     creep.moveTo(home);
     return true;
   }
+  return false;
 }
