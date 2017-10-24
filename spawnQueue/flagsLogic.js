@@ -205,7 +205,6 @@ module.exports = function () {
           && !flag.memory.claim
         ) {
           roomHasEnoughReservation = true;
-          console.log("skip building reserver in " + flag.room.name + " since reservation is " + flag.room.controller.reservation.ticksToEnd);
         }
 
 
