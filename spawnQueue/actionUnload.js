@@ -10,7 +10,6 @@ module.exports = function (creep) {
   }
 
   if (creep.memory.unloading) {
-    creep.memory.unloadfocus
     var target = Game.getObjectById(creep.memory.unloadfocus);
     if (target) {
       switch (target.structureType) {
