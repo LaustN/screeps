@@ -193,7 +193,20 @@ module.exports = function () {
           }
         }
 
-        if (flag.memory.reserve && !flagRoomIsOwned) {
+        var roomHasEnoughReservation = false;
+        if (flag.room.controller 
+          && !flag.room.controller.my 
+          && flag.room.controller.reservation 
+          && flag.room.controller.reservation.username == "Folofo" 
+          && flag.room.controller.reservation.ticksToEnd > 2000 
+          && !flag.memory.claim
+        ) {
+          roomHasEnoughReservation = true;
+          console.log("skip building reserver in " + flag.room.name + " since reservation is " + flag.room.controller.reservation.ticksToEnd);
+        }
+
+
+        if (flag.memory.reserve && !flagRoomIsOwned && !roomHasEnoughReservation) {
           var reserverName = flag.name + "Reserver";
           var reserver = Game.creeps[reserverName];
           var reserverBody = buildCreepBody([CLAIM, MOVE], sourceRoom.energyCapacityAvailable);
