@@ -16,9 +16,6 @@ var buildWall = function (room, x, y, isRampart) {
       return terrainObject.terrain == "wall";
     })) != "undefined";
 
-  console.log("terrainLook2(room=" + room.name + ", x=" + x + ", y=" + y + ")=" + JSON.stringify(terrainLook2));
-  console.log("anyWallNearThisLocation=" + anyWallNearThisLocation);
-
   if (terrainLook == "wall") { return false; }
   if (structureLook.length > 0) {
     if (structureLook.structureType != STRUCTURE_ROAD) { return false; }
