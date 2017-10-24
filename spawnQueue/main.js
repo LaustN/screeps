@@ -17,7 +17,7 @@ var roleActions = {
   "stockpile": ["actionSetMovesEnergy", "actionCollectRemote", "actionGoHome", "actionFillStorage"],
   "resupplyWorkers": ["actionSetMovesEnergy", "actionDistributeToWorkers", "actionGoHome", "actionFetchFromStorage"],
   "looter": ["actionSetGivesEnergy", "actionMigrate", "actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
-  "scavenger": ["actionSetGivesEnergy", "actionFetchDroppedEnergy", "actionGoHome", "actionUnload"],
+  "scavenger": ["actionSetGivesEnergy", "actionGoHome", "actionUnload", "actionFetchDroppedEnergy"],
 
   "scout": ["actionMigrate", "actionSign", "actionEnsureWatch"],
 
