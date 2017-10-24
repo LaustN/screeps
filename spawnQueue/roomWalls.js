@@ -10,8 +10,14 @@ var buildWall = function (room, x, y, isRampart) {
   var structureLook = room.lookForAt(LOOK_STRUCTURES, x, y);
   var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
 
-  var terrainLook2 = room.lookForAtArea(LOOK_TERRAIN, y-1, x-1, y+1, x+1, true);
-  console.log("terrainLook2(room=" + room.name +", x=" + x + ", y=" + y +  ")=" +  JSON.stringify(terrainLook2));
+  var terrainLook2 = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true);
+  var noWallNearThisLocation = typeof (_.find(terrainLook2,
+    function (terrainObject) {
+      terrainObject.terrain == "wall";
+    })) == "undefined";
+
+  console.log("terrainLook2(room=" + room.name + ", x=" + x + ", y=" + y + ")=" + JSON.stringify(terrainLook2));
+  console.log("noWallNearThisLocation=" + noWallNearThisLocation);
 
   if (terrainLook == "wall") { return false; }
   if (structureLook.length > 0) {
