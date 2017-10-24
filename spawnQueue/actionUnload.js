@@ -54,6 +54,7 @@ module.exports = function (creep) {
             (
               (structure.structureType == STRUCTURE_SPAWN)
               || (structure.structureType == STRUCTURE_EXTENSION)
+              || (structure.structureType == STRUCTURE_LINK)
             )
             && (structure.energyCapacity > structure.energy)
             && (structure.id != homeLinkId)
