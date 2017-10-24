@@ -194,7 +194,10 @@ module.exports = function () {
         }
 
         var roomHasEnoughReservation = false;
-        if (flag.room.controller 
+        if (
+          flag
+          && flag.room
+          && flag.room.controller 
           && !flag.room.controller.my 
           && flag.room.controller.reservation 
           && flag.room.controller.reservation.username == "Folofo" 
