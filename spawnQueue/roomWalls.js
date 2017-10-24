@@ -11,13 +11,13 @@ var buildWall = function (room, x, y, isRampart) {
   var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
 
   var terrainLook2 = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true);
-  var noWallNearThisLocation = typeof (_.find(terrainLook2,
+  var anyWallNearThisLocation = typeof (_.find(terrainLook2,
     function (terrainObject) {
       return terrainObject.terrain == "wall";
-    })) == "undefined";
+    })) != "undefined";
 
   console.log("terrainLook2(room=" + room.name + ", x=" + x + ", y=" + y + ")=" + JSON.stringify(terrainLook2));
-  console.log("noWallNearThisLocation=" + noWallNearThisLocation);
+  console.log("anyWallNearThisLocation=" + anyWallNearThisLocation);
 
   if (terrainLook == "wall") { return false; }
   if (structureLook.length > 0) {
@@ -26,6 +26,10 @@ var buildWall = function (room, x, y, isRampart) {
       isRampart = true;
     }
   }
+  if(anyWallNearThisLocation){
+    return true;
+  }
+
   if (constructionLook.length > 0) {
     return false; //cannot have 2 construction sites on top of each other
   }
