@@ -18,7 +18,6 @@ module.exports = function (creep) {
       });
       if (containersInNeedOfRepair.length > 0) {
         creep.repair(containersInNeedOfRepair[0]);
-        console.log(creep.name + " is reapiring a nearby container at " + containersInNeedOfRepair[0].pos);
       }
     }
   }
