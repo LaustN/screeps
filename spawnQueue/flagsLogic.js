@@ -33,7 +33,7 @@ module.exports = function () {
           continue;
         }
 
-        var maxPrice = Math.min(sourceRoom.energyCapacityAvailable, 2000);
+        var maxPrice = Math.min(sourceRoom.energyCapacityAvailable, 1600);
 
         var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
         var remoteMoverBody = buildCreepBody([CARRY, MOVE], maxPrice);
