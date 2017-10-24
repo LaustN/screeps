@@ -27,7 +27,7 @@ var buildWall = function (room, x, y, isRampart) {
     }
   }
   if(anyWallNearThisLocation){
-    return true;
+    isRampart = true;
   }
 
   if (constructionLook.length > 0) {
