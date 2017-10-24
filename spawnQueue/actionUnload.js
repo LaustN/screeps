@@ -49,6 +49,8 @@ module.exports = function (creep) {
 
       target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
         filter: function (structure) {
+          if(structure.structureType == STRUCTURE_STORAGE)
+            return true;
           if (
             (
               (structure.structureType == STRUCTURE_SPAWN)
@@ -64,11 +66,6 @@ module.exports = function (creep) {
       });
     }
 
-    if (!target) {
-      if (creep.room.storage) {
-        target = creep.room.storage;
-      }
-    }
     if (!target) {
       target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (structure) {
