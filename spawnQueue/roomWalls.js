@@ -13,7 +13,7 @@ var buildWall = function (room, x, y, isRampart) {
   var terrainLook2 = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true);
   var noWallNearThisLocation = typeof (_.find(terrainLook2,
     function (terrainObject) {
-      terrainObject.terrain == "wall";
+      return terrainObject.terrain == "wall";
     })) == "undefined";
 
   console.log("terrainLook2(room=" + room.name + ", x=" + x + ", y=" + y + ")=" + JSON.stringify(terrainLook2));
