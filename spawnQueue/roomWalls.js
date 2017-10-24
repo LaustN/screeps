@@ -1,6 +1,6 @@
 var buildWall = function (room, x, y, isRampart) {
 
-  if (x < 2 || x > 47 || y < 2 || y > 47)
+  if (x < 1 || x > 48 || y < 1 || y > 48)
     return false; //cannot build on 2 outermost fields in any direction
 
   var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
