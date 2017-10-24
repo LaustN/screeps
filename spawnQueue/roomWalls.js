@@ -1,9 +1,12 @@
 var buildWall = function (room, x, y, isRampart) {
 
-  if (x < 1 || x > 48 || y < 1 || y > 48)
-    return false; //cannot build on 2 outermost fields in any direction
+if (x < 1 || x > 48 || y < 1 || y > 48)
+  return false; //cannot build on 1 outermost fields in any direction
 
-  var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
+if ((x < 2 || x > 47) && (y < 2 || y > 47))
+  return false; //cannot build on 2 outermost fields in corners
+
+var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
   var structureLook = room.lookForAt(LOOK_STRUCTURES, x, y);
   var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
 
