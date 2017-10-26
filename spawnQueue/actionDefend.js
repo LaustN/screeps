@@ -2,7 +2,7 @@ module.exports = function (creep) {
   if(creep.room.controller &&( !creep.room.controller.my)   ){
     if(creep.room.controller.safeMode > 0){
       console.log("Not defending in " + creep.room.name + " since safeMode is active");
-      return;
+      return false;
     }
   }
 
