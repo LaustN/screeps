@@ -7,11 +7,14 @@ module.exports = function (room) {
       if (spawn.spawning) {
         continue;
       }
+      delete spawn.memory.currentOrder;
+      
       var spawnOrder = room.memory.spawnQueue[0];
 
       var spawnMessage = spawn.createCreep(spawnOrder.body, spawnOrder.name, spawnOrder.memory);
       if (spawnMessage == spawnOrder.name) {
         room.memory.spawnQueue = _.drop(room.memory.spawnQueue, 1);
+        spawn.memory.currentOrder = spawnOrder;
         continue;
       }
       return;
