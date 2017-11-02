@@ -223,7 +223,7 @@ module.exports = function (room) {
   else {
     var builderWanted = (constructionSites.length > 0);
     if (builderWanted) {
-      var desiredBuilderCount = Math.min( Math.ceil(5000 / room.energyCapacityAvailable), constructionSites.length);
+      var desiredBuilderCount = Math.min(Math.ceil(5000 / room.energyCapacityAvailable), constructionSites.length);
       adjustWorkerRoleCount("builder", desiredBuilderCount);
       room.memory.workersWanted += desiredBuilderCount;
       room.memory.moversWanted += desiredBuilderCount;
@@ -252,7 +252,7 @@ module.exports = function (room) {
         + (creepsByRole["controlUpgrader"] || []).length;
 
       adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
-      var upgraderBoostCount = Math.max( Math.ceil((storedEnergy - 500000) / 100000) + 1, storingStructures.length);
+      var upgraderBoostCount = Math.max(Math.ceil((storedEnergy - 500000) / 100000) + 1, storingStructures.length);
       room.memory.workersWanted += upgraderBoostCount;
       room.memory.moversWanted += upgraderBoostCount;
     }
@@ -296,16 +296,19 @@ module.exports = function (room) {
     }
   });
 
-  var stockpilerWanted = (
-    room.storage
-    && (
-      room.find(FIND_STRUCTURES, {
-        filter: function (structure) {
-          return ((structure.structureType == STRUCTURE_CONTAINER) || (structure.structureType == STRUCTURE_LINK));
-        }
-      }).length > 0)
+  var collectionPointsCount = room.find(FIND_STRUCTURES, {
+    filter: function (structure) {
+      return ((structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY]));
+    }
+  }).length;
 
-  );
+  collectionPointsCount += ((room.find(FIND_MY_STRUCTURES, {
+    filter: function (structure) {
+      return structure.structureType == STRUCTURE_LINK && structure.energy;
+    }
+  }).length > 0) ? 1 : 0);
+
+  var stockpilerWanted = (room.storage && (collectionPointsCount > 0));
 
   var droppedEnergies = room.find(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } });
   var scavengerWanted = droppedEnergies.length > 0;
@@ -326,15 +329,15 @@ module.exports = function (room) {
   }
 
   if ((assignableMoverCount > 0) && stockpilerWanted) {
-    adjustMoverRoleCount("stockpile", 1);
-    assignableMoverCount--;
+    adjustMoverRoleCount("stockpile", collectionPointsCount);
+    assignableMoverCount -= collectionPointsCount;
   }
   else {
     adjustMoverRoleCount("stockpile", 0);
   }
 
   if (stockpilerWanted) {
-    room.memory.moversWanted++;
+    room.memory.moversWanted += collectionPointsCount;
   }
 
 
@@ -406,10 +409,10 @@ module.exports = function (room) {
     }
   }
 
-  if(creepsByType["move"].length<= sources.length && storedEnergy >= 2000){
+  if (creepsByType["move"].length <= sources.length && storedEnergy >= 2000) {
     //all movers are likely assigned to harvest, and we really need to get the economy up again, so assign 1 to resupplyBuildings
     //this is an emergency measure, that overrides the logic of "harvest always has priority"
-    adjustMoverRoleCount("resupplyBuildings", 1);    
+    adjustMoverRoleCount("resupplyBuildings", 1);
   }
 
 
