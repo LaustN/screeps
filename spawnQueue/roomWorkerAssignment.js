@@ -298,7 +298,10 @@ module.exports = function (room) {
 
   var collectionPointsCount = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
-      return ((structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY]));
+      return (
+        (structure.structureType == STRUCTURE_CONTAINER) 
+        && (structure.store[RESOURCE_ENERGY]) 
+        && (structure.store[RESOURCE_ENERGY] > (structure.storeCapacity/2) ));
     }
   }).length;
 
