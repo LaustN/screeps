@@ -1,264 +1,92 @@
 {
-    "work": [
+    "room": {
+        "name": "W19S53",
+        "energyAvailable": 0,
+        "energyCapacityAvailable": 0,
+        "visual": {
+            "roomName": "W19S53"
+        },
+        "assaultTarget": "59fc1b6b8ec52d0e773a6806"
+    },
+    "pos": {
+        "x": 21,
+        "y": 38,
+        "roomName": "W19S53"
+    },
+    "id": "59fc1b6b8ec52d0e773a6806",
+    "body": [
         {
-            "room": {
-                "name": "E2N39",
-                "energyAvailable": 288,
-                "energyCapacityAvailable": 300,
-                "visual": {
-                    "roomName": "E2N39"
-                }
-            },
-            "pos": {
-                "x": 17,
-                "y": 14,
-                "roomName": "E2N39"
-            },
-            "id": "59a9c1ecc3ba0b77825ed282",
-            "name": "E2N39Work1",
-            "body": [
-                {
-                    "type": "work",
-                    "hits": 100
-                },
-                {
-                    "type": "work",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                }
-            ],
-            "my": true,
-            "owner": {
-                "username": "Folofo"
-            },
-            "spawning": false,
-            "ticksToLive": 20,
-            "carryCapacity": 50,
-            "carry": {
-                "energy": 0
-            },
-            "fatigue": 0,
-            "hits": 400,
-            "hitsMax": 400,
-            "saying": "builder"
+            "type": "carry",
+            "hits": 100
         },
         {
-            "room": {
-                "name": "E2N39",
-                "energyAvailable": 288,
-                "energyCapacityAvailable": 300,
-                "visual": {
-                    "roomName": "E2N39"
-                }
-            },
-            "pos": {
-                "x": 16,
-                "y": 16,
-                "roomName": "E2N39"
-            },
-            "id": "59a9c6f4a8ccc76bbad6f095",
-            "name": "E2N39Work2",
-            "body": [
-                {
-                    "type": "work",
-                    "hits": 100
-                },
-                {
-                    "type": "work",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                }
-            ],
-            "my": true,
-            "owner": {
-                "username": "Folofo"
-            },
-            "spawning": false,
-            "ticksToLive": 623,
-            "carryCapacity": 50,
-            "carry": {
-                "energy": 0
-            },
-            "fatigue": 0,
-            "hits": 400,
-            "hitsMax": 400
+            "type": "carry",
+            "hits": 100
         },
         {
-            "room": {
-                "name": "E2N39",
-                "energyAvailable": 288,
-                "energyCapacityAvailable": 300,
-                "visual": {
-                    "roomName": "E2N39"
-                }
-            },
-            "pos": {
-                "x": 15,
-                "y": 16,
-                "roomName": "E2N39"
-            },
-            "id": "59a9cc2760ef2475be564d66",
-            "name": "E2N39Work3",
-            "body": [
-                {
-                    "type": "work",
-                    "hits": 100
-                },
-                {
-                    "type": "work",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                }
-            ],
-            "my": true,
-            "owner": {
-                "username": "Folofo"
-            },
-            "spawning": false,
-            "ticksToLive": 1223,
-            "carryCapacity": 50,
-            "carry": {
-                "energy": 0
-            },
-            "fatigue": 0,
-            "hits": 400,
-            "hitsMax": 400
+            "type": "move",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "move",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "move",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "move",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "carry",
+            "hits": 100
+        },
+        {
+            "type": "move",
+            "hits": 100
         }
     ],
-    "move": [
-        {
-            "room": {
-                "name": "E2N39",
-                "energyAvailable": 288,
-                "energyCapacityAvailable": 300,
-                "visual": {
-                    "roomName": "E2N39"
-                }
-            },
-            "pos": {
-                "x": 17,
-                "y": 16,
-                "roomName": "E2N39"
-            },
-            "id": "59a9c471cd1a3217f04df2f9",
-            "name": "E2N39Move1",
-            "body": [
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                }
-            ],
-            "my": true,
-            "owner": {
-                "username": "Folofo"
-            },
-            "spawning": false,
-            "ticksToLive": 326,
-            "carryCapacity": 150,
-            "carry": {
-                "energy": 0
-            },
-            "fatigue": 0,
-            "hits": 600,
-            "hitsMax": 600
-        },
-        {
-            "room": {
-                "name": "E2N39",
-                "energyAvailable": 288,
-                "energyCapacityAvailable": 300,
-                "visual": {
-                    "roomName": "E2N39"
-                }
-            },
-            "pos": {
-                "x": 17,
-                "y": 15,
-                "roomName": "E2N39"
-            },
-            "id": "59a9c98ca8ccc76bbad6f205",
-            "name": "E2N39Move2",
-            "body": [
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "carry",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                },
-                {
-                    "type": "move",
-                    "hits": 100
-                }
-            ],
-            "my": true,
-            "owner": {
-                "username": "Folofo"
-            },
-            "spawning": false,
-            "ticksToLive": 929,
-            "carryCapacity": 150,
-            "carry": {
-                "energy": 0
-            },
-            "fatigue": 0,
-            "hits": 600,
-            "hitsMax": 600
-        }
-    ],
-    "mix": []
+    "my": false,
+    "owner": {
+        "username": "Friii"
+    },
+    "spawning": false,
+    "ticksToLive": 286,
+    "carryCapacity": 500,
+    "carry": {
+        "energy": 500
+    },
+    "fatigue": 0,
+    "hits": 1500,
+    "hitsMax": 1500
 }
