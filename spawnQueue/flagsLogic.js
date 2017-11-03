@@ -133,7 +133,7 @@ module.exports = function () {
 
           if (flag.memory.collect) {
             for (var collectorIndex = 1; collectorIndex <= fullcontainersNearFlag.length; collectorIndex++) {
-              var remoteCollectorName = flag.name + "RC" + sourceIndex;
+              var remoteCollectorName = flag.name + "RC" + collectorIndex;
               var remoteCollector = Game.creeps[remoteCollectorName];
               if (!remoteCollector) {
                 var remoteCollectorOrder = {
