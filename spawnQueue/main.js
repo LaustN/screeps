@@ -25,10 +25,10 @@ var roleActions = {
   "claimer": ["actionMigrate", "actionClaim", "actionSign", "actionRecycle"],
 
   "defender": ["actionDefend", "actionRally", "actionHold", "actionRecycle"],
-  "closeAssaulter": ["actionCloseAssault", "actionRally", "actionRecycle"],
-  "assaulter": ["actionRangedAssault", "actionRally", "actionRecycle"],
+  "closeAssaulter": ["actionCloseAssault", "actionRally", "actionStayAtFlag", "actionRecycle"],
+  "assaulter": ["actionRangedAssault", "actionRally", "actionStayAtFlag", "actionRecycle"],
 
-  "healer": ["actionHealCreeps", "actionMigrate", "actionHealerMove", "actionRally", "actionRecycle"],
+  "healer": ["actionHealCreeps", "actionMigrate", "actionHealerMove", "actionRally", "actionStayAtFlag", "actionRecycle"],
   "recycler": ["actionRecycle"],
 
   "remoteResupplyWorkers": ["actionSetMovesEnergy", "actionMigrate", "actionDistributeToWorkers", "actionFetchFromStorage"],
