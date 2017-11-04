@@ -6,30 +6,32 @@ var buildWall = function (room, x, y, isRampart) {
   if ((x < 2 || x > 47) && (y < 2 || y > 47))
     return false; //cannot build on 2 outermost fields in corners
 
-  var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
   var structureLook = room.lookForAt(LOOK_STRUCTURES, x, y);
-  var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
-
-  var terrainLook2 = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true);
-  var anyWallNearThisLocation = typeof (_.find(terrainLook2,
-    function (terrainObject) {
-      return terrainObject.terrain == "wall";
-    })) != "undefined";
-
-  if (terrainLook == "wall") { return false; }
   if (structureLook.length > 0) {
     if (structureLook.structureType != STRUCTURE_ROAD) { return false; }
     else {
       isRampart = true;
     }
   }
-  if(anyWallNearThisLocation){
-    isRampart = true;
+  var terrainLook = room.lookForAt(LOOK_TERRAIN, x, y)[0];
+  if (terrainLook == "wall") {
+    return false;
   }
 
+  var constructionLook = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
   if (constructionLook.length > 0) {
     return false; //cannot have 2 construction sites on top of each other
   }
+
+  var terrainLook2 = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true);
+  var anyWallNearThisLocation = typeof (_.find(terrainLook2,
+    function (terrainObject) {
+      return terrainObject.terrain == "wall";
+    })) != "undefined";
+  if (anyWallNearThisLocation) {
+    isRampart = true;
+  }
+
 
   var position = new RoomPosition(x, y, room.name);
 
