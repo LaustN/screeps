@@ -84,6 +84,30 @@ module.exports = function () {
 
 		var maxCount = Math.max(room.memory.workersWanted, room.memory.moversWanted);
 
+		var enemiesHere = room.find(FIND_HOSTILE_CREEPS)
+		room.memory.enemiesHere = [];
+		for (var enemyIndex in enemiesHere) {
+			var enemy = enemiesHere[enemyIndex];
+
+			if (enemy.getActiveBodyparts(HEAL) > 0) {
+				room.memory.enemiesHere.unshift(enemy.id);
+			} else {
+				room.memory.enemiesHere.push(enemy.id);
+			}
+		}
+		if (enemiesHere.length > 0) {
+			//processing starts for defending room
+			for (var defenderIndex = 1; defenderIndex <= 10; defenderIndex++) {
+				var defenderName = room.name + "Defender" + defenderIndex;
+				var defender = Game.creeps[defenderName];
+				if (typeof (defender) == "undefined") {
+					room.memory.spawnQueue.push({ body: defenderBody, memory: { type: "shoot", role: "defender" }, name: defenderName });
+				}
+
+			}
+			console.log(room.name + " is under attack");
+		}
+
 		if ((workCount < room.memory.workersWanted) || (moveCount < room.memory.moversWanted)) {
 			for (var workerLayerNumber = 1; workerLayerNumber <= maxCount; workerLayerNumber++) {
 
