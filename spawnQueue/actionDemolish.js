@@ -1,3 +1,22 @@
+var checkDemolishTarget = function (target) {
+  if (target) {
+    if (target.my)
+      return false;
+
+    if (target.structureType) {
+      switch (target.structureType) {
+        case STRUCTURE_WALL:
+        case STRUCTURE_ROAD:
+        case STRUCTURE_RAMPART:
+          return true;
+        default:
+          return false;
+      }
+    }
+  }
+  return false;
+};
+
 module.exports = function (creep) {
   if (creep.room.controller && creep.room.controller.my) {
     creep.memory.isDemolishing = false;
@@ -15,23 +34,14 @@ module.exports = function (creep) {
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
-      if (existingTarget 
-        && (!existingTarget.my) 
-        && (existingTarget.structureType)
-        && (existingTarget.structureType != STRUCTURE_CONTAINER)
-      ) {
+      if (checkDemolishTarget(existingTarget)) {
         target = existingTarget;
       }
     }
     if (!target) {
       target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (structure) {
-          return (
-            (structure.structureType != STRUCTURE_CONTROLLER) 
-            && (structure.structureType != STRUCTURE_CONTAINER)
-            && (structure.structureType != STRUCTURE_KEEPER_LAIR)
-          ) 
-            && !structure.my;
+          return checkDemolishTarget(structure);
         }
       });
     }
