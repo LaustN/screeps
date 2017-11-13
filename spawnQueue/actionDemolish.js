@@ -22,7 +22,12 @@ module.exports = function (creep) {
     if (!target) {
       target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (structure) {
-          return ((structure.structureType != STRUCTURE_CONTROLLER) && (structure.structureType != STRUCTURE_CONTAINER)) && !structure.my;
+          return (
+            (structure.structureType != STRUCTURE_CONTROLLER) 
+            && (structure.structureType != STRUCTURE_CONTAINER)
+            && (structure.structureType != STRUCTURE_KEEPER_LAIR)
+          ) 
+            && !structure.my;
         }
       });
     }
