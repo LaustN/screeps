@@ -7,6 +7,7 @@ module.exports = function (creep) {
       var nearbyConstructionSites = focus.pos.findInRange(FIND_CONSTRUCTION_SITES, 2);
       if ((nearbyConstructionSites.length > 0) && (creep.carry[RESOURCE_ENERGY] > 0)) {
         creep.build(nearbyConstructionSites[0]);
+        return true;
       }
       if (nearbyContainers.length == 0) {
         if ((nearbyContainers.length == 0) && (nearbyConstructionSites.length == 0)) {
@@ -18,6 +19,7 @@ module.exports = function (creep) {
       });
       if (containersInNeedOfRepair.length > 0) {
         creep.repair(containersInNeedOfRepair[0]);
+        return true;
       }
     }
   }
