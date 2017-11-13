@@ -15,7 +15,11 @@ module.exports = function (creep) {
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
-      if (existingTarget && !existingTarget.my && existingTarget.structureType) {
+      if (existingTarget 
+        && (!existingTarget.my) 
+        && (existingTarget.structureType)
+        && (existingTarget.structureType != STRUCTURE_CONTAINER)
+      ) {
         target = existingTarget;
       }
     }
