@@ -16,11 +16,13 @@ module.exports = function (creep) {
   }
 
   var attackState = 0;
+  var isMoving = false;
   if (target) {
     attackState = 1;
     var targetRange = creep.pos.getRangeTo(target);
     if (targetRange > 3) {
       creep.moveTo(target);
+      isMoving = true;
     }
     if (targetRange < 3) {
       console.log(creep.name + " might move away?");
@@ -40,44 +42,23 @@ module.exports = function (creep) {
       creep.heal(creep);
       return true;
     }
-    if(attackState==1){
-      //just moving to target, find wounded friends in range
-      var woundedFriendsNearby = creep.pos.findInRange(FIND_MY_CREEPS,3, {filter:function(otherCreep){
-        return otherCreep.hits < otherCreep.hitsMax;
-      }});
-      if(woundedFriendsNearby.length>0){
-        var woundedFriend = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter:function(otherCreep){
-          return otherCreep.hits < otherCreep.hitsMax;
-        }});
-        if(woundedFriend){
-          if(creep.pos.isNearTo(woundedFriend)){
-            creep.heal(woundedFriend);
-          }
-          else{
-            creep.rangedHeal(woundedFriend);
-          }
-        }
-        
-      }
-    }
 
-    if(attackState == 0){
-      var woundedFriend = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter:function(otherCreep){
-        return otherCreep.hits < otherCreep.hitsMax;
-      }});
+    var woundedFriend = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter:function(otherCreep){
+      return otherCreep.hits < otherCreep.hitsMax;
+    }});
 
-      if(woundedFriend){
-        if(creep.pos.isNearTo(woundedFriend)){
-          creep.heal(woundedFriend);
-        }
-        else{
-          creep.moveTo(woundedFriend);
-          creep.rangedHeal(woundedFriend);          
-        }
-        
-        //acting like a healer is also a valid action in itself
-        return true;
+    if(woundedFriend){
+
+      if(!isMoving){
+        creep.moveTo(woundedFriend);
       }
+      if(creep.attackState<2){
+        creep.rangedHeal(woundedFriend);
+      }
+      if(creep.pos.isNearTo(woundedFriend)){
+        creep.heal(woundedFriend);
+      }
+      return true;
     }
   }
 
