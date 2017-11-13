@@ -6,7 +6,7 @@ var roomLogic = require("roomLogic")
 
 var roleActions = {
   "harvester": ["actionSetGivesEnergy", "actionHarvest", "actionGoHome", "actionDump"],
-  "harvestWithReturn": ["actionSetGivesEnergy", "actionHarvest", "actionGoHome", "actionUnload"],
+  "harvestWithReturn": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionUnload"],
   "builder": ["actionSetWantsEnergy", "actionGoHome", "actionBuild"],
   "controlUpgrader": ["actionSetWantsEnergy", "actionGoHome", "actionUpgradeController"],
   "fortifier": ["actionSetWantsEnergy", "actionGoHome", "actionFortify"],
@@ -33,7 +33,7 @@ var roleActions = {
 
   "remoteResupplyWorkers": ["actionSetMovesEnergy", "actionMigrate", "actionDistributeToWorkers", "actionFetchFromStorage"],
   "remoteBuilder": ["actionMigrate", "actionSetWantsEnergy", "actionDemolish", "actionBuild", "actionRepair", "actionFortify", "actionFetchFromStorage", "actionDistributeToBuildings"],
-  "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy", "actionResolveRemoteSourceFocus", "actionHarvest", "actionEnsureDropPoint", "actionDump"],
+  "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy", "actionResolveRemoteSourceFocus", "actionShortScavenge", "actionEnsureDropPoint", "actionHarvest", "actionDump"],
   "remoteCollector": ["actionSetGivesEnergy", "actionReturnOnFull", "actionUnload", "actionClearUnloadFocus", "actionFetchDroppedEnergy", "actionMigrate", "actionResolveRemoteSourceFocus", "actionHarvestCollection"],
 
   "pausedWorker": ["actionSetGivesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionHold", "actionRecycle"],
