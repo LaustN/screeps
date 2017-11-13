@@ -5,7 +5,7 @@ var roomLogic = require("roomLogic")
 
 
 var roleActions = {
-  "harvester": ["actionSetGivesEnergy", "actionHarvest", "actionGoHome", "actionDump"],
+  "harvester": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionDump"],
   "harvestWithReturn": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionUnload"],
   "builder": ["actionSetWantsEnergy", "actionGoHome", "actionBuild"],
   "controlUpgrader": ["actionSetWantsEnergy", "actionGoHome", "actionUpgradeController"],
