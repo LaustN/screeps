@@ -94,7 +94,7 @@ module.exports = function () {
           }
           if (enemiesHere.length > 0) {
             //processing starts for defending sourceRoom
-            for (var defenderIndex = 1; defenderIndex <= 10; defenderIndex++) {
+            for (var defenderIndex = 1; defenderIndex <= enemiesHere.length; defenderIndex++) {
               var defenderName = flag.name + "Defender" + defenderIndex;
               var defender = Game.creeps[defenderName];
               if (typeof (defender) == "undefined") {
