@@ -1,4 +1,6 @@
 module.exports = function (creep) {
+  if((!creep.room.controller) || !creep.room.controller.my )
+    return false; //do not maintain wall where I have no controllers
   if (creep.carry[RESOURCE_ENERGY] < 1)
     return false;
 
