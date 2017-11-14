@@ -52,7 +52,7 @@ module.exports = function (creep) {
       if(!isMoving){
         creep.moveTo(woundedFriend);
       }
-      if(creep.attackState<2){
+      if(attackState<2){
         creep.rangedHeal(woundedFriend);
       }
       if(creep.pos.isNearTo(woundedFriend)){
