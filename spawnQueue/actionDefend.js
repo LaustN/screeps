@@ -36,7 +36,6 @@ module.exports = function (creep) {
       
       if(retreatPoint){
         creep.moveTo(retreatPoint)
-        isMoving = true;
       }
     }
 
