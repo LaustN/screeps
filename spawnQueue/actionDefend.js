@@ -25,7 +25,19 @@ module.exports = function (creep) {
       isMoving = true;
     }
     if (targetRange < 3) {
-      console.log(creep.name + " might move away?");
+      var retreatPoint = null;
+      var flag = Game.flags[creep.memory.flag];
+      if(flag){
+        retreatPoint = flag;
+      }
+      else{
+        retreatPoint = Game.getObjectById(creep.memory.home);
+      }
+      
+      if(retreatPoint){
+        creep.moveTo(retreatPoint)
+        isMoving = true;
+      }
     }
 
     if (creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3).length > 1) {
