@@ -17,7 +17,7 @@ module.exports = function (creep) {
       var containersInNeedOfRepair = _.filter(nearbyContainers, function (container) {
         return (container.hits < container.hitsMax);
       });
-      if (containersInNeedOfRepair.length > 0) {
+      if (containersInNeedOfRepair.length > 0 && (creep.carry[RESOURCE_ENERGY] > 0)) {
         creep.repair(containersInNeedOfRepair[0]);
         return true;
       }
