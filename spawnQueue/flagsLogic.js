@@ -132,7 +132,9 @@ module.exports = function () {
           }
 
           if (flag.memory.collect) {
-            for (var collectorIndex = 1; collectorIndex <= fullcontainersNearFlag.length; collectorIndex++) {
+
+            var roomsDistance = Game.map.getRoomLinearDistance(flag.pos.roomName, sourceRoom.name);
+            for (var collectorIndex = 1; collectorIndex <= (fullcontainersNearFlag.length * roomsDistance); collectorIndex++) {
               var remoteCollectorName = flag.name + "RC" + collectorIndex;
               var remoteCollector = Game.creeps[remoteCollectorName];
               if (!remoteCollector) {
