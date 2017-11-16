@@ -92,7 +92,7 @@ module.exports = function () {
               flag.room.memory.enemiesHere.push(enemy.id);
             }
           }
-          var keeperLairs = creep.room.find(FIND_STRUCTURES, {filter:{structureType: STRUCTURE_KEEPER_LAIR}});
+          var keeperLairs = flag.room.find(FIND_STRUCTURES, {filter:{structureType: STRUCTURE_KEEPER_LAIR}});
 
           var desiredDefenderCount = Math.max(enemiesHere.length,keeperLairs.length);
 
