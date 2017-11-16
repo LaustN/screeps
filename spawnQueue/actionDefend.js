@@ -20,11 +20,13 @@ module.exports = function (creep) {
   if (target) {
     attackState = 1;
     var targetRange = creep.pos.getRangeTo(target);
-    if (targetRange > 3) {
+    if ((targetRange > 3) || (!creep.memory.targetWasTooClose) ) {
+      creep.memory.targetWasTooClose = false;
       creep.moveTo(target);
       isMoving = true;
     }
     if (targetRange < 3) {
+      creep.memory.targetWasTooClose = true;
       var retreatPoint = null;
       var flag = Game.flags[creep.memory.flag];
       if(flag){
