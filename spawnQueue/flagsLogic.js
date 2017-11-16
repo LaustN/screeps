@@ -92,9 +92,13 @@ module.exports = function () {
               flag.room.memory.enemiesHere.push(enemy.id);
             }
           }
-          if (enemiesHere.length > 0) {
+          var keeperLairs = creep.room.find(FIND_STRUCTURES, {filter:{structureType: STRUCTURE_KEEPER_LAIR}});
+
+          var desiredDefenderCount = Math.max(enemiesHere.length,keeperLairs.length);
+
+          if (desiredDefenderCount > 0) {
             //processing starts for defending sourceRoom
-            for (var defenderIndex = 1; defenderIndex <= (enemiesHere.length+1); defenderIndex++) {
+            for (var defenderIndex = 1; defenderIndex <= desiredDefenderCount; defenderIndex++) {
               var defenderName = flag.name + "Defender" + defenderIndex;
               var defender = Game.creeps[defenderName];
               if (typeof (defender) == "undefined") {
