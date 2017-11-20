@@ -36,7 +36,7 @@ module.exports = function () {
         var maxPrice = Math.min(sourceRoom.energyCapacityAvailable, 1600);
 
         var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE], maxPrice);
-        var remoteMoverBody = buildCreepBody([CARRY, MOVE], maxPrice);
+        var remoteMoverBody = buildCreepBody([CARRY, MOVE], sourceRoom.energyCapacityAvailable);
         var defenderBody = buildCreepBody([MOVE, MOVE, RANGED_ATTACK, HEAL], sourceRoom.energyCapacityAvailable);
         var assaultBody = buildCreepBody([MOVE, RANGED_ATTACK], sourceRoom.energyCapacityAvailable);
         var closeAssaultBody = buildCreepBody([MOVE, ATTACK], sourceRoom.energyCapacityAvailable);
