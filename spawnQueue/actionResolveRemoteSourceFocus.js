@@ -8,7 +8,7 @@ module.exports = function (creep) {
   var targetFullness = 1;
 
   var noneLikeMeFilter = function (source) {
-    var similarCreeps = source.pos.findInRange(FIND_MY_CREEPS, 2, {
+    var similarCreeps = source.pos.findInRange(FIND_MY_CREEPS, 8, {
       filter: function (similarCreep) {
         if (similarCreep.id == creep.id) {
           return false;
