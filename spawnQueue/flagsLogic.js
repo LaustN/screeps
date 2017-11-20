@@ -159,7 +159,7 @@ module.exports = function () {
               if (structure.structureType == STRUCTURE_WALL
                 || structure.structureType == STRUCTURE_RAMPART)
                 return false;
-              if (structure.hits < structure.hitsMax) {
+              if (structure.hits < (structure.hitsMax/2)) {
                 return true;
               }
               return false;
