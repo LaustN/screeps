@@ -318,6 +318,7 @@ module.exports = function (room) {
 
 
   var assignableMoverCount = (creepsByType["move"] || []).length - (creepsByRole["harvestTruck"] || []).length;
+  console.log("assignableMoverCount in " + room.name + " is " + assignableMoverCount);
 
   if ((assignableMoverCount > 0) && scavengerWanted) {
     adjustMoverRoleCount("scavenger", 1);
