@@ -34,7 +34,7 @@ var roleActions = {
   "remoteResupplyWorkers": ["actionSetMovesEnergy", "actionMigrate", "actionDistributeToWorkers", "actionFetchFromStorage"],
   "remoteBuilder": ["actionMigrate", "actionSetWantsEnergy", "actionDemolish", "actionBuild", "actionRepair", "actionFortify", "actionFetchFromStorage", "actionDistributeToBuildings"],
   "remoteHarvester": ["actionMigrate", "actionSetGivesEnergy", "actionResolveRemoteSourceFocus", "actionShortScavenge", "actionEnsureDropPoint", "actionHarvest", "actionDump"],
-  "remoteCollector": ["actionSetGivesEnergy", "actionReturnOnFull", "actionUnload", "actionClearUnloadFocus", "actionFetchDroppedEnergy", "actionMigrate", "actionResolveRemoteSourceFocus", "actionHarvestCollection"],
+  "remoteCollector": ["actionSetGivesEnergy", "actionReturnOnFull", "actionUnload", "actionClearUnloadFocus", "actionFetchDroppedEnergy", "actionMigrate", "actionResolveRemoteSourceFocus", "actionHarvestCollection", "actionForgetFocus"],
 
   "pausedWorker": ["actionSetGivesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionHold", "actionRecycle"],
   "pausedMover": ["actionSetGivesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionHold", "actionRecycle"]

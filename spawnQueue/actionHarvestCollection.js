@@ -47,4 +47,6 @@ module.exports = function (creep) {
     return true;
   }
 
+  return false; //failed to find anything to collect
+
 }
