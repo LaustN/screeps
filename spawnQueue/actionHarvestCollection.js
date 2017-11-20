@@ -17,7 +17,7 @@ module.exports = function (creep) {
     }
   }
 
-  var structuresWithStorage = source.pos.findInRange(FIND_STRUCTURES, 1, {
+  var structuresWithStorage = source.pos.findInRange(FIND_STRUCTURES, 2, {
     filter: function (structure) {
       if ((structure.storeCapacity > 0) && (structure.store[RESOURCE_ENERGY] > 0))
         return true;

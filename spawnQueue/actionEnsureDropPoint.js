@@ -3,7 +3,7 @@ module.exports = function (creep) {
   if (focus) {
     var isNextToFocus = focus.pos.isNearTo(creep);
     if (isNextToFocus) {
-      var nearbyContainers = focus.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_CONTAINER } });
+      var nearbyContainers = focus.pos.findInRange(FIND_STRUCTURES, 2, { filter: { structureType: STRUCTURE_CONTAINER } });
       var nearbyConstructionSites = focus.pos.findInRange(FIND_CONSTRUCTION_SITES, 2);
       if ((nearbyConstructionSites.length > 0) && (creep.carry[RESOURCE_ENERGY] > 0)) {
         creep.build(nearbyConstructionSites[0]);
