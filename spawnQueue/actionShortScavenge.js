@@ -4,7 +4,14 @@ module.exports = function (creep) {
 
   var droppedResourcesHere = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
   if ((droppedResourcesHere.length > 0) && (droppedResourcesHere[0].resourceType == RESOURCE_ENERGY)) {
-    creep.pickup(droppedResourcesHere[0]);
+    var pickupSizeLimit = creep.getActiveBodyparts(WORK) * 2;
+
+    var resourceToPickUp = _.find(droppedResourcesHere, function(resource){
+      return (resource.amount<pickupSizeLimit);
+    });
+    if(resourceToPickUp){
+      creep.pickup(resourceToPickUp);
+    }
   }
   return false;
 }
