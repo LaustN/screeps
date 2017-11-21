@@ -273,12 +273,15 @@ module.exports = function (room) {
         adjustWorkerRoleCount("controlUpgrader", 0);
       }
     }
+    var fortifierJobsCount = wornWalls.length + plannedFortifications.length;
 
-    var fortifierWanted = ((room.controller.level >= 2) && ((wornWalls.length > 0)) || (plannedFortifications.length > 0));
+    var fortifierWanted = ((room.controller.level >= 2) && (fortifierJobsCount > 0));
     if (fortifierWanted) {
-      adjustWorkerRoleCount("fortifier", 1);
-      room.memory.workersWanted++;
-      room.memory.moversWanted++;
+      var targetFortifierCount = Math.floor(Math.cbrt(fortifierJobsCount)) + 1;
+
+      adjustWorkerRoleCount("fortifier", targetFortifierCount);
+      room.memory.workersWanted += targetFortifierCount;
+      room.memory.moversWanted += targetFortifierCount;
     }
     else {
       adjustWorkerRoleCount("fortifier", 0);
@@ -299,9 +302,9 @@ module.exports = function (room) {
   var collectionPointsCount = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
       return (
-        (structure.structureType == STRUCTURE_CONTAINER) 
-        && (structure.store[RESOURCE_ENERGY]) 
-        && (structure.store[RESOURCE_ENERGY] > (structure.storeCapacity/2) ));
+        (structure.structureType == STRUCTURE_CONTAINER)
+        && (structure.store[RESOURCE_ENERGY])
+        && (structure.store[RESOURCE_ENERGY] > (structure.storeCapacity / 2)));
     }
   }).length;
 
