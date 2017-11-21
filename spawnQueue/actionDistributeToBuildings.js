@@ -2,7 +2,10 @@ module.exports = function(creep){
   if(creep.carry[RESOURCE_ENERGY] > 0){
     var destination = Game.getObjectById(creep.memory.focus);
 
-    if(destination && (!destination.energyCapacity  || !((destination.energyCapacity - destination.energy)>0) )) {
+    if(destination && (
+      !destination.energyCapacity  
+      || !((destination.energyCapacity - destination.energy)>0) )
+      || !destination.my    ) {
       destination = null;
       creep.memory.focus = null;
     }
