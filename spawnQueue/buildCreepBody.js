@@ -1,22 +1,24 @@
-module.exports = function(bodyParts, maxPrice){
+module.exports = function (bodyParts, maxPrice) {
   var remainingCapacity = 300;
-  if(maxPrice){
+  if (maxPrice) {
     remainingCapacity = maxPrice;
   }
-  var resultingBody  =[];
+  var resultingBody = [];
 
   var layerPrice = _.reduce(bodyParts, function (collector, bodyPart) {
     return collector + BODYPART_COST[bodyPart];
   }, 0);
-  
+
+  console.log("Layerprice calculated at " + layerPrice + " for body " + JSON.stringify(bodyParts));
+
   while (true) {
-    for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
-      if(remainingCapacity < layerPrice || resultingBody.length + bodyParts.length > 50){
-        resultingBody.sort(function(a,b){ return BODYPART_COST[a] - BODYPART_COST[b]; });
-        return resultingBody;
-      }
-      resultingBody.unshift(bodyParts)
-      remainingCapacity-=layerPrice;
+    if (remainingCapacity < layerPrice || resultingBody.length + bodyParts.length > 50) {
+      resultingBody.sort(function (a, b) { return BODYPART_COST[a] - BODYPART_COST[b]; });
+
+      console.log("resulting body is " + JSON.stringify(resultingBody));
+      return resultingBody;
     }
+    resultingBody.unshift(bodyParts)
+    remainingCapacity -= layerPrice;
   }
 }
