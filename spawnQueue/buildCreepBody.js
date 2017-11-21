@@ -9,13 +9,9 @@ module.exports = function (bodyParts, maxPrice) {
     return collector + BODYPART_COST[bodyPart];
   }, 0);
 
-  console.log("Layerprice calculated at " + layerPrice + " for body " + JSON.stringify(bodyParts));
-
   while (true) {
     if (remainingCapacity < layerPrice || resultingBody.length + bodyParts.length > 50) {
       resultingBody.sort(function (a, b) { return BODYPART_COST[a] - BODYPART_COST[b]; });
-
-      console.log("resulting body is " + JSON.stringify(resultingBody));
       return resultingBody;
     }
     for(var nextBodyPartIndex in bodyParts ){
