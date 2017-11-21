@@ -64,7 +64,7 @@ module.exports = function (creep) {
         creep.moveTo(target);
       }
       else{
-        var otherDistributersHere = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
+        var otherDistributersHere = creep.pos.findInRange(FIND_MY_CREEPS, 2, {
           filter: function (otherDistributer) {
             return (otherDistributer.memory.energyWanted == 0)
               && (otherDistributer.carryCapacity > _.sum(otherDistributer.carry))
@@ -73,6 +73,7 @@ module.exports = function (creep) {
           }
         });
         if(otherDistributersHere.length){
+          creep.moveTo(otherDistributersHere[0]);
           creep.transfer(otherDistributersHere[0], RESOURCE_ENERGY);
           creep.say("->" + otherDistributersHere[0].name);
         }
