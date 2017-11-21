@@ -92,9 +92,9 @@ module.exports = function () {
               flag.room.memory.enemiesHere.push(enemy.id);
             }
           }
-          var keeperLairs = flag.room.find(FIND_STRUCTURES, {filter:{structureType: STRUCTURE_KEEPER_LAIR}});
+          var keeperLairs = flag.room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_KEEPER_LAIR } });
 
-          var desiredDefenderCount = Math.max(enemiesHere.length,keeperLairs.length);
+          var desiredDefenderCount = Math.max(enemiesHere.length, keeperLairs.length);
 
           if (desiredDefenderCount > 0) {
             //processing starts for defending sourceRoom
@@ -159,7 +159,7 @@ module.exports = function () {
               if (structure.structureType == STRUCTURE_WALL
                 || structure.structureType == STRUCTURE_RAMPART)
                 return false;
-              if (structure.hits < (structure.hitsMax/2)) {
+              if (structure.hits < (structure.hitsMax / 2)) {
                 return true;
               }
               return false;
@@ -204,11 +204,11 @@ module.exports = function () {
         if (
           flag
           && flag.room
-          && flag.room.controller 
-          && !flag.room.controller.my 
-          && flag.room.controller.reservation 
-          && flag.room.controller.reservation.username == "Folofo" 
-          && flag.room.controller.reservation.ticksToEnd > 2000 
+          && flag.room.controller
+          && !flag.room.controller.my
+          && flag.room.controller.reservation
+          && flag.room.controller.reservation.username == "Folofo"
+          && flag.room.controller.reservation.ticksToEnd > 2000
           && !flag.memory.claim
         ) {
           roomHasEnoughReservation = true;
@@ -219,7 +219,7 @@ module.exports = function () {
           var reserverName = flag.name + "Reserver";
           var reserver = Game.creeps[reserverName];
           var reserverBody = buildCreepBody([CLAIM, MOVE], sourceRoom.energyCapacityAvailable);
-          if (!reserver) {
+          if ((!reserver) && (reserverName.length > 0)) {
             var reserverOrder = { body: reserverBody, memory: { type: "reserver", role: "reserver", flag: flag.name }, name: reserverName };
             sourceRoom.memory.spawnQueue.push(reserverOrder);
           }
