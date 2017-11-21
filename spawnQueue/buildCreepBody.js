@@ -4,17 +4,19 @@ module.exports = function(bodyParts, maxPrice){
     remainingCapacity = maxPrice;
   }
   var resultingBody  =[];
+
+  var layerPrice = _.reduce(bodyParts, function (collector, bodyPart) {
+    return collector + BODYPART_COST[bodyPart];
+  }, 0);
+  
   while (true) {
     for (var assaultPartsIterator = 0; assaultPartsIterator < bodyParts.length; assaultPartsIterator++) {
-      if(remainingCapacity < 50 || resultingBody.length == 50){
+      if(remainingCapacity < layerPrice || resultingBody.length + bodyParts.length > 50){
         resultingBody.sort(function(a,b){ return BODYPART_COST[a] - BODYPART_COST[b]; });
         return resultingBody;
       }
-      var nextPart =  bodyParts[assaultPartsIterator];
-      if (BODYPART_COST[nextPart] <= remainingCapacity) {
-        resultingBody.unshift(nextPart)
-        remainingCapacity-=BODYPART_COST[nextPart];
-      }
+      resultingBody.unshift(bodyParts)
+      remainingCapacity-=layerPrice;
     }
   }
 }
