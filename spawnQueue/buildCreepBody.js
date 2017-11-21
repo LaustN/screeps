@@ -18,7 +18,9 @@ module.exports = function (bodyParts, maxPrice) {
       console.log("resulting body is " + JSON.stringify(resultingBody));
       return resultingBody;
     }
-    resultingBody.unshift(bodyParts)
+    for(var nextBodyPartIndex in bodyParts ){
+      resultingBody.unshift(bodyParts[nextBodyPartIndex]);
+    }
     remainingCapacity -= layerPrice;
   }
 }
