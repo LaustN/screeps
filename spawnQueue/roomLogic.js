@@ -39,8 +39,16 @@ module.exports = function () {
 			return creep.name.startsWith(room.name);
 		});
 
-		var workCount = _.filter(creeps, function (creep) { if (creep.memory.type == "work") return true; return false; }).length;
-		var moveCount = _.filter(creeps, function (creep) { if (creep.memory.type == "move") return true; return false; }).length;
+		var workCount = _.filter(creeps, function (creep) {
+			if (creep.memory.type == "work")
+				return true;
+			return false;
+		}).length;
+		var moveCount = _.filter(creeps, function (creep) {
+			if (creep.memory.type == "move")
+				return true;
+			return false;
+		}).length;
 
 		var containers = room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } });
 		//we want 1 harvester pair per source + 1 worker/mover pair per full container
@@ -74,6 +82,7 @@ module.exports = function () {
 		var workerPrice = Math.min(room.energyCapacityAvailable, 1500);
 		if (moveCount == 0 || workCount == 0) {
 			maxPrice = moverPrice = workerPrice = 300;
+			console.log("panicking maxprice in " + room.name);
 		}
 		var workerBody = buildCreepBody([WORK, WORK, CARRY, MOVE], workerPrice);
 		var remoteWorkerBody = buildCreepBody([WORK, CARRY, MOVE, MOVE], maxPrice);
