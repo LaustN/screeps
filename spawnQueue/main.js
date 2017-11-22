@@ -5,17 +5,17 @@ var roomLogic = require("roomLogic")
 
 
 var roleActions = {
-  "harvester": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionDump"],
+  "harvester": ["actionSetGivesEnergy", "actionShortScavenge", "actionGoHome", "actionHarvest", "actionDump"],
   "harvestWithReturn": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionUnload"],
   "builder": ["actionSetWantsEnergy", "actionGoHome", "actionBuild"],
   "controlUpgrader": ["actionSetWantsEnergy", "actionGoHome", "actionUpgradeController"],
   "fortifier": ["actionSetWantsEnergy", "actionGoHome", "actionFortify"],
-  "repairer": ["actionSetWantsEnergy", "actionRepair", "actionGoHome"],
+  "repairer": ["actionSetWantsEnergy", "actionGoHome", "actionRepair"],
 
-  "harvestTruck": ["actionSetGivesEnergy", "actionUnload", "actionGoHome", "actionHarvestCollection"],
-  "resupplyBuildings": ["actionSetMovesEnergy", "actionDistributeToBuildings", "actionGoHome", "actionFetchFromStorage"],
-  "stockpile": ["actionSetMovesEnergy", "actionCollectRemote", "actionGoHome", "actionFillStorage"],
-  "resupplyWorkers": ["actionSetMovesEnergy", "actionDistributeToWorkers", "actionGoHome", "actionFetchFromStorage"],
+  "harvestTruck": ["actionSetGivesEnergy", "actionGoHome", "actionUnload", "actionHarvestCollection"],
+  "resupplyBuildings": ["actionSetMovesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionFetchFromStorage"],
+  "stockpile": ["actionSetMovesEnergy", "actionGoHome", "actionCollectRemote", "actionFillStorage"],
+  "resupplyWorkers": ["actionSetMovesEnergy", "actionGoHome", "actionDistributeToWorkers", "actionFetchFromStorage"],
   "looter": ["actionSetGivesEnergy", "actionMigrate", "actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
   "scavenger": ["actionSetGivesEnergy", "actionGoHome", "actionUnload", "actionFetchDroppedEnergy"],
 
