@@ -2,7 +2,7 @@ module.exports = function (creep) {
   var home = Game.getObjectById(creep.memory.home);
   if(creep.room.name != home.room.name){
     creep.memory.awayCounter++;
-    if(awayCounter>20){
+    if(creep.memory.awayCounter>20){
       creep.moveTo(home);
       return true;
     }
