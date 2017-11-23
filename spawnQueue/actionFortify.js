@@ -6,9 +6,15 @@ module.exports = function (creep) {
 
   //figure out how high walls need to be
   var desiredHitsPerWall = creep.room.controller.level * 10000;
-  if (creep.room.controller.level > 7) {
-    desiredHitsPerWall = 300000000;
-  }
+  
+  /**
+   *  this seems to break in a fairly bad way, making fortifiers ignore ramparts untill current focus wall is maxed out
+   */
+  // if (creep.room.controller.level > 7) {
+  //   desiredHitsPerWall = 300000000;
+  // }
+
+
   var target = Game.getObjectById(creep.memory.focus);
   if (target) {
     if (target.structureType) {
