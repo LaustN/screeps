@@ -22,8 +22,6 @@ module.exports = function (creep) {
 
       }).length > 0;
 
-      console.log("container exists at " + JSON.stringify(creep.pos) + "=" + containerHere);
-
       if (dropPointCount < 2) {
         if (!containerHere) {
           creep.pos.createConstructionSite(STRUCTURE_CONTAINER);
