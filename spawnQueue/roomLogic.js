@@ -21,6 +21,14 @@ module.exports = function () {
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
 
+		var roomIsMine  = false;
+		if(room.controller && rooom.controller.my){
+			roomIsMine = true;
+		}
+		if(!roomIsMine){
+			continue;
+		}
+
 		var roomModulo = roomIndex % moduloBase;
 		roomIndex++;
 		if (roomModulo != timeModulo) { //roomLogic is way expensive, so only run it occasionally 
@@ -170,6 +178,15 @@ module.exports = function () {
 
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
+
+		var roomIsMine  = false;
+		if(room.controller && rooom.controller.my){
+			roomIsMine = true;
+		}
+		if(!roomIsMine){
+			continue;
+		}
+
 		roomSpawns(room);
 	}
 }    
