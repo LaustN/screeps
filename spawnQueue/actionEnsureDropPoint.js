@@ -9,8 +9,23 @@ module.exports = function (creep) {
         creep.build(nearbyConstructionSites[0]);
         return true;
       }
-      if (nearbyContainers.length == 0) {
-        if ((nearbyContainers.length == 0) && (nearbyConstructionSites.length == 0)) {
+
+      var dropPointCount = nearbyContainers.length + nearbyConstructionSites.length;
+
+      var containerHere = _.filter(creep.pos.look(), function (lookObject) {
+        if (lookObject.type == LOOK_STRUCTURE) {
+          return lookObject.structure.structureType == STRUCTURE_CONTAINER;
+        }
+        if (lookObject.type == LOOK_CONSTRUCTION_SITE) {
+          return lookObject.constructionSite.structureType == STRUCTURE_CONTAINER;
+        }
+
+      }).length > 0;
+
+      console.log("container exists at " + JSON.stringify(creep.pos) + "=" + containerHere);
+
+      if (dropPointCount < 2) {
+        if (!containerHere) {
           creep.pos.createConstructionSite(STRUCTURE_CONTAINER);
         }
       }
