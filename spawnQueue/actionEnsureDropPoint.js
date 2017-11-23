@@ -13,10 +13,10 @@ module.exports = function (creep) {
       var dropPointCount = nearbyContainers.length + nearbyConstructionSites.length;
 
       var containerHere = _.filter(creep.pos.look(), function (lookObject) {
-        if (lookObject.type == LOOK_STRUCTURE) {
+        if (lookObject.type == LOOK_STRUCTURES) {
           return lookObject.structure.structureType == STRUCTURE_CONTAINER;
         }
-        if (lookObject.type == LOOK_CONSTRUCTION_SITE) {
+        if (lookObject.type == LOOK_CONSTRUCTION_SITES) {
           return lookObject.constructionSite.structureType == STRUCTURE_CONTAINER;
         }
 
