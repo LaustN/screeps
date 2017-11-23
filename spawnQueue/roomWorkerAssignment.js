@@ -174,9 +174,10 @@ module.exports = function (room) {
   });
 
   var desiredHitsPerWall = room.controller.level * 10000;
-  if (room.controller.level > 7) {
-    desiredHitsPerWall = 300000000;
-  }
+
+  // if (room.controller.level > 7) {
+  //   desiredHitsPerWall = 300000000;
+  // }
 
   var wornWalls = room.find(FIND_STRUCTURES, {
     filter: function (structure) {
