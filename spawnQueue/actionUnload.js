@@ -25,9 +25,11 @@ module.exports = function (creep) {
           //keep this target for a few tick regardless
           if (creep.memory.unloadAtLinkTick) {
             if ((Game.time - 10) < creep.memory.unloadAtLinkTick) {
+              creep.say("stay here")
               //stay here
             }
             else {
+              creep.say("been here!")
               delete creep.memory.unloadAtLinkTick;
               target = null;
             }
