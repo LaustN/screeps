@@ -22,7 +22,7 @@ module.exports = function () {
 		var room = Game.rooms[roomName];
 
 		var roomIsMine  = false;
-		if(room.controller && rooom.controller.my){
+		if(room.controller && room.controller.my){
 			roomIsMine = true;
 		}
 		if(!roomIsMine){
@@ -180,7 +180,7 @@ module.exports = function () {
 		var room = Game.rooms[roomName];
 
 		var roomIsMine  = false;
-		if(room.controller && rooom.controller.my){
+		if(room.controller && room.controller.my){
 			roomIsMine = true;
 		}
 		if(!roomIsMine){
