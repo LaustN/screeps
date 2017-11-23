@@ -22,8 +22,20 @@ module.exports = function (creep) {
             target = null;
           break;
         case STRUCTURE_LINK:
-          if (target.energy == target.energyCapacity)
-            target = null;
+          //keep this target for a few tick regardless
+          if (creep.memory.unloadAtLinkTick) {
+            if ((Game.time - 10) < creep.memory.unloadAtLinkTick) {
+              //stay here
+            }
+            else {
+              delete creep.memory.unloadAtLinkTick;
+              target = null;
+            }
+          }
+          else {
+            if (target.energy == target.energyCapacity)
+              target = null;
+          }
           break;
         case STRUCTURE_STORAGE:
           //do nothing, assume that storage has capacity
@@ -49,7 +61,7 @@ module.exports = function (creep) {
 
       target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
         filter: function (structure) {
-          if(structure.structureType == STRUCTURE_STORAGE)
+          if (structure.structureType == STRUCTURE_STORAGE)
             return true;
           if (
             (
@@ -103,6 +115,11 @@ module.exports = function (creep) {
       var transferMessage = creep.transfer(target, RESOURCE_ENERGY);
       if (transferMessage == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
+      }
+      if (transferMessage == OK) {
+        if (target.structureType == STRUCTURE_LINK) {
+          creep.memory.unloadAtLinkTick = Game.time;
+        }
       }
       return true;
     }
