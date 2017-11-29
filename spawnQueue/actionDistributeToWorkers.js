@@ -76,6 +76,7 @@ module.exports = function (creep) {
           creep.moveTo(otherDistributersHere[0]);
           creep.transfer(otherDistributersHere[0], RESOURCE_ENERGY);
           creep.say("->" + otherDistributersHere[0].name);
+          creep.memory.focus = null;
         }
       }
       return true;
