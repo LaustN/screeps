@@ -150,7 +150,7 @@ module.exports = function (room) {
             for (var innerCircleQueueIndex in innerCircleQueue) {
                 for (var innerCircleIndex in innerCircle) {
                     var innerCircleResult = innerCircle[innerCircleIndex].createConstructionSite(innerCircleQueue[innerCircleIndex]);
-                    if (buildExtensionResult == OK)
+                    if (innerCircleResult == OK)
                         return;
                 }
             }
