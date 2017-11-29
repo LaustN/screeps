@@ -144,13 +144,15 @@ module.exports = function (room) {
             }
         }
 
-        var innerCircle = getRoomPositionsAtRange(spawns[0].pos, 1, spacyFilter);
-        var innerCircleQueue = [STRUCTURE_STORAGE, STRUCTURE_TOWER];
-        for (var innerCircleQueueIndex in innerCircleQueue) {
-            for (var innerCircleIndex in innerCircle) {
-                var innerCircleResult = innerCircle[innerCircleIndex].createConstructionSite(innerCircleQueue[innerCircleIndex]);
-                if (buildExtensionResult == OK)
-                    return;
+        for (var rangeIterator = 1; rangeIterator < 3; rangeIterator++) {
+            var innerCircle = getRoomPositionsAtRange(spawns[0].pos, rangeIterator, spacyFilter);
+            var innerCircleQueue = [STRUCTURE_STORAGE, STRUCTURE_TOWER, STRUCTURE_SPAWN];
+            for (var innerCircleQueueIndex in innerCircleQueue) {
+                for (var innerCircleIndex in innerCircle) {
+                    var innerCircleResult = innerCircle[innerCircleIndex].createConstructionSite(innerCircleQueue[innerCircleIndex]);
+                    if (buildExtensionResult == OK)
+                        return;
+                }
             }
         }
     }
