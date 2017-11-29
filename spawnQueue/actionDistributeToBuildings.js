@@ -54,7 +54,6 @@ module.exports = function (creep) {
       var otherDistributersHere = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
         filter: function (otherDistributer) {
           return (otherDistributer.memory.energyWanted == 0)
-            && (otherDistributer.carryCapacity > _.sum(otherDistributer.carry))
             && ((otherDistributer.carry[RESOURCE_ENERGY] / otherDistributer.carryCapacity) > (creep.carry[RESOURCE_ENERGY] / creep.carryCapacity))
             && otherDistributer.id != creep.id; //do not count yourself as an extra feeded
         }
@@ -62,6 +61,7 @@ module.exports = function (creep) {
       if (otherDistributersHere.length) {
         creep.transfer(otherDistributersHere[0], RESOURCE_ENERGY);
         creep.say("->" + otherDistributersHere[0].name);
+        creep.memory.focus = null;
       }
       return true;
     }
