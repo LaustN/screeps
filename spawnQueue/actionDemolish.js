@@ -18,7 +18,7 @@ var checkDemolishTarget = function (target) {
 };
 
 module.exports = function (creep) {
-  if (creep.room.controller && creep.room.controller.my) {
+  if ((typeof(creep.room.controller) != "undefined") && creep.room.controller.my) {
     creep.memory.isDemolishing = false;
   }
 
