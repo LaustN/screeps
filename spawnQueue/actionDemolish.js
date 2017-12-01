@@ -1,5 +1,10 @@
 var checkDemolishTarget = function (target) {
   if (target) {
+    if(target.room.controller){
+      if(target.room.controller.my){
+        return false;
+      }
+    }
     if (target.my)
       return false;
 
