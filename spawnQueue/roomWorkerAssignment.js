@@ -364,12 +364,18 @@ module.exports = function (room) {
     //adjustment of moversWanted here should not be needed, since this is accounted for when workers are allocated
   }
 
+  var harvestersPerSource = 1;
+  if (room.energyCapacityAvailable < 1000) {
+    harvestersPerSource = 2;
+  }
+
   for (var sourceIndex in sources) {
-    var existingHarvester = _.find(creepsByRole["harvester"], function (harvester) {
+    var existingHarvesters = _.filter(creepsByRole["harvester"], function (harvester) {
       var isMyHarvester = (harvester.memory.focus == sources[sourceIndex].id);
       return isMyHarvester;
     });
-    room.memory.workersWanted++;
+
+    room.memory.workersWanted += harvestersPerSource;
 
     var nearbyRemoteHarvester = sources[sourceIndex].pos.findInRange(FIND_MY_CREEPS, 2, {
       filter: function (possiblyRemoteHarvester) {
@@ -377,57 +383,65 @@ module.exports = function (room) {
       }
     });
 
-    if (!existingHarvester) {
+    if (existingHarvesters.length < harvestersPerSource) {
       if (nearbyRemoteHarvester.length < 1) {
-        var existingNonHarvester = getLowPrioWorker();
-        if (existingNonHarvester) {
-          assignRole(existingNonHarvester, "harvester");
-          existingNonHarvester.memory.focus = sources[sourceIndex].id;
+
+        for (var iterator = existingHarvesters.length; iterator < harvestersPerSource; iterator++) {
+          var existingNonHarvester = getLowPrioWorker();
+          if (existingNonHarvester) {
+            assignRole(existingNonHarvester, "harvester");
+            existingNonHarvester.memory.focus = sources[sourceIndex].id;
+          }
         }
       }
     }
     else {
       if (nearbyRemoteHarvester.length > 0) {
-        //seems like the easiest way of moving a step away from the source, then doing nothing
-        assignRole(existingHarvester, "pausedWorker");
-        room.memory.workersWanted--;
+        for (var harvesterIndex in existingHarvesters) {
+          var existingHarvester = existingHarvesters[harvesterIndex];
+          //seems like the easiest way of moving a step away from the source, then doing nothing
+          assignRole(existingHarvester, "pausedWorker");
+          room.memory.workersWanted -= harvestersPerSource;
+        }
       }
-    }
 
-    var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
-      return mover.memory.focus == sources[sourceIndex].id;
-    });
+      var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
+        return mover.memory.focus == sources[sourceIndex].id;
+      });
 
-    var hasLink = (sources[sourceIndex].pos.findInRange(FIND_MY_STRUCTURES, 2, { filter: { structureType: STRUCTURE_LINK } }).length > 0);
-    if (!hasLink) {
-      room.memory.moversWanted++;
-    }
-
-    if (!(existingHarvestTruck || hasLink)) {
-      var existingNonHarvestTruck = getLowPrioMover();
-      if (existingNonHarvestTruck) {
-        assignRole(existingNonHarvestTruck, "harvestTruck");
-        existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
+      var hasLink = (sources[sourceIndex].pos.findInRange(FIND_MY_STRUCTURES, 2, { filter: { structureType: STRUCTURE_LINK } }).length > 0);
+      if (!hasLink) {
+        room.memory.moversWanted += harvestersPerSource;
       }
-      else {
-        if (existingHarvester && (_.sum(existingHarvester.carry) == existingHarvester.carryCapacity)) {
-          assignRole(existingHarvester, "harvestWithReturn");
+
+      if (!(existingHarvestTruck || hasLink)) {
+        var existingNonHarvestTruck = getLowPrioMover();
+        if (existingNonHarvestTruck) {
+          assignRole(existingNonHarvestTruck, "harvestTruck");
+          existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
+        }
+        else {
+          for (var harvesterIndex in existingHarvesters) {
+            var existingHarvester = existingHarvesters[harvesterIndex];
+            if (existingHarvester && (_.sum(existingHarvester.carry) == existingHarvester.carryCapacity)) {
+              assignRole(existingHarvester, "harvestWithReturn");
+            }
+          }
         }
       }
     }
-  }
 
-  if (creepsByType["move"].length <= sources.length && storedEnergy >= 2000) {
-    //all movers are likely assigned to harvest, and we really need to get the economy up again, so assign 1 to resupplyBuildings
-    //this is an emergency measure, that overrides the logic of "harvest always has priority"
-    adjustMoverRoleCount("resupplyBuildings", 1);
-  }
+    if (creepsByType["move"].length <= sources.length && storedEnergy >= 2000) {
+      //all movers are likely assigned to harvest, and we really need to get the economy up again, so assign 1 to resupplyBuildings
+      //this is an emergency measure, that overrides the logic of "harvest always has priority"
+      adjustMoverRoleCount("resupplyBuildings", 1);
+    }
 
 
-  var pausedWorkerCount = (creepsByRole["pausedWorker"] || []).length;
-  var upgraderCount = (creepsByRole["controlUpgrader"] || []).length;
-  if (pausedWorkerCount > 0) {
-    adjustWorkerRoleCount("controlUpgrader", pausedWorkerCount + upgraderCount);
+    var pausedWorkerCount = (creepsByRole["pausedWorker"] || []).length;
+    var upgraderCount = (creepsByRole["controlUpgrader"] || []).length;
+    if (pausedWorkerCount > 0) {
+      adjustWorkerRoleCount("controlUpgrader", pausedWorkerCount + upgraderCount);
+    }
   }
-}
 
