@@ -404,44 +404,45 @@ module.exports = function (room) {
           room.memory.workersWanted -= harvestersPerSource;
         }
       }
+    }
 
-      var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
-        return mover.memory.focus == sources[sourceIndex].id;
-      });
+    var existingHarvestTruck = _.find(creepsByRole["harvestTruck"], function (mover) {
+      return mover.memory.focus == sources[sourceIndex].id;
+    });
 
-      var hasLink = (sources[sourceIndex].pos.findInRange(FIND_MY_STRUCTURES, 2, { filter: { structureType: STRUCTURE_LINK } }).length > 0);
-      if (!hasLink) {
-        room.memory.moversWanted += harvestersPerSource;
+    var hasLink = (sources[sourceIndex].pos.findInRange(FIND_MY_STRUCTURES, 2, { filter: { structureType: STRUCTURE_LINK } }).length > 0);
+    if (!hasLink) {
+      room.memory.moversWanted += harvestersPerSource;
+    }
+
+    if (!(existingHarvestTruck || hasLink)) {
+      var existingNonHarvestTruck = getLowPrioMover();
+      if (existingNonHarvestTruck) {
+        assignRole(existingNonHarvestTruck, "harvestTruck");
+        existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
       }
-
-      if (!(existingHarvestTruck || hasLink)) {
-        var existingNonHarvestTruck = getLowPrioMover();
-        if (existingNonHarvestTruck) {
-          assignRole(existingNonHarvestTruck, "harvestTruck");
-          existingNonHarvestTruck.memory.focus = sources[sourceIndex].id;
-        }
-        else {
-          for (var harvesterIndex in existingHarvesters) {
-            var existingHarvester = existingHarvesters[harvesterIndex];
-            if (existingHarvester && (_.sum(existingHarvester.carry) == existingHarvester.carryCapacity)) {
-              assignRole(existingHarvester, "harvestWithReturn");
-            }
+      else {
+        for (var harvesterIndex in existingHarvesters) {
+          var existingHarvester = existingHarvesters[harvesterIndex];
+          if (existingHarvester && (_.sum(existingHarvester.carry) == existingHarvester.carryCapacity)) {
+            assignRole(existingHarvester, "harvestWithReturn");
           }
         }
       }
     }
-
-    if (creepsByType["move"].length <= sources.length && storedEnergy >= 2000) {
-      //all movers are likely assigned to harvest, and we really need to get the economy up again, so assign 1 to resupplyBuildings
-      //this is an emergency measure, that overrides the logic of "harvest always has priority"
-      adjustMoverRoleCount("resupplyBuildings", 1);
-    }
-
-
-    var pausedWorkerCount = (creepsByRole["pausedWorker"] || []).length;
-    var upgraderCount = (creepsByRole["controlUpgrader"] || []).length;
-    if (pausedWorkerCount > 0) {
-      adjustWorkerRoleCount("controlUpgrader", pausedWorkerCount + upgraderCount);
-    }
   }
+
+  if (creepsByType["move"].length <= sources.length && storedEnergy >= 2000) {
+    //all movers are likely assigned to harvest, and we really need to get the economy up again, so assign 1 to resupplyBuildings
+    //this is an emergency measure, that overrides the logic of "harvest always has priority"
+    adjustMoverRoleCount("resupplyBuildings", 1);
+  }
+
+
+  var pausedWorkerCount = (creepsByRole["pausedWorker"] || []).length;
+  var upgraderCount = (creepsByRole["controlUpgrader"] || []).length;
+  if (pausedWorkerCount > 0) {
+    adjustWorkerRoleCount("controlUpgrader", pausedWorkerCount + upgraderCount);
+  }
+}
 
