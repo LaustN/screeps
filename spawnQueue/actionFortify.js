@@ -67,7 +67,7 @@ module.exports = function (creep) {
 
   if (target) {
     creep.memory.focus = target.id;
-    if (!creep.pos.inRangeTo(target, 3)) {
+    if (!creep.pos.inRangeTo(target, 1)) {
       creep.moveTo(target);
     }
     var repairMessage = creep.repair(target);
