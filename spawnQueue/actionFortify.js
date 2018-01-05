@@ -75,6 +75,10 @@ module.exports = function (creep) {
     if (repairMessage == ERR_NOT_IN_RANGE) {
       creep.moveTo(target);
     }
+
+    if(repairMessage != OK){
+      creep.say("R:" + repairMessage);
+    }
     return true;
   }
   return false;
