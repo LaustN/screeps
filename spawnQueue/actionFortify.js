@@ -18,7 +18,7 @@ module.exports = function (creep) {
   var target = Game.getObjectById(creep.memory.focus);
   if (target) {
     if (target.structureType) {
-      if ((target.structureType != STRUCTURE_RAMPART) && (target.structureType != STRUCTURE_RAMPART)) {
+      if ((target.structureType != STRUCTURE_WALL) && (target.structureType != STRUCTURE_RAMPART)) {
         target = null;
       }
       if (target && ((target.hits >= (desiredHitsPerWall + 3000)) || (target.hits == 300000000))) {
@@ -66,19 +66,15 @@ module.exports = function (creep) {
   }
 
   if (target) {
-
     creep.memory.focus = target.id;
+    if (!creep.pos.inRangeTo(target, 3)) {
+      creep.moveTo(target);
+    }
     var repairMessage = creep.repair(target);
     if (repairMessage == ERR_INVALID_TARGET) {
       repairMessage = creep.build(target);
     }
-    if (repairMessage == ERR_NOT_IN_RANGE) {
-      creep.moveTo(target);
-    }
 
-    if(repairMessage != OK){
-      creep.say("R:" + repairMessage);
-    }
     return true;
   }
   return false;
