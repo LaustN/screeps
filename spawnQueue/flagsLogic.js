@@ -191,7 +191,7 @@ module.exports = function () {
 
         }
 
-        if (flag.memory.scout && !flagRoomIsOwned) {
+        if (flag.memory.scout && (!flagRoomIsOwned) && (typeof(flag.room) == "undefined" ) ) {
           var scoutName = flag.name + "Scout";
           var scout = Game.creeps[scoutName];
           if (!scout) {
