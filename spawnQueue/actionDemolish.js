@@ -1,7 +1,7 @@
 var checkDemolishTarget = function (target) {
   if (target) {
-    if(target.room.controller){
-      if(target.room.controller.my){
+    if (target.room.controller) {
+      if (target.room.controller.my) {
         return false;
       }
     }
@@ -12,10 +12,12 @@ var checkDemolishTarget = function (target) {
       switch (target.structureType) {
         case STRUCTURE_WALL:
         case STRUCTURE_ROAD:
-        case STRUCTURE_RAMPART:
-          return true;
-        default:
+        case STRUCTURE_CONTAINER:
           return false;
+          break;
+        default:
+          return true;
+          break;
       }
     }
   }
@@ -23,7 +25,7 @@ var checkDemolishTarget = function (target) {
 };
 
 module.exports = function (creep) {
-  if ((typeof(creep.room.controller) != "undefined") && creep.room.controller.my) {
+  if ((typeof (creep.room.controller) != "undefined") && creep.room.controller.my) {
     creep.memory.isDemolishing = false;
   }
 
