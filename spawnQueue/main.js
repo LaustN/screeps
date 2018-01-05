@@ -5,19 +5,19 @@ var roomLogic = require("roomLogic")
 
 
 var roleActions = {
-  "harvester": ["actionSetGivesEnergy", "actionShortScavenge", "actionGoHome", "actionHarvest", "actionDump"],
+  "harvester": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionDump"],
   "harvestWithReturn": ["actionSetGivesEnergy", "actionShortScavenge", "actionHarvest", "actionGoHome", "actionUnload"],
-  "builder": ["actionSetWantsEnergy", "actionGoHome", "actionBuild"],
+  "builder": ["actionSetWantsEnergy", "actionBuild", "actionGoHome"],
   "controlUpgrader": ["actionSetWantsEnergy", "actionGoHome", "actionUpgradeController"],
-  "fortifier": ["actionSetWantsEnergy", "actionGoHome", "actionFortify"],
-  "repairer": ["actionSetWantsEnergy", "actionGoHome", "actionRepair"],
+  "fortifier": ["actionSetWantsEnergy", "actionFortify", "actionGoHome"],
+  "repairer": ["actionSetWantsEnergy", "actionRepair", "actionGoHome"],
 
-  "harvestTruck": ["actionSetGivesEnergy", "actionGoHome", "actionUnload", "actionHarvestCollection"],
-  "resupplyBuildings": ["actionSetMovesEnergy", "actionGoHome", "actionDistributeToBuildings", "actionFetchFromStorage"],
-  "stockpile": ["actionSetMovesEnergy", "actionGoHome", "actionCollectRemote", "actionFillStorage"],
-  "resupplyWorkers": ["actionSetMovesEnergy", "actionGoHome", "actionDistributeToWorkers", "actionFetchFromStorage"],
+  "harvestTruck": ["actionSetGivesEnergy", "actionUnload", "actionHarvestCollection", "actionGoHome"],
+  "resupplyBuildings": ["actionSetMovesEnergy", "actionDistributeToBuildings", "actionFetchFromStorage", "actionGoHome"],
+  "stockpile": ["actionSetMovesEnergy", "actionCollectRemote", "actionFillStorage", "actionGoHome"],
+  "resupplyWorkers": ["actionSetMovesEnergy", "actionDistributeToWorkers", "actionFetchFromStorage", "actionGoHome"],
   "looter": ["actionSetGivesEnergy", "actionMigrate", "actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
-  "scavenger": ["actionSetGivesEnergy", "actionGoHome", "actionUnload", "actionFetchDroppedEnergy"],
+  "scavenger": ["actionSetGivesEnergy", "actionUnload", "actionFetchDroppedEnergy", "actionGoHome"],
 
   "scout": ["actionMigrate", "actionSign", "actionEnsureWatch"],
 
