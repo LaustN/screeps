@@ -1,5 +1,10 @@
 module.exports = function (creep) {
   creep.memory.focus = null;
+
+  if(creep.carry[RESOURCE_ENERGY] > 0){
+    return false;
+  }
+
   if (creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY]) {
     if (creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
       creep.moveTo(creep.room.storage);
