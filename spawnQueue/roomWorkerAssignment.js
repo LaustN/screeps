@@ -251,6 +251,7 @@ module.exports = function (room) {
     var desiredDemolisherCount = Math.ceil(Math.sqrt(hostileStructures));
     adjustWorkerRoleCount("demolisher", desiredDemolisherCount);
     room.memory.workersWanted += desiredDemolisherCount;
+    
 
     if ((storedEnergy > 500000) || (overflowApproaching)) {
       var maxUpgraderCount =
