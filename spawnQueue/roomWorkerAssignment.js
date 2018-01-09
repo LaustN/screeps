@@ -52,8 +52,8 @@ module.exports = function (room) {
     var workerRolesAscendingPriority =
       [
         "pausedWorker",
-        "demolisher",
         "controlUpgrader",
+        "demolisher",
         "fortifier",
         "repairer",
         "builder",
@@ -90,7 +90,7 @@ module.exports = function (room) {
   }
 
   var assignRole = function (creep, role) {
-    console.log(creep.name + " " + creep.memory.role + "->" + role);
+    // console.log(creep.name + " " + creep.memory.role + "->" + role);
     if (creep.memory.role != role) {
       creep.say(role);
     }
@@ -245,13 +245,15 @@ module.exports = function (room) {
       adjustWorkerRoleCount("repairer", 0);
     }
 
-    var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
-
     var hostileStructures = room.find(FIND_HOSTILE_STRUCTURES);
     var desiredDemolisherCount = Math.ceil(Math.sqrt(hostileStructures));
     adjustWorkerRoleCount("demolisher", desiredDemolisherCount);
     room.memory.workersWanted += desiredDemolisherCount;
-    
+    console.log(" desiredDemolisherCount=" + desiredDemolisherCount + " in " + room.name);
+
+    var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
+
+
 
     if ((storedEnergy > 500000) || (overflowApproaching)) {
       var maxUpgraderCount =

@@ -106,7 +106,6 @@ module.exports = function () {
               }
 
             }
-            console.log(flag.room.name + " is under attack");
           }
 
           var fullcontainersNearFlag = flag.room.find(FIND_STRUCTURES, {

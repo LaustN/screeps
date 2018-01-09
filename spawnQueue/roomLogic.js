@@ -122,7 +122,6 @@ module.exports = function () {
 				}
 
 			}
-			console.log(room.name + " is under attack");
 		}
 
 		if ((workCount < room.memory.workersWanted) || (moveCount < room.memory.moversWanted)) {
@@ -169,7 +168,6 @@ module.exports = function () {
 				}
 
 			}
-			console.log(room.name + " is under attack");
 		}
 	}
 
