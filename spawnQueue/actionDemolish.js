@@ -29,13 +29,11 @@ module.exports = function (creep) {
   }
 
   if (creep.memory.isDemolishing) {
-    creep.say("a");
     var target = null;
     if (creep.memory.focus) {
       var existingTarget = Game.getObjectById(creep.memory.focus);
       if (checkDemolishTarget(existingTarget)) {
         target = existingTarget;
-        creep.say("b");
       }
     }
     if (!target) {
@@ -44,23 +42,17 @@ module.exports = function (creep) {
           return checkDemolishTarget(structure);
         }
       });
-      creep.say("c");
-
     }
     if (target) {
       creep.memory.focus = target.id;
       if (target.pos.isNearTo(creep)) {
         creep.dismantle(target);
-        creep.say("d");
-
       } else {
         creep.moveTo(target);
-        creep.say("e");
       }
 
       return true;
     }
   }
-  creep.say("f");
   return false;
 }
