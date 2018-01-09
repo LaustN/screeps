@@ -52,6 +52,7 @@ module.exports = function (room) {
     var workerRolesAscendingPriority =
       [
         "pausedWorker",
+        "demolisher",
         "controlUpgrader",
         "fortifier",
         "repairer",
@@ -246,6 +247,10 @@ module.exports = function (room) {
 
     var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
 
+    var hostileStructures = room.find(FIND_HOSTILE_STRUCTURES);
+    var desiredDemolisherCount = Math.ceil(Math.sqrt(hostileStructures));
+    adjustWorkerRoleCount("demolisher", desiredDemolisherCount);
+    room.memory.workersWanted += desiredDemolisherCount;
 
     if ((storedEnergy > 500000) || (overflowApproaching)) {
       var maxUpgraderCount =

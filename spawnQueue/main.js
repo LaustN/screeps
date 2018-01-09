@@ -18,6 +18,7 @@ var roleActions = {
   "resupplyWorkers": ["actionSetMovesEnergy", "actionDistributeToWorkers", "actionFetchFromStorage", "actionGoHome"],
   "looter": ["actionSetGivesEnergy", "actionMigrate", "actionFetchRemote", "actionFetchDroppedEnergy", "actionUnload"],
   "scavenger": ["actionSetGivesEnergy", "actionUnload", "actionFetchDroppedEnergy", "actionGoHome"],
+  "demolisher": ["actionSetGivesEnergy", "actionDemolish", "actionFetchDroppedEnergy", "actionUnload", "actionDump", "actionGoHome"],
 
   "scout": ["actionMigrate", "actionSign", "actionEnsureWatch"],
 
