@@ -52,8 +52,8 @@ module.exports = function (room) {
     var workerRolesAscendingPriority =
       [
         "pausedWorker",
-        "controlUpgrader",
         "demolisher",
+        "controlUpgrader",
         "fortifier",
         "repairer",
         "builder",
