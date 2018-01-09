@@ -12,39 +12,45 @@ module.exports = function (creep) {
   if (creep.memory.unloading) {
     var target = Game.getObjectById(creep.memory.unloadfocus);
     if (target) {
-      switch (target.structureType) {
-        case STRUCTURE_EXTENSION:
-          if (target.energy == target.energyCapacity)
-            target = null;
-          break;
-        case STRUCTURE_SPAWN:
-          if (target.energy == target.energyCapacity)
-            target = null;
-          break;
-        case STRUCTURE_LINK:
-          //keep this target for a few tick regardless
-          if (creep.memory.unloadAtLinkTick) {
-            if ((Game.time - 10) < creep.memory.unloadAtLinkTick) {
-              creep.say("stay here")
-              //stay here
-            }
-            else {
-              creep.say("been here!")
-              delete creep.memory.unloadAtLinkTick;
-              target = null;
-            }
-          }
-          else {
+      if (target.my) {
+
+        switch (target.structureType) {
+          case STRUCTURE_EXTENSION:
             if (target.energy == target.energyCapacity)
               target = null;
-          }
-          break;
-        case STRUCTURE_STORAGE:
-          //do nothing, assume that storage has capacity
-          break;
-        default:
-          target = null; //ocus must be legacy, so null it
-          break;
+            break;
+          case STRUCTURE_SPAWN:
+            if (target.energy == target.energyCapacity)
+              target = null;
+            break;
+          case STRUCTURE_LINK:
+            //keep this target for a few tick regardless
+            if (creep.memory.unloadAtLinkTick) {
+              if ((Game.time - 10) < creep.memory.unloadAtLinkTick) {
+                creep.say("stay here")
+                //stay here
+              }
+              else {
+                creep.say("been here!")
+                delete creep.memory.unloadAtLinkTick;
+                target = null;
+              }
+            }
+            else {
+              if (target.energy == target.energyCapacity)
+                target = null;
+            }
+            break;
+          case STRUCTURE_STORAGE:
+            //do nothing, assume that storage has capacity
+            break;
+          default:
+            target = null; //ocus must be legacy, so null it
+            break;
+        }
+      }
+      else {
+        target = null;
       }
     }
     if (!target) {
