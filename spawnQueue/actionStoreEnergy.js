@@ -1,6 +1,6 @@
 module.exports = function (creep) {
   if (creep.carry[RESOURCE_ENERGY] > 0) {
-    var structuresHere = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+    var dumpPoint = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: function (structure) { //roads are also structures, so the filter is actually neeeded!
         if (structure.structureType == STRUCTURE_CONTAINER){
           if(_.sum(structure.store) < structure.storeCapacity)
@@ -9,9 +9,9 @@ module.exports = function (creep) {
         return false;
       }
     });
-    if (structuresHere.length > 0) {
-      if(creep.transfer(structuresHere[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
-        creep.moveTo(structuresHere[0]);
+    if (dumpPoint) {
+      if(creep.transfer(dumpPoint, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+        creep.moveTo(dumpPoint);
       return true;
     }
     creep.drop(RESOURCE_ENERGY);
