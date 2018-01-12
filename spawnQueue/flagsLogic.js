@@ -153,7 +153,7 @@ module.exports = function () {
 
 
 
-          var anyBuildingsInNeedOfRepairs = flag.room.find(FIND_STRUCTURES, {
+          var buildingsInNeedOfRepairs = flag.room.find(FIND_STRUCTURES, {
             filter: function (structure) {
               if (structure.structureType == STRUCTURE_WALL
                 || structure.structureType == STRUCTURE_RAMPART)
@@ -163,34 +163,53 @@ module.exports = function () {
               }
               return false;
             }
-          }).length > 0;
+          });
 
           var constructionSites = flag.room.find(FIND_CONSTRUCTION_SITES);
-          var anyNonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
+          var nonDefaultedConstructionSites = _.filter(constructionSites, function (constructionSite) {
             return constructionSite.pos.findInRange(FIND_CREEPS, 1).length == 0;
-          }).length > 0;
-          if (anyNonDefaultedConstructionSites || anyBuildingsInNeedOfRepairs) {
-            var desiredBuilderCount = 1;
-            if (flag.room.controller && flag.room.controller.my) {
-              desiredBuilderCount = fullcontainersNearFlag.length;
-            }
-            for (var builderIndex = 1; builderIndex <= desiredBuilderCount; builderIndex++) {
-              var remoteBuilderName = flag.name + "RB" + builderIndex;
-              var remoteBuilder = Game.creeps[remoteBuilderName];
-              if (!remoteBuilder) {
-                var remoteBuilderOrder = {
-                  body: remoteWorkerBody,
-                  memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flag.name },
-                  name: remoteBuilderName
-                };
-                sourceRoom.memory.spawnQueue.push(remoteBuilderOrder);
+          });
+
+          var demolishTargets = flag.room.find(FIND_STRUCTURES, {
+            filter: function (structure) {
+              if (flag.room.controller && flag.room.controller.my) {
+                if (structure.my) {
+                  return false;
+                }
+                if (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD) {
+                  return false;
+                }
+                return true;
               }
+              else {
+                if (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD) {
+                  return false;
+                }
+                return true;
+              }
+              return false;
+            }
+          });
+
+
+
+          var desiredBuilderCount = Math.ceil(Math.sqrt(nonDefaultedConstructionSites.length + buildingsInNeedOfRepairs.length + demolishTargets.length));
+          for (var builderIndex = 1; builderIndex <= desiredBuilderCount; builderIndex++) {
+            var remoteBuilderName = flag.name + "RB" + builderIndex;
+            var remoteBuilder = Game.creeps[remoteBuilderName];
+            if (!remoteBuilder) {
+              var remoteBuilderOrder = {
+                body: remoteWorkerBody,
+                memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flag.name },
+                name: remoteBuilderName
+              };
+              sourceRoom.memory.spawnQueue.push(remoteBuilderOrder);
             }
           }
 
         }
 
-        if (flag.memory.scout && (!flagRoomIsOwned) && (typeof(flag.room) == "undefined" ) ) {
+        if (flag.memory.scout && (!flagRoomIsOwned) && (typeof (flag.room) == "undefined")) {
           var scoutName = flag.name + "Scout";
           var scout = Game.creeps[scoutName];
           if (!scout) {
