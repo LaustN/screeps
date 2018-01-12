@@ -1,6 +1,6 @@
 module.exports = function (creep) {
   if (creep.carry[RESOURCE_ENERGY] > 0) {
-    var structuresHere = creep.pos.find(FIND_STRUCTURES, {
+    var structuresHere = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: function (structure) { //roads are also structures, so the filter is actually neeeded!
         if (structure.structureType == STRUCTURE_CONTAINER){
           if(_.sum(structure.store) < structure.storeCapacity)
