@@ -193,7 +193,7 @@ module.exports = function () {
 
 
 
-          var desiredBuilderCount = Math.ceil(Math.sqrt(nonDefaultedConstructionSites.length + buildingsInNeedOfRepairs.length + demolishTargets.length));
+          var desiredBuilderCount = Math.ceil(Math.sqrt(nonDefaultedConstructionSites.length + buildingsInNeedOfRepairs.length));
           for (var builderIndex = 1; builderIndex <= desiredBuilderCount; builderIndex++) {
             var remoteBuilderName = flag.name + "RB" + builderIndex;
             var remoteBuilder = Game.creeps[remoteBuilderName];
@@ -201,6 +201,20 @@ module.exports = function () {
               var remoteBuilderOrder = {
                 body: remoteWorkerBody,
                 memory: { type: "remoteBuilder", role: "remoteBuilder", flag: flag.name },
+                name: remoteBuilderName
+              };
+              sourceRoom.memory.spawnQueue.push(remoteBuilderOrder);
+            }
+          }
+
+          var desiredDemolisherCount = Math.ceil(Math.sqrt(demolishTargets.length));
+          for (var builderIndex = 1; builderIndex <= desiredDemolisherCount; builderIndex++) {
+            var remoteBuilderName = flag.name + "RD" + builderIndex;
+            var remoteBuilder = Game.creeps[remoteBuilderName];
+            if (!remoteBuilder) {
+              var remoteBuilderOrder = {
+                body: remoteWorkerBody,
+                memory: { type: "remoteDemolisher", role: "remoteDemolisher", flag: flag.name },
                 name: remoteBuilderName
               };
               sourceRoom.memory.spawnQueue.push(remoteBuilderOrder);
