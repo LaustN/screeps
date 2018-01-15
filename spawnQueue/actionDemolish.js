@@ -9,7 +9,6 @@ var checkDemolishTarget = function (target) {
         case STRUCTURE_ROAD:
         case STRUCTURE_CONTAINER:
         case STRUCTURE_CONTROLLER:
-        case STRUCTURE_SOURCE:
           return false;
           break;
         default:
