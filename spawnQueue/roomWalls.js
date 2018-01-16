@@ -146,11 +146,33 @@ module.exports = function (room) {
     return;
   }
 
-  for (var scanOrderIndex in scanOrders) {
-    var scanOrder = scanOrders[scanOrderIndex];
-    if (buildWalls(room, scanOrder.scanStart, scanOrder.scanDirection, scanOrder.wallDirection)) {
-      return true;
-    }
+  if (room.memory.lastWallCheckTime) {
+    console.log("lastWallCheckTime in " + room.name + " is " + room.memory.lastWallCheckTime)
+  } else {
+    room.memory.lastWallCheckTime = Game.time;
   }
-  return false;
+
+  if (room.memory.wallReliability) {
+    console.log("wallReliability in " + room.name + " is " + room.memory.wallReliability)
+  } else {
+    room.memory.wallReliability = 1;
+  }
+
+  if (Game.time > (room.memory.lastWallCheckTime + room.memory.wallReliability)) {
+    console.log("checking walls in " + room.name);
+
+    for (var scanOrderIndex in scanOrders) {
+      var scanOrder = scanOrders[scanOrderIndex];
+      if (buildWalls(room, scanOrder.scanStart, scanOrder.scanDirection, scanOrder.wallDirection)) {
+        room.memory.wallReliability = 1;
+        console.log("some fortification work done in " + room.name + ", resetting wallReliability");
+        return;
+      }
+    }
+    room.memory.wallReliability += 10;
+    room.memory.lastWallCheckTime = Game.time;
+  }
+  else{
+    console.log("skipping walls check in " + room.name);
+  }
 }  
