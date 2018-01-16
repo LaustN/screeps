@@ -179,6 +179,6 @@ module.exports = function (room) {
       " because lastWallCheckTime is " +
       room.memory.lastWallCheckTime +
       " and wallReliability is " +
-      roome.memory.wallReliability);
+      room.memory.wallReliability);
   }
 }  
