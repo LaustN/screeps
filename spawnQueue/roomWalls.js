@@ -152,6 +152,10 @@ module.exports = function (room) {
   }
 
   if (room.memory.wallReliability) {
+    if(room.memory.wallReliability > 5000){
+      room.memory.wallReliability = 100; 
+      console.log(room.name + " is readied for health check");
+    }
   } else {
     room.memory.wallReliability = 1;
   }
