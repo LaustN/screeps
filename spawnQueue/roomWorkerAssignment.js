@@ -250,7 +250,6 @@ module.exports = function (room) {
     var desiredDemolisherCount = Math.ceil(Math.sqrt(hostileStructures.length));
     adjustWorkerRoleCount("demolisher", desiredDemolisherCount);
     room.memory.workersWanted += desiredDemolisherCount;
-    console.log("desiredDemolisherCount=" + desiredDemolisherCount + " in " + room.name);
 
     var overflowApproaching = (storedEnergy > ((storingStructures.length - 1) * 2000)) && (storingStructures.length > 0) && !room.storage;
 
@@ -334,7 +333,6 @@ module.exports = function (room) {
 
 
   var assignableMoverCount = (creepsByType["move"] || []).length - (creepsByRole["harvestTruck"] || []).length;
-  console.log("assignableMoverCount in " + room.name + " is " + assignableMoverCount);
 
   if ((assignableMoverCount > 0) && scavengerWanted) {
     adjustMoverRoleCount("scavenger", 1);
