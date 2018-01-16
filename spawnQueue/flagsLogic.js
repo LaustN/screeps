@@ -176,13 +176,21 @@ module.exports = function () {
                 if (structure.my) {
                   return false;
                 }
-                if (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD) {
+                if (structure.structureType == STRUCTURE_CONTAINER 
+                  || structure.structureType == STRUCTURE_ROAD
+                  || structure.structureType == STRUCTURE_WALL
+                ) {
                   return false;
                 }
                 return true;
               }
               else {
-                if (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD) {
+                if (
+                  structure.structureType == STRUCTURE_CONTAINER 
+                  || structure.structureType == STRUCTURE_ROAD
+                  || structure.structureType == STRUCTURE_WALL
+                  || structure.structureType == STRUCTURE_CONTROLLER
+                ) {
                   return false;
                 }
                 return true;
