@@ -92,8 +92,6 @@ module.exports.loop = function () {
   if (logProfilerData)
     console.log("before RoomLogic: " + (lastTime));
 
-
-  console.log("Running rooms logic");
   roomLogic();
   var newTime = Game.cpu.getUsed();
   if (logProfilerData)
