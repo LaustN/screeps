@@ -263,7 +263,7 @@ module.exports = function (room) {
 
       adjustWorkerRoleCount("controlUpgrader", maxUpgraderCount);
       var upgraderBoostCount = Math.max(Math.ceil((storedEnergy - 500000) / 100000) + 1, storingStructures.length);
-      if(room.controller.level == 8){
+      if (room.controller.level == 8) {
         upgraderBoostCount = 1; //do not overcommit on upgraders when room is already maxed
       }
       room.memory.workersWanted += upgraderBoostCount;
@@ -362,7 +362,7 @@ module.exports = function (room) {
 
 
   if (hungryBuildings.length > 0) {
-    var resupplyBuildingsCount = Math.ceil(Math.sqrt(hungryBuildings.length)) + 1;
+    var resupplyBuildingsCount = Math.min(Math.ceil(Math.sqrt(hungryBuildings.length)) + 1, assignableMoverCount);
     adjustMoverRoleCount("resupplyBuildings", resupplyBuildingsCount);
     assignableMoverCount -= resupplyBuildingsCount;
     room.memory.moversWanted += resupplyBuildingsCount
