@@ -1,6 +1,6 @@
 var checkRepairTarget = function (structure) {
   if (structure) {
-    if (structure.my) {
+    if (structure.my && structure.room.controller && structure.room.controller.my) {
       if (structure.structureType == STRUCTURE_WALL)
         return false;
       if (structure.structureType == STRUCTURE_RAMPART)
