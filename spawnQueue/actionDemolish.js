@@ -42,7 +42,7 @@ module.exports = function (creep) {
         filter: function (structure) {
           if (checkDemolishTarget(structure)) {
             //do not choose a crowded structure for demolishment
-            return (structure.pos.findInRange(FIND_MY_CREEPS, 1).length < 3);
+            return (structure.pos.findInRange(FIND_MY_CREEPS, 1).length < 2);
           };
           return false;
         }
