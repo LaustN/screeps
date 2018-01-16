@@ -147,13 +147,11 @@ module.exports = function (room) {
   }
 
   if (room.memory.lastWallCheckTime) {
-    console.log("lastWallCheckTime in " + room.name + " is " + room.memory.lastWallCheckTime)
   } else {
     room.memory.lastWallCheckTime = Game.time;
   }
 
   if (room.memory.wallReliability) {
-    console.log("wallReliability in " + room.name + " is " + room.memory.wallReliability)
   } else {
     room.memory.wallReliability = 1;
   }
