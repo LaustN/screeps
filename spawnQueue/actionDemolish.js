@@ -1,6 +1,6 @@
 var checkDemolishTarget = function (target) {
   if (target) {
-    if (target.my)
+    if (target.my && target.room.controller && target.room.controller.my)
       return false;
 
     if (target.structureType) {
