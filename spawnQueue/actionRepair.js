@@ -1,28 +1,43 @@
+var checkRepairTarget = function (structure) {
+  if (structure) {
+    if (structure.my) {
+      if (structure.structureType == STRUCTURE_WALL)
+        return false;
+      if (structure.structureType == STRUCTURE_RAMPART)
+        return false;
+      return (structure.hits < structure.hitsMax);
+    }
+    else {
+      if (structure.structureType) {
+        switch (structure.structureType) {
+          case STRUCTURE_ROAD:
+          case STRUCTURE_CONTAINER:
+            return (structure.hits < structure.hitsMax);
+            break;
+          default:
+            return false;
+        }
+      }
+    }
+  }
+  return false;
+};
+
 module.exports = function (creep) {
-  if(creep.carry[RESOURCE_ENERGY]<1)
+  if (creep.carry[RESOURCE_ENERGY] < 1)
     return false;
-  
+
   var target = null;
   if (creep.memory.focus) {
     var existingTarget = Game.getObjectById(creep.memory.focus);
-    if (existingTarget
-      && (existingTarget.structureType != STRUCTURE_WALL)
-      && (existingTarget.structureType != STRUCTURE_RAMPART)
-      && (existingTarget.hits < existingTarget.hitsMax)) {
+    if (checkRepairTarget(existingTarget)) {
       target = existingTarget;
     }
   }
   if (!target) {
     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: function (structure) {
-        if (
-          (structure.structureType != STRUCTURE_WALL)
-          && (structure.structureType != STRUCTURE_RAMPART)
-          && (structure.hits < structure.hitsMax)
-        ) {
-          return true;
-        }
-        return false;
+        return checkRepairTarget(structure);
       }
     });
   }
@@ -35,7 +50,7 @@ module.exports = function (creep) {
     }
     return true;
   }
-  else{
+  else {
     creep.memory.focus = null;
   }
   return false;
