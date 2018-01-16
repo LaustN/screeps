@@ -173,14 +173,6 @@ module.exports = function (room) {
     }
     room.memory.wallReliability += 10;
     room.memory.lastWallCheckTime = Game.time;
-  }
-  else {
-    console.log(
-      "skipping walls check in " +
-      room.name +
-      " because lastWallCheckTime is " +
-      room.memory.lastWallCheckTime +
-      " and wallReliability is " +
-      room.memory.wallReliability);
+    console.log("walls in " + room.name + " are OK");
   }
 }  
