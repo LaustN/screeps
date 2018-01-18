@@ -21,6 +21,7 @@ module.exports = function () {
 
 	for (var roomName in Game.rooms) {
 		var room = Game.rooms[roomName];
+		roomBuildings2(room);
 
 		var roomIsMine  = false;
 		if(room.controller && room.controller.my){
@@ -41,7 +42,6 @@ module.exports = function () {
 
 
 		roomBuildings(room);
-		roomBuildings2(room);
 		roomWorkerAssignment(room);
 		roomWalls(room);
 
