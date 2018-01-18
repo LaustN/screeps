@@ -129,7 +129,7 @@ module.exports = function (room) {
 
         if (_.filter(room.lookForAt(LOOK_TERRAIN, position),
           function (lookObject) {
-            return lookObject.terrain == "wall"
+            return lookObject == "wall"
           }
         ).length > 0) {
           continue;
