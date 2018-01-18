@@ -117,11 +117,11 @@ module.exports = function (room) {
 
   var buildingNumber = 0;
 
-  for(var distance = 0; distance < 10; distance++){
+  for (var distance = 0; distance < 10; distance++) {
     var positions = getRoomPositionsAtRange(centerPosition, distance);
-    for(var positionIndex in positions){
+    for (var positionIndex in positions) {
       var position = positions[positionIndex];
-      if( ((position.x + position.y) %3 == 0) ||  ((position.x - position.y) %3 == 0)){
+      if ((((position.x + position.y) % 3) == 0) || (((position.x - position.y) % 3) == 0)) {
         room.visual.text(buildingNumber, position);
         buildingNumber++;
       }
