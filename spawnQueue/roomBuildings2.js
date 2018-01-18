@@ -117,7 +117,7 @@ module.exports = function (room) {
 
   var buildingNumber = 0;
 
-  for (var distance = 4; distance < 10; distance++) {
+  for (var distance = 3; distance < 10; distance++) {
     var positions = getRoomPositionsAtRange(centerPosition, distance);
     for (var positionIndex in positions) {
       var position = positions[positionIndex];
