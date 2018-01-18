@@ -122,9 +122,9 @@ module.exports = function (room) {
     for (var positionIndex in positions) {
       var position = positions[positionIndex];
       if (
-        (((position.x + position.y) % 3) != 2) 
+        (((position.x + position.y) % 4) != 0) 
         && 
-        (((position.x - position.y) % 3) != 2)
+        (((position.x - position.y) % 4) != 0)
       ) {
         room.visual.text(buildingNumber, position);
         buildingNumber++;
