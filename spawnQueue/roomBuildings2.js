@@ -121,7 +121,7 @@ module.exports = function (room) {
     var positions = getRoomPositionsAtRange(centerPosition, distance);
     for (var positionIndex in positions) {
       var position = positions[positionIndex];
-      if ((((position.x + position.y) % 3) != 0) || (((position.x - position.y) % 3) != 1)) {
+      if ((((position.x + position.y) % 3) != 0) && (((position.x - position.y) % 3) != 0)) {
         room.visual.text(buildingNumber, position);
         buildingNumber++;
       }
