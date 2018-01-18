@@ -128,6 +128,9 @@ module.exports = function (room) {
       ) {
         room.visual.text(buildingNumber, position);
         buildingNumber++;
+        if(buildingNumber>=60){
+          return;
+        }
       }
     }
   }
