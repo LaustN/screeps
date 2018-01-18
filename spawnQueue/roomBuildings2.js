@@ -115,8 +115,6 @@ module.exports = function (room) {
 
   var centerPosition = flags[0].pos;
 
-  console.log(JSON.stringify(room.lookForAtArea(LOOK_TERRAIN, centerPosition.y-5, centerPosition.x-5,centerPosition.y+5,centerPosition.x+5,true)));
-
   var buildingNumber = 0;
 
   for (var distance = 0; distance < 10; distance++) {
@@ -124,13 +122,22 @@ module.exports = function (room) {
     for (var positionIndex in positions) {
       var position = positions[positionIndex];
       if (
-        (((position.x + position.y) % 4) != 0) 
-        && 
+        (((position.x + position.y) % 4) != 0)
+        &&
         (((position.x - position.y) % 4) != 0)
       ) {
+
+        if (_.filter(room.lookForAtArea(LOOK_TERRAIN, centerPosition.y - 1, centerPosition.x - 1, centerPosition.y + 1, centerPosition.x + 1, true),
+          function (lookObject) {
+            return lookObject.terrain == "wall"
+          }
+        ).length > 0) {
+          continue;
+        }
+
         room.visual.text(buildingNumber, position);
         buildingNumber++;
-        if(buildingNumber>=60){
+        if (buildingNumber >= 60) {
           return;
         }
       }
