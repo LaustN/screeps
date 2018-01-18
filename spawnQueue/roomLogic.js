@@ -1,4 +1,5 @@
 var roomBuildings = require("roomBuildings");
+var roomBuildings2 = require("roomBuildings2");
 var roomWorkerAssignment = require("roomWorkerAssignment");
 var buildCreepBody = require("buildCreepBody");
 var roomSpawns = require("roomSpawns");
@@ -40,6 +41,7 @@ module.exports = function () {
 
 
 		roomBuildings(room);
+		roomBuildings2(room);
 		roomWorkerAssignment(room);
 		roomWalls(room);
 
