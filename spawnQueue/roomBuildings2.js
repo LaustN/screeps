@@ -115,6 +115,8 @@ module.exports = function (room) {
 
   var centerPosition = flags[0].pos;
 
+  console.log(JSON.stringify(room.lookForAtArea(LOOK_TERRAIN, pos.y-5, pos.x-5,pos.y+5,pos.x+5,true)));
+
   var buildingNumber = 0;
 
   for (var distance = 0; distance < 10; distance++) {
