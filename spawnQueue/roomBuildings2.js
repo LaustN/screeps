@@ -127,13 +127,21 @@ module.exports = function (room) {
         (((position.x - position.y) % 4) != 0)
       ) {
 
-        if (_.filter(room.lookForAtArea(LOOK_TERRAIN, position.y - 1, position.x - 1, position.y + 1, position.x + 1, true),
+        if (_.filter(room.lookForAt(LOOK_TERRAIN, position),
           function (lookObject) {
             return lookObject.terrain == "wall"
           }
         ).length > 0) {
           continue;
         }
+
+        // if (_.filter(room.lookForAtArea(LOOK_TERRAIN, position.y - 1, position.x - 1, position.y + 1, position.x + 1, true),
+        //   function (lookObject) {
+        //     return lookObject.terrain == "wall"
+        //   }
+        // ).length > 0) {
+        //   continue;
+        // }
 
         room.visual.text(buildingNumber, position);
         buildingNumber++;
